@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1539789505421.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2508435435",
+    "id" : "1D1B0EDC",
+    "lastKnownWriteTime" : 1539805527,
+    "last_content_update" : 1539805527698,
+    "path" : "~/Universidad/Intro a la programación de ciencias de datos/Apuntes/Ejercicios2.R",
+    "project_path" : "Ejercicios2.R",
+    "properties" : {
+        "cursorPosition" : "97,117",
+        "scrollLine" : "68",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
