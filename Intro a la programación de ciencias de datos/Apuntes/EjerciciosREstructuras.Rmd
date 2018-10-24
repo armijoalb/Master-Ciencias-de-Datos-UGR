@@ -1,0 +1,6 @@
+---
+title: "EjerciciosREstructuras"
+author: "Alberto Armijo Ruiz"
+date: "24 de octubre de 2018"
+output: pdf_document
+---

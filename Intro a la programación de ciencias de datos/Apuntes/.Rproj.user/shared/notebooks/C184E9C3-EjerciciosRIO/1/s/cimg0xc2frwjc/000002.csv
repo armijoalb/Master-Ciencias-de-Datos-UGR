@@ -1,0 +1,3 @@
+"0","write.csv(m[1:5,],""prime.txt"",sep="","")
+"
+"2","attempt to set 'sep' ignored"

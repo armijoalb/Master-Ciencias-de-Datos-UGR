@@ -1,0 +1,278 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Ejercicios R Input/Output},
+            pdfauthor={Alberto Armijo Ruiz},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Ejercicios R Input/Output}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Alberto Armijo Ruiz}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{23 de octubre de 2018}
+
+
+\begin{document}
+\maketitle
+
+\subsection{Ejercicios Input/Output}\label{ejercicios-inputoutput}
+
+\subsubsection{1. Pide al usuario que introduzca un string s y un número
+n y que muestre en pantalla n veces seguidas el string s (sin espacios
+entre palabra y
+palabra).}\label{pide-al-usuario-que-introduzca-un-string-s-y-un-numero-n-y-que-muestre-en-pantalla-n-veces-seguidas-el-string-s-sin-espacios-entre-palabra-y-palabra.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{print}\NormalTok{(}\StringTok{"Introduzca un string:"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Introduzca un string:"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m_string =}\StringTok{ }\KeywordTok{scan}\NormalTok{(}\StringTok{""}\NormalTok{,}\DataTypeTok{what=}\KeywordTok{character}\NormalTok{())}
+\KeywordTok{print}\NormalTok{(}\StringTok{"Introduzca un número:"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Introduzca un número:"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m_number =}\StringTok{ }\KeywordTok{scan}\NormalTok{(}\StringTok{""}\NormalTok{,}\DataTypeTok{what=}\KeywordTok{integer}\NormalTok{())}
+\NormalTok{m_list =}\StringTok{ }\KeywordTok{rep}\NormalTok{(m_string,m_number)}
+\KeywordTok{paste}\NormalTok{(m_list,}\DataTypeTok{collapse=} \StringTok{''}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] ""
+\end{verbatim}
+
+\subsubsection{2. Crea tres ficheros llamados dos.txt, tres.txt y
+cinco.txt que contenga la tabla del 2, la del 3 y la del 5
+respectivamente (los primeros 10 valores de cada tabla, un número en
+cada línea de cada
+fichero).}\label{crea-tres-ficheros-llamados-dos.txt-tres.txt-y-cinco.txt-que-contenga-la-tabla-del-2-la-del-3-y-la-del-5-respectivamente-los-primeros-10-valores-de-cada-tabla-un-numero-en-cada-linea-de-cada-fichero.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{unoaldiez=}\DecValTok{1}\OperatorTok{:}\DecValTok{10}
+\KeywordTok{write.table}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(unoaldiez}\OperatorTok{*}\DecValTok{2}\NormalTok{,}\DataTypeTok{nrow=}\DecValTok{10}\NormalTok{),}\StringTok{"dos.txt"}\NormalTok{,}\DataTypeTok{row.names =}\NormalTok{ F,}\DataTypeTok{col.names =}\NormalTok{ F)}
+\KeywordTok{write.table}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(unoaldiez}\OperatorTok{*}\DecValTok{3}\NormalTok{,}\DataTypeTok{nrow=}\DecValTok{10}\NormalTok{),}\StringTok{"tres.txt"}\NormalTok{,}\DataTypeTok{row.names =}\NormalTok{ F, }\DataTypeTok{col.names =}\NormalTok{ F)}
+\KeywordTok{write.table}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(unoaldiez}\OperatorTok{*}\DecValTok{5}\NormalTok{,}\DataTypeTok{nrow=}\DecValTok{10}\NormalTok{),}\StringTok{"cinco.txt"}\NormalTok{,}\DataTypeTok{row.names =}\NormalTok{ F, }\DataTypeTok{col.names =}\NormalTok{ F)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{3. Carga los tres ficheros creados en el punto anterior y
+construye una matriz que, en cada columna, tengo el contenido de cada
+fichero.}\label{carga-los-tres-ficheros-creados-en-el-punto-anterior-y-construye-una-matriz-que-en-cada-columna-tengo-el-contenido-de-cada-fichero.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tablados =}\StringTok{ }\KeywordTok{scan}\NormalTok{(}\StringTok{"dos.txt"}\NormalTok{)}
+\NormalTok{tablatres =}\StringTok{ }\KeywordTok{scan}\NormalTok{(}\StringTok{"tres.txt"}\NormalTok{)}
+\NormalTok{tablacinco =}\StringTok{ }\KeywordTok{scan}\NormalTok{(}\StringTok{"cinco.txt"}\NormalTok{)}
+\NormalTok{m =}\StringTok{ }\KeywordTok{cbind}\NormalTok{(tablados,tablatres,tablacinco); m}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       tablados tablatres tablacinco
+##  [1,]        2         3          5
+##  [2,]        4         6         10
+##  [3,]        6         9         15
+##  [4,]        8        12         20
+##  [5,]       10        15         25
+##  [6,]       12        18         30
+##  [7,]       14        21         35
+##  [8,]       16        24         40
+##  [9,]       18        27         45
+## [10,]       20        30         50
+\end{verbatim}
+
+\subsubsection{4. Escribe las cinco primera filas de matriz del
+ejercicio anterior en un fichero nuevo llamado prime.txt y las cinco
+últimas en otro fichero llamado fin.txt. Ambos ficheros deben tener los
+datos separados por
+comas.}\label{escribe-las-cinco-primera-filas-de-matriz-del-ejercicio-anterior-en-un-fichero-nuevo-llamado-prime.txt-y-las-cinco-ultimas-en-otro-fichero-llamado-fin.txt.-ambos-ficheros-deben-tener-los-datos-separados-por-comas.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{write.csv}\NormalTok{(m[}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{,],}\StringTok{"prime.txt"}\NormalTok{,}\DataTypeTok{row.names =}\NormalTok{ F)}
+\KeywordTok{write.csv}\NormalTok{(m[}\DecValTok{6}\OperatorTok{:}\DecValTok{10}\NormalTok{,],}\StringTok{"fin.txt"}\NormalTok{,}\DataTypeTok{row.names =}\NormalTok{ F)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{\texorpdfstring{5. Dados dos números introducidos por el
+usuario f y c, crea un cuadrado de f filas y c columnas con el caracter
+``x''. Un ejemplo con f=4 y c=3
+sería:}{5. Dados dos números introducidos por el usuario f y c, crea un cuadrado de f filas y c columnas con el caracter x. Un ejemplo con f=4 y c=3 sería:}}\label{dados-dos-numeros-introducidos-por-el-usuario-f-y-c-crea-un-cuadrado-de-f-filas-y-c-columnas-con-el-caracter-x.-un-ejemplo-con-f4-y-c3-seria}
+
+xxx \newline
+xxx \newline
+xxx \newline
+xxx \newline
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{print}\NormalTok{(}\StringTok{"Introduzca filas:"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Introduzca filas:"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{f =}\StringTok{ }\KeywordTok{scan}\NormalTok{(}\StringTok{""}\NormalTok{,}\DataTypeTok{what =} \KeywordTok{integer}\NormalTok{())}
+\KeywordTok{print}\NormalTok{(}\StringTok{"Introduzca columnas:"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Introduzca columnas:"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{c =}\StringTok{ }\KeywordTok{scan}\NormalTok{(}\StringTok{""}\NormalTok{,}\DataTypeTok{what=}\KeywordTok{integer}\NormalTok{())}
+\KeywordTok{cat}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{"x"}\NormalTok{,}\DecValTok{3}\NormalTok{),}\DataTypeTok{collapse =} \StringTok{''}\NormalTok{),}\DecValTok{4}\NormalTok{),}\DataTypeTok{sep =} \StringTok{'}\CharTok{\textbackslash{}n}\StringTok{'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## xxx
+## xxx
+## xxx
+## xxx
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#cat(rep(paste(rep("x",c),collapse = ''),f),sep = '\textbackslash{}n')}
+\end{Highlighting}
+\end{Shaded}
+
+
+\end{document}

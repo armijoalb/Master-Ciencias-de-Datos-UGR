@@ -1,0 +1,67 @@
+---
+title: "Ejercicios R Strings"
+author: "Alberto Armijo Ruiz"
+date: "22 de octubre de 2018"
+output: pdf_document
+---
+
+## Ejercicios sobre Strings
+### 1. Crea un vector de strings que contenga 3 datos: tu nombre y tus dos apellidos.A partir de éste crea un nuevo string con la inicial de tu nombre (y un punto) y el apellido completo utilizando las utilidades de R. En mi caso debería quedar: **R. Romero Zaliz**.
+
+```{r}
+# Creamos el vector con nombre y apellidos.
+nya = c("Alberto","Armijo","Ruiz")
+nya
+
+nuevo_nya = paste(paste(substr(nya[1],1,1),'.',sep = ''),nya[2],paste(nya[3],'.',sep = ''))
+nuevo_nya
+```
+
+
+### 2. Dado un vector de fechas, expresadas como strings (e.g., “2005-11-28”), muestra solamente aquellas correspondientes a los meses impares.
+```{r}
+# Creamos un vector de fechas.
+fechas = c("2005-11-28","2007-9-15","2018-10-22","2018-6-21")
+fechas
+
+# Ahora obtenemos el mes de cada una de las fechas
+separada = strsplit(fechas,"-")
+meses = matrix(as.integer(unlist(separada)),ncol=3,nrow=4,byrow=T)[,2]; meses
+pos_impares = which(meses%%2!=0); pos_impares
+meses_impares = fechas[pos_impares]; meses_impares
+```
+
+
+### 3. Dado un string con varias palabras (e.g., “Esta es una frase, pero no cualquier frase.”) crea un vector con cada una de las plabras del string (["Esta","es","una","frase","pero","no","cualquier","frase"]).
+```{r}
+# Creamos el vector.
+palabras = "Esta es una frase, pero no cualquier frase."
+
+# Separamos el vector por cada una de las palabras.
+palabras_separadas = unlist(strsplit(palabras,split=' ')); palabras_separadas
+palabras_separadas = unlist(strsplit(palabras_separadas,'[,]')); palabras_separadas
+palabras_separadas = unlist(strsplit(palabras_separadas,'[.]')); palabras_separadas
+```
+
+
+### 4. Busca las palabras que usan solamente las vocales “a” y “e” en un vector de strings.
+```{r}
+vect_palabras = c("hola","cara","verde","hijo","ubicuo")
+aye = grep("[ae]",vect_palabras);aye
+all = grep("[iou]",vect_palabras);all
+only_aye = setdiff(aye,all); only_aye
+palabras_only_aye = vect_palabras[only_aye]; palabras_only_aye
+```
+
+
+### 5. Dados tres vectores dia, mes y anno crea un vector con las fechas completas. Si la fecha es inválida, ésta se descartará (hint: investiga la función as.Date).
+```{r}
+fecha1 = c(11,12,2018)
+fecha2 = c(22,9,2017)
+fecha3 = c(2,2,2002)
+m_fechas = rbind(paste(fecha1,collapse = '-'),
+                 paste(fecha2,collapse = '-'), paste(fecha3, collapse = '-')); m_fechas
+help("as.Date")
+vect_fechas = as.Date(m_fechas,format="%d-%m-%Y"); vect_fechas
+```
+

@@ -1,0 +1,11 @@
+"0","print(""Introduzca filas:"")"
+"1","[1]"
+"1"," ""Introduzca filas:"""
+"1","
+"
+"0","f = scan("""",what = integer())"
+"0","sdfs"
+"0","sdf"
+"2","Error in scan("""", what = integer()) : 
+  scan() esperaba 'an integer', obtuvo 'sdfs'
+"

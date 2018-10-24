@@ -1,0 +1,4 @@
+"0","unoaldiez=1:10"
+"0","write.table(matrix(unoaldiez*2,nrow=10),""dos.txt"",row.names = F,col.names = F)"
+"0","write.table(matrix(unoaldiez*3,nrow=10),""tres.txt"",row.names = F, col.names = F)"
+"0","write.table(matrix(unoaldiez*5,nrow=10),""cinco.txt"",row.names = F, col.names = F)"
