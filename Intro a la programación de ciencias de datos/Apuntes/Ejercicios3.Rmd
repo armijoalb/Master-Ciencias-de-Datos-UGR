@@ -8,6 +8,13 @@ output: pdf_document
 ## 1. Dataframes.
 
 ### Busca los datasets “beaver1” y “beaver2” que contienen información sobre la temperatura corporal de dos castores. Añade una columna llamada “ID” al dataset beaver1 que tenga siempre el valor 1. De forma similar añade una columna “ID” al dataset beaver2 que tenga siempre el valor 2. A continuación concatena de forma vertical los dos dataframes y busca el subset de datos donde ambos Castores están activos.
+```{r}
+beaver1$ID = 1
+beaver2$ID = 2
+beavers = rbind(beaver1,beaver2)
+active_beavers = subset(beavers,activ == 1); active_beavers
+```
+
 
 ### Vamos a trabajar con un ejemplo que viene por defecto en la instalación de R USArrests. Este data frame contiene la información para cada estado Americano de las tasas de criminales (por 100.000 habitantes). Los datos de las columnas se refieren a Asesinatos, violaciones y porcentaje de la población que vive en áreas urbanas. Los datos son de 1973. Contesta a las siguientes preguntas sobre los datos
 * Las dimensiones del dataframe

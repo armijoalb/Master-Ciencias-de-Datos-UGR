@@ -28,6 +28,7 @@ creciente(p)
 
 p2 = c(3,1,2,3,4)
 creciente(p2)
+
 ```
 
 
@@ -45,6 +46,22 @@ montecarlo = function(x){
 }
 
 montecarlo(4)
+
+# forma con apply.
+check_hits = function(m){
+  sum(m[2,] < m[1,]**2)
+}
+check_hits2 = function(m){
+  ifelse(m[2] < m[1]**2,1,0)
+}
+montecarlo_apply = function(x){
+  r1 = runif(x,0,1)
+  r2 = runif(x,0,1)
+  m = rbind(r1,r2)
+  sum(apply(m,2,check_hits2)) / x
+}
+
+montecarlo_apply(4)
 ```
 
 
