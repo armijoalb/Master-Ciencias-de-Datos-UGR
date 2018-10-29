@@ -141,7 +141,34 @@ z
 z = factor(c("p","q","p","r","q")); z
 levels(z)[levels(z)=='p'] = 'w';z
 
-# Ejercicio 4.
+# Ejercicio 3.5
+str(iris)
+help("table"); help("cut")
+table(cut(iris$Sepal.Length,breaks = 5))
+
+# Ejercicio 3.6
+str(iris)
+cut(iris$Sepal.Length,breaks=c(min(iris$Sepal.Length)-0.1,5,max(iris$Sepal.Length)+0.1),right = FALSE)
+table(cut(iris$Sepal.Length,breaks=c(min(iris$Sepal.Length)-0.1,5,max(iris$Sepal.Length)+0.1),right = FALSE))
+menor = table(iris[iris$Sepal.Length < 5,"Species"])
+mayor = table(iris[iris$Sepal.Length >=5, "Species"])
+tabla = rbind(menor, mayor)
+tabla
+
+# Ejercicio 3.7
+responses <- factor(c("Agree","Agree","Strongly Agree","Disagree","Agree"))
+responses
+levels(responses) = c("Strongly Agree", "Agree", "Disagree", "Strongly Disagree")
+responses
+
+# Ejercicio 3.8
+x <- factor(c("high", "low", "medium", "high", "high", "low", "medium"))
+x
+unique(x)
+niveles = 1:length(unique(x))
+x_numerico = x; levels(x_numerico) = niveles; x_numerico
+
+# Ejercicio 4.1
 dim(USArrests)
 nrow(USArrests)
 ncol(USArrests)
@@ -159,3 +186,23 @@ USArrests[,"Murder"]
 USArrests[which.min(USArrests[,"Murder"]),]
 which.min(USArrests[,"Murder"])
 USArrests[which(USArrests[,"Murder"] < 4.0),]
+
+# Ejercicios 4.2
+students = as.data.frame(read.table("student.txt",header = TRUE),header=TRUE)
+students
+colnames(students)
+students$height
+students[,"height"]
+sym = ifelse(students$gender == "male","M","F")
+colours = ifelse(students$population == "kuopio","Blue","Red")
+students.new = data.frame(students$height,students$shoesize,sym,colours); students.new
+class(students.new)
+
+which(students$gender=="male")
+which(students$gender=="female")
+
+students.male = students[which(students$gender=="male"),]; students.male
+students.female = students[which(students$gender == "female"),]; students.female
+
+write.table(students.new,"student_new.txt")
+

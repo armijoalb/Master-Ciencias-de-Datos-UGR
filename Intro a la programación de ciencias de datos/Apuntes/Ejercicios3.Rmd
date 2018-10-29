@@ -1,0 +1,346 @@
+---
+title: "Ejercicios 3 R"
+author: "Alberto Armijo Ruiz"
+date: "22 de octubre de 2018"
+output: pdf_document
+---
+
+## 1. Dataframes.
+
+### Busca los datasets “beaver1” y “beaver2” que contienen información sobre la temperatura corporal de dos castores. Añade una columna llamada “ID” al dataset beaver1 que tenga siempre el valor 1. De forma similar añade una columna “ID” al dataset beaver2 que tenga siempre el valor 2. A continuación concatena de forma vertical los dos dataframes y busca el subset de datos donde ambos Castores están activos.
+
+### Vamos a trabajar con un ejemplo que viene por defecto en la instalación de R USArrests. Este data frame contiene la información para cada estado Americano de las tasas de criminales (por 100.000 habitantes). Los datos de las columnas se refieren a Asesinatos, violaciones y porcentaje de la población que vive en áreas urbanas. Los datos son de 1973. Contesta a las siguientes preguntas sobre los datos
+* Las dimensiones del dataframe
+```{r}
+dim(USArrests)
+```
+* La longitud del dataframe
+```{r}
+nrow(USArrests)
+```
+
+* Numero de columnas
+```{r}
+ncol(USArrests)
+```
+
+* ¿Cómo calcularías el número de filas?
+```{r}
+nrow(USArrests)
+```
+
+* Obtén el nombre de las filas y las columnas para este dataframe.
+```{r}
+# El primer elemento es el nombre de la filas, el segundo elemento es el nombre de las columnas.
+dimnames(USArrests)
+```
+
+* échale un vistazo a los datos, por ejemplo a las seis primeras filas.
+```{r}
+USArrests[1:6,]
+```
+
+* Ordena de forma decreciente las filas de nuestro dataframe según el porcentaje de población en el área urbana. Para ello investiga order() y sus parámetros.
+```{r}
+ord_usarrests = USArrests[order(USArrests[,"UrbanPop"],decreasing = T),]
+ord_usarrests
+```
+
+* ¿Podrías añadir un segundo criterio de orden?,¿cómo?
+```{r}
+ord_usarrests2 = USArrests[order(USArrests$Murder,USArrests$UrbanPop,decreasing = T),]
+ord_usarrests2
+```
+
+* Muestra por pantalla la columna con los datos de asesinato.
+```{r}
+USArrests[,"Murder"]
+```
+
+
+* Muestra todas las filas para las dos primeras columnas.
+```{r}
+USArrests[1:2,]
+```
+
+* Muestra todas las filas de la columnas 1 y 3.
+```{r}
+USArrests[,c(1,3)]
+```
+
+* Muestra solo las pirmeras cinco filas de las columnas 1 y 2
+```{r}
+USArrests[1:5,1:2]
+```
+
+* Extrae las filas para el índice Murder
+```{r}
+USArrests$Murder
+```
+
+* ¿Qué estado tiene la menor tasa de asesinatos?¿Qué línea contiene esa información? Obtén esa información.
+```{r}
+USArrests[which.min(USArrests[,"Murder"]),]
+which.min(USArrests[,"Murder"])
+```
+
+* ¿Qué estados tienen una tasa inferior al 4%?, obtén esa información.
+```{r}
+USArrests[which(USArrests[,"Murder"] < 4.0),]
+```
+
+* ¿Qué estados están en el cuartil superior(75) en lo que a población en zonas urbanas se refiere?
+```{r}
+USArrests[USArrests$UrbanPop >= 75,]
+```
+
+
+### Carga el set de datos co2 y realiza las siguientes acciones.
+* Ordena alfabéticamente los datos en funcion de la variable Plant. Recuerda que Plant es un factor. Imprime el resultado por pantalla para comprobarlo.
+```{r}
+str(CO2)
+CO2[order(CO2$Plant,decreasing = F),]
+```
+
+* Ordena los datos en función del incremento de la variable uptake y el orden alfabético de la planta (en ese orden).
+```{r}
+# Ordenamos según incremento de uptake
+new_co2 = CO2
+new_co2 = new_co2[order(new_co2$uptake),]
+new_co2
+
+# Ordenamos alfabéticamente.
+nuevo_factor = factor(new_co2$Plant,levels = levels(new_co2$Plant)[order(levels(new_co2$Plant))],ordered=TRUE)
+new_co2 = new_co2[order(nuevo_factor),]
+new_co2
+```
+
+* Ordena de nuevo los datos en function del incremento de la variable uptake y el orden alfabético reverso de la planta (en ese orden)
+```{r}
+# Ordenamos según incremento de uptake
+new_co2 = CO2
+new_co2 = new_co2[order(new_co2$uptake),]
+new_co2
+
+# Ordenamos en orden alfabético reverso
+nuevo_factor = factor(new_co2$Plant,levels = levels(new_co2$Plant)[order(levels(new_co2$Plant),decreasing = TRUE)],ordered=TRUE)
+new_co2 = new_co2[order(nuevo_factor),]
+new_co2
+```
+
+
+### Para este ejercicio vamos a usar el dataset state.x77. Asegurate de que el objeto es un dataframe, si no lo es fuerza su conversión.
+```{r}
+class(state.x77)
+statex77 = as.data.frame(state.x77)
+str(statex77)
+```
+* Averigua cuantos estados tienen ingresos (Income) menores de 4300. Pista investiga subset()
+```{r}
+help("subset")
+subset(statex77,statex77$Income < 4300)
+```
+
+* Averigua cual es el estado con los ingresos mas altos.
+```{r}
+statex77[which.max(statex77$Income),]
+```
+
+* Crea un data frame 2 df2 con los datasets existentes en R: state.abb, state.area, state.division, state.name, state.region. Las filas tienen que ser los nombres de los estados.
+```{r}
+df2 = data.frame(state.abb,state.area,state.division,state.region,row.names=state.name)
+df2
+```
+
+* Elimina de todas las variables la palabra state. Busca alguna función para strings.
+```{r}
+new_names = unlist(strsplit(colnames(df2),"state."))
+new_names = new_names[new_names != ""]; new_names
+colnames(df2) = new_names
+df2
+```
+
+* Añade por columnas el nuevo dataframe df2 al dataframe state.x77. Elimina las variables Life Exp, HS Grad, Frost, abb, y are.
+```{r}
+statex77 = cbind(statex77,df2)
+drops = c("Life Exp","HS Grad","Frost","abb","area")
+statex77 = statex77[,!colnames(statex77) %in% drops]
+statex77
+```
+
+* Añade una variable que categorice el nivel de formacion (illiteracy) de manera que \newline
+[0,1) is low, [1,2) is some, [2, inf) is high. \newline
+Pista. Hazlo de dos formas usando la función cut() y usando ifelse()
+```{r}
+level_of_illiteracy = cut(statex77$Illiteracy,c(0,1,2,Inf),right = FALSE,labels = c("low","some","high"))
+statex77 = cbind(statex77,level_of_illiteracy)
+statex77
+```
+
+* Encuentra que estado del oeste (west) tiene la formación mas baja y los mayores ingresos. ¿Que estado es?
+```{r}
+west_states = statex77[grep("West",statex77$division),c("Income","level_of_illiteracy")]
+west_states = west_states[order(west_states$Income,decreasing = T),]
+west_states = west_states[west_states$level_of_illiteracy == "high",];
+row.names(west_states[1,])
+```
+
+
+### Crea un dataframe df with 40 columns, as follows: df <- as.data.frame(matrix(sample(1:5, 2000, T), ncol=40))
+```{r}
+df <- as.data.frame(matrix(sample(1:5,2000,T),ncol=40))
+df
+```
+
+* Ordena el dataframe por columnas, de izquierda a derecha en orden creciente
+```{r}
+t(apply(df,1, sort))
+```
+
+* Ordena el dataframe por columnas, de izquierda a derecha en orden decreciente
+```{r}
+t(apply(df,1, sort,decreasing=TRUE))
+```
+
+* Ordena el dataframe por columnas, de derecha a izquierda en orden creciente
+```{r}
+t(apply(df,1, sort,decreasing=TRUE))
+```
+
+## 2. Importando información.
+### Vamos a trabajar con otro dataframe. Descarga el fichero student.txt de la plataforma PRADO, almacena la información en una variable llamada “students”. Ten en cuenta que los datos son tab-delimited y tienen un texto para cada columna. Comprueba que R ha leído correctamente el fichero imprimiendo el objeto en la pantalla
+```{r}
+students = as.data.frame(read.table("student.txt",header = TRUE),header=TRUE)
+students
+```
+
+* Imprime solo los nombres de las columnas.
+```{r}
+colnames(students)
+```
+
+* Llama a la columna "heigh" solo
+```{r}
+students$height
+```
+
+* ¿Cuantas observaciones hay en cada grupo?. Utiliza la función table().  Este comando se puede utilizar para crear tablas cruzadas (cross-tabulation)
+```{r}
+table(students)
+```
+Hay 4 observaciones diferentes, dependiendo del sexo y la población, en la que se compara el tamaño del zapato y la altura de los individuos.
+
+* Crea nuevas variables a partir de los datos que tenemos. Vamos a crear una variable nueva “sym” que contenga M si el genero es masculino y F si el genero es femenino. Busca en la ayuda información sobre la función ifelse(). Crea una segunda variable “colours” cuyo valor será “Blue” si el estudiante es de kuopio y “Red” si es de otro sitio.
+```{r}
+sym = ifelse(students$gender == "male","M","F")
+colours = ifelse(students$population == "kuopio","Blue","Red")
+```
+
+
+* Con los datos anteriores de height y shoesize y las nuevas variables crea un nuevo data.frame que se llame students.new
+```{r}
+students.new = data.frame(students$height,students$shoesize,sym,colours); students.new
+```
+
+
+* Comprueba que la clase de student.new es un dataframe.
+```{r}
+class(students.new)
+```
+
+
+* Crea dos subsets a partir del set de datos student. Divídelo dependiendo del sexo. Para ello primero comprueba que estudiantes son hombres (male). Pista: busca información sobre la función which().
+```{r}
+which(students$gender=="male")
+which(students$gender=="female")
+```
+
+
+* Basándote en esa selección dada por which() toma solo esas filas del dataset student para generar el subset stundent.male
+```{r}
+students.male = students[which(students$gender=="male"),]; students.male
+```
+
+
+* Repite el procedimiento para seleccionar las estudiantes mujeres (females)
+```{r}
+students.female = students[which(students$gender == "female"),]; students.female
+```
+
+
+* Utiliza la function write.table() para guarder el contenido de student.new en un archivo.
+```{r}
+write.table(students.new,"student_new.txt")
+```
+
+
+
+## 3. Lists
+### Las listas son colecciones de objetos que pueden tener modos diferentes (e.g. numéricos, vectores, arrays..). Ejemplo de cómo crear una lista. Ejecuta los comandos y describe que es lo que ocurre
+```{r}
+my_list <- list(name="Fred", wife="Mary", no.children=3, child.ages=c(4,7,9))
+attributes(my_list)
+names(my_list)= my_list[2]
+my_list[[2]]
+my_list$wife
+my_list[[4]][2]
+length(my_list[[4]])
+my_list$wife <- 1:12
+my_list$wife <- NULL
+```
+La primera sentencia crea una lista con cuatro elemento. La función attributes(x) accede a los atributos de un objeto, en este caso devuelve los nombres de los elementos de la lista. La segunda sentencia cambia los nombres de la lista a al segundo elemento de la lista. La tercera sentencia está accediendo al segundo elemento de la lista. La cuarta sentencia devuelve null ya que el nombre "wife" ha sido eliminado de los nombres de la lista cuando se ha hecho la asignación en la segunda sentencia. La quinta línea accede al segundo elemento del cuarto elemento de la lista. La sexta sentencia devuelve el número de elementos guardados en el cuarto elemento de la lista. Las séptima sentencia añade un elemento más con nombre "wife" a la lista. La última sentencia elimina el elemento añadido justamente en la línea anterior.
+
+## 4. Table
+### La función  table() cuenta el numero de elementos repetidos en un vector. Es la función más básica de clustering. Cuenta el numero de entradas idénticas en la variable  Sepal.Length del dataset iris.
+```{r}
+table(iris$Sepal.Length)
+```
+
+
+## 5. Como ordenar datos, hacer selecciones con if(), calcular condiciones totales, transponer columnas y filas
+### Vamos a volver a utilizar el datasets mtcars.
+* Ordena este data set de forma ascendente según su valo de hp. PISTA: with()
+```{r}
+with(mtcars,mtcars[order(hp),])
+```
+
+* Hazlo ahora de forma descendente
+```{r}
+with(mtcars,mtcars[order(hp,decreasing = TRUE),])
+```
+
+* Calcula la media de la columna mpg. 
+```{r}
+mean(mtcars$mpg)
+```
+
+* Calcula la media de mpg para aquellos datos cuyo valor de hp sea menor que 150 y por separado para aquellos cuyo valor de hp sea mayor o igual a 150
+```{r}
+# Media para valores menores que 150
+with(mtcars,mean(mpg[hp < 150]))
+
+# Media para valores mayores o iguales que 150
+with(mtcars,mean(mpg[hp >= 150]))
+```
+
+* Busca los valores únicos de la columna cyl de mtcars. PISTA unique()
+```{r}
+unique(mtcars$cyl)
+```
+
+* Obten los datos de mpg cyl disp hp para “Toyota Corolla"
+```{r}
+mtcars["Toyota Corolla",c("mpg","cyl","disp","hp")]
+```
+
+* Crea una nueva variable mpgClass de tipo categórico cuyo valor es “Low“ si el valor de mpg es menor que la media de la columna mpg y “High” si es mayor que la media de mpg. PISTA ifelse(). Combina ese comando con with() para añadir la nueva variable a mtcars
+```{r}
+mtcars.new = within(mtcars,{
+                    mpgClass = ifelse(mtcars$mpg < mean(mtcars$mpg),"Low","High")
+                    })
+mtcars.new
+```
+
+
+
+
