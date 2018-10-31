@@ -206,3 +206,14 @@ students.female = students[which(students$gender == "female"),]; students.female
 
 write.table(students.new,"student_new.txt")
 
+# Ejercicio 5.1
+is.unsorted(women$height)
+is.unsorted(women$weight)
+
+# Ejercicio 5.2
+women$bmi = ((women$weight*2.20462)/((women$height*2.54)**2))*703
+women$bmi
+
+# Ejercicio 5.3
+women = women[order(women$bmi),]
+women
