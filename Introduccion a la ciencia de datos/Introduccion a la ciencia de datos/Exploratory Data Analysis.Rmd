@@ -1,0 +1,8 @@
+---
+title: "Exploratory Data Analysis"
+author: "Alberto Armijo Ruiz"
+date: "8 de noviembre de 2018"
+output: pdf_document
+---
+
+## 
