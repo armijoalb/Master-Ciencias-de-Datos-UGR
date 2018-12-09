@@ -1,0 +1,1539 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Ejercicios Clasificaci?n}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{ejercios-clasificaciuxf3n}{%
+\subsection{Ejercios Clasificación}\label{ejercios-clasificaciuxf3n}}
+
+Alberto Armijo Ruiz
+
+    \hypertarget{ejercicio-1}{%
+\subsubsection{Ejercicio 1}\label{ejercicio-1}}
+
+Probar diferentes valores para k y compararlos. Hacer un plot con los
+resultados.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Primero leemos el archivo que contiene el dataset de breast cancer}
+        wbcd \PY{o}{=} read.csv\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{wisc\PYZus{}bc\PYZus{}data.csv\PYZdq{}}\PY{p}{,}stringsAsFactors \PY{o}{=} \PY{k+kc}{FALSE}\PY{p}{)}
+        str\PY{p}{(}wbcd\PY{p}{)}
+        \PY{k+kp}{head}\PY{p}{(}wbcd\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'data.frame':	569 obs. of  32 variables:
+ \$ id               : int  87139402 8910251 905520 868871 9012568 906539 925291 87880 862989 89827 {\ldots}
+ \$ diagnosis        : chr  "B" "B" "B" "B" {\ldots}
+ \$ radius\_mean      : num  12.3 10.6 11 11.3 15.2 {\ldots}
+ \$ texture\_mean     : num  12.4 18.9 16.8 13.4 13.2 {\ldots}
+ \$ perimeter\_mean   : num  78.8 69.3 70.9 73 97.7 {\ldots}
+ \$ area\_mean        : num  464 346 373 385 712 {\ldots}
+ \$ smoothness\_mean  : num  0.1028 0.0969 0.1077 0.1164 0.0796 {\ldots}
+ \$ compactness\_mean : num  0.0698 0.1147 0.078 0.1136 0.0693 {\ldots}
+ \$ concavity\_mean   : num  0.0399 0.0639 0.0305 0.0464 0.0339 {\ldots}
+ \$ points\_mean      : num  0.037 0.0264 0.0248 0.048 0.0266 {\ldots}
+ \$ symmetry\_mean    : num  0.196 0.192 0.171 0.177 0.172 {\ldots}
+ \$ dimension\_mean   : num  0.0595 0.0649 0.0634 0.0607 0.0554 {\ldots}
+ \$ radius\_se        : num  0.236 0.451 0.197 0.338 0.178 {\ldots}
+ \$ texture\_se       : num  0.666 1.197 1.387 1.343 0.412 {\ldots}
+ \$ perimeter\_se     : num  1.67 3.43 1.34 1.85 1.34 {\ldots}
+ \$ area\_se          : num  17.4 27.1 13.5 26.3 17.7 {\ldots}
+ \$ smoothness\_se    : num  0.00805 0.00747 0.00516 0.01127 0.00501 {\ldots}
+ \$ compactness\_se   : num  0.0118 0.03581 0.00936 0.03498 0.01485 {\ldots}
+ \$ concavity\_se     : num  0.0168 0.0335 0.0106 0.0219 0.0155 {\ldots}
+ \$ points\_se        : num  0.01241 0.01365 0.00748 0.01965 0.00915 {\ldots}
+ \$ symmetry\_se      : num  0.0192 0.035 0.0172 0.0158 0.0165 {\ldots}
+ \$ dimension\_se     : num  0.00225 0.00332 0.0022 0.00344 0.00177 {\ldots}
+ \$ radius\_worst     : num  13.5 11.9 12.4 11.9 16.2 {\ldots}
+ \$ texture\_worst    : num  15.6 22.9 26.4 15.8 15.7 {\ldots}
+ \$ perimeter\_worst  : num  87 78.3 79.9 76.5 104.5 {\ldots}
+ \$ area\_worst       : num  549 425 471 434 819 {\ldots}
+ \$ smoothness\_worst : num  0.139 0.121 0.137 0.137 0.113 {\ldots}
+ \$ compactness\_worst: num  0.127 0.252 0.148 0.182 0.174 {\ldots}
+ \$ concavity\_worst  : num  0.1242 0.1916 0.1067 0.0867 0.1362 {\ldots}
+ \$ points\_worst     : num  0.0939 0.0793 0.0743 0.0861 0.0818 {\ldots}
+ \$ symmetry\_worst   : num  0.283 0.294 0.3 0.21 0.249 {\ldots}
+ \$ dimension\_worst  : num  0.0677 0.0759 0.0788 0.0678 0.0677 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{tabular}{r|llllllllllllllllllllllllllllllll}
+ id & diagnosis & radius\_mean & texture\_mean & perimeter\_mean & area\_mean & smoothness\_mean & compactness\_mean & concavity\_mean & points\_mean & ... & radius\_worst & texture\_worst & perimeter\_worst & area\_worst & smoothness\_worst & compactness\_worst & concavity\_worst & points\_worst & symmetry\_worst & dimension\_worst\\
+\hline
+	 87139402 & B        & 12.32    & 12.39    & 78.85    & 464.1    & 0.10280  & 0.06981  & 0.03987  & 0.03700  & ...      & 13.50    & 15.64    &  86.97   & 549.1    & 0.1385   & 0.1266   & 0.12420  & 0.09391  & 0.2827   & 0.06771 \\
+	  8910251 & B        & 10.60    & 18.95    & 69.28    & 346.4    & 0.09688  & 0.11470  & 0.06387  & 0.02642  & ...      & 11.88    & 22.94    &  78.28   & 424.8    & 0.1213   & 0.2515   & 0.19160  & 0.07926  & 0.2940   & 0.07587 \\
+	   905520 & B        & 11.04    & 16.83    & 70.92    & 373.2    & 0.10770  & 0.07804  & 0.03046  & 0.02480  & ...      & 12.41    & 26.44    &  79.93   & 471.4    & 0.1369   & 0.1482   & 0.10670  & 0.07431  & 0.2998   & 0.07881 \\
+	   868871 & B        & 11.28    & 13.39    & 73.00    & 384.8    & 0.11640  & 0.11360  & 0.04635  & 0.04796  & ...      & 11.92    & 15.77    &  76.53   & 434.0    & 0.1367   & 0.1822   & 0.08669  & 0.08611  & 0.2102   & 0.06784 \\
+	  9012568 & B        & 15.19    & 13.21    & 97.65    & 711.8    & 0.07963  & 0.06934  & 0.03393  & 0.02657  & ...      & 16.20    & 15.73    & 104.50   & 819.1    & 0.1126   & 0.1737   & 0.13620  & 0.08178  & 0.2487   & 0.06766 \\
+	   906539 & B        & 11.57    & 19.04    & 74.20    & 409.7    & 0.08546  & 0.07722  & 0.05485  & 0.01428  & ...      & 13.07    & 26.98    &  86.43   & 520.5    & 0.1249   & 0.1937   & 0.25600  & 0.06664  & 0.3035   & 0.08284 \\
+\end{tabular}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} Quitamos el id ya que no nos sirve de nada para predecir.}
+        wbcd \PY{o}{=} wbcd\PY{p}{[}\PY{p}{,}\PY{l+m}{\PYZhy{}1}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Transformamos los datos de la variable diagnosis a un factor.}
+        wbcd\PY{o}{\PYZdl{}}diagnosis \PY{o}{=} \PY{k+kp}{factor}\PY{p}{(}wbcd\PY{o}{\PYZdl{}}diagnosis\PY{p}{,} levels\PY{o}{=}\PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{B\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{M\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                               labels \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Benign\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Malignant\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Miramos el número de datos de cada tipo.}
+        \PY{k+kp}{table}\PY{p}{(}wbcd\PY{o}{\PYZdl{}}diagnosis\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+   Benign Malignant 
+      357       212 
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} Normalizamos los datos para poder aplicar knn.}
+        wbcd\PYZus{}n \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{as.data.frame}\PY{p}{(}\PY{k+kp}{lapply}\PY{p}{(}wbcd\PY{p}{[}\PY{p}{,}\PY{l+m}{2}\PY{o}{:}\PY{l+m}{31}\PY{p}{]}\PY{p}{,}
+                                       \PY{k+kp}{scale}\PY{p}{,} center \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,} scale \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Creamos datasets de train y test}
+        shuffle\PYZus{}ds \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{sample}\PY{p}{(}\PY{k+kp}{dim}\PY{p}{(}wbcd\PYZus{}n\PY{p}{)}\PY{p}{[}\PY{l+m}{1}\PY{p}{]}\PY{p}{)}
+        eightypct \PY{o}{\PYZlt{}\PYZhy{}} \PY{p}{(}\PY{k+kp}{dim}\PY{p}{(}wbcd\PYZus{}n\PY{p}{)}\PY{p}{[}\PY{l+m}{1}\PY{p}{]} \PY{o}{*} \PY{l+m}{80}\PY{p}{)} \PY{o}{\PYZpc{}/\PYZpc{}} \PY{l+m}{100}
+        wbcd\PYZus{}train \PY{o}{\PYZlt{}\PYZhy{}} wbcd\PYZus{}n\PY{p}{[}shuffle\PYZus{}ds\PY{p}{[}\PY{l+m}{1}\PY{o}{:}eightypct\PY{p}{]}\PY{p}{,} \PY{p}{]}
+        wbcd\PYZus{}test \PY{o}{\PYZlt{}\PYZhy{}} wbcd\PYZus{}n\PY{p}{[}shuffle\PYZus{}ds\PY{p}{[}\PY{p}{(}eightypct\PY{l+m}{+1}\PY{p}{)}\PY{o}{:}\PY{k+kp}{dim}\PY{p}{(}wbcd\PYZus{}n\PY{p}{)}\PY{p}{[}\PY{l+m}{1}\PY{p}{]]}\PY{p}{,} \PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Creamos también labels para ambos subconjuntos.}
+        wbcd\PYZus{}train\PYZus{}labels \PY{o}{\PYZlt{}\PYZhy{}} wbcd\PY{p}{[}shuffle\PYZus{}ds\PY{p}{[}\PY{l+m}{1}\PY{o}{:}eightypct\PY{p}{]}\PY{p}{,} \PY{l+m}{1}\PY{p}{]}
+        wbcd\PYZus{}test\PYZus{}labels \PY{o}{\PYZlt{}\PYZhy{}} wbcd\PY{p}{[}shuffle\PYZus{}ds\PY{p}{[}\PY{p}{(}eightypct\PY{l+m}{+1}\PY{p}{)}\PY{o}{:}\PY{k+kp}{dim}\PY{p}{(}wbcd\PYZus{}n\PY{p}{)}\PY{p}{[}\PY{l+m}{1}\PY{p}{]]}\PY{p}{,} \PY{l+m}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k+kn}{library}\PY{p}{(}\PY{k+kp}{class}\PY{p}{)}
+        wbcd\PYZus{}test\PYZus{}pred \PY{o}{\PYZlt{}\PYZhy{}} knn\PY{p}{(}train \PY{o}{=} wbcd\PYZus{}train\PY{p}{,} test \PY{o}{=} wbcd\PYZus{}test\PY{p}{,} cl \PY{o}{=} wbcd\PYZus{}train\PYZus{}labels\PY{p}{,} k\PY{o}{=}\PY{l+m}{21}\PY{p}{)}
+        wbcd\PYZus{}test\PYZus{}pred
+\end{Verbatim}
+
+
+    \begin{enumerate*}
+\item Malignant
+\item Benign
+\item Malignant
+\item Benign
+\item Benign
+\item Benign
+\item Benign
+\item Malignant
+\item Malignant
+\item Benign
+\item Malignant
+\item Benign
+\item Benign
+\item Malignant
+\item Benign
+\item Benign
+\item Malignant
+\item Malignant
+\item Malignant
+\item Malignant
+\item Benign
+\item Benign
+\item Benign
+\item Malignant
+\item Malignant
+\item Malignant
+\item Malignant
+\item Benign
+\item Benign
+\item Benign
+\item Benign
+\item Malignant
+\item Benign
+\item Benign
+\item Benign
+\item Benign
+\item Benign
+\item Benign
+\item Malignant
+\item Malignant
+\item Benign
+\item Malignant
+\item Benign
+\item Benign
+\item Benign
+\item Malignant
+\item Malignant
+\item Benign
+\item Benign
+\item Malignant
+\item Malignant
+\item Malignant
+\item Benign
+\item Benign
+\item Malignant
+\item Malignant
+\item Benign
+\item Benign
+\item Malignant
+\item Benign
+\item Benign
+\item Benign
+\item Benign
+\item Malignant
+\item Malignant
+\item Benign
+\item Benign
+\item Malignant
+\item Malignant
+\item Benign
+\item Malignant
+\item Malignant
+\item Benign
+\item Benign
+\item Benign
+\item Benign
+\item Benign
+\item Malignant
+\item Malignant
+\item Benign
+\item Malignant
+\item Malignant
+\item Malignant
+\item Benign
+\item Benign
+\item Malignant
+\item Benign
+\item Malignant
+\item Benign
+\item Benign
+\item Benign
+\item Benign
+\item Malignant
+\item Benign
+\item Malignant
+\item Benign
+\item Benign
+\item Benign
+\item Benign
+\item Malignant
+\item Benign
+\item Benign
+\item Benign
+\item Benign
+\item Malignant
+\item Malignant
+\item Benign
+\item Benign
+\item Malignant
+\item Benign
+\item Benign
+\item Malignant
+\item Benign
+\item Malignant
+\end{enumerate*}
+
+\emph{Levels}: \begin{enumerate*}
+\item 'Benign'
+\item 'Malignant'
+\end{enumerate*}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} Evaluating model performance}
+        \PY{k+kp}{table}\PY{p}{(}wbcd\PYZus{}test\PYZus{}pred\PY{p}{,}wbcd\PYZus{}test\PYZus{}labels\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+              wbcd_test_labels
+wbcd_test_pred Benign Malignant
+     Benign        64         3
+     Malignant      1        46
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k+kn}{require}\PY{p}{(}caret\PY{p}{)}
+        knnModel \PY{o}{\PYZlt{}\PYZhy{}} train\PY{p}{(}x \PY{o}{=} wbcd\PYZus{}train\PY{p}{,} y \PY{o}{=} wbcd\PYZus{}train\PYZus{}labels\PY{p}{,} method \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{knn\PYZdq{}}\PY{p}{)}
+        \PY{k+kp}{class}\PY{p}{(}knnModel\PY{p}{)}
+        knnModel
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Loading required package: caret
+Loading required package: lattice
+Loading required package: ggplot2
+
+    \end{Verbatim}
+
+    'train'
+
+    
+    
+    \begin{verbatim}
+k-Nearest Neighbors 
+
+455 samples
+ 30 predictor
+  2 classes: 'Benign', 'Malignant' 
+
+No pre-processing
+Resampling: Bootstrapped (25 reps) 
+Summary of sample sizes: 455, 455, 455, 455, 455, 455, ... 
+Resampling results across tuning parameters:
+
+  k  Accuracy   Kappa    
+  5  0.9521769  0.8951747
+  7  0.9587139  0.9094152
+  9  0.9563613  0.9042244
+
+Accuracy was used to select the optimal model using the largest value.
+The final value used for the model was k = 7.
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} knnModel \PY{o}{\PYZlt{}\PYZhy{}} train\PY{p}{(}wbcd\PYZus{}train\PY{p}{,} wbcd\PYZus{}train\PYZus{}labels\PY{p}{,} method\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{knn\PYZdq{}}\PY{p}{,} metric\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{Accuracy\PYZdq{}}\PY{p}{,} tuneGrid \PY{o}{=} \PY{k+kt}{data.frame}\PY{p}{(}\PY{l+m}{.}k\PY{o}{=}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{15}\PY{p}{)}\PY{p}{)}
+        knnModel
+        knnModel\PY{o}{\PYZdl{}}results
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+k-Nearest Neighbors 
+
+455 samples
+ 30 predictor
+  2 classes: 'Benign', 'Malignant' 
+
+No pre-processing
+Resampling: Bootstrapped (25 reps) 
+Summary of sample sizes: 455, 455, 455, 455, 455, 455, ... 
+Resampling results across tuning parameters:
+
+  k   Accuracy   Kappa    
+   1  0.9478945  0.8847191
+   2  0.9463138  0.8812730
+   3  0.9488789  0.8871577
+   4  0.9502554  0.8900188
+   5  0.9535576  0.8969792
+   6  0.9570826  0.9046823
+   7  0.9574269  0.9051750
+   8  0.9546111  0.8986517
+   9  0.9563040  0.9024635
+  10  0.9550870  0.8998954
+  11  0.9557871  0.9015039
+  12  0.9562668  0.9023992
+  13  0.9566278  0.9027401
+  14  0.9557234  0.9008844
+  15  0.9545654  0.8983665
+
+Accuracy was used to select the optimal model using the largest value.
+The final value used for the model was k = 7.
+    \end{verbatim}
+
+    
+    \begin{tabular}{r|lllll}
+ k & Accuracy & Kappa & AccuracySD & KappaSD\\
+\hline
+	  1         & 0.9478945  & 0.8847191  & 0.01275406 & 0.03034491\\
+	  2         & 0.9463138  & 0.8812730  & 0.01458878 & 0.03233081\\
+	  3         & 0.9488789  & 0.8871577  & 0.01617309 & 0.03435837\\
+	  4         & 0.9502554  & 0.8900188  & 0.01726663 & 0.03745958\\
+	  5         & 0.9535576  & 0.8969792  & 0.01453045 & 0.03136439\\
+	  6         & 0.9570826  & 0.9046823  & 0.01526867 & 0.03360832\\
+	  7         & 0.9574269  & 0.9051750  & 0.01347818 & 0.02965065\\
+	  8         & 0.9546111  & 0.8986517  & 0.01476031 & 0.03378720\\
+	  9         & 0.9563040  & 0.9024635  & 0.01260454 & 0.02787252\\
+	 10         & 0.9550870  & 0.8998954  & 0.01298011 & 0.02822099\\
+	 11         & 0.9557871  & 0.9015039  & 0.01359157 & 0.02961247\\
+	 12         & 0.9562668  & 0.9023992  & 0.01347443 & 0.02935660\\
+	 13         & 0.9566278  & 0.9027401  & 0.01222972 & 0.02813461\\
+	 14         & 0.9557234  & 0.9008844  & 0.01200884 & 0.02611681\\
+	 15         & 0.9545654  & 0.8983665  & 0.01153953 & 0.02477225\\
+\end{tabular}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k+kn}{require}\PY{p}{(}caret\PY{p}{)}
+         knnModel \PY{o}{\PYZlt{}\PYZhy{}} train\PY{p}{(}x \PY{o}{=} wbcd\PY{p}{[}shuffle\PYZus{}ds\PY{p}{[}\PY{l+m}{1}\PY{o}{:}eightypct\PY{p}{]}\PY{p}{,}\PY{l+m}{\PYZhy{}1}\PY{p}{]}\PY{p}{,} y \PY{o}{=} wbcd\PY{p}{[}shuffle\PYZus{}ds\PY{p}{[}\PY{l+m}{1}\PY{o}{:}eightypct\PY{p}{]}\PY{p}{,}\PY{l+m}{1}\PY{p}{]}\PY{p}{,} method \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{knn\PYZdq{}}\PY{p}{,} preProc \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{center\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{scale\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         \PY{k+kp}{class}\PY{p}{(}knnModel\PY{p}{)}
+         knnModel
+\end{Verbatim}
+
+
+    'train'
+
+    
+    
+    \begin{verbatim}
+k-Nearest Neighbors 
+
+455 samples
+ 30 predictor
+  2 classes: 'Benign', 'Malignant' 
+
+Pre-processing: centered (30), scaled (30) 
+Resampling: Bootstrapped (25 reps) 
+Summary of sample sizes: 455, 455, 455, 455, 455, 455, ... 
+Resampling results across tuning parameters:
+
+  k  Accuracy   Kappa    
+  5  0.9548653  0.9003593
+  7  0.9563098  0.9035668
+  9  0.9589189  0.9090480
+
+Accuracy was used to select the optimal model using the largest value.
+The final value used for the model was k = 9.
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} knnPred \PY{o}{\PYZlt{}\PYZhy{}} predict\PY{p}{(}knnModel\PY{p}{,} newdata \PY{o}{=} wbcd\PY{p}{[}shuffle\PYZus{}ds\PY{p}{[}\PY{p}{(}eightypct\PY{l+m}{+1}\PY{p}{)}\PY{o}{:}\PY{k+kp}{dim}\PY{p}{(}wbcd\PYZus{}n\PY{p}{)}\PY{p}{[}\PY{l+m}{1}\PY{p}{]]}\PY{p}{,} \PY{l+m}{\PYZhy{}1}\PY{p}{]}\PY{p}{)}
+         knnPred
+\end{Verbatim}
+
+
+    \begin{enumerate*}
+\item Malignant
+\item Benign
+\item Malignant
+\item Benign
+\item Benign
+\item Benign
+\item Benign
+\item Malignant
+\item Malignant
+\item Benign
+\item Malignant
+\item Benign
+\item Benign
+\item Malignant
+\item Benign
+\item Benign
+\item Malignant
+\item Malignant
+\item Malignant
+\item Malignant
+\item Benign
+\item Benign
+\item Benign
+\item Malignant
+\item Malignant
+\item Malignant
+\item Malignant
+\item Benign
+\item Benign
+\item Benign
+\item Benign
+\item Malignant
+\item Benign
+\item Benign
+\item Benign
+\item Benign
+\item Benign
+\item Benign
+\item Malignant
+\item Malignant
+\item Benign
+\item Malignant
+\item Benign
+\item Benign
+\item Benign
+\item Malignant
+\item Malignant
+\item Benign
+\item Benign
+\item Malignant
+\item Malignant
+\item Malignant
+\item Benign
+\item Benign
+\item Malignant
+\item Malignant
+\item Benign
+\item Benign
+\item Malignant
+\item Benign
+\item Benign
+\item Benign
+\item Benign
+\item Malignant
+\item Malignant
+\item Benign
+\item Benign
+\item Malignant
+\item Malignant
+\item Benign
+\item Malignant
+\item Malignant
+\item Benign
+\item Benign
+\item Benign
+\item Benign
+\item Benign
+\item Malignant
+\item Malignant
+\item Benign
+\item Malignant
+\item Malignant
+\item Malignant
+\item Benign
+\item Malignant
+\item Malignant
+\item Benign
+\item Malignant
+\item Benign
+\item Benign
+\item Benign
+\item Benign
+\item Malignant
+\item Benign
+\item Malignant
+\item Benign
+\item Benign
+\item Benign
+\item Benign
+\item Malignant
+\item Benign
+\item Benign
+\item Benign
+\item Benign
+\item Malignant
+\item Malignant
+\item Benign
+\item Benign
+\item Malignant
+\item Benign
+\item Benign
+\item Malignant
+\item Benign
+\item Malignant
+\end{enumerate*}
+
+\emph{Levels}: \begin{enumerate*}
+\item 'Benign'
+\item 'Malignant'
+\end{enumerate*}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} postResample\PY{p}{(}pred \PY{o}{=} knnPred\PY{p}{,} obs \PY{o}{=} wbcd\PY{p}{[}shuffle\PYZus{}ds\PY{p}{[}\PY{p}{(}eightypct\PY{l+m}{+1}\PY{p}{)}\PY{o}{:}\PY{k+kp}{dim}\PY{p}{(}wbcd\PYZus{}n\PY{p}{)}\PY{p}{[}\PY{l+m}{1}\PY{p}{]]}\PY{p}{,} \PY{l+m}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{description*}
+\item[Accuracy] 0.973684210526316
+\item[Kappa] 0.946175637393768
+\end{description*}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} Ejercicio, probar con diferentes valores de k y}
+         \PY{c+c1}{\PYZsh{} dibujar un plot con los resultados.}
+         
+         \PY{c+c1}{\PYZsh{} Primero crearemos una lista con los nivesles de k que nos interesan}
+         \PY{c+c1}{\PYZsh{} para ello iremos desde 1 hasta 20, quedandonos solamente con los valores}
+         \PY{c+c1}{\PYZsh{} impares, ya que con valores impares podría darse empates con knn.}
+         
+         ks \PY{o}{=} \PY{l+m}{1}\PY{o}{:}\PY{l+m}{20}
+         ks \PY{o}{=} ks\PY{p}{[}ks\PY{o}{\PYZpc{}\PYZpc{}}\PY{l+m}{2} \PY{o}{!=} \PY{l+m}{0}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Ahora crearemos un modelo que utilice esta lista de puntos y nos devuelva}
+         \PY{c+c1}{\PYZsh{} los valores de accuracy para cada k}
+         knnModel \PY{o}{\PYZlt{}\PYZhy{}} train\PY{p}{(}wbcd\PYZus{}train\PY{p}{,} wbcd\PYZus{}train\PYZus{}labels\PY{p}{,} method\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{knn\PYZdq{}}\PY{p}{,} metric\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{Accuracy\PYZdq{}}\PY{p}{,} tuneGrid \PY{o}{=} \PY{k+kt}{data.frame}\PY{p}{(}\PY{l+m}{.}k\PY{o}{=}ks\PY{p}{)}\PY{p}{)}
+         knnModel
+         
+         \PY{c+c1}{\PYZsh{} Obtenemos los resultados del modelo.}
+         resultados \PY{o}{=} knnModel\PY{o}{\PYZdl{}}results\PY{p}{[}\PY{p}{,}\PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{k\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Accuracy\PYZdq{}}\PY{p}{)}\PY{p}{]}
+         resultados
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+k-Nearest Neighbors 
+
+455 samples
+ 30 predictor
+  2 classes: 'Benign', 'Malignant' 
+
+No pre-processing
+Resampling: Bootstrapped (25 reps) 
+Summary of sample sizes: 455, 455, 455, 455, 455, 455, ... 
+Resampling results across tuning parameters:
+
+  k   Accuracy   Kappa    
+   1  0.9484865  0.8870499
+   3  0.9517521  0.8937340
+   5  0.9536736  0.8974576
+   7  0.9553670  0.9007900
+   9  0.9544674  0.8986978
+  11  0.9561944  0.9024569
+  13  0.9556020  0.9008999
+  15  0.9529198  0.8944641
+  17  0.9534857  0.8958782
+  19  0.9559035  0.9010304
+
+Accuracy was used to select the optimal model using the largest value.
+The final value used for the model was k = 11.
+    \end{verbatim}
+
+    
+    \begin{tabular}{r|ll}
+ k & Accuracy\\
+\hline
+	  1        & 0.9484865\\
+	  3        & 0.9517521\\
+	  5        & 0.9536736\\
+	  7        & 0.9553670\\
+	  9        & 0.9544674\\
+	 11        & 0.9561944\\
+	 13        & 0.9556020\\
+	 15        & 0.9529198\\
+	 17        & 0.9534857\\
+	 19        & 0.9559035\\
+\end{tabular}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k+kn}{library}\PY{p}{(}ggplot2\PY{p}{)}
+         ggplot\PY{p}{(}resultados\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}k\PY{p}{,}y\PY{o}{=}Accuracy\PY{p}{)}\PY{p}{)}\PY{o}{+}geom\PYZus{}line\PY{p}{(}\PY{p}{)}\PY{o}{+}
+         geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)}\PY{o}{+}
+         scale\PYZus{}x\PYZus{}continuous\PY{p}{(}breaks\PY{o}{=}resultados\PY{o}{\PYZdl{}}k\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Según lo que se puede ver en la gráfica, el mejor valor para k es 5 para
+este conjunto de datos, ya que obtiene mejores resultados que todos los
+otros k. Otros valores cercanos como 3,7 o 9 obtienen también resultados
+buenos (Además son valores usuales para knn). Para valores grandes, se
+puede ver que los resultados son peores, por ello no se suelen elegir
+normalmente. (Con otras ejecuciones los resultados de la gráfica pueden
+ser diferentes)
+
+    \hypertarget{ejercicio-2}{%
+\subsubsection{Ejercicio 2}\label{ejercicio-2}}
+
+Hacer un 10 fold-cv con una regressión logística
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} Leemos el dataset}
+         \PY{k+kn}{library}\PY{p}{(}ISLR\PY{p}{)}
+         \PY{k+kp}{names}\PY{p}{(}Smarket\PY{p}{)}
+         \PY{k+kp}{summary}\PY{p}{(}Smarket\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{enumerate*}
+\item 'Year'
+\item 'Lag1'
+\item 'Lag2'
+\item 'Lag3'
+\item 'Lag4'
+\item 'Lag5'
+\item 'Volume'
+\item 'Today'
+\item 'Direction'
+\end{enumerate*}
+
+
+    
+    
+    \begin{verbatim}
+      Year           Lag1                Lag2                Lag3          
+ Min.   :2001   Min.   :-4.922000   Min.   :-4.922000   Min.   :-4.922000  
+ 1st Qu.:2002   1st Qu.:-0.639500   1st Qu.:-0.639500   1st Qu.:-0.640000  
+ Median :2003   Median : 0.039000   Median : 0.039000   Median : 0.038500  
+ Mean   :2003   Mean   : 0.003834   Mean   : 0.003919   Mean   : 0.001716  
+ 3rd Qu.:2004   3rd Qu.: 0.596750   3rd Qu.: 0.596750   3rd Qu.: 0.596750  
+ Max.   :2005   Max.   : 5.733000   Max.   : 5.733000   Max.   : 5.733000  
+      Lag4                Lag5              Volume           Today          
+ Min.   :-4.922000   Min.   :-4.92200   Min.   :0.3561   Min.   :-4.922000  
+ 1st Qu.:-0.640000   1st Qu.:-0.64000   1st Qu.:1.2574   1st Qu.:-0.639500  
+ Median : 0.038500   Median : 0.03850   Median :1.4229   Median : 0.038500  
+ Mean   : 0.001636   Mean   : 0.00561   Mean   :1.4783   Mean   : 0.003138  
+ 3rd Qu.: 0.596750   3rd Qu.: 0.59700   3rd Qu.:1.6417   3rd Qu.: 0.596750  
+ Max.   : 5.733000   Max.   : 5.73300   Max.   :3.1525   Max.   : 5.733000  
+ Direction 
+ Down:602  
+ Up  :648  
+           
+           
+           
+           
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} pairs\PY{p}{(}Smarket\PY{p}{,} col\PY{o}{=}Smarket\PY{o}{\PYZdl{}}Direction\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} glmFit \PY{o}{=} train\PY{p}{(}Smarket\PY{p}{[}\PY{p}{,}\PY{l+m}{\PYZhy{}9}\PY{p}{]}\PY{p}{,}y\PY{o}{=} Smarket\PY{p}{[}\PY{p}{,}\PY{l+m}{9}\PY{p}{]}\PY{p}{,}
+                       method \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{glm\PYZdq{}}\PY{p}{,} preProcess \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{center\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{scale\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                       tuneLength \PY{o}{=} \PY{l+m}{10}\PY{p}{,}control\PY{o}{=}glm.control\PY{p}{(}maxit\PY{o}{=}\PY{l+m}{500}\PY{p}{)}\PY{p}{,}
+                       trControl \PY{o}{=} trainControl\PY{p}{(}method \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{cv\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         glmFit
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Warning message:
+"glm.fit: fitted probabilities numerically 0 or 1 occurred"Warning message:
+"glm.fit: fitted probabilities numerically 0 or 1 occurred"Warning message:
+"glm.fit: fitted probabilities numerically 0 or 1 occurred"Warning message:
+"glm.fit: fitted probabilities numerically 0 or 1 occurred"Warning message:
+"glm.fit: fitted probabilities numerically 0 or 1 occurred"Warning message:
+"glm.fit: fitted probabilities numerically 0 or 1 occurred"Warning message:
+"glm.fit: fitted probabilities numerically 0 or 1 occurred"Warning message:
+"glm.fit: fitted probabilities numerically 0 or 1 occurred"Warning message:
+"glm.fit: fitted probabilities numerically 0 or 1 occurred"Warning message:
+"glm.fit: fitted probabilities numerically 0 or 1 occurred"Warning message:
+"glm.fit: fitted probabilities numerically 0 or 1 occurred"
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+Generalized Linear Model 
+
+1250 samples
+   8 predictor
+   2 classes: 'Down', 'Up' 
+
+Pre-processing: centered (8), scaled (8) 
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 1125, 1125, 1124, 1124, 1125, 1125, ... 
+Resampling results:
+
+  Accuracy   Kappa    
+  0.9936062  0.9871929
+
+    \end{verbatim}
+
+    
+    \hypertarget{ejercicio-3}{%
+\subsubsection{Ejercicio 3}\label{ejercicio-3}}
+
+Probar LDA con todas la variables. Comparar con Regresión Logística y
+LDA. Por último, probar con QDA, comparar los resultados y pintarlos.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} Primero comprobamos si la varianza de todas las variables es igual.}
+         \PY{c+c1}{\PYZsh{} Y que la distribución de las variables son normales.}
+         
+         \PY{k+kn}{library}\PY{p}{(}MASS\PY{p}{)}
+         \PY{k+kn}{library}\PY{p}{(}ISLR\PY{p}{)}
+         shapiro.test\PY{p}{(}Smarket\PY{o}{\PYZdl{}}Lag1\PY{p}{)}
+         shapiro.test\PY{p}{(}Smarket\PY{o}{\PYZdl{}}Lag2\PY{p}{)}
+         shapiro.test\PY{p}{(}Smarket\PY{o}{\PYZdl{}}Lag3\PY{p}{)}
+         shapiro.test\PY{p}{(}Smarket\PY{o}{\PYZdl{}}Lag4\PY{p}{)}
+         shapiro.test\PY{p}{(}Smarket\PY{o}{\PYZdl{}}Lag5\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Dado los resultados del test, sabemos que los datos no tienen una}
+         \PY{c+c1}{\PYZsh{} distribución normal. Esto hará que LDA no funcione bien.}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+	Shapiro-Wilk normality test
+
+data:  Smarket$Lag1
+W = 0.97219, p-value = 8.889e-15
+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+
+	Shapiro-Wilk normality test
+
+data:  Smarket$Lag2
+W = 0.97217, p-value = 8.798e-15
+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+
+	Shapiro-Wilk normality test
+
+data:  Smarket$Lag3
+W = 0.9724, p-value = 1.035e-14
+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+
+	Shapiro-Wilk normality test
+
+data:  Smarket$Lag4
+W = 0.97242, p-value = 1.049e-14
+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+
+	Shapiro-Wilk normality test
+
+data:  Smarket$Lag5
+W = 0.97011, p-value = 2.149e-15
+
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} var\PY{p}{(}Smarket\PY{o}{\PYZdl{}}Lag1\PY{p}{)}
+         var\PY{p}{(}Smarket\PY{o}{\PYZdl{}}Lag2\PY{p}{)}
+         var\PY{p}{(}Smarket\PY{o}{\PYZdl{}}Lag3\PY{p}{)}
+         var\PY{p}{(}Smarket\PY{o}{\PYZdl{}}Lag4\PY{p}{)}
+         var\PY{p}{(}Smarket\PY{o}{\PYZdl{}}Lag5\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Como se puede ver, las varianzas de las variables son parecidas, menos para}
+         \PY{c+c1}{\PYZsh{} el caso de la variable \PYZsq{}Lag5\PYZsq{}, esto afectará a los resultados del LDA}
+\end{Verbatim}
+
+
+    1.29117506222642
+
+    
+    1.2911328189265
+
+    
+    1.29664442448359
+
+    
+    1.29680562160128
+
+    
+    1.31687148397502
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{} Ahora aplicamos LDA.}
+         lda.fit \PY{o}{=} lda\PY{p}{(}Direction\PY{o}{\PYZti{}}Lag1\PY{o}{+}Lag2\PY{o}{+}Lag3\PY{o}{+}Lag4\PY{o}{+}Lag5\PY{p}{,} data\PY{o}{=}Smarket\PY{p}{,} subset\PY{o}{=}Year\PY{o}{\PYZlt{}}\PY{l+m}{2005}\PY{p}{)}
+         lda.fit
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+Call:
+lda(Direction ~ Lag1 + Lag2 + Lag3 + Lag4 + Lag5, data = Smarket, 
+    subset = Year < 2005)
+
+Prior probabilities of groups:
+    Down       Up 
+0.491984 0.508016 
+
+Group means:
+            Lag1        Lag2         Lag3         Lag4          Lag5
+Down  0.04279022  0.03389409 -0.009806517 -0.010598778  0.0043665988
+Up   -0.03954635 -0.03132544  0.005834320  0.003110454 -0.0006508876
+
+Coefficients of linear discriminants:
+             LD1
+Lag1 -0.63046918
+Lag2 -0.50221745
+Lag3  0.10142974
+Lag4  0.09725317
+Lag5 -0.03685767
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} plot\PY{p}{(}lda.fit\PY{p}{,} type\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{both\PYZdq{}}\PY{p}{,} xlab\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{LD1\PYZdq{}}\PY{p}{,} ylab\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{Normalized frecuency\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{} Ahora por ejemplo utilizaremos un subconjunto de los datos para}
+         \PY{c+c1}{\PYZsh{} comparar con Regressión Lineal.}
+         Smarket.2005 \PY{o}{=} \PY{k+kp}{subset}\PY{p}{(}Smarket\PY{p}{,}Year\PY{o}{==}\PY{l+m}{2005}\PY{p}{)}
+         glmFit \PY{o}{=} glm\PY{p}{(}Direction\PY{o}{\PYZti{}}Lag1\PY{o}{+}Lag2\PY{o}{+}Lag3\PY{o}{+}Lag4\PY{o}{+}Lag5\PY{p}{,}data\PY{o}{=}Smarket\PY{p}{,}family\PY{o}{=}binomial\PY{p}{,}
+                     subset\PY{o}{=}Year\PY{o}{\PYZlt{}}\PY{l+m}{2005}\PY{p}{)}
+         glm.pred \PY{o}{=} predict\PY{p}{(}glmFit\PY{p}{,}Smarket.2005\PY{p}{,}type\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{response\PYZdq{}}\PY{p}{)}
+         glm.pred \PY{o}{=} \PY{k+kt}{data.frame}\PY{p}{(}prob\PY{o}{=}glm.pred\PY{p}{)}
+         glm.pred\PY{o}{\PYZdl{}}class \PY{o}{=} \PY{k+kp}{ifelse}\PY{p}{(}glm.pred\PY{o}{\PYZdl{}}prob \PY{o}{\PYZlt{}} \PY{l+m}{0.5}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{Down\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Up\PYZdq{}}\PY{p}{)}
+         lda.pred \PY{o}{=} predict\PY{p}{(}lda.fit\PY{p}{,}Smarket.2005\PY{p}{)}
+         
+         \PY{k+kp}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Tabla de resultados para glm\PYZdq{}}\PY{p}{)}
+         \PY{k+kp}{table}\PY{p}{(}glm.pred\PY{o}{\PYZdl{}}\PY{k+kp}{class}\PY{p}{,}Smarket.2005\PY{o}{\PYZdl{}}Direction\PY{p}{)}
+         \PY{k+kp}{mean}\PY{p}{(}glm.pred\PY{o}{\PYZdl{}}class\PY{o}{==}Smarket.2005\PY{o}{\PYZdl{}}Direction\PY{p}{)}
+         
+         \PY{k+kp}{print}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Tabla de resultados para lda\PYZdq{}}\PY{p}{)}
+         \PY{k+kp}{table}\PY{p}{(}lda.pred\PY{o}{\PYZdl{}}\PY{k+kp}{class}\PY{p}{,}Smarket.2005\PY{o}{\PYZdl{}}Direction\PY{p}{)}
+         \PY{k+kp}{mean}\PY{p}{(}lda.pred\PY{o}{\PYZdl{}}class\PY{o}{==}Smarket.2005\PY{o}{\PYZdl{}}Direction\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Para estos datos y para las variables elegidas el error es el mismo.}
+         \PY{c+c1}{\PYZsh{} Por lo cual ninguno de los dos es buen predictor.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1] "Tabla de resultados para glm"
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+      
+       Down  Up
+  Down   37  30
+  Up     74 111
+    \end{verbatim}
+
+    
+    0.587301587301587
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1] "Tabla de resultados para lda"
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+      
+       Down  Up
+  Down   37  30
+  Up     74 111
+    \end{verbatim}
+
+    
+    0.587301587301587
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k+kn}{library}\PY{p}{(}klaR\PY{p}{)}
+         partimat\PY{p}{(}Direction\PY{o}{\PYZti{}}Lag1\PY{o}{+}Lag2\PY{o}{+}Lag3\PY{o}{+}Lag4\PY{o}{+}Lag5\PY{p}{,}data\PY{o}{=}Smarket\PY{p}{,} method\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lda\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} Ahora pasamos a ejecutar QDA, pero primero debemos ver si las varianzas}
+         \PY{c+c1}{\PYZsh{} de los predictores para cada clase son diferentes.}
+         var\PY{p}{(}Smarket\PY{p}{[}Smarket\PY{o}{\PYZdl{}}Direction \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{Up\PYZdq{}}\PY{p}{,}\PY{p}{]}\PY{o}{\PYZdl{}}Lag1\PY{p}{)}
+         var\PY{p}{(}Smarket\PY{p}{[}Smarket\PY{o}{\PYZdl{}}Direction \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{Up\PYZdq{}}\PY{p}{,}\PY{p}{]}\PY{o}{\PYZdl{}}Lag2\PY{p}{)}
+         var\PY{p}{(}Smarket\PY{p}{[}Smarket\PY{o}{\PYZdl{}}Direction \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{Down\PYZdq{}}\PY{p}{,}\PY{p}{]}\PY{o}{\PYZdl{}}Lag1\PY{p}{)}
+         var\PY{p}{(}Smarket\PY{p}{[}Smarket\PY{o}{\PYZdl{}}Direction \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{Down\PYZdq{}}\PY{p}{,}\PY{p}{]}\PY{o}{\PYZdl{}}Lag2\PY{p}{)}
+         var\PY{p}{(}Smarket\PY{p}{[}Smarket\PY{o}{\PYZdl{}}Direction \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{Up\PYZdq{}}\PY{p}{,}\PY{p}{]}\PY{o}{\PYZdl{}}Lag3\PY{p}{)}
+         var\PY{p}{(}Smarket\PY{p}{[}Smarket\PY{o}{\PYZdl{}}Direction \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{Up\PYZdq{}}\PY{p}{,}\PY{p}{]}\PY{o}{\PYZdl{}}Lag4\PY{p}{)}
+         var\PY{p}{(}Smarket\PY{p}{[}Smarket\PY{o}{\PYZdl{}}Direction \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{Down\PYZdq{}}\PY{p}{,}\PY{p}{]}\PY{o}{\PYZdl{}}Lag3\PY{p}{)}
+         var\PY{p}{(}Smarket\PY{p}{[}Smarket\PY{o}{\PYZdl{}}Direction \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{Down\PYZdq{}}\PY{p}{,}\PY{p}{]}\PY{o}{\PYZdl{}}Lag4\PY{p}{)}
+         var\PY{p}{(}Smarket\PY{p}{[}Smarket\PY{o}{\PYZdl{}}Direction \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{Up\PYZdq{}}\PY{p}{,}\PY{p}{]}\PY{o}{\PYZdl{}}Lag5\PY{p}{)}
+         var\PY{p}{(}Smarket\PY{p}{[}Smarket\PY{o}{\PYZdl{}}Direction \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{Down\PYZdq{}}\PY{p}{,}\PY{p}{]}\PY{o}{\PYZdl{}}Lag5\PY{p}{)}
+\end{Verbatim}
+
+
+    1.27913706688038
+
+    
+    1.24717074806801
+
+    
+    1.30204143704291
+
+    
+    1.33905195969342
+
+    
+    1.27785074789389
+
+    
+    1.22092377886303
+
+    
+    1.31893272233984
+
+    
+    1.38060525375758
+
+    
+    1.36348271540061
+
+    
+    1.26880333331491
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} Ejecutamos el algoritmo de QDA.}
+         qda.fit \PY{o}{=} qda\PY{p}{(}Direction\PY{o}{\PYZti{}}Lag1\PY{o}{+}Lag2\PY{o}{+}Lag3\PY{o}{+}Lag4\PY{o}{+}Lag5\PY{p}{,} data\PY{o}{=}Smarket\PY{p}{,}
+                      subset\PY{o}{=}Year\PY{o}{\PYZlt{}}\PY{l+m}{2005}\PY{p}{)}
+         qda.fit
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+Call:
+qda(Direction ~ Lag1 + Lag2 + Lag3 + Lag4 + Lag5, data = Smarket, 
+    subset = Year < 2005)
+
+Prior probabilities of groups:
+    Down       Up 
+0.491984 0.508016 
+
+Group means:
+            Lag1        Lag2         Lag3         Lag4          Lag5
+Down  0.04279022  0.03389409 -0.009806517 -0.010598778  0.0043665988
+Up   -0.03954635 -0.03132544  0.005834320  0.003110454 -0.0006508876
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} Predecimos los datos para qda.}
+         qda.pred \PY{o}{=} predict\PY{p}{(}qda.fit\PY{p}{,} Smarket.2005\PY{p}{)}
+         \PY{k+kp}{table}\PY{p}{(}qda.pred\PY{o}{\PYZdl{}}\PY{k+kp}{class}\PY{p}{,} Smarket.2005\PY{o}{\PYZdl{}}Direction\PY{p}{)}
+         \PY{k+kp}{mean}\PY{p}{(}qda.pred\PY{o}{\PYZdl{}}class\PY{o}{==}Smarket.2005\PY{o}{\PYZdl{}}Direction\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Como se puede ver, aunque  el resultado no sea mucho mejor que para LDA}
+         \PY{c+c1}{\PYZsh{} o para Regresión Lineal.}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+      
+       Down  Up
+  Down   37  35
+  Up     74 106
+    \end{verbatim}
+
+    
+    0.567460317460317
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} Ahora mostrarermos los resultados de cada uno de los modelos.}
+         partimat\PY{p}{(}Direction\PY{o}{\PYZti{}}Lag1\PY{o}{+}Lag2\PY{o}{+}Lag3\PY{o}{+}Lag4\PY{o}{+}Lag5\PY{p}{,}data\PY{o}{=}Smarket\PY{p}{,} method\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{qda\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{ejercicio-4}{%
+\subsubsection{Ejercicio 4}\label{ejercicio-4}}
+
+Usando la información del dataset `clasif\_train\_alumnos.csv' *
+Comparar lda y qda usando Wilcoxon. * Hacer una comparación múltiple
+usando Friedman. * Usando Holm, mirar si hay algún algoritmo ganador.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{} Leemos el dataset.}
+         alum \PY{o}{=} read.csv\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{clasif\PYZus{}train\PYZus{}alumnos.csv\PYZsq{}}\PY{p}{,}header\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{,}stringsAsFactors\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+         \PY{k+kp}{head}\PY{p}{(}alum\PY{p}{)}
+         str\PY{p}{(}alum\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|llll}
+ X & out\_train\_knn & out\_train\_lda & out\_train\_qda\\
+\hline
+	 appendicitis  & 0.8834602     & 0.8815461     & 0.8690241    \\
+	 australian    & 0.7277419     & 0.8605475     & 0.8072464    \\
+	 balance       & 0.9072122     & 0.8791122     & 0.9167999    \\
+	 bupa          & 0.7405521     & 0.7024224     & 0.6447628    \\
+	 contraceptive & 0.6168944     & 0.5236485     & 0.5314180    \\
+	 haberman      & 0.7795116     & 0.7519934     & 0.7567115    \\
+\end{tabular}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+'data.frame':	20 obs. of  4 variables:
+ \$ X            : chr  "appendicitis" "australian" "balance" "bupa" {\ldots}
+ \$ out\_train\_knn: num  0.883 0.728 0.907 0.741 0.617 {\ldots}
+ \$ out\_train\_lda: num  0.882 0.861 0.879 0.702 0.524 {\ldots}
+ \$ out\_train\_qda: num  0.869 0.807 0.917 0.645 0.531 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} Realizamos el test de wilcoxon.}
+         QDAvsLDA \PY{o}{=} wilcox.test\PY{p}{(}alum\PY{o}{\PYZdl{}}out\PYZus{}train\PYZus{}lda\PY{p}{,}alum\PY{o}{\PYZdl{}}out\PYZus{}train\PYZus{}qda\PY{p}{,}
+                                alternative\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{two.sided\PYZdq{}}\PY{p}{,} paired\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{)}
+         Rmas \PY{o}{=} QDAvsLDA\PY{o}{\PYZdl{}}statistic
+         pvalue \PY{o}{=} QDAvsLDA\PY{o}{\PYZdl{}}p.value
+         QDAvsLDA \PY{o}{=} wilcox.test\PY{p}{(}alum\PY{o}{\PYZdl{}}out\PYZus{}train\PYZus{}qda\PY{p}{,}alum\PY{o}{\PYZdl{}}out\PYZus{}train\PYZus{}lda\PY{p}{,}
+                                alternative\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{two.sided\PYZdq{}}\PY{p}{,}paired\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{)}
+         Rmenos \PY{o}{=} QDAvsLDA\PY{o}{\PYZdl{}}statistic
+         
+         Rmas
+         Rmenos
+         pvalue
+         
+         
+         \PY{c+c1}{\PYZsh{} Según el valor del p\PYZhy{}value, podemos decir que los algoritmos son diferentes}
+         \PY{c+c1}{\PYZsh{} con un 82.31\PYZpc{} ((1\PYZhy{}pvalue)*100) de confianza.}
+\end{Verbatim}
+
+
+    \textbf{V:} 68
+
+    
+    \textbf{V:} 142
+
+    
+    0.176853179931641
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{} Realizamos el test de Friedman para todos los dataset.}
+         test\PYZus{}friedman \PY{o}{=} friedman.test\PY{p}{(}\PY{k+kp}{as.matrix}\PY{p}{(}alum\PY{p}{)}\PY{p}{)}
+         test\PYZus{}friedman
+         
+         \PY{c+c1}{\PYZsh{} Según el resultado del test de friedman, podemos decir que al menos hay}
+         \PY{c+c1}{\PYZsh{} diferencias significativas entre un par de algortimos.}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+	Friedman rank sum test
+
+data:  as.matrix(alum)
+Friedman chi-squared = 36.78, df = 3, p-value = 5.122e-08
+
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{c+c1}{\PYZsh{} Por último, realizamos el test de Holm para comprobar si realmente hay algún}
+         \PY{c+c1}{\PYZsh{} algoritmo que se diferencia del resto.}
+         tablatst \PY{o}{=} \PY{k+kp}{cbind}\PY{p}{(}alum\PY{p}{[}\PY{p}{,}\PY{l+m}{2}\PY{o}{:}\PY{k+kp}{dim}\PY{p}{(}alum\PY{p}{)}\PY{p}{[}\PY{l+m}{2}\PY{p}{]]}\PY{p}{)}
+         \PY{k+kp}{rownames}\PY{p}{(}tablatst\PY{p}{)} \PY{o}{=} alum\PY{p}{[}\PY{p}{,}\PY{l+m}{1}\PY{p}{]}
+         \PY{k+kp}{head}\PY{p}{(}tablatst\PY{p}{)}
+         tam \PY{o}{=} \PY{k+kp}{dim}\PY{p}{(}tablatst\PY{p}{)}
+         groups \PY{o}{=} \PY{k+kp}{as.numeric}\PY{p}{(}\PY{k+kp}{rep}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}tam\PY{p}{[}\PY{l+m}{2}\PY{p}{]}\PY{p}{,}each\PY{o}{=}tam\PY{p}{[}\PY{l+m}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         pairwise.wilcox.test\PY{p}{(}\PY{k+kp}{as.matrix}\PY{p}{(}tablatst\PY{p}{)}\PY{p}{,}groups\PY{p}{,}p.adjust\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{holm\PYZdq{}}\PY{p}{,}paired\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Según los resultados obtenidos por el test de Holm, no hay diferencias significativas }
+         \PY{c+c1}{\PYZsh{} entre los diferentes algoritmos y por lo tanto no podemos concluir si un algoritmo}
+         \PY{c+c1}{\PYZsh{} es mejor que los demás.}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|lll}
+  & out\_train\_knn & out\_train\_lda & out\_train\_qda\\
+\hline
+	appendicitis & 0.8834602 & 0.8815461 & 0.8690241\\
+	australian & 0.7277419 & 0.8605475 & 0.8072464\\
+	balance & 0.9072122 & 0.8791122 & 0.9167999\\
+	bupa & 0.7405521 & 0.7024224 & 0.6447628\\
+	contraceptive & 0.6168944 & 0.5236485 & 0.5314180\\
+	haberman & 0.7795116 & 0.7519934 & 0.7567115\\
+\end{tabular}
+
+
+    
+    \begin{enumerate*}
+\item 1
+\item 1
+\item 1
+\item 1
+\item 1
+\item 1
+\item 1
+\item 1
+\item 1
+\item 1
+\item 1
+\item 1
+\item 1
+\item 1
+\item 1
+\item 1
+\item 1
+\item 1
+\item 1
+\item 1
+\item 2
+\item 2
+\item 2
+\item 2
+\item 2
+\item 2
+\item 2
+\item 2
+\item 2
+\item 2
+\item 2
+\item 2
+\item 2
+\item 2
+\item 2
+\item 2
+\item 2
+\item 2
+\item 2
+\item 2
+\item 3
+\item 3
+\item 3
+\item 3
+\item 3
+\item 3
+\item 3
+\item 3
+\item 3
+\item 3
+\item 3
+\item 3
+\item 3
+\item 3
+\item 3
+\item 3
+\item 3
+\item 3
+\item 3
+\item 3
+\end{enumerate*}
+
+
+    
+    
+    \begin{verbatim}
+
+	Pairwise comparisons using Wilcoxon signed rank test 
+
+data:  as.matrix(tablatst) and groups 
+
+  1    2   
+2 0.65 -   
+3 0.59 0.53
+
+P value adjustment method: holm 
+    \end{verbatim}
+
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

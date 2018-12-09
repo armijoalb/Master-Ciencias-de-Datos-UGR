@@ -1,0 +1,1448 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Regresi?n California}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{regresiuxf3n-con-los-datos-del-dataset-california}{%
+\section{Regresión con los datos del dataset
+California}\label{regresiuxf3n-con-los-datos-del-dataset-california}}
+
+Alberto Armijo Ruiz
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} Primero leemos los datos.}
+        california \PY{o}{=}  read.csv\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{datos/california.dat\PYZdq{}}\PY{p}{,} comment.char \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} header\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+        temp \PY{o}{=} \PY{k+kp}{scan}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{datos/california.dat\PYZdq{}}\PY{p}{,} what\PY{o}{=}\PY{k+kt}{character}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        ini \PY{o}{=} \PY{k+kp}{grep}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{inputs\PYZdq{}}\PY{p}{,} temp\PY{p}{,} fixed\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{)} \PY{o}{+} \PY{l+m}{1}
+        fin \PY{o}{=} \PY{k+kp}{grep}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{outputs\PYZdq{}}\PY{p}{,} temp\PY{p}{,} fixed\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m}{1}
+        y\PYZus{}pos \PY{o}{=} \PY{k+kp}{grep}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{outputs\PYZdq{}}\PY{p}{,} temp\PY{p}{,} fixed\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{)} \PY{o}{+} \PY{l+m}{1} 
+        cal\PYZus{}attr \PY{o}{=} temp\PY{p}{[}ini\PY{o}{:}fin\PY{p}{]}
+        cal\PYZus{}attr \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}cal\PYZus{}attr\PY{p}{,}temp\PY{p}{[}y\PYZus{}pos\PY{p}{]}\PY{p}{)}
+        cal\PYZus{}attr \PY{o}{=} \PY{k+kp}{unlist}\PY{p}{(}\PY{k+kp}{strsplit}\PY{p}{(}cal\PYZus{}attr\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{[,]\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{k+kp}{colnames}\PY{p}{(}california\PY{p}{)} \PY{o}{=} cal\PYZus{}attr
+        \PY{k+kp}{rm}\PY{p}{(}temp\PY{p}{)}
+        \PY{k+kp}{rm}\PY{p}{(}cal\PYZus{}attr\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kp}{summary}\PY{p}{(}california\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+   Longitude         Latitude     HousingMedianAge   TotalRooms   
+ Min.   :-124.3   Min.   :32.54   Min.   : 1.00    Min.   :    2  
+ 1st Qu.:-121.8   1st Qu.:33.93   1st Qu.:18.00    1st Qu.: 1448  
+ Median :-118.5   Median :34.26   Median :29.00    Median : 2127  
+ Mean   :-119.6   Mean   :35.63   Mean   :28.64    Mean   : 2636  
+ 3rd Qu.:-118.0   3rd Qu.:37.71   3rd Qu.:37.00    3rd Qu.: 3148  
+ Max.   :-114.3   Max.   :41.95   Max.   :52.00    Max.   :39320  
+ TotalBedrooms      Population      Households      MedianIncome    
+ Min.   :   1.0   Min.   :    3   Min.   :   1.0   Min.   : 0.4999  
+ 1st Qu.: 295.0   1st Qu.:  787   1st Qu.: 280.0   1st Qu.: 2.5634  
+ Median : 435.0   Median : 1166   Median : 409.0   Median : 3.5348  
+ Mean   : 537.9   Mean   : 1425   Mean   : 499.5   Mean   : 3.8707  
+ 3rd Qu.: 647.0   3rd Qu.: 1725   3rd Qu.: 605.0   3rd Qu.: 4.7432  
+ Max.   :6445.0   Max.   :35682   Max.   :6082.0   Max.   :15.0001  
+ MedianHouseValue
+ Min.   : 14999  
+ 1st Qu.:119600  
+ Median :179700  
+ Mean   :206856  
+ 3rd Qu.:264725  
+ Max.   :500001  
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} Primero miraremos las variables para ver cuales se adaptan mejor a un modelo lineal.}
+        \PY{k+kn}{require}\PY{p}{(}ggplot2\PY{p}{)}
+        \PY{k+kp}{colnames}\PY{p}{(}california\PY{p}{)}
+        ggplot\PY{p}{(}california\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}Longitude\PY{p}{,}y\PY{o}{=}MedianHouseValue\PY{p}{)}\PY{p}{)}\PY{o}{+}geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}
+        ggplot\PY{p}{(}california\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}Latitude\PY{p}{,}y\PY{o}{=}MedianHouseValue\PY{p}{)}\PY{p}{)}\PY{o}{+}geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}
+        ggplot\PY{p}{(}california\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}HousingMedianAge\PY{p}{,}y\PY{o}{=}MedianHouseValue\PY{p}{)}\PY{p}{)}\PY{o}{+}geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}
+        ggplot\PY{p}{(}california\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}TotalRooms\PY{p}{,}y\PY{o}{=}MedianHouseValue\PY{p}{)}\PY{p}{)}\PY{o}{+}geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}
+        ggplot\PY{p}{(}california\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}TotalBedrooms\PY{p}{,}y\PY{o}{=}MedianHouseValue\PY{p}{)}\PY{p}{)}\PY{o}{+}geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}
+        ggplot\PY{p}{(}california\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}Population\PY{p}{,}y\PY{o}{=}MedianHouseValue\PY{p}{)}\PY{p}{)}\PY{o}{+}geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}
+        ggplot\PY{p}{(}california\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}Households\PY{p}{,}y\PY{o}{=}MedianHouseValue\PY{p}{)}\PY{p}{)}\PY{o}{+}geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}
+        ggplot\PY{p}{(}california\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}MedianIncome\PY{p}{,}y\PY{o}{=}MedianHouseValue\PY{p}{)}\PY{p}{)}\PY{o}{+}geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Loading required package: ggplot2
+
+    \end{Verbatim}
+
+    \begin{enumerate*}
+\item 'Longitude'
+\item 'Latitude'
+\item 'HousingMedianAge'
+\item 'TotalRooms'
+\item 'TotalBedrooms'
+\item 'Population'
+\item 'Households'
+\item 'MedianIncome'
+\item 'MedianHouseValue'
+\end{enumerate*}
+
+
+    
+    
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_10.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_12.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_14.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_16.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_17.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} También pintaremos histogramas de las variables para ver como se distribuyen}
+        ggplot\PY{p}{(}california\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}\PY{k+kp}{log}\PY{p}{(}Population\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}histogram\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{,}bins\PY{o}{=}\PY{l+m}{50}\PY{p}{)}
+        ggplot\PY{p}{(}california\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}\PY{k+kp}{log}\PY{p}{(}Households\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}histogram\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{,}bins\PY{o}{=}\PY{l+m}{50}\PY{p}{)}
+        ggplot\PY{p}{(}california\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}\PY{k+kp}{log}\PY{p}{(}TotalRooms\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}histogram\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{,}bins\PY{o}{=}\PY{l+m}{50}\PY{p}{)}
+        ggplot\PY{p}{(}california\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}\PY{k+kp}{log}\PY{p}{(}TotalBedrooms\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}histogram\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{,}bins\PY{o}{=}\PY{l+m}{50}\PY{p}{)}
+        ggplot\PY{p}{(}california\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}Latitude\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}histogram\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{,}bins\PY{o}{=}\PY{l+m}{50}\PY{p}{)}
+        ggplot\PY{p}{(}california\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}Longitude\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}histogram\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{,}bins\PY{o}{=}\PY{l+m}{50}\PY{p}{)}
+        ggplot\PY{p}{(}california\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}MedianIncome\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}histogram\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{,}bins\PY{o}{=}\PY{l+m}{50}\PY{p}{)}
+        ggplot\PY{p}{(}california\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}\PY{k+kp}{log}\PY{p}{(}HousingMedianAge\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}histogram\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{,}bins\PY{o}{=}\PY{l+m}{50}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Algunos datos están muy pegados a la izquierda, por lo que probaremos aplicacarle el logaritmo para que se parezcan más}
+        \PY{c+c1}{\PYZsh{} a una distribución normal.}
+\end{Verbatim}
+
+
+    
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_10.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_12.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_14.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_15.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} ggplot\PY{p}{(}california\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}MedianHouseValue\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}histogram\PY{p}{(}bins\PY{o}{=}\PY{l+m}{50}\PY{p}{,} col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}
+        ggplot\PY{p}{(}california\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}\PY{k+kp}{log}\PY{p}{(}MedianHouseValue\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}histogram\PY{p}{(}bins\PY{o}{=}\PY{l+m}{50}\PY{p}{,} col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Al igual que con las caracterísitcas del dataset, los datos parecen distribuirse mejor con una transformación}
+        \PY{c+c1}{\PYZsh{} logaritmica, así que más tarde probaremos a crear modelos con la variable MedianHouseValue transformada.}
+\end{Verbatim}
+
+
+    
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} pairs\PY{p}{(}california\PY{p}{,}pch\PY{o}{=}\PY{l+m}{16}\PY{p}{,}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Como se puede ver en la gráfica, algunos de los datos del dataset parecen estar correlacionados.}
+        \PY{c+c1}{\PYZsh{} Esto parece bastante normal, ya que ocurre con variable como Longitude y Latitude, o TotalRooms}
+        \PY{c+c1}{\PYZsh{} y TotalBedrooms. En este caso esa correlación nos puede servir para intentar mejorar el modelo }
+        \PY{c+c1}{\PYZsh{} mediante interacciones entre dichas variables.}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} ggplot\PY{p}{(}california\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}Longitude\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+        ggplot\PY{p}{(}california\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}Latitude\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+        ggplot\PY{p}{(}california\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}HousingMedianAge\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+        ggplot\PY{p}{(}california\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}Population\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+        ggplot\PY{p}{(}california\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}TotalBedrooms\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+        ggplot\PY{p}{(}california\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}TotalRooms\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+        ggplot\PY{p}{(}california\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}MedianIncome\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+        ggplot\PY{p}{(}california\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}Households\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+        ggplot\PY{p}{(}california\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}MedianHouseValue\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Pintando los boxplots nos damos cuenta que tenemos outliers, en este caso aparecen sobre las variables}
+        \PY{c+c1}{\PYZsh{} Population, TotalBedrooms, TotalRooms, Households, MedianIncome y MedianHouseValue. No los eliminaremos ya que }
+        \PY{c+c1}{\PYZsh{} parecen ser casos extremos, en los que además parecen ser bastantes, por lo que no tienen porque ser realmente outliers}
+        \PY{c+c1}{\PYZsh{} y puede empeorar la predicción si los quitamos.}
+\end{Verbatim}
+
+
+    
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_10.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_12.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_14.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_16.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_17.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{l+s}{\PYZdq{}}\PY{l+s}{La única variable que parece ser lineal es la variable MedianIncome, por ello}
+        \PY{l+s}{probaremos creando un modelo lineal con esta variable y veremos que resultados}
+        \PY{l+s}{nos da.\PYZdq{}}
+        fit1 \PY{o}{=} lm\PY{p}{(}MedianHouseValue\PY{o}{\PYZti{}}MedianIncome\PY{p}{,}data\PY{o}{=}california\PY{p}{)}
+        \PY{k+kp}{summary}\PY{p}{(}fit1\PY{p}{)}
+        plot\PY{p}{(}MedianHouseValue\PY{o}{\PYZti{}}MedianIncome\PY{p}{,}data\PY{o}{=}california\PY{p}{)}
+        abline\PY{p}{(}fit1\PY{p}{,}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+        
+        \PY{l+s}{\PYZdq{}}\PY{l+s}{Según la información proporcionada por el modelo, se puede ver que la}
+        \PY{l+s}{variable MedianIncome sí que nos da información sobre el modelo y es }
+        \PY{l+s}{importante para predecir. Aun así, el resultado del Adjusted R\PYZhy{}squared es muy}
+        \PY{l+s}{pobre; por ello probaremos a añadir más variables.\PYZdq{}}
+\end{Verbatim}
+
+
+    'La única variable que parece ser lineal es la variable MedianIncome, por ello\textbackslash{}nprobaremos creando un modelo lineal con esta variable y veremos que resultados\textbackslash{}nnos da.'
+
+    
+    
+    \begin{verbatim}
+
+Call:
+lm(formula = MedianHouseValue ~ MedianIncome, data = california)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-540697  -55950  -16979   36978  434023 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   45085.6     1322.9   34.08   <2e-16 ***
+MedianIncome  41793.8      306.8  136.22   <2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 83740 on 20638 degrees of freedom
+Multiple R-squared:  0.4734,	Adjusted R-squared:  0.4734 
+F-statistic: 1.856e+04 on 1 and 20638 DF,  p-value: < 2.2e-16
+
+    \end{verbatim}
+
+    
+    'Según la información proporcionada por el modelo, se puede ver que la\textbackslash{}nvariable MedianIncome sí que nos da información sobre el modelo y es \textbackslash{}nimportante para predecir. Aun así, el resultado del Adjusted R-squared es muy\textbackslash{}npobre; por ello probaremos a añadir más variables.'
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{l+s}{\PYZdq{}}\PY{l+s}{Para comenzar, optaremos por crear un modelo con todas las variables e }
+        \PY{l+s}{iremos retirando las variables que peor puedan predecir la variable (peor}
+        \PY{l+s}{p\PYZhy{}valor tiene, más alto)\PYZdq{}}
+        fit2 \PY{o}{=} lm\PY{p}{(}MedianHouseValue\PY{o}{\PYZti{}}\PY{l+m}{.}\PY{p}{,} data\PY{o}{=}california\PY{p}{)}
+        \PY{k+kp}{summary}\PY{p}{(}fit2\PY{p}{)}
+        
+        \PY{l+s}{\PYZdq{}}\PY{l+s}{Como se puede ver, según el modelo todas las variables son importantes para}
+        \PY{l+s}{predecir la variable MedianHouseValue, por lo cual optaremos por retirar}
+        \PY{l+s}{algunas variables y añadir interacciones y no linealidad\PYZdq{}}
+\end{Verbatim}
+
+
+    'Para comenzar, optaremos por crear un modelo con todas las variables e \textbackslash{}niremos retirando las variables que peor puedan predecir la variable (peor\textbackslash{}np-valor tiene, más alto)'
+
+    
+    
+    \begin{verbatim}
+
+Call:
+lm(formula = MedianHouseValue ~ ., data = california)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-563013  -43592  -11327   30307  803996 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      -3.594e+06  6.254e+04 -57.468  < 2e-16 ***
+Longitude        -4.282e+04  7.130e+02 -60.061  < 2e-16 ***
+Latitude         -4.258e+04  6.733e+02 -63.240  < 2e-16 ***
+HousingMedianAge  1.156e+03  4.317e+01  26.787  < 2e-16 ***
+TotalRooms       -8.182e+00  7.881e-01 -10.381  < 2e-16 ***
+TotalBedrooms     1.134e+02  6.902e+00  16.432  < 2e-16 ***
+Population       -3.854e+01  1.079e+00 -35.716  < 2e-16 ***
+Households        4.831e+01  7.515e+00   6.429 1.32e-10 ***
+MedianIncome      4.025e+04  3.351e+02 120.123  < 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 69530 on 20631 degrees of freedom
+Multiple R-squared:  0.6371,	Adjusted R-squared:  0.637 
+F-statistic:  4528 on 8 and 20631 DF,  p-value: < 2.2e-16
+
+    \end{verbatim}
+
+    
+    'Como se puede ver, según el modelo todas las variables son importantes para\textbackslash{}npredecir la variable MedianHouseValue, por lo cual optaremos por retirar\textbackslash{}nalgunas variables y añadir interacciones y no linealidad'
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} fit3 \PY{o}{=} lm\PY{p}{(}MedianHouseValue\PY{o}{\PYZti{}}\PY{l+m}{.}\PY{o}{\PYZhy{}}Longitude\PY{o}{\PYZhy{}}Latitude\PY{p}{,}data\PY{o}{=}california\PY{p}{)}
+         \PY{l+s}{\PYZdq{}}\PY{l+s}{Resultados tercer modelo\PYZdq{}}
+         \PY{k+kp}{summary}\PY{p}{(}fit3\PY{p}{)}
+\end{Verbatim}
+
+
+    'Resultados tercer modelo'
+
+    
+    
+    \begin{verbatim}
+
+Call:
+lm(formula = MedianHouseValue ~ . - Longitude - Latitude, data = california)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-636230  -48172  -11755   34485  709402 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      -4.595e+04  2.241e+03  -20.51   <2e-16 ***
+HousingMedianAge  1.881e+03  4.532e+01   41.51   <2e-16 ***
+TotalRooms       -1.964e+01  8.332e-01  -23.57   <2e-16 ***
+TotalBedrooms     1.004e+02  7.489e+00   13.41   <2e-16 ***
+Population       -3.550e+01  1.165e+00  -30.47   <2e-16 ***
+Households        1.255e+02  8.055e+00   15.57   <2e-16 ***
+MedianIncome      4.770e+04  3.422e+02  139.37   <2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 75970 on 20633 degrees of freedom
+Multiple R-squared:  0.5667,	Adjusted R-squared:  0.5666 
+F-statistic:  4497 on 6 and 20633 DF,  p-value: < 2.2e-16
+
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} fit4 \PY{o}{=} lm\PY{p}{(}MedianHouseValue\PY{o}{\PYZti{}}\PY{l+m}{.}\PY{o}{\PYZhy{}}TotalBedrooms\PY{o}{\PYZhy{}}TotalRooms\PY{p}{,}data\PY{o}{=}california\PY{p}{)}
+         \PY{l+s}{\PYZdq{}}\PY{l+s}{Resultados cuarto modelo\PYZdq{}}
+         \PY{k+kp}{summary}\PY{p}{(}fit4\PY{p}{)}
+\end{Verbatim}
+
+
+    'Resultados cuarto modelo'
+
+    
+    
+    \begin{verbatim}
+
+Call:
+lm(formula = MedianHouseValue ~ . - TotalBedrooms - TotalRooms, 
+    data = california)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-536312  -44531  -11752   30856  879543 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      -3.542e+06  6.113e+04  -57.95   <2e-16 ***
+Longitude        -4.253e+04  6.935e+02  -61.33   <2e-16 ***
+Latitude         -4.278e+04  6.498e+02  -65.84   <2e-16 ***
+HousingMedianAge  1.136e+03  4.322e+01   26.28   <2e-16 ***
+Population       -4.368e+01  1.031e+00  -42.36   <2e-16 ***
+Households        1.415e+02  3.058e+00   46.26   <2e-16 ***
+MedianIncome      3.792e+04  2.702e+02  140.37   <2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 69990 on 20633 degrees of freedom
+Multiple R-squared:  0.6322,	Adjusted R-squared:  0.6321 
+F-statistic:  5912 on 6 and 20633 DF,  p-value: < 2.2e-16
+
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} fit5 \PY{o}{=} lm\PY{p}{(}MedianHouseValue\PY{o}{\PYZti{}}\PY{l+m}{.}\PY{o}{\PYZhy{}}Households\PY{p}{,}data\PY{o}{=}california\PY{p}{)}
+         \PY{l+s}{\PYZdq{}}\PY{l+s}{Resultados quinto modelo\PYZdq{}}
+         \PY{k+kp}{summary}\PY{p}{(}fit5\PY{p}{)}
+\end{Verbatim}
+
+
+    'Resultados quinto modelo'
+
+    
+    
+    \begin{verbatim}
+
+Call:
+lm(formula = MedianHouseValue ~ . - Households, data = california)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-566279  -43499  -11344   30482  744792 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      -3.673e+06  6.139e+04  -59.83   <2e-16 ***
+Longitude        -4.368e+04  7.010e+02  -62.31   <2e-16 ***
+Latitude         -4.326e+04  6.654e+02  -65.02   <2e-16 ***
+HousingMedianAge  1.165e+03  4.319e+01   26.99   <2e-16 ***
+TotalRooms       -8.439e+00  7.879e-01  -10.71   <2e-16 ***
+TotalBedrooms     1.497e+02  3.967e+00   37.74   <2e-16 ***
+Population       -3.514e+01  9.416e-01  -37.32   <2e-16 ***
+MedianIncome      4.042e+04  3.343e+02  120.91   <2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 69600 on 20632 degrees of freedom
+Multiple R-squared:  0.6364,	Adjusted R-squared:  0.6363 
+F-statistic:  5158 on 7 and 20632 DF,  p-value: < 2.2e-16
+
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} fit6 \PY{o}{=} lm\PY{p}{(}MedianHouseValue\PY{o}{\PYZti{}}\PY{l+m}{.}\PY{o}{\PYZhy{}}Households\PY{o}{\PYZhy{}}TotalRooms\PY{o}{\PYZhy{}}TotalBedrooms\PY{p}{,}data\PY{o}{=}california\PY{p}{)}
+         \PY{l+s}{\PYZdq{}}\PY{l+s}{Resultados sexto modelo\PYZdq{}}
+         \PY{k+kp}{summary}\PY{p}{(}fit6\PY{p}{)}
+         \PY{l+s}{\PYZdq{}}\PY{l+s}{Parece que las variables TotalRooms o TotalBedrooms sí que aportan algo de}
+         \PY{l+s}{información por ello nos quedaremos con una de las dos ya que parecen estar relacionadas.}
+         \PY{l+s}{De estas nos quedaremos con TotalBedrooms.\PYZdq{}}
+         ggplot\PY{p}{(}california\PY{p}{,} aes\PY{p}{(}x\PY{o}{=}TotalRooms\PY{p}{,}y\PY{o}{=}TotalBedrooms\PY{p}{)}\PY{p}{)} \PY{o}{+}  geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}
+         cor\PY{p}{(}california\PY{o}{\PYZdl{}}TotalBedrooms\PY{p}{,} california\PY{o}{\PYZdl{}}TotalRooms\PY{p}{)}
+\end{Verbatim}
+
+
+    'Resultados sexto modelo'
+
+    
+    
+    \begin{verbatim}
+
+Call:
+lm(formula = MedianHouseValue ~ . - Households - TotalRooms - 
+    TotalBedrooms, data = california)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-541460  -47963  -13827   32555  485125 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      -3.793e+06  6.396e+04 -59.303   <2e-16 ***
+Longitude        -4.527e+04  7.259e+02 -62.368   <2e-16 ***
+Latitude         -4.448e+04  6.815e+02 -65.274   <2e-16 ***
+HousingMedianAge  9.285e+02  4.515e+01  20.563   <2e-16 ***
+Population       -8.973e-01  4.789e-01  -1.874    0.061 .  
+MedianIncome      3.781e+04  2.838e+02 133.222   <2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 73530 on 20634 degrees of freedom
+Multiple R-squared:  0.5941,	Adjusted R-squared:  0.594 
+F-statistic:  6040 on 5 and 20634 DF,  p-value: < 2.2e-16
+
+    \end{verbatim}
+
+    
+    'Parece que las variables TotalRooms o TotalBedrooms sí que aportan algo de\textbackslash{}ninformación por ello nos quedaremos con una de las dos ya que parecen estar relacionadas.\textbackslash{}nDe estas nos quedaremos con TotalBedrooms.'
+
+    
+    
+    
+    0.929893348013193
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} fit7 \PY{o}{=} lm\PY{p}{(}MedianHouseValue\PY{o}{\PYZti{}}\PY{l+m}{.}\PY{o}{\PYZhy{}}Households\PY{o}{\PYZhy{}}TotalRooms\PY{p}{,}data\PY{o}{=}california\PY{p}{)}
+         \PY{k+kp}{summary}\PY{p}{(}fit7\PY{p}{)}
+         
+         \PY{l+s}{\PYZdq{}}\PY{l+s}{Mirando la forma que la gráfica de HouseMedianAge vs MedianHouseValue}
+         \PY{l+s}{parece que no hay ninguna relación lineal entre las dos, así que probaremos}
+         \PY{l+s}{a quitarla también\PYZdq{}}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+Call:
+lm(formula = MedianHouseValue ~ . - Households - TotalRooms, 
+    data = california)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-544206  -43969  -11559   30735  796545 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      -3.781e+06  6.071e+04  -62.29   <2e-16 ***
+Longitude        -4.517e+04  6.890e+02  -65.56   <2e-16 ***
+Latitude         -4.501e+04  6.469e+02  -69.57   <2e-16 ***
+HousingMedianAge  1.194e+03  4.322e+01   27.64   <2e-16 ***
+TotalBedrooms     1.161e+02  2.437e+00   47.66   <2e-16 ***
+Population       -3.808e+01  9.029e-01  -42.18   <2e-16 ***
+MedianIncome      3.829e+04  2.696e+02  142.04   <2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 69790 on 20633 degrees of freedom
+Multiple R-squared:  0.6344,	Adjusted R-squared:  0.6343 
+F-statistic:  5966 on 6 and 20633 DF,  p-value: < 2.2e-16
+
+    \end{verbatim}
+
+    
+    'Mirando la forma que la gráfica de HouseMedianAge vs MedianHouseValue\textbackslash{}nparece que no hay ninguna relación lineal entre las dos, así que probaremos\textbackslash{}na quitarla también'
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} fit8 \PY{o}{=} lm\PY{p}{(}MedianHouseValue\PY{o}{\PYZti{}}\PY{l+m}{.}\PY{o}{\PYZhy{}}Households\PY{o}{\PYZhy{}}TotalRooms\PY{o}{\PYZhy{}}HousingMedianAge\PY{p}{,} data\PY{o}{=}california\PY{p}{)}
+         \PY{k+kp}{summary}\PY{p}{(}fit8\PY{p}{)}
+         
+         \PY{l+s}{\PYZdq{}}\PY{l+s}{Como no hay una mejora/empeoramiento significativo probaremos a hacer}
+         \PY{l+s}{interacciones entre variables y elevar al cuadrado a algunas para ver si mejora}
+         \PY{l+s}{el modelo. También consideraremos variables que habíamos eliminado antes.\PYZdq{}}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+Call:
+lm(formula = MedianHouseValue ~ . - Households - TotalRooms - 
+    HousingMedianAge, data = california)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-508897  -44306  -12397   30591  853599 
+
+Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   -4.248e+06  5.939e+04  -71.53   <2e-16 ***
+Longitude     -5.104e+04  6.675e+02  -76.46   <2e-16 ***
+Latitude      -5.030e+04  6.292e+02  -79.94   <2e-16 ***
+TotalBedrooms  1.075e+02  2.461e+00   43.67   <2e-16 ***
+Population    -3.922e+01  9.185e-01  -42.70   <2e-16 ***
+MedianIncome   3.677e+04  2.687e+02  136.83   <2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 71070 on 20634 degrees of freedom
+Multiple R-squared:  0.6208,	Adjusted R-squared:  0.6207 
+F-statistic:  6757 on 5 and 20634 DF,  p-value: < 2.2e-16
+
+    \end{verbatim}
+
+    
+    'Como no hay una mejora/empeoramiento significativo probaremos a hacer\textbackslash{}ninteracciones entre variables y elevar al cuadrado a algunas para ver si mejora\textbackslash{}nel modelo. También consideraremos variables que habíamos eliminado antes.'
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} fit9 \PY{o}{=} lm\PY{p}{(} MedianHouseValue\PY{o}{\PYZti{}}\PY{l+m}{.}\PY{o}{+}\PY{k+kp}{I}\PY{p}{(}MedianIncome\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}\PY{p}{,}data\PY{o}{=}california\PY{p}{)}
+         \PY{k+kp}{summary}\PY{p}{(}fit9\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Parece que el modelo mejora algo aunque minimamente, añadiremos más variables para ver si mejora más o no.}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+Call:
+lm(formula = MedianHouseValue ~ . + I(MedianIncome^2), data = california)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-499603  -44139  -11085   30992  783310 
+
+Coefficients:
+                    Estimate Std. Error t value Pr(>|t|)    
+(Intercept)       -3.499e+06  6.276e+04 -55.743  < 2e-16 ***
+Longitude         -4.138e+04  7.195e+02 -57.503  < 2e-16 ***
+Latitude          -4.109e+04  6.811e+02 -60.327  < 2e-16 ***
+HousingMedianAge   1.219e+03  4.329e+01  28.165  < 2e-16 ***
+TotalRooms        -1.047e+01  8.059e-01 -12.990  < 2e-16 ***
+TotalBedrooms      1.274e+02  6.965e+00  18.291  < 2e-16 ***
+Population        -3.710e+01  1.081e+00 -34.323  < 2e-16 ***
+Households         4.060e+01  7.511e+00   5.405 6.55e-08 ***
+MedianIncome       5.030e+04  8.652e+02  58.136  < 2e-16 ***
+I(MedianIncome^2) -8.539e+02  6.782e+01 -12.590  < 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 69260 on 20630 degrees of freedom
+Multiple R-squared:  0.6399,	Adjusted R-squared:  0.6397 
+F-statistic:  4073 on 9 and 20630 DF,  p-value: < 2.2e-16
+
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} fit10 \PY{o}{=} lm\PY{p}{(}MedianHouseValue\PY{o}{\PYZti{}}\PY{l+m}{.}\PY{o}{+}\PY{k+kp}{I}\PY{p}{(}Households\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}\PY{p}{,} data\PY{o}{=}california\PY{p}{)}
+         \PY{k+kp}{summary}\PY{p}{(}fit10\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} En este caso la diferencia no es significativa, así que no utilizaremos esta variable, al menos sola.}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+Call:
+lm(formula = MedianHouseValue ~ . + I(Households^2), data = california)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-559845  -43597  -11531   30368  852281 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      -3.584e+06  6.253e+04 -57.314  < 2e-16 ***
+Longitude        -4.264e+04  7.135e+02 -59.766  < 2e-16 ***
+Latitude         -4.238e+04  6.740e+02 -62.870  < 2e-16 ***
+HousingMedianAge  1.183e+03  4.347e+01  27.220  < 2e-16 ***
+TotalRooms       -7.779e+00  7.917e-01  -9.827  < 2e-16 ***
+TotalBedrooms     1.132e+02  6.898e+00  16.406  < 2e-16 ***
+Population       -3.803e+01  1.083e+00 -35.121  < 2e-16 ***
+Households        5.658e+01  7.686e+00   7.361 1.89e-13 ***
+MedianIncome      4.023e+04  3.349e+02 120.133  < 2e-16 ***
+I(Households^2)  -4.851e-03  9.589e-04  -5.059 4.25e-07 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 69490 on 20630 degrees of freedom
+Multiple R-squared:  0.6376,	Adjusted R-squared:  0.6374 
+F-statistic:  4032 on 9 and 20630 DF,  p-value: < 2.2e-16
+
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} fit11 \PY{o}{=} lm\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}MedianHouseValue\PY{p}{)}\PY{o}{\PYZti{}}\PY{l+m}{.}\PY{o}{+}\PY{k+kp}{I}\PY{p}{(}Households\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}\PY{o}{+}\PY{k+kp}{I}\PY{p}{(}MedianIncome\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}\PY{p}{,}data\PY{o}{=}california\PY{p}{)}
+         \PY{k+kp}{summary}\PY{p}{(}fit11\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} En este caso si que vemos una mejora considerable conforme al modelo anterior, así que conservaremos}
+         \PY{c+c1}{\PYZsh{} nuestra variable predictora con la transformación logarítmica.}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+Call:
+lm(formula = log(MedianHouseValue) ~ . + I(Households^2) + I(MedianIncome^2), 
+    data = california)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.6247 -0.1991 -0.0126  0.1825  3.4084 
+
+Coefficients:
+                    Estimate Std. Error t value Pr(>|t|)    
+(Intercept)       -1.029e+01  2.962e-01 -34.731  < 2e-16 ***
+Longitude         -2.532e-01  3.398e-03 -74.513  < 2e-16 ***
+Latitude          -2.563e-01  3.217e-03 -79.678  < 2e-16 ***
+HousingMedianAge   4.368e-03  2.056e-04  21.240  < 2e-16 ***
+TotalRooms        -6.459e-05  3.824e-06 -16.890  < 2e-16 ***
+TotalBedrooms      6.919e-04  3.286e-05  21.056  < 2e-16 ***
+Population        -1.478e-04  5.118e-06 -28.885  < 2e-16 ***
+Households         1.761e-04  3.629e-05   4.854 1.22e-06 ***
+MedianIncome       3.315e-01  4.086e-03  81.117  < 2e-16 ***
+I(Households^2)   -2.611e-08  4.514e-09  -5.785 7.36e-09 ***
+I(MedianIncome^2) -1.303e-02  3.203e-04 -40.677  < 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.3268 on 20629 degrees of freedom
+Multiple R-squared:  0.6705,	Adjusted R-squared:  0.6704 
+F-statistic:  4198 on 10 and 20629 DF,  p-value: < 2.2e-16
+
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} fit12 \PY{o}{=} lm\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}MedianHouseValue\PY{p}{)}\PY{o}{\PYZti{}}\PY{l+m}{.}\PY{o}{+}\PY{k+kp}{I}\PY{p}{(}MedianIncome\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}
+                    \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}Population\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{k+kp}{I}\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}TotalBedrooms\PY{p}{)}\PY{p}{)}
+                    \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}Longitude\PY{o}{*}Latitude\PY{p}{)} \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}Latitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)}
+                    \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}Longitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)} \PY{o}{+} \PY{k+kp}{I}\PY{p}{(}Latitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2} \PY{o}{*} Longitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)} 
+                    \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}Longitude\PY{o}{*}Latitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)} \PY{o}{+} \PY{k+kp}{I}\PY{p}{(}Longitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{o}{*}Latitude\PY{p}{)} 
+                    \PY{o}{+} \PY{k+kp}{I}\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}TotalRooms\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} Households \PY{o}{\PYZhy{}} HousingMedianAge
+                    \PY{p}{,} data\PY{o}{=}california\PY{p}{)}
+         \PY{k+kp}{summary}\PY{p}{(}fit12\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Este es el mejor modelo obtenido hasta ahora, se han eliminado las variables Households y HousingMedianAge}
+         \PY{c+c1}{\PYZsh{} ya que no aportaban nada realmente al modelo y las pérdidas en la variable R\PYZca{}2 ajustada son mínimas. Otras}
+         \PY{c+c1}{\PYZsh{} transformaciones como las logarítmicas se han probado debido a la información aportada por los histogramas}
+         \PY{c+c1}{\PYZsh{} anteriores (en los histogramas están transformados también). Las transformaciones a las variables Longitude}
+         \PY{c+c1}{\PYZsh{} y Latitude se han sido pruebas para intentar mejorar el modelo algo más.}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+Call:
+lm(formula = log(MedianHouseValue) ~ . + I(MedianIncome^2) + 
+    I(log(Population)) + I(log(TotalBedrooms)) + I(Longitude * 
+    Latitude) + I(Latitude^2) + I(Longitude^2) + I(Latitude^2 * 
+    Longitude^2) + I(Longitude * Latitude^2) + I(Longitude^2 * 
+    Latitude) + I(log(TotalRooms)) - Households - HousingMedianAge, 
+    data = california)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.6597 -0.1806 -0.0130  0.1711  2.3404 
+
+Coefficients:
+                              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                 -9.004e+04  2.578e+03 -34.928  < 2e-16 ***
+Longitude                   -1.502e+03  4.296e+01 -34.949  < 2e-16 ***
+Latitude                     4.930e+03  1.423e+02  34.654  < 2e-16 ***
+TotalRooms                  -2.392e-05  4.397e-06  -5.439 5.42e-08 ***
+TotalBedrooms                1.737e-04  2.445e-05   7.102 1.27e-12 ***
+Population                  -1.099e-05  6.158e-06  -1.784   0.0744 .  
+MedianIncome                 3.323e-01  4.338e-03  76.596  < 2e-16 ***
+I(MedianIncome^2)           -1.275e-02  3.116e-04 -40.924  < 2e-16 ***
+I(log(Population))          -2.940e-01  1.034e-02 -28.433  < 2e-16 ***
+I(log(TotalBedrooms))        5.377e-01  1.960e-02  27.442  < 2e-16 ***
+I(Longitude * Latitude)      8.225e+01  2.366e+00  34.770  < 2e-16 ***
+I(Latitude^2)               -6.702e+01  1.973e+00 -33.977  < 2e-16 ***
+I(Longitude^2)              -6.253e+00  1.791e-01 -34.921  < 2e-16 ***
+I(Latitude^2 * Longitude^2) -4.663e-03  1.357e-04 -34.359  < 2e-16 ***
+I(Longitude * Latitude^2)   -1.119e+00  3.272e-02 -34.189  < 2e-16 ***
+I(Longitude^2 * Latitude)    3.427e-01  9.837e-03  34.843  < 2e-16 ***
+I(log(TotalRooms))          -2.431e-01  1.802e-02 -13.490  < 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.306 on 20623 degrees of freedom
+Multiple R-squared:  0.7112,	Adjusted R-squared:  0.711 
+F-statistic:  3174 on 16 and 20623 DF,  p-value: < 2.2e-16
+
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} nombre \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{datos/california\PYZdq{}} 
+         \PY{k+kp}{names}\PY{p}{(}california\PY{p}{)}
+         run\PYZus{}lm\PYZus{}fold \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kr}{function}\PY{p}{(}i\PY{p}{,} x\PY{p}{,} tt \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+             file \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{paste}\PY{p}{(}x\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} i\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tra.dat\PYZdq{}}\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             x\PYZus{}tra \PY{o}{\PYZlt{}\PYZhy{}} read.csv\PY{p}{(}\PY{k+kp}{file}\PY{p}{,} comment.char\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} header\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+             file \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{paste}\PY{p}{(}x\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} i\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tst.dat\PYZdq{}}\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             x\PYZus{}tst \PY{o}{\PYZlt{}\PYZhy{}} read.csv\PY{p}{(}\PY{k+kp}{file}\PY{p}{,} comment.char\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} header\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+             In \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{length}\PY{p}{(}\PY{k+kp}{names}\PY{p}{(}x\PYZus{}tra\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m}{1}
+             \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tra\PY{p}{)}\PY{p}{[}\PY{l+m}{1}\PY{o}{:}In\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} paste \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}In\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tra\PY{p}{)}\PY{p}{[}In\PY{l+m}{+1}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+             \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tst\PY{p}{)}\PY{p}{[}\PY{l+m}{1}\PY{o}{:}In\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} paste \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}In\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tst\PY{p}{)}\PY{p}{[}In\PY{l+m}{+1}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+             \PY{k+kr}{if} \PY{p}{(}tt \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+                 test \PY{o}{\PYZlt{}\PYZhy{}} x\PYZus{}tra
+             \PY{p}{\PYZcb{}}
+             \PY{k+kr}{else} \PY{p}{\PYZob{}}
+                 test \PY{o}{\PYZlt{}\PYZhy{}} x\PYZus{}tst
+             \PY{p}{\PYZcb{}}
+             fitMulti\PY{o}{=}lm\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}Y\PY{p}{)}\PY{o}{\PYZti{}}\PY{l+m}{.}\PY{o}{+}\PY{k+kp}{I}\PY{p}{(}X8\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}
+                    \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}X6\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{k+kp}{I}\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}X5\PY{p}{)}\PY{p}{)}
+                    \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}X1\PY{o}{*}X2\PY{p}{)} \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}X2\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)}
+                    \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}X1\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)} \PY{o}{+} \PY{k+kp}{I}\PY{p}{(}X2\PY{o}{*}\PY{o}{*}\PY{l+m}{2} \PY{o}{*} X1\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)} 
+                    \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}X1\PY{o}{*}X2\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)} \PY{o}{+} \PY{k+kp}{I}\PY{p}{(}X1\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{o}{*}X2\PY{p}{)} 
+                    \PY{o}{+} \PY{k+kp}{I}\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}X4\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} X7 \PY{o}{\PYZhy{}} X3
+                    \PY{p}{,} data\PY{o}{=}x\PYZus{}tra\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Transformamos los datos a su forma normal ya que la predicción está hecha sobre log(Y) y no sobre Y}
+             yprime\PY{o}{=}\PY{k+kp}{exp}\PY{p}{(}predict\PY{p}{(}fitMulti\PY{p}{,}test\PY{p}{)}\PY{p}{)}
+             \PY{k+kp}{sum}\PY{p}{(}\PY{k+kp}{abs}\PY{p}{(}test\PY{o}{\PYZdl{}}Y\PY{o}{\PYZhy{}}yprime\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}\PY{o}{/}\PY{k+kp}{length}\PY{p}{(}yprime\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZsh{}MSE}
+         \PY{p}{\PYZcb{}}
+         lmMSEtrain\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{mean}\PY{p}{(}\PY{k+kp}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}run\PYZus{}lm\PYZus{}fold\PY{p}{,}nombre\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         lmMSEtest\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{mean}\PY{p}{(}\PY{k+kp}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}run\PYZus{}lm\PYZus{}fold\PY{p}{,}nombre\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         \PY{k+kp}{print}\PY{p}{(}lmMSEtrain\PY{p}{)}
+         \PY{k+kp}{print}\PY{p}{(}lmMSEtest\PY{p}{)}
+         
+         \PY{l+s}{\PYZdq{}}\PY{l+s}{Ahora pasaremos a estudiar modelos con knn\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{enumerate*}
+\item 'Longitude'
+\item 'Latitude'
+\item 'HousingMedianAge'
+\item 'TotalRooms'
+\item 'TotalBedrooms'
+\item 'Population'
+\item 'Households'
+\item 'MedianIncome'
+\item 'MedianHouseValue'
+\end{enumerate*}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1] 4251981783
+[1] 4260868184
+
+    \end{Verbatim}
+
+    'Ahora pasaremos a estudiar modelos con knn'
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{}install.packages(\PYZdq{}kknn\PYZdq{},repos = \PYZdq{}http://cran.us.r\PYZhy{}project.org\PYZdq{})}
+         \PY{k+kn}{require}\PY{p}{(}kknn\PY{p}{)}
+         fitknn1 \PY{o}{=} kknn\PY{p}{(}MedianHouseValue\PY{o}{\PYZti{}}MedianIncome\PY{p}{,}california\PY{p}{,}california\PY{p}{)}
+         yprime \PY{o}{=} fitknn1\PY{o}{\PYZdl{}}fitted.values
+         \PY{k+kp}{print}\PY{p}{(}\PY{k+kp}{sqrt}\PY{p}{(}\PY{k+kp}{sum}\PY{p}{(}\PY{p}{(}california\PY{o}{\PYZdl{}}MedianHouseValue\PY{o}{\PYZhy{}}yprime\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}\PY{o}{/}\PY{k+kp}{length}\PY{p}{(}yprime\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}RMSE}
+         
+         \PY{c+c1}{\PYZsh{} Los resultados no parecen demasiado buenos, así que probaremos con todas las variables}
+         fitknn2 \PY{o}{=} kknn\PY{p}{(}MedianHouseValue\PY{o}{\PYZti{}}\PY{l+m}{.}\PY{p}{,}california\PY{p}{,}california\PY{p}{)}
+         yprime \PY{o}{=} fitknn2\PY{o}{\PYZdl{}}fitted.values
+         \PY{k+kp}{print}\PY{p}{(}\PY{k+kp}{sqrt}\PY{p}{(}\PY{k+kp}{sum}\PY{p}{(}\PY{p}{(}california\PY{o}{\PYZdl{}}MedianHouseValue\PY{o}{\PYZhy{}}yprime\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{k+kp}{length}\PY{p}{(}yprime\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Por si acaso, voy a probar con las mismas variables de mi mejor modelo lineal}
+         fitknn3 \PY{o}{=} kknn\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}MedianHouseValue\PY{p}{)}\PY{o}{\PYZti{}}\PY{l+m}{.}\PY{o}{+}\PY{k+kp}{I}\PY{p}{(}MedianIncome\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}
+                    \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}Population\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{k+kp}{I}\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}TotalBedrooms\PY{p}{)}\PY{p}{)}
+                    \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}Longitude\PY{o}{*}Latitude\PY{p}{)} \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}Latitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)}
+                    \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}Longitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)} \PY{o}{+} \PY{k+kp}{I}\PY{p}{(}Latitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2} \PY{o}{*} Longitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)} 
+                    \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}Longitude\PY{o}{*}Latitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)} \PY{o}{+} \PY{k+kp}{I}\PY{p}{(}Longitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{o}{*}Latitude\PY{p}{)} 
+                    \PY{o}{+} \PY{k+kp}{I}\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}TotalRooms\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} Households \PY{o}{\PYZhy{}} HousingMedianAge
+                    \PY{p}{,} california\PY{p}{,} california\PY{p}{)}
+         yprime \PY{o}{=} \PY{k+kp}{exp}\PY{p}{(}fitknn3\PY{o}{\PYZdl{}}fitted.values\PY{p}{)}
+         \PY{k+kp}{print}\PY{p}{(}\PY{k+kp}{sqrt}\PY{p}{(}\PY{k+kp}{sum}\PY{p}{(}\PY{p}{(}california\PY{o}{\PYZdl{}}MedianHouseValue\PY{o}{\PYZhy{}}yprime\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{k+kp}{length}\PY{p}{(}yprime\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} En este caso, las interraciones de las variables que funcionaban bien para el modelo lineal}
+         \PY{c+c1}{\PYZsh{} siguen funcionando bien para el algoritmo de knn. Por ello, el siguiente paso que voy a dar es }
+         \PY{c+c1}{\PYZsh{} intentar mejorar el RMSE modificando los parámetros del modelo para intentar mejorarlo.}
+         fitknn4\PY{o}{=} kknn\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}MedianHouseValue\PY{p}{)}\PY{o}{\PYZti{}}\PY{l+m}{.}\PY{o}{+}\PY{k+kp}{I}\PY{p}{(}MedianIncome\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}
+                    \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}Population\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{k+kp}{I}\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}TotalBedrooms\PY{p}{)}\PY{p}{)}
+                    \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}Longitude\PY{o}{*}Latitude\PY{p}{)} \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}Latitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)}
+                    \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}Longitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)} \PY{o}{+} \PY{k+kp}{I}\PY{p}{(}Latitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2} \PY{o}{*} Longitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)} 
+                    \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}Longitude\PY{o}{*}Latitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)} \PY{o}{+} \PY{k+kp}{I}\PY{p}{(}Longitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{o}{*}Latitude\PY{p}{)} 
+                    \PY{o}{+} \PY{k+kp}{I}\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}TotalRooms\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} Households \PY{o}{\PYZhy{}} HousingMedianAge
+                    \PY{p}{,} california\PY{p}{,} california\PY{p}{,}k\PY{o}{=}\PY{l+m}{5}\PY{p}{)}
+         yprime \PY{o}{=} \PY{k+kp}{exp}\PY{p}{(}fitknn4\PY{o}{\PYZdl{}}fitted.values\PY{p}{)}
+         \PY{k+kp}{print}\PY{p}{(}\PY{k+kp}{sqrt}\PY{p}{(}\PY{k+kp}{sum}\PY{p}{(}\PY{p}{(}california\PY{o}{\PYZdl{}}MedianHouseValue\PY{o}{\PYZhy{}}yprime\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{k+kp}{length}\PY{p}{(}yprime\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Parece que para k=5 da mejores resultados que para k=7, que es el valor por defecto, así que dejaremos el valor de k}
+         \PY{c+c1}{\PYZsh{} como 5. Ahora, vamos a probar a cambiar el kernel del algoritmo para ver si funciona mejor.}
+         fitknn5\PY{o}{=} kknn\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}MedianHouseValue\PY{p}{)}\PY{o}{\PYZti{}}\PY{l+m}{.}\PY{o}{+}\PY{k+kp}{I}\PY{p}{(}MedianIncome\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}
+                    \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}Population\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{k+kp}{I}\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}TotalBedrooms\PY{p}{)}\PY{p}{)}
+                    \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}Longitude\PY{o}{*}Latitude\PY{p}{)} \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}Latitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)}
+                    \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}Longitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)} \PY{o}{+} \PY{k+kp}{I}\PY{p}{(}Latitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2} \PY{o}{*} Longitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)} 
+                    \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}Longitude\PY{o}{*}Latitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)} \PY{o}{+} \PY{k+kp}{I}\PY{p}{(}Longitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{o}{*}Latitude\PY{p}{)} 
+                    \PY{o}{+} \PY{k+kp}{I}\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}TotalRooms\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} Households \PY{o}{\PYZhy{}} HousingMedianAge
+                    \PY{p}{,} california\PY{p}{,} california\PY{p}{,}k\PY{o}{=}\PY{l+m}{5}\PY{p}{,}kernel\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{gaussian\PYZdq{}}\PY{p}{)}
+         yprime \PY{o}{=} \PY{k+kp}{exp}\PY{p}{(}fitknn5\PY{o}{\PYZdl{}}fitted.values\PY{p}{)}
+         \PY{k+kp}{print}\PY{p}{(}\PY{k+kp}{sqrt}\PY{p}{(}\PY{k+kp}{sum}\PY{p}{(}\PY{p}{(}california\PY{o}{\PYZdl{}}MedianHouseValue\PY{o}{\PYZhy{}}yprime\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{k+kp}{length}\PY{p}{(}yprime\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Este modelo empeora con respecto al anterior, así que probaremos con otro kernel.}
+         
+         fitknn6\PY{o}{=} kknn\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}MedianHouseValue\PY{p}{)}\PY{o}{\PYZti{}}\PY{l+m}{.}\PY{o}{+}\PY{k+kp}{I}\PY{p}{(}MedianIncome\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}
+                    \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}Population\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{k+kp}{I}\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}TotalBedrooms\PY{p}{)}\PY{p}{)}
+                    \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}Longitude\PY{o}{*}Latitude\PY{p}{)} \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}Latitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)}
+                    \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}Longitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)} \PY{o}{+} \PY{k+kp}{I}\PY{p}{(}Latitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2} \PY{o}{*} Longitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)} 
+                    \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}Longitude\PY{o}{*}Latitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)} \PY{o}{+} \PY{k+kp}{I}\PY{p}{(}Longitude\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{o}{*}Latitude\PY{p}{)} 
+                    \PY{o}{+} \PY{k+kp}{I}\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}TotalRooms\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} Households \PY{o}{\PYZhy{}} HousingMedianAge
+                    \PY{p}{,} california\PY{p}{,} california\PY{p}{,}k\PY{o}{=}\PY{l+m}{5}\PY{p}{,} kernel\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{biweight\PYZdq{}}\PY{p}{)}
+         yprime \PY{o}{=} \PY{k+kp}{exp}\PY{p}{(}fitknn6\PY{o}{\PYZdl{}}fitted.values\PY{p}{)}
+         \PY{k+kp}{print}\PY{p}{(}\PY{k+kp}{sqrt}\PY{p}{(}\PY{k+kp}{sum}\PY{p}{(}\PY{p}{(}california\PY{o}{\PYZdl{}}MedianHouseValue\PY{o}{\PYZhy{}}yprime\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{k+kp}{length}\PY{p}{(}yprime\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Por ahora este es nuestro mejor modelo, ahora tenemos que comprobar si el modelo no}
+         \PY{c+c1}{\PYZsh{} tiene sobreaprendizaje.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Loading required package: kknn
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1] 73156.04
+[1] 272.3752
+[1] 261.7797
+[1] 227.1056
+[1] 286.8212
+[1] 152.2582
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} nombre \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{datos/california\PYZdq{}}
+        run\PYZus{}knn\PYZus{}fold \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kr}{function}\PY{p}{(}i\PY{p}{,} x\PY{p}{,} tt \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+            file \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{paste}\PY{p}{(}x\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} i\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tra.dat\PYZdq{}}\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+            x\PYZus{}tra \PY{o}{\PYZlt{}\PYZhy{}} read.csv\PY{p}{(}\PY{k+kp}{file}\PY{p}{,} comment.char\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} header\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+            file \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{paste}\PY{p}{(}x\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} i\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tst.dat\PYZdq{}}\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+            x\PYZus{}tst \PY{o}{\PYZlt{}\PYZhy{}} read.csv\PY{p}{(}\PY{k+kp}{file}\PY{p}{,} comment.char\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} header\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+            In \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{length}\PY{p}{(}\PY{k+kp}{names}\PY{p}{(}x\PYZus{}tra\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m}{1}
+            \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tra\PY{p}{)}\PY{p}{[}\PY{l+m}{1}\PY{o}{:}In\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} paste \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}In\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+            \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tra\PY{p}{)}\PY{p}{[}In\PY{l+m}{+1}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+            \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tst\PY{p}{)}\PY{p}{[}\PY{l+m}{1}\PY{o}{:}In\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} paste \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}In\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+            \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tst\PY{p}{)}\PY{p}{[}In\PY{l+m}{+1}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+            \PY{k+kr}{if} \PY{p}{(}tt \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+                test \PY{o}{\PYZlt{}\PYZhy{}} x\PYZus{}tra
+            \PY{p}{\PYZcb{}}
+            \PY{k+kr}{else} \PY{p}{\PYZob{}}
+                test \PY{o}{\PYZlt{}\PYZhy{}} x\PYZus{}tst
+            \PY{p}{\PYZcb{}}
+            fitMulti\PY{o}{=}kknn\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}Y\PY{p}{)}\PY{o}{\PYZti{}}\PY{l+m}{.}\PY{o}{+}\PY{k+kp}{I}\PY{p}{(}X8\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}
+                   \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}X6\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{k+kp}{I}\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}X5\PY{p}{)}\PY{p}{)}
+                   \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}X1\PY{o}{*}X2\PY{p}{)} \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}X2\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)}
+                   \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}X1\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)} \PY{o}{+} \PY{k+kp}{I}\PY{p}{(}X2\PY{o}{*}\PY{o}{*}\PY{l+m}{2} \PY{o}{*} X1\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)} 
+                   \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}X1\PY{o}{*}X2\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)} \PY{o}{+} \PY{k+kp}{I}\PY{p}{(}X1\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{o}{*}X2\PY{p}{)} 
+                   \PY{o}{+} \PY{k+kp}{I}\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}X4\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} X7 \PY{o}{\PYZhy{}} X3
+                   \PY{p}{,} x\PYZus{}tra\PY{p}{,}test\PY{p}{,}k\PY{o}{=}\PY{l+m}{5}\PY{p}{,}kernel\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{biweight\PYZdq{}}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} Transformamos los datos a su forma normal ya que la predicción está hecha sobre log(Y) y no sobre Y}
+            yprime\PY{o}{=}\PY{k+kp}{exp}\PY{p}{(}fitMulti\PY{o}{\PYZdl{}}fitted.values\PY{p}{)}
+            \PY{k+kp}{sum}\PY{p}{(}\PY{k+kp}{abs}\PY{p}{(}test\PY{o}{\PYZdl{}}Y\PY{o}{\PYZhy{}}yprime\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}\PY{o}{/}\PY{k+kp}{length}\PY{p}{(}yprime\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZsh{}MSE}
+        \PY{p}{\PYZcb{}}
+        knnMSEtrain\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{mean}\PY{p}{(}\PY{k+kp}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}run\PYZus{}knn\PYZus{}fold\PY{p}{,}nombre\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        knnMSEtest\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{mean}\PY{p}{(}\PY{k+kp}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}run\PYZus{}knn\PYZus{}fold\PY{p}{,}nombre\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{k+kp}{print}\PY{p}{(}knnMSEtrain\PY{p}{)}
+        \PY{k+kp}{print}\PY{p}{(}knnMSEtest\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} En este caso, el error en train es mayor que el error que en test; esto suele ser bastante raro, así que}
+        \PY{c+c1}{\PYZsh{} probaremos con otros modelos de los creados antes para ver si funcionan mejor.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} nombre \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{datos/california\PYZdq{}}
+        run\PYZus{}knn\PYZus{}fold \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kr}{function}\PY{p}{(}i\PY{p}{,} x\PY{p}{,} tt \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+            file \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{paste}\PY{p}{(}x\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} i\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tra.dat\PYZdq{}}\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+            x\PYZus{}tra \PY{o}{\PYZlt{}\PYZhy{}} read.csv\PY{p}{(}\PY{k+kp}{file}\PY{p}{,} comment.char\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} header\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+            file \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{paste}\PY{p}{(}x\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} i\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tst.dat\PYZdq{}}\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+            x\PYZus{}tst \PY{o}{\PYZlt{}\PYZhy{}} read.csv\PY{p}{(}\PY{k+kp}{file}\PY{p}{,} comment.char\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} header\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+            In \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{length}\PY{p}{(}\PY{k+kp}{names}\PY{p}{(}x\PYZus{}tra\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m}{1}
+            \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tra\PY{p}{)}\PY{p}{[}\PY{l+m}{1}\PY{o}{:}In\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} paste \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}In\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+            \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tra\PY{p}{)}\PY{p}{[}In\PY{l+m}{+1}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+            \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tst\PY{p}{)}\PY{p}{[}\PY{l+m}{1}\PY{o}{:}In\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} paste \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}In\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+            \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tst\PY{p}{)}\PY{p}{[}In\PY{l+m}{+1}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+            \PY{k+kr}{if} \PY{p}{(}tt \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+                test \PY{o}{\PYZlt{}\PYZhy{}} x\PYZus{}tra
+            \PY{p}{\PYZcb{}}
+            \PY{k+kr}{else} \PY{p}{\PYZob{}}
+                test \PY{o}{\PYZlt{}\PYZhy{}} x\PYZus{}tst
+            \PY{p}{\PYZcb{}}
+            fitMulti\PY{o}{=}kknn\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}Y\PY{p}{)}\PY{o}{\PYZti{}}\PY{l+m}{.}\PY{o}{+}\PY{k+kp}{I}\PY{p}{(}X8\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}
+                   \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}X6\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{k+kp}{I}\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}X5\PY{p}{)}\PY{p}{)}
+                   \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}X1\PY{o}{*}X2\PY{p}{)} \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}X2\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)}
+                   \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}X1\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)} \PY{o}{+} \PY{k+kp}{I}\PY{p}{(}X2\PY{o}{*}\PY{o}{*}\PY{l+m}{2} \PY{o}{*} X1\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)} 
+                   \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}X1\PY{o}{*}X2\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)} \PY{o}{+} \PY{k+kp}{I}\PY{p}{(}X1\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{o}{*}X2\PY{p}{)} 
+                   \PY{o}{+} \PY{k+kp}{I}\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}X4\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} X7 \PY{o}{\PYZhy{}} X3
+                   \PY{p}{,} x\PYZus{}tra\PY{p}{,}test\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} Transformamos los datos a su forma normal ya que la predicción está hecha sobre log(Y) y no sobre Y}
+            yprime\PY{o}{=}\PY{k+kp}{exp}\PY{p}{(}fitMulti\PY{o}{\PYZdl{}}fitted.values\PY{p}{)}
+            \PY{k+kp}{sum}\PY{p}{(}\PY{k+kp}{abs}\PY{p}{(}test\PY{o}{\PYZdl{}}Y\PY{o}{\PYZhy{}}yprime\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}\PY{o}{/}\PY{k+kp}{length}\PY{p}{(}yprime\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZsh{}MSE}
+        \PY{p}{\PYZcb{}}
+        knnMSEtrain\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{mean}\PY{p}{(}\PY{k+kp}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}run\PYZus{}knn\PYZus{}fold\PY{p}{,}nombre\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        knnMSEtest\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{mean}\PY{p}{(}\PY{k+kp}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}run\PYZus{}knn\PYZus{}fold\PY{p}{,}nombre\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{k+kp}{print}\PY{p}{(}knnMSEtrain\PY{p}{)}
+        \PY{k+kp}{print}\PY{p}{(}knnMSEtest\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Para este algoritmo, aunque el error parece ser menor que para el modelo lineal, si que hay sobreaprendizaje.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} nombre \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{datos/california\PYZdq{}}
+        run\PYZus{}knn\PYZus{}fold \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kr}{function}\PY{p}{(}i\PY{p}{,} x\PY{p}{,} tt \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+            file \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{paste}\PY{p}{(}x\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} i\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tra.dat\PYZdq{}}\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+            x\PYZus{}tra \PY{o}{\PYZlt{}\PYZhy{}} read.csv\PY{p}{(}\PY{k+kp}{file}\PY{p}{,} comment.char\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} header\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+            file \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{paste}\PY{p}{(}x\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} i\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tst.dat\PYZdq{}}\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+            x\PYZus{}tst \PY{o}{\PYZlt{}\PYZhy{}} read.csv\PY{p}{(}\PY{k+kp}{file}\PY{p}{,} comment.char\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} header\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+            In \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{length}\PY{p}{(}\PY{k+kp}{names}\PY{p}{(}x\PYZus{}tra\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m}{1}
+            \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tra\PY{p}{)}\PY{p}{[}\PY{l+m}{1}\PY{o}{:}In\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} paste \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}In\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+            \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tra\PY{p}{)}\PY{p}{[}In\PY{l+m}{+1}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+            \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tst\PY{p}{)}\PY{p}{[}\PY{l+m}{1}\PY{o}{:}In\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} paste \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}In\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+            \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tst\PY{p}{)}\PY{p}{[}In\PY{l+m}{+1}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+            \PY{k+kr}{if} \PY{p}{(}tt \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+                test \PY{o}{\PYZlt{}\PYZhy{}} x\PYZus{}tra
+            \PY{p}{\PYZcb{}}
+            \PY{k+kr}{else} \PY{p}{\PYZob{}}
+                test \PY{o}{\PYZlt{}\PYZhy{}} x\PYZus{}tst
+            \PY{p}{\PYZcb{}}
+            fitMulti\PY{o}{=}kknn\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}Y\PY{p}{)}\PY{o}{\PYZti{}}\PY{l+m}{.}\PY{o}{+}\PY{k+kp}{I}\PY{p}{(}X8\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}
+                   \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}X6\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{k+kp}{I}\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}X5\PY{p}{)}\PY{p}{)}
+                   \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}X1\PY{o}{*}X2\PY{p}{)} \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}X2\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)}
+                   \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}X1\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)} \PY{o}{+} \PY{k+kp}{I}\PY{p}{(}X2\PY{o}{*}\PY{o}{*}\PY{l+m}{2} \PY{o}{*} X1\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)} 
+                   \PY{o}{+}\PY{k+kp}{I}\PY{p}{(}X1\PY{o}{*}X2\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)} \PY{o}{+} \PY{k+kp}{I}\PY{p}{(}X1\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{o}{*}X2\PY{p}{)} 
+                   \PY{o}{+} \PY{k+kp}{I}\PY{p}{(}\PY{k+kp}{log}\PY{p}{(}X4\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} X7 \PY{o}{\PYZhy{}} X3
+                   \PY{p}{,} x\PYZus{}tra\PY{p}{,}test\PY{p}{,}k\PY{o}{=}\PY{l+m}{5}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} Transformamos los datos a su forma normal ya que la predicción está hecha sobre log(Y) y no sobre Y}
+            yprime\PY{o}{=}\PY{k+kp}{exp}\PY{p}{(}fitMulti\PY{o}{\PYZdl{}}fitted.values\PY{p}{)}
+            \PY{k+kp}{sum}\PY{p}{(}\PY{k+kp}{abs}\PY{p}{(}test\PY{o}{\PYZdl{}}Y\PY{o}{\PYZhy{}}yprime\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}\PY{o}{/}\PY{k+kp}{length}\PY{p}{(}yprime\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZsh{}MSE}
+        \PY{p}{\PYZcb{}}
+        knnMSEtrain2\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{mean}\PY{p}{(}\PY{k+kp}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}run\PYZus{}knn\PYZus{}fold\PY{p}{,}nombre\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        knnMSEtest2\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{mean}\PY{p}{(}\PY{k+kp}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}run\PYZus{}knn\PYZus{}fold\PY{p}{,}nombre\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{k+kp}{print}\PY{p}{(}knnMSEtrain\PY{p}{)}
+        \PY{k+kp}{print}\PY{p}{(}knnMSEtest\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Al igual que para el modelo anterior, el modelo tiene sobreaprendiaje, pero los resultados parecen mejores que para}
+        \PY{c+c1}{\PYZsh{} el modelo lineal. Como el modelo anterior obtiene mejores resultados, nos quedaremos con este para comparar con el}
+        \PY{c+c1}{\PYZsh{} algoritmo de regresión lineal.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Por último, utilizaremos el text de wilcoxon para ver cual de los dos modelos es mejor. Para ello compararemos nuestro}
+        \PY{c+c1}{\PYZsh{} mejor modelo lineal con el mejor modelo obtenido con knn.}
+        
+        tablatst \PY{o}{=} \PY{k+kp}{cbind}\PY{p}{(}knnMSEtest\PY{p}{,}lmMSEtest\PY{p}{)}
+        difs \PY{o}{\PYZlt{}\PYZhy{}} \PY{p}{(}tablatst\PY{p}{[}\PY{p}{,}\PY{l+m}{1}\PY{p}{]} \PY{o}{\PYZhy{}} tablatst\PY{p}{[}\PY{p}{,}\PY{l+m}{2}\PY{p}{]}\PY{p}{)} \PY{o}{/} tablatst\PY{p}{[}\PY{p}{,}\PY{l+m}{1}\PY{p}{]}
+        wilc\PYZus{}1\PYZus{}2 \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{cbind}\PY{p}{(}ifelse \PY{p}{(}difs\PY{o}{\PYZlt{}}\PY{l+m}{0}\PY{p}{,} \PY{k+kp}{abs}\PY{p}{(}difs\PY{p}{)}\PY{l+m}{+0.1}\PY{p}{,} \PY{l+m}{0}\PY{l+m}{+0.1}\PY{p}{)}\PY{p}{,} ifelse \PY{p}{(}difs\PY{o}{\PYZgt{}}\PY{l+m}{0}\PY{p}{,} \PY{k+kp}{abs}\PY{p}{(}difs\PY{p}{)}\PY{l+m}{+0.1}\PY{p}{,} \PY{l+m}{0}\PY{l+m}{+0.1}\PY{p}{)}\PY{p}{)}
+        \PY{k+kp}{colnames}\PY{p}{(}wilc\PYZus{}1\PYZus{}2\PY{p}{)} \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kt}{c}\PY{p}{(}\PY{k+kp}{colnames}\PY{p}{(}tablatst\PY{p}{)}\PY{p}{[}\PY{l+m}{1}\PY{p}{]}\PY{p}{,} \PY{k+kp}{colnames}\PY{p}{(}tablatst\PY{p}{)}\PY{p}{[}\PY{l+m}{2}\PY{p}{]}\PY{p}{)}
+        \PY{k+kp}{head}\PY{p}{(}wilc\PYZus{}1\PYZus{}2\PY{p}{)}
+        LMvsKNNtst \PY{o}{\PYZlt{}\PYZhy{}} wilcox.test\PY{p}{(}wilc\PYZus{}1\PYZus{}2\PY{p}{[}\PY{p}{,}\PY{l+m}{1}\PY{p}{]}\PY{p}{,} wilc\PYZus{}1\PYZus{}2\PY{p}{[}\PY{p}{,}\PY{l+m}{2}\PY{p}{]}\PY{p}{,} alternative \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{two.sided\PYZdq{}}\PY{p}{,} paired\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{)}
+        Rmas \PY{o}{\PYZlt{}\PYZhy{}} LMvsKNNtst\PY{o}{\PYZdl{}}statistic
+        pvalue \PY{o}{\PYZlt{}\PYZhy{}} LMvsKNNtst\PY{o}{\PYZdl{}}p.value
+        LMvsKNNtst \PY{o}{\PYZlt{}\PYZhy{}} wilcox.test\PY{p}{(}wilc\PYZus{}1\PYZus{}2\PY{p}{[}\PY{p}{,}\PY{l+m}{2}\PY{p}{]}\PY{p}{,} wilc\PYZus{}1\PYZus{}2\PY{p}{[}\PY{p}{,}\PY{l+m}{1}\PY{p}{]}\PY{p}{,} alternative \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{two.sided\PYZdq{}}\PY{p}{,} paired\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{)}
+        Rmenos \PY{o}{\PYZlt{}\PYZhy{}} LMvsKNNtst\PY{o}{\PYZdl{}}statistic
+        Rmas
+        Rmenos
+        pvalue
+        
+        \PY{c+c1}{\PYZsh{} Según los resultados del test de wilcoxon nos dice que sí que existe diferencia entre los datos y que el primero}
+        \PY{c+c1}{\PYZsh{} es el que es diferente. Por ello, podemos decir que el modelo con knn es mejor que el modelo de}
+        \PY{c+c1}{\PYZsh{} regresión lineal múltiple.}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
