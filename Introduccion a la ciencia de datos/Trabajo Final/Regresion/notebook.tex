@@ -1,0 +1,873 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Trabajo Final Regresi?n}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{regresiuxf3n-sobre-el-dataset-treasury}{%
+\subsection{Regresión sobre el dataset
+treasury}\label{regresiuxf3n-sobre-el-dataset-treasury}}
+
+Alberto Armijo Ruiz
+
+    \hypertarget{informaciuxf3n-sobre-el-dataset}{%
+\subsubsection{Información sobre el
+dataset}\label{informaciuxf3n-sobre-el-dataset}}
+
+El dataset \textbf{treasury} contiene información datos sobre la
+economía de EEUU desde 01/04/1980 hasta 02/04/2000 tomados de forma
+semanal. Este dataset contiene 1049 instancias cada una con quince
+características cada una; las características son números reales. El
+objetivo es predecir el valor de la variable \emph{1MonthCDRate}
+
+    \hypertarget{anuxe1lisis-de-datos}{%
+\subsubsection{Análisis de datos}\label{anuxe1lisis-de-datos}}
+
+El dataset que debemos de leer está contenido en la carpeta
+\emph{treasury} que contiene archivos .dat, estos archivos contiene la
+información del dataset \textbf{treasury}, tanto el dataset entero como
+5 particiones utilizadas en validación cruzada.
+
+Lo primero que haremos será leer el fichero y mirar que tipo de
+información contiene.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{c+c1}{\PYZsh{} Leemos el fichero del dataset. La forma de escribir el PATH puede variar dependiendo de la organización o del SO.}
+         treasury \PY{o}{=} read.csv\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{treasury//treasury.dat\PYZsq{}}\PY{p}{,} comment.char \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{@\PYZsq{}}\PY{p}{,} header \PY{o}{=} \PY{k+kc}{FALSE}\PY{p}{,}
+                            stringsAsFactors \PY{o}{=} \PY{k+kc}{FALSE}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Añadimos los nombres de las características y de la variable que vamos a predecir.}
+         \PY{c+c1}{\PYZsh{} Se cambiará un poco los nombres de las variables para que no haya problemas con R.}
+         y\PYZus{}var \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{MonthCDRate\PYZsq{}}
+         pred\PYZus{}vars \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{CMaturityRate\PYZus{}1Y\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{CMortgageRate\PYZus{}30Y\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{Rate\PYZus{}AuctionAverage\PYZus{}3M\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{Rate\PYZus{}SecondaryMarket\PYZus{}3M\PYZsq{}}\PY{p}{,}
+                       \PY{l+s}{\PYZsq{}}\PY{l+s}{CMaturityRate\PYZus{}3Y\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{CMaturityRate\PYZus{}5Y\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{bankCredit\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{currency\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{demandDeposits\PYZsq{}}\PY{p}{,}
+                       \PY{l+s}{\PYZsq{}}\PY{l+s}{federalFunds\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{moneyStock\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{checkableDeposits\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{loansLeases\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{savingsDeposits\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{tradeCurrencies\PYZsq{}}\PY{p}{)}
+         \PY{k+kp}{colnames}\PY{p}{(}treasury\PY{p}{)} \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}pred\PYZus{}vars\PY{p}{,}y\PYZus{}var\PY{p}{)}
+         str\PY{p}{(}treasury\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'data.frame':	1049 obs. of  16 variables:
+ \$ CMaturityRate\_1Y       : num  92.1 86.4 97.5 102.6 128 {\ldots}
+ \$ CMortgageRate\_30Y      : num  8.41 5.23 5.92 12 8.07 {\ldots}
+ \$ Rate\_AuctionAverage\_3M : num  10.41 8.53 9.06 16.9 12.24 {\ldots}
+ \$ Rate\_SecondaryMarket\_3M: num  7.71 4 5.58 10.4 7.14 {\ldots}
+ \$ CMaturityRate\_3Y       : num  7.76 4.04 5.62 10.39 7.13 {\ldots}
+ \$ CMaturityRate\_5Y       : num  8.8 6.3 6.53 13.06 9.28 {\ldots}
+ \$ bankCredit             : num  8.79 6.76 6.74 13.03 9.84 {\ldots}
+ \$ currency               : num  2665 3186 2132 1312 1839 {\ldots}
+ \$ demandDeposits         : num  230 336 183 122 164 {\ldots}
+ \$ federalFunds           : num  277 387 296 232 258 {\ldots}
+ \$ moneyStock             : num  8.27 3.76 6.22 12.48 7.88 {\ldots}
+ \$ checkableDeposits      : num  807 1144 729 436 598 {\ldots}
+ \$ loansLeases            : num  570 800 540 310 427 {\ldots}
+ \$ savingsDeposits        : num  2056 2225 1621 999 1412 {\ldots}
+ \$ tradeCurrencies        : num  912 1222 953 344 787 {\ldots}
+ \$ MonthCDRate            : num  8.3 4.02 5.99 11.55 7.8 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}90}]:} \PY{c+c1}{\PYZsh{} Utilizaremos la función summary para ver la media de las variables.}
+         \PY{k+kp}{summary}\PY{p}{(}treasury\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+ CMaturityRate_1Y CMortgageRate_30Y Rate_AuctionAverage_3M
+ Min.   : 77.06   Min.   : 3.020    Min.   : 6.49         
+ 1st Qu.: 86.80   1st Qu.: 5.450    1st Qu.: 7.88         
+ Median : 92.53   Median : 6.710    Median : 9.90         
+ Mean   : 97.35   Mean   : 7.544    Mean   :10.40         
+ 3rd Qu.:104.74   3rd Qu.: 9.030    3rd Qu.:12.80         
+ Max.   :142.65   Max.   :17.150    Max.   :18.63         
+ Rate_SecondaryMarket_3M CMaturityRate_3Y CMaturityRate_5Y   bankCredit    
+ Min.   : 2.670          Min.   : 2.690   Min.   : 4.090   Min.   : 4.170  
+ 1st Qu.: 4.990          1st Qu.: 4.980   1st Qu.: 5.890   1st Qu.: 6.140  
+ Median : 5.810          Median : 5.770   Median : 7.440   Median : 7.760  
+ Mean   : 6.851          Mean   : 6.829   Mean   : 8.117   Mean   : 8.359  
+ 3rd Qu.: 8.140          3rd Qu.: 8.090   3rd Qu.: 9.690   3rd Qu.: 9.980  
+ Max.   :16.750          Max.   :16.760   Max.   :16.470   Max.   :16.130  
+    currency    demandDeposits   federalFunds     moneyStock    
+ Min.   :1131   Min.   :105.6   Min.   :225.8   Min.   : 2.860  
+ 1st Qu.:1746   1st Qu.:156.8   1st Qu.:258.2   1st Qu.: 5.300  
+ Median :2616   Median :224.4   Median :287.7   Median : 6.640  
+ Mean   :2640   Mean   :256.8   Mean   :308.1   Mean   : 7.549  
+ 3rd Qu.:3350   3rd Qu.:357.9   3rd Qu.:377.1   3rd Qu.: 8.980  
+ Max.   :4809   Max.   :533.0   Max.   :412.1   Max.   :20.060  
+ checkableDeposits  loansLeases    savingsDeposits  tradeCurrencies 
+ Min.   : 381.1    Min.   :269.9   Min.   : 868.1   Min.   : 175.6  
+ 1st Qu.: 555.3    1st Qu.:394.7   1st Qu.:1339.6   1st Qu.: 721.0  
+ Median : 796.0    Median :567.4   Median :2023.9   Median : 947.9  
+ Mean   : 813.3    Mean   :549.7   Mean   :1959.1   Mean   : 954.7  
+ 3rd Qu.:1080.5    3rd Qu.:658.8   3rd Qu.:2407.5   3rd Qu.:1197.4  
+ Max.   :1154.1    Max.   :803.4   Max.   :3550.3   Max.   :1758.1  
+  MonthCDRate    
+ Min.   : 3.020  
+ 1st Qu.: 5.370  
+ Median : 6.610  
+ Mean   : 7.522  
+ 3rd Qu.: 8.820  
+ Max.   :20.760  
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} \PY{c+c1}{\PYZsh{} Calculamos la media y la desviación estándar de las variables.}
+         medias \PY{o}{=} \PY{k+kp}{sapply}\PY{p}{(}treasury\PY{p}{,}\PY{k+kp}{mean}\PY{p}{)}
+         desviacion \PY{o}{=} \PY{k+kp}{sapply}\PY{p}{(}treasury\PY{p}{,}sd\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Mostramos los valores.}
+         med\PYZus{}desv \PY{o}{=} \PY{k+kp}{cbind}\PY{p}{(}medias\PY{p}{,}desviacion\PY{p}{)}
+         med\PYZus{}desv
+\end{Verbatim}
+
+
+    \begin{tabular}{r|ll}
+  & medias & desviacion\\
+\hline
+	CMaturityRate\_1Y &   97.353633 &   14.471441\\
+	CMortgageRate\_30Y &    7.543937 &    3.105787\\
+	Rate\_AuctionAverage\_3M &   10.400848 &    2.958872\\
+	Rate\_SecondaryMarket\_3M &    6.851220 &    2.954287\\
+	CMaturityRate\_3Y &    6.829342 &    2.942284\\
+	CMaturityRate\_5Y &    8.117378 &    2.883880\\
+	bankCredit &    8.359104 &    2.766248\\
+	currency & 2639.677312 & 1010.520574\\
+	demandDeposits &  256.847664 &  114.575372\\
+	federalFunds &  308.115443 &   59.805094\\
+	moneyStock &    7.549495 &    3.538662\\
+	checkableDeposits &  813.330410 &  258.688545\\
+	loansLeases &  549.687417 &  157.072519\\
+	savingsDeposits & 1959.121830 &  720.531058\\
+	tradeCurrencies &  954.669399 &  372.292523\\
+	MonthCDRate &    7.521945 &    3.377216\\
+\end{tabular}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}117}]:} \PY{c+c1}{\PYZsh{} Ahora pasaremos a pintar las distribuciones de cada una de las variables, para ello, utilizaremos una }
+          \PY{c+c1}{\PYZsh{} gráfica de densidad de cada una de las variables ya que son datos reales.}
+          
+          \PY{c+c1}{\PYZsh{} Cargamos librería para mostrar los datos.}
+          \PY{k+kn}{library}\PY{p}{(}ggplot2\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Pintamos los gráficos de densidad de cada una de las variables. En naranja se muestra la media de dicha variable,}
+          \PY{c+c1}{\PYZsh{} en rojo, se muestra la mediana de dicha variable. Con la función ..count.. especificamos que queremos saber el número}
+          \PY{c+c1}{\PYZsh{} de casos en vez de la densidad.}
+          ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}CMaturityRate\PYZus{}1Y\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}CMaturityRate\PYZus{}1Y\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                       linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}CMaturityRate\PYZus{}1Y\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                            linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                  scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+          
+          ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}CMortgageRate\PYZus{}30Y\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}CMortgageRate\PYZus{}30Y\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                       linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}CMortgageRate\PYZus{}30Y\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                            linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                  scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+          
+          ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}Rate\PYZus{}AuctionAverage\PYZus{}3M\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}Rate\PYZus{}AuctionAverage\PYZus{}3M\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                       linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}Rate\PYZus{}AuctionAverage\PYZus{}3M\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                            linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                  scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+          
+          ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}Rate\PYZus{}SecondaryMarket\PYZus{}3M\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}Rate\PYZus{}SecondaryMarket\PYZus{}3M\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                       linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}Rate\PYZus{}SecondaryMarket\PYZus{}3M\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                            linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                  scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+          
+          ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}CMaturityRate\PYZus{}3Y\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}CMaturityRate\PYZus{}3Y\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                       linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}CMaturityRate\PYZus{}3Y\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                            linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                  scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+          
+          ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}CMaturityRate\PYZus{}5Y\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}CMaturityRate\PYZus{}5Y\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                       linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}CMaturityRate\PYZus{}5Y\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                            linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                  scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+          
+          ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}bankCredit\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}bankCredit\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                       linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}bankCredit\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                            linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                  scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+          
+          ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}currency\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}currency\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                       linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}currency\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                            linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                  scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+          
+          ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}demandDeposits\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}demandDeposits\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                       linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}demandDeposits\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                            linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                  scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+          
+          ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}federalFunds\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}federalFunds\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                       linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}federalFunds\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                            linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                  scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+          
+          ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}moneyStock\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}moneyStock\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                       linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}moneyStock\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                            linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                  scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+          
+          ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}checkableDeposits\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}checkableDeposits\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                       linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}checkableDeposits\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                            linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                  scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+          
+          ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}loansLeases\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}loansLeases\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                       linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}loansLeases\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                            linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                  scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+          
+          ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}savingsDeposits\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}savingsDeposits\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                       linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}savingsDeposits\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                            linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                  scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+          
+          ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}tradeCurrencies\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}tradeCurrencies\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                       linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}tradeCurrencies\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                            linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                  scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+          
+          ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}MonthCDRate\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}MonthCDRate\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                       linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                  geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}MonthCDRate\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                            linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                  scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_10.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_12.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_14.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_16.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_18.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_20.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_22.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_24.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_26.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_28.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_30.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_31.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Según la información que se puede ver en las gráficas, ninguna de las
+variables cuenta con una distribución normal; así que más adelante habrá
+que probar a transformar dichas variables para intentar que se parezcan
+más a una distribución normal, por ejemplo las variables donde la
+mayoría de los datos se encuentran al principio pueden mejorar su
+distribución con una transformación logarítmica.
+
+Además según lo visto gracias a la información que nos aporta la función
+\emph{summary()}, ninguna de las variables contiene \emph{NAs}, así que
+no es necesario hacer imputación de valores o borrar ningún dato.
+
+Además de los gráficos de densidad, utilizaremos los boxplots para ver
+si existen outliers dentro de los datos.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}118}]:} \PY{c+c1}{\PYZsh{} Pintamos los boxplots. En rojo se muestran ( si es que hay) los outliers.}
+          ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}CMaturityRate\PYZus{}1Y\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+          ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}CMortgageRate\PYZus{}30Y\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+          ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}Rate\PYZus{}AuctionAverage\PYZus{}3M\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+          ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}Rate\PYZus{}SecondaryMarket\PYZus{}3M\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+          ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}CMaturityRate\PYZus{}3Y\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+          ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}CMaturityRate\PYZus{}5Y\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+          ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}bankCredit\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+          ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}currency\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+          ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}demandDeposits\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+          ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}federalFunds\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+          ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}moneyStock\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+          ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}checkableDeposits\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+          ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}loansLeases\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+          ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}savingsDeposits\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+          ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}tradeCurrencies\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+          ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}MonthCDRate\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_10.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_12.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_14.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_16.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_18.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_20.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_22.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_24.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_26.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_28.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_30.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_31.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Como se puede ver en los resultados gráficos anteriores, las variables
+CMaturityRate\_1Y, CMortgageRate\_30Y, Rate\_SecondaryMarket\_3M,
+CMaturityRate\_3Y, CMaturityRate\_5Y, bankCredit, moneyStock y
+MonthCDRate contienen outliers. En principio no los eliminaremos ya que
+pueden ser casos extremos que nos aporten cierta información en el
+modelo.
+
+Por último, dibujaremos las correlaciones entre las variables.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}121}]:} \PY{c+c1}{\PYZsh{} Dibujamos las correlaciones entre las variables.}
+          pairs\PY{p}{(}treasury\PY{p}{,}pch\PY{o}{=}\PY{l+m}{16}\PY{p}{,}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}120}]:} cor\PY{p}{(}treasury\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|llllllllllllllll}
+  & CMaturityRate\_1Y & CMortgageRate\_30Y & Rate\_AuctionAverage\_3M & Rate\_SecondaryMarket\_3M & CMaturityRate\_3Y & CMaturityRate\_5Y & bankCredit & currency & demandDeposits & federalFunds & moneyStock & checkableDeposits & loansLeases & savingsDeposits & tradeCurrencies & MonthCDRate\\
+\hline
+	CMaturityRate\_1Y &  1.0000000 &  0.5289173 &  0.6500870 &  0.4788677 &  0.4818779 &  0.6023984 &  0.6250722 & -0.5741093 & -0.5515314 & -0.6408934 &  0.4560397 & -0.6838618 & -0.7161397 & -0.5672793 & -0.4763829 &  0.4507399\\
+	CMortgageRate\_30Y &  0.5289173 &  1.0000000 &  0.9367248 &  0.9864352 &  0.9874777 &  0.9849371 &  0.9668119 & -0.7523409 & -0.7174992 & -0.7367525 &  0.9692879 & -0.8378256 & -0.8471908 & -0.7420812 & -0.8255995 &  0.9772895\\
+	Rate\_AuctionAverage\_3M &  0.6500870 &  0.9367248 &  1.0000000 &  0.8997102 &  0.8986080 &  0.9717959 &  0.9806363 & -0.8729493 & -0.8396140 & -0.8545196 &  0.8893533 & -0.9201255 & -0.8927273 & -0.8674640 & -0.8941019 &  0.8868518\\
+	Rate\_SecondaryMarket\_3M &  0.4788677 &  0.9864352 &  0.8997102 &  1.0000000 &  0.9977408 &  0.9527171 &  0.9287190 & -0.7235480 & -0.6917304 & -0.7133572 &  0.9848922 & -0.8185177 & -0.8343992 & -0.7119274 & -0.8078303 &  0.9903362\\
+	CMaturityRate\_3Y &  0.4818779 &  0.9874777 &  0.8986080 &  0.9977408 &  1.0000000 &  0.9536684 &  0.9295766 & -0.7247399 & -0.6932254 & -0.7152727 &  0.9861269 & -0.8198067 & -0.8354147 & -0.7130192 & -0.8071159 &  0.9917367\\
+	CMaturityRate\_5Y &  0.6023984 &  0.9849371 &  0.9717959 &  0.9527171 &  0.9536684 &  1.0000000 &  0.9955387 & -0.8044921 & -0.7703285 & -0.7914913 &  0.9300853 & -0.8705364 & -0.8622077 & -0.7958332 & -0.8499892 &  0.9378451\\
+	bankCredit &  0.6250722 &  0.9668119 &  0.9806363 &  0.9287190 &  0.9295766 &  0.9955387 &  1.0000000 & -0.8338960 & -0.7997921 & -0.8168239 &  0.9040410 & -0.8837260 & -0.8622840 & -0.8273161 & -0.8651072 &  0.9106219\\
+	currency & -0.5741093 & -0.7523409 & -0.8729493 & -0.7235480 & -0.7247399 & -0.8044921 & -0.8338960 &  1.0000000 &  0.9912600 &  0.8881952 & -0.7189738 &  0.9340624 &  0.8049866 &  0.9977185 &  0.9531331 & -0.7070180\\
+	demandDeposits & -0.5515314 & -0.7174992 & -0.8396140 & -0.6917304 & -0.6932254 & -0.7703285 & -0.7997921 &  0.9912600 &  1.0000000 &  0.9059379 & -0.6899164 &  0.9252762 &  0.7844607 &  0.9826211 &  0.9319984 & -0.6783867\\
+	federalFunds & -0.6408934 & -0.7367525 & -0.8545196 & -0.7133572 & -0.7152727 & -0.7914913 & -0.8168239 &  0.8881952 &  0.9059379 &  1.0000000 & -0.7072023 &  0.9374450 &  0.8731687 &  0.8663811 &  0.8259606 & -0.7021663\\
+	moneyStock &  0.4560397 &  0.9692879 &  0.8893533 &  0.9848922 &  0.9861269 &  0.9300853 &  0.9040410 & -0.7189738 & -0.6899164 & -0.7072023 &  1.0000000 & -0.8178985 & -0.8347681 & -0.7063516 & -0.8060014 &  0.9946502\\
+	checkableDeposits & -0.6838618 & -0.8378256 & -0.9201255 & -0.8185177 & -0.8198067 & -0.8705364 & -0.8837260 &  0.9340624 &  0.9252762 &  0.9374450 & -0.8178985 &  1.0000000 &  0.9610653 &  0.9189515 &  0.9123665 & -0.8086956\\
+	loansLeases & -0.7161397 & -0.8471908 & -0.8927273 & -0.8343992 & -0.8354147 & -0.8622077 & -0.8622840 &  0.8049866 &  0.7844607 &  0.8731687 & -0.8347681 &  0.9610653 &  1.0000000 &  0.7864516 &  0.8127696 & -0.8280948\\
+	savingsDeposits & -0.5672793 & -0.7420812 & -0.8674640 & -0.7119274 & -0.7130192 & -0.7958332 & -0.8273161 &  0.9977185 &  0.9826211 &  0.8663811 & -0.7063516 &  0.9189515 &  0.7864516 &  1.0000000 &  0.9502578 & -0.6939530\\
+	tradeCurrencies & -0.4763829 & -0.8255995 & -0.8941019 & -0.8078303 & -0.8071159 & -0.8499892 & -0.8651072 &  0.9531331 &  0.9319984 &  0.8259606 & -0.8060014 &  0.9123665 &  0.8127696 &  0.9502578 &  1.0000000 & -0.7931364\\
+	MonthCDRate &  0.4507399 &  0.9772895 &  0.8868518 &  0.9903362 &  0.9917367 &  0.9378451 &  0.9106219 & -0.7070180 & -0.6783867 & -0.7021663 &  0.9946502 & -0.8086956 & -0.8280948 & -0.6939530 & -0.7931364 &  1.0000000\\
+\end{tabular}
+
+
+    
+    Según lo que se puede ver en la gráfica y la tabla anterior, muchas de
+las variables que tenemos pueden estar relacionadas, como
+\emph{Rate\_SecondaryMarket\_3M} con \emph{CMaturityRate\_3Y} o
+\emph{CMaturityRate\_5Y} con \emph{bankCredit}. También se puede ver
+como algunas variables, como por ejemplo \emph{CMortgageRato\_30Y},
+\emph{Rate\_SecondaryMarket\_3M}, \emph{CMaturityRate\_3Y} y
+\emph{moneyStock} tienen una relación lineal con respecto a la variable
+que tenemos que predecir, esto puede ser interesante a la hora de crear
+un modelo lineal con dichas variables.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
