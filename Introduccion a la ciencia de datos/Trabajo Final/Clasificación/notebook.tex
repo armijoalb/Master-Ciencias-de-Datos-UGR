@@ -1,0 +1,1405 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Trabajo Final Clasificaci?n}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{clasificaciuxf3n-sobre-el-dataset-hayes-roth}{%
+\subsection{Clasificación sobre el dataset
+hayes-roth}\label{clasificaciuxf3n-sobre-el-dataset-hayes-roth}}
+
+Alberto Armijo Ruiz
+
+    \hypertarget{informaciuxf3n-sobre-el-dataset}{%
+\subsubsection{Información sobre el
+dataset}\label{informaciuxf3n-sobre-el-dataset}}
+
+El dataset \emph{hayes-roth} se trata de un dataset artificial utilizado
+para estudiar el comportamiento de clasificadores , el atributo
+\emph{Hobby} está generado de forma aleatoria y se utiliza para
+introducir ruido dentro del dataset. Este dataset cuenta con cuatro
+variables predictoras: \emph{Hobby}, \emph{Age}, \emph{EducationalLevel}
+y \emph{MaritalStatus}; también contamos con una variable, llamada
+\emph{Class} que representa la clase en la que se encuentra cada dato.
+
+Cada una de las variables predictoras se encuentran con valores enteros
+del 1 al 4, menos la variable \emph{Hobby} que va del 1 al 3. La
+variable que tenemos que predecir cuenta con tres clases (1,2 y 3).
+
+Este dataset cuenta con 160 instancias y no cuenta con datos pérdidos.
+Se puede encontrar información sobre este dataset en
+\url{https://sci2s.ugr.es/keel/dataset.php?cod=186} .
+
+    \hypertarget{anuxe1lisis-exploratorio-de-los-datos}{%
+\subsection{Análisis exploratorio de los
+datos}\label{anuxe1lisis-exploratorio-de-los-datos}}
+
+Para leer los datos, deberemos que leer el archivo llamado
+\emph{hayes-roth.dat} que se encuentra dentro de la carpeta
+\emph{hayes-roth}. Tras esto, deberemos añadirle los nombres a las
+variables.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} Leemos el dataset}
+        \PY{n}{hayesroth} \PY{o}{=} \PY{n+nf}{read.csv}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{hayes\PYZhy{}roth//hayes\PYZhy{}roth.dat\PYZsq{}}\PY{p}{,} \PY{n}{comment.char} \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{@\PYZsq{}}\PY{p}{,} \PY{n}{header} \PY{o}{=} \PY{k+kc}{FALSE}\PY{p}{)}
+        \PY{n}{nombres} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{Hobby\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{Age\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{EducationalLevel\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{MaritalStatus\PYZsq{}}\PY{p}{,}\PY{l+s}{\PYZsq{}}\PY{l+s}{Class\PYZsq{}}\PY{p}{)}
+        \PY{n+nf}{colnames}\PY{p}{(}\PY{n}{hayesroth}\PY{p}{)} \PY{o}{=} \PY{n}{nombres}
+        
+        \PY{n+nf}{head}\PY{p}{(}\PY{n}{hayesroth}\PY{p}{)}
+        \PY{n+nf}{str}\PY{p}{(}\PY{n}{hayesroth}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|lllll}
+ Hobby & Age & EducationalLevel & MaritalStatus & Class\\
+\hline
+	 2 & 1 & 1 & 2 & 1\\
+	 2 & 1 & 3 & 2 & 2\\
+	 3 & 1 & 4 & 1 & 3\\
+	 2 & 4 & 2 & 2 & 3\\
+	 1 & 1 & 3 & 4 & 3\\
+	 1 & 1 & 3 & 2 & 2\\
+\end{tabular}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+'data.frame':	160 obs. of  5 variables:
+ \$ Hobby           : int  2 2 3 2 1 1 3 3 2 1 {\ldots}
+ \$ Age             : int  1 1 1 4 1 1 1 4 2 2 {\ldots}
+ \$ EducationalLevel: int  1 3 4 2 3 3 3 2 1 1 {\ldots}
+ \$ MaritalStatus   : int  2 2 1 2 4 2 2 4 1 1 {\ldots}
+ \$ Class           : int  1 2 3 3 3 2 2 3 1 1 {\ldots}
+
+    \end{Verbatim}
+
+    \hypertarget{cuxe1lculo-de-medias-y-desviaciones}{%
+\subsubsection{Cálculo de medias y
+desviaciones}\label{cuxe1lculo-de-medias-y-desviaciones}}
+
+    Ahora calcularemos la media y desviación estandar de cada uno de los
+atributos.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} Calculamos la media y la desviación.}
+        \PY{n}{medias} \PY{o}{=} \PY{n+nf}{sapply}\PY{p}{(}\PY{n}{hayesroth}\PY{p}{,} \PY{n}{mean}\PY{p}{)}
+        \PY{n}{desviaciones} \PY{o}{=} \PY{n+nf}{sapply}\PY{p}{(}\PY{n}{hayesroth}\PY{p}{,} \PY{n}{sd}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Creamos una tabla y mostramos los resultados.}
+        \PY{n}{medydesv} \PY{o}{=} \PY{n+nf}{cbind}\PY{p}{(}\PY{n}{medias}\PY{p}{,} \PY{n}{desviaciones}\PY{p}{)}
+        \PY{n}{medydesv}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|ll}
+  & medias & desviaciones\\
+\hline
+	Hobby & 1.8250    & 0.8359080\\
+	Age & 1.9750    & 0.9380161\\
+	EducationalLevel & 1.9750    & 0.9380161\\
+	MaritalStatus & 1.9750    & 0.9380161\\
+	Class & 1.7875    & 0.7472171\\
+\end{tabular}
+
+
+    
+    Por lo que podemos ver, las medias y desviaciones tiene bastante
+sentido, por lo que parece que los datos están bien distribuido, de
+todas formas, pintaremos las distribuciones de las variables.
+
+    \hypertarget{representaciuxf3n-de-los-datos}{%
+\subsubsection{Representación de los
+datos}\label{representaciuxf3n-de-los-datos}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} cargamos la librería.}
+         \PY{n+nf}{library}\PY{p}{(}\PY{n}{ggplot2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} Pintamos un histograma por cada variable. Dibujaremos la media y la mediana también.}
+         \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{hayesroth}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{Hobby}\PY{p}{)}\PY{p}{)}\PY{o}{+}
+             \PY{n+nf}{geom\PYZus{}histogram}\PY{p}{(}\PY{n}{bins} \PY{o}{=} \PY{n+nf}{length}\PY{p}{(}\PY{n+nf}{unique}\PY{p}{(}\PY{n}{hayesroth}\PY{o}{\PYZdl{}}\PY{n}{Hobby}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{fill}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lightblue\PYZdq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{)}\PY{o}{+}
+             \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{mean}\PY{p}{(}\PY{n}{Hobby}\PY{p}{)}\PY{p}{,}\PY{n}{color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                      \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+             \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{median}\PY{p}{(}\PY{n}{Hobby}\PY{p}{)}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                           \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+             \PY{n+nf}{scale\PYZus{}color\PYZus{}manual}\PY{p}{(}\PY{n}{name} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} \PY{n}{values} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{n}{mean} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} \PY{n}{median} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Pintamos un histograma por cada variable. Dibujaremos la media y la mediana también.}
+         \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{hayesroth}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{Age}\PY{p}{)}\PY{p}{)}\PY{o}{+}
+             \PY{n+nf}{geom\PYZus{}histogram}\PY{p}{(}\PY{n}{bins} \PY{o}{=} \PY{n+nf}{length}\PY{p}{(}\PY{n+nf}{unique}\PY{p}{(}\PY{n}{hayesroth}\PY{o}{\PYZdl{}}\PY{n}{Age}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{fill}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lightblue\PYZdq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{)}\PY{o}{+}
+             \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{mean}\PY{p}{(}\PY{n}{Age}\PY{p}{)}\PY{p}{,}\PY{n}{color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                      \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+             \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{median}\PY{p}{(}\PY{n}{Age}\PY{p}{)}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                           \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+             \PY{n+nf}{scale\PYZus{}color\PYZus{}manual}\PY{p}{(}\PY{n}{name} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} \PY{n}{values} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{n}{mean} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} \PY{n}{median} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} Pintamos un histograma por cada variable. Dibujaremos la media y la mediana también.}
+         \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{hayesroth}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{EducationalLevel}\PY{p}{)}\PY{p}{)}\PY{o}{+}
+             \PY{n+nf}{geom\PYZus{}histogram}\PY{p}{(}\PY{n}{bins} \PY{o}{=} \PY{n+nf}{length}\PY{p}{(}\PY{n+nf}{unique}\PY{p}{(}\PY{n}{hayesroth}\PY{o}{\PYZdl{}}\PY{n}{EducationalLevel}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{fill}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lightblue\PYZdq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{)}\PY{o}{+}
+             \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{mean}\PY{p}{(}\PY{n}{EducationalLevel}\PY{p}{)}\PY{p}{,}\PY{n}{color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                      \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+             \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{median}\PY{p}{(}\PY{n}{EducationalLevel}\PY{p}{)}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                           \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+             \PY{n+nf}{scale\PYZus{}color\PYZus{}manual}\PY{p}{(}\PY{n}{name} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} \PY{n}{values} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{n}{mean} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} \PY{n}{median} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} Pintamos un histograma por cada variable. Dibujaremos la media y la mediana también.}
+         \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{hayesroth}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{MaritalStatus}\PY{p}{)}\PY{p}{)}\PY{o}{+}
+             \PY{n+nf}{geom\PYZus{}histogram}\PY{p}{(}\PY{n}{bins} \PY{o}{=} \PY{n+nf}{length}\PY{p}{(}\PY{n+nf}{unique}\PY{p}{(}\PY{n}{hayesroth}\PY{o}{\PYZdl{}}\PY{n}{MaritalStatus}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{fill}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lightblue\PYZdq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{)}\PY{o}{+}
+             \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{mean}\PY{p}{(}\PY{n}{MaritalStatus}\PY{p}{)}\PY{p}{,}\PY{n}{color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                      \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+             \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{median}\PY{p}{(}\PY{n}{MaritalStatus}\PY{p}{)}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                           \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+             \PY{n+nf}{scale\PYZus{}color\PYZus{}manual}\PY{p}{(}\PY{n}{name} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} \PY{n}{values} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{n}{mean} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} \PY{n}{median} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} Pintamos un histograma por cada variable. Dibujaremos la media y la mediana también.}
+         \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{hayesroth}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{Class}\PY{p}{)}\PY{p}{)}\PY{o}{+}
+             \PY{n+nf}{geom\PYZus{}histogram}\PY{p}{(}\PY{n}{bins} \PY{o}{=} \PY{n+nf}{length}\PY{p}{(}\PY{n+nf}{unique}\PY{p}{(}\PY{n}{hayesroth}\PY{o}{\PYZdl{}}\PY{n}{Class}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{fill}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lightblue\PYZdq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{)}\PY{o}{+}
+             \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{mean}\PY{p}{(}\PY{n}{Class}\PY{p}{)}\PY{p}{,}\PY{n}{color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                      \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+             \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{median}\PY{p}{(}\PY{n}{Class}\PY{p}{)}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                           \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+             \PY{n+nf}{scale\PYZus{}color\PYZus{}manual}\PY{p}{(}\PY{n}{name} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} \PY{n}{values} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{n}{mean} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} \PY{n}{median} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Como se puede ver en las gráficas, nos encontramos ante un problema con
+desvalanceo de clases, ya que la variable \emph{Class} cuenta con un
+número menor de ejemplos de la clase 3 que para las otras clases.
+También podemos ver que en las variables \emph{Age},
+\emph{EducationalLevel} y \emph{MaritalStatus} existe un número mayor de
+ejemplos sobre los niveles 1 y 2 que para los niveles 3 y 4; para la
+variable \emph{Hobby} pasa lo mismo pero del nivel 1 sobre los niveles 2
+y 3.
+
+Lo siguiente que haremos será dibujar cada una de las variables
+predictoras según la clase, de esta forma podremos ver si los datos de
+las diferentes clases están bien diferenciados unos de los otros.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} Dibujamos los datos y pintamos dependiendo de la clase a la que pertenezcan.}
+         \PY{n+nf}{plot}\PY{p}{(}\PY{n}{hayesroth}\PY{n}{[}\PY{p}{,}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{4}\PY{n}{]}\PY{p}{,}\PY{n}{col}\PY{o}{=}\PY{n}{hayesroth}\PY{n}{[}\PY{p}{,}\PY{l+m}{5}\PY{n}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{hayesroth}\PY{p}{,}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{Hobby}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{n}{Age}\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{n+nf}{geom\PYZus{}point}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{col}\PY{o}{=}\PY{n+nf}{as.factor}\PY{p}{(}\PY{n}{Class}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m}{2}\PY{p}{)}\PY{o}{+} \PY{n+nf}{facet\PYZus{}grid}\PY{p}{(}\PY{o}{\PYZti{}}\PY{n}{Class}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{hayesroth}\PY{p}{,}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{Hobby}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{n}{EducationalLevel}\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{n+nf}{geom\PYZus{}point}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{col}\PY{o}{=}\PY{n+nf}{as.factor}\PY{p}{(}\PY{n}{Class}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m}{2}\PY{p}{)}\PY{o}{+} \PY{n+nf}{facet\PYZus{}grid}\PY{p}{(}\PY{o}{\PYZti{}}\PY{n}{Class}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{hayesroth}\PY{p}{,}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{Hobby}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{n}{MaritalStatus}\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{n+nf}{geom\PYZus{}point}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{col}\PY{o}{=}\PY{n+nf}{as.factor}\PY{p}{(}\PY{n}{Class}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m}{2}\PY{p}{)} \PY{o}{+} \PY{n+nf}{facet\PYZus{}grid}\PY{p}{(}\PY{o}{\PYZti{}}\PY{n}{Class}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{hayesroth}\PY{p}{,}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{Age}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{n}{EducationalLevel}\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{n+nf}{geom\PYZus{}point}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{col}\PY{o}{=}\PY{n+nf}{as.factor}\PY{p}{(}\PY{n}{Class}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m}{2}\PY{p}{)} \PY{o}{+} \PY{n+nf}{facet\PYZus{}grid}\PY{p}{(}\PY{o}{\PYZti{}}\PY{n}{Class}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{hayesroth}\PY{p}{,}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{Age}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{n}{MaritalStatus}\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{n+nf}{geom\PYZus{}point}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{col}\PY{o}{=}\PY{n+nf}{as.factor}\PY{p}{(}\PY{n}{Class}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m}{2}\PY{p}{)}\PY{o}{+} \PY{n+nf}{facet\PYZus{}grid}\PY{p}{(}\PY{o}{\PYZti{}}\PY{n}{Class}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{hayesroth}\PY{p}{,}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{MaritalStatus}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{n}{EducationalLevel}\PY{p}{)}\PY{p}{)}\PY{o}{+}
+             \PY{n+nf}{geom\PYZus{}point}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{col}\PY{o}{=}\PY{n+nf}{as.factor}\PY{p}{(}\PY{n}{Class}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m}{2}\PY{p}{)}\PY{o}{+} \PY{n+nf}{facet\PYZus{}grid}\PY{p}{(}\PY{o}{\PYZti{}}\PY{n}{Class}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n+nf}{library}\PY{p}{(}\PY{n}{reshape2}\PY{p}{)}
+         \PY{n}{temp} \PY{o}{=} \PY{n}{hayesroth}
+         \PY{n}{nhayes} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{melt}\PY{p}{(}\PY{n}{temp}\PY{p}{,} \PY{n}{id.vars} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Class\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{nhayes}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{variable}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{value}\PY{p}{,} \PY{n}{group}\PY{o}{=}\PY{n}{Class}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+             \PY{n+nf}{geom\PYZus{}point}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{color}\PY{o}{=}\PY{n+nf}{as.factor}\PY{p}{(}\PY{n}{Class}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+                         \PY{n+nf}{facet\PYZus{}grid}\PY{p}{(}\PY{o}{\PYZti{}} \PY{n}{Class}\PY{p}{)} \PY{o}{+}
+             \PY{n+nf}{theme}\PY{p}{(}\PY{n}{axis.text.x} \PY{o}{=} \PY{n+nf}{element\PYZus{}text}\PY{p}{(}\PY{n}{angle} \PY{o}{=} \PY{l+m}{45}\PY{p}{,} \PY{n}{hjust} \PY{o}{=} \PY{l+m}{1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Como se puede ver en las gráficas anteriores, existen valores de todos
+los tipos en todas las clases, esto nos dice que la separación entre
+dichas clases es bastante mala, y por ello será bastante difícil obtener
+un buen clasificador.La diferencia más clara que se puede ver es que los
+elementos que toman valores 4 para las variables \emph{Age},
+\emph{EducationalLevel} y \emph{MaritalStatus} pertenecen siempre a la
+tercera clase.
+
+También podemos ver como la variable \emph{Hobby} presenta valores en
+todas las clases para todos sus valores, por lo que no merece la pena
+utilizarla en la predicción (como está descrito en el apartado de
+información, la variable \emph{Hobby} es una variable generada de forma
+aleatoria para introducir ruido en los datos). Para el resto de los
+datos, podemos ver que existen algunas diferencias entre los datos de
+las diferentes clases, por ejemplo, ningún dato con \emph{MaritalStatus}
+y \emph{EducationalLevel} 1 pertenecen a la segunda clase o los datos de
+\emph{EducationalLevel} 2 ó 3 y \emph{Age} 2 nunca pertencen a la
+primera clase. Con las pequeñas diferencias que hay entre las variables
+\emph{Age}, \emph{EducationalLevel} y \emph{MaritalStatus} nuestro
+clasificador deberá de conseguir separar las 3 clases que existen.
+
+    Probaremos también ha transformar los datos con PCA, para ver si
+conseguimos una mejor separación de estos.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n+nf}{require}\PY{p}{(}\PY{n}{caret}\PY{p}{)}
+         \PY{n}{temp} \PY{o}{=} \PY{n}{hayesroth}
+         \PY{n}{temp} \PY{o}{=} \PY{n}{temp}\PY{n}{[}\PY{p}{,}\PY{l+m}{\PYZhy{}1}\PY{n}{]}
+         \PY{n}{transform} \PY{o}{=} \PY{n+nf}{preProcess}\PY{p}{(}\PY{n}{temp}\PY{n}{[1}\PY{o}{:}\PY{l+m}{3}\PY{n}{]}\PY{p}{,}\PY{n}{method}\PY{o}{=}\PY{n+nf}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{BoxCox\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{center\PYZdq{}}\PY{p}{,} 
+                                     \PY{l+s}{\PYZdq{}}\PY{l+s}{scale\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{pca\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{PCA} \PY{o}{=} \PY{n+nf}{predict}\PY{p}{(}\PY{n}{transform}\PY{p}{,} \PY{n}{temp}\PY{n}{[1}\PY{o}{:}\PY{l+m}{3}\PY{n}{]}\PY{p}{)}
+         \PY{n+nf}{head}\PY{p}{(}\PY{n}{PCA}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Loading required package: caret
+Loading required package: lattice
+
+    \end{Verbatim}
+
+    \begin{tabular}{r|lll}
+ PC1 & PC2 & PC3\\
+\hline
+	  1.018395e+00 & -0.5879708    & -1.2103330   \\
+	 -5.957231e-01 & -1.5198825    &  0.1075892   \\
+	 -2.036791e+00 & -1.1759416    & -0.3788167   \\
+	 -8.326673e-17 &  1.1759416    &  1.2842159   \\
+	  4.226723e-01 & -2.1078533    &  0.9391055   \\
+	 -5.957231e-01 & -1.5198825    &  0.1075892   \\
+\end{tabular}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n+nf}{pairs}\PY{p}{(}\PY{n}{PCA}\PY{p}{,} \PY{n}{col}\PY{o}{=}\PY{n}{temp}\PY{o}{\PYZdl{}}\PY{n}{Class}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Como se puede ver, PCA no consigue separar los datos ni reduce en número
+de variables del problema, por lo que no utilizaremos esta
+transformación. Lo siguiente que vamos a hacer es comprobar si existe
+alguna correlación entre las variables.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}105}]:} \PY{n+nf}{pairs}\PY{p}{(}\PY{n}{hayesroth}\PY{p}{,}\PY{n}{col}\PY{o}{=}\PY{n}{hayesroth}\PY{n}{[}\PY{p}{,}\PY{l+m}{5}\PY{n}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}106}]:} \PY{n+nf}{cor}\PY{p}{(}\PY{n}{hayesroth}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|lllll}
+  & Hobby & Age & EducationalLevel & MaritalStatus & Class\\
+\hline
+	Hobby &  1.00000000 & 0.04251185  & -0.05374139 & -0.05374139 & 0.0709883  \\
+	Age &  0.04251185 & 1.00000000  &  0.01358113 &  0.01358113 & 0.4141117  \\
+	EducationalLevel & -0.05374139 & 0.01358113  &  1.00000000 &  0.01358113 & 0.3961654  \\
+	MaritalStatus & -0.05374139 & 0.01358113  &  0.01358113 &  1.00000000 & 0.3782190  \\
+	Class &  0.07098830 & 0.41411171  &  0.39616537 &  0.37821903 & 1.0000000  \\
+\end{tabular}
+
+
+    
+    Como podemos ver, no existen correlaciones entre las variables
+predictoras ni con la variable predictora, por ello no podemos crear
+variables nuevas a partir de estas ni eliminar ninguna.
+
+    \hypertarget{creaciuxf3n-de-modelos-de-predicciuxf3n}{%
+\subsection{Creación de modelos de
+predicción}\label{creaciuxf3n-de-modelos-de-predicciuxf3n}}
+
+En este apartado se crearán tres modelos diferentes para predecir la
+clase a la que pertenecen los datos y se realizará validación cruzada
+con el mejor modelo encontrado para cada algoritmo que utilizemos. Los
+algoritmos que se van a probar son \emph{KNN}, \emph{LDA} y \emph{QDA}.
+Las variables que utilizaremmos con estos algoritmos serán \emph{Age},
+\emph{MaritalStatus} y \emph{EducationalLevel}.
+
+    \hypertarget{creaciuxf3n-de-modelos-con-el-algoritmo-knn}{%
+\subsubsection{Creación de modelos con el algoritmo
+KNN}\label{creaciuxf3n-de-modelos-con-el-algoritmo-knn}}
+
+En este apartado utilizaremos el algoritmo KNN para obtener un modelo,
+también probaremos con diferentes tamaños de k para ver cuales de estos
+se ajustan mejor al problema. Para ello, utilizaremos la librería
+\emph{caret} que no permite especificar los diferentes tamaños de k que
+nos interesen.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} cargamos la librería.}
+         \PY{n+nf}{require}\PY{p}{(}\PY{n}{caret}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{} Para k utilizaremos los valores impares del 3 al 15, para evitar empates dentro de knn.}
+         \PY{n}{ks} \PY{o}{=} \PY{l+m}{3}\PY{o}{:}\PY{l+m}{15}
+         \PY{n}{ks} \PY{o}{=} \PY{n}{ks}\PY{n}{[ks}\PY{o}{\PYZpc{}\PYZpc{}}\PY{l+m}{2} \PY{o}{!=} \PY{l+m}{0}\PY{n}{]}
+         
+         \PY{c+c1}{\PYZsh{} Separamos las variables de entrada y las clases en dos variables distintas para poder utilizarlo con caret.}
+         \PY{n}{hr.train} \PY{o}{=} \PY{n}{hayesroth}\PY{n}{[}\PY{p}{,}\PY{n+nf}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Age\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{EducationalLevel\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{MaritalStatus\PYZdq{}}\PY{p}{)}\PY{n}{]}
+         \PY{n}{hr.labels.train} \PY{o}{=} \PY{n}{hayesroth}\PY{n}{[}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Class\PYZdq{}}\PY{n}{]}
+         \PY{n}{hr.labels.train} \PY{o}{=} \PY{n+nf}{factor}\PY{p}{(}\PY{n}{hr.labels.train}\PY{p}{,} \PY{n}{levels}\PY{o}{=}\PY{n+nf}{c}\PY{p}{(}\PY{l+m}{1}\PY{p}{,}\PY{l+m}{2}\PY{p}{,}\PY{l+m}{3}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} Normalizamos los datos ya que estamos trabajando con knn, aunque al tener}
+         \PY{c+c1}{\PYZsh{} la misma escala en todas las variables de entrada no es necesario.}
+         \PY{n}{hr.train} \PY{o}{=} \PY{n+nf}{as.data.frame}\PY{p}{(}\PY{n+nf}{lapply}\PY{p}{(}\PY{n}{hr.train}\PY{p}{,}
+                                        \PY{n}{scale}\PY{p}{,} \PY{n}{center} \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,} \PY{n}{scale} \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{} creamos nuestro modelo y obtenemos nuestro mejor k.}
+         \PY{n}{knnModel} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{train}\PY{p}{(}\PY{n}{hr.train}\PY{p}{,}\PY{n}{hr.labels.train}\PY{p}{,}
+                           \PY{n}{method}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{knn\PYZdq{}}\PY{p}{,} \PY{n}{metric}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{Accuracy\PYZdq{}}\PY{p}{,}
+                           \PY{n}{tuneGrid} \PY{o}{=} \PY{n+nf}{data.frame}\PY{p}{(}\PY{n}{.k}\PY{o}{=}\PY{n}{ks}\PY{p}{)}\PY{p}{)}
+         \PY{n}{knnModel}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+k-Nearest Neighbors 
+
+160 samples
+  3 predictor
+  3 classes: '1', '2', '3' 
+
+No pre-processing
+Resampling: Bootstrapped (25 reps) 
+Summary of sample sizes: 160, 160, 160, 160, 160, 160, ... 
+Resampling results across tuning parameters:
+
+  k   Accuracy   Kappa      
+   3  0.7592192   0.61538285
+   5  0.7327564   0.57240739
+   7  0.7008101   0.51953449
+   9  0.6068701   0.36899478
+  11  0.5227671   0.23058421
+  13  0.4166538   0.05572926
+  15  0.3508964  -0.05400105
+
+Accuracy was used to select the optimal model using the largest value.
+The final value used for the model was k = 3.
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{} dibujamos los resultados de cada k.}
+         \PY{n}{resultados\PYZus{}k} \PY{o}{=} \PY{n}{knnModel}\PY{o}{\PYZdl{}}\PY{n}{results}\PY{n}{[}\PY{p}{,}\PY{n+nf}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{k\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Accuracy\PYZdq{}}\PY{p}{)}\PY{n}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{} cargamos la librería ggplot}
+         \PY{n+nf}{require}\PY{p}{(}\PY{n}{ggplot2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{resultados\PYZus{}k}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{k}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{Accuracy}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{n+nf}{geom\PYZus{}point}\PY{p}{(}\PY{n}{col}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+}
+             \PY{n+nf}{geom\PYZus{}line}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{n+nf}{scale\PYZus{}x\PYZus{}continuous}\PY{p}{(}\PY{n}{breaks}\PY{o}{=}\PY{n}{resultados\PYZus{}k}\PY{o}{\PYZdl{}}\PY{n}{k}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_41_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Como se puede ver en la gráfica, el mejor resultado se obtiene para
+\emph{k} igual a 3, nos quedaremos con este modelo para hacer validación
+cruzada (ya que caret crea el modelo final con el k que mejores valores
+a obtenido).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{knnModel} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{train}\PY{p}{(}\PY{n}{hr.train}\PY{p}{,}\PY{n}{hr.labels.train}\PY{p}{,}
+                           \PY{n}{method}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{knn\PYZdq{}}\PY{p}{,} \PY{n}{metric}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{Accuracy\PYZdq{}}\PY{p}{,}
+                           \PY{n}{tuneGrid} \PY{o}{=} \PY{n+nf}{data.frame}\PY{p}{(}\PY{n}{.k}\PY{o}{=}\PY{l+m}{3}\PY{p}{)}\PY{p}{)}
+         \PY{n}{knnModel}
+         
+         \PY{n}{knnPred} \PY{o}{=} \PY{n+nf}{predict}\PY{p}{(}\PY{n}{knnModel}\PY{p}{,}\PY{n}{newdata}\PY{o}{=}\PY{n}{hr.train}\PY{p}{)} 
+         \PY{n}{acc}\PY{o}{=}\PY{n+nf}{postResample}\PY{p}{(}\PY{n}{pred} \PY{o}{=} \PY{n}{knnPred}\PY{p}{,} \PY{n}{obs} \PY{o}{=} \PY{n}{hr.labels.train}\PY{p}{)}\PY{n}{[1}\PY{n}{]}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+k-Nearest Neighbors 
+
+160 samples
+  3 predictor
+  3 classes: '1', '2', '3' 
+
+No pre-processing
+Resampling: Bootstrapped (25 reps) 
+Summary of sample sizes: 160, 160, 160, 160, 160, 160, ... 
+Resampling results:
+
+  Accuracy  Kappa    
+  0.756918  0.6094881
+
+Tuning parameter 'k' was held constant at a value of 3
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}101}]:} \PY{n}{nombre} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{hayes\PYZhy{}roth/hayes\PYZhy{}roth\PYZdq{}}
+          
+          \PY{n}{run\PYZus{}knn\PYZus{}fold} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{function}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{tt} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+              \PY{n}{file} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}10\PYZhy{}\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tra.dat\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{x\PYZus{}tra} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.csv}\PY{p}{(}\PY{n}{file}\PY{p}{,} \PY{n}{comment.char}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+              \PY{n}{file} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}10\PYZhy{}\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tst.dat\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{x\PYZus{}tst} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.csv}\PY{p}{(}\PY{n}{file}\PY{p}{,} \PY{n}{comment.char}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+              \PY{n}{In} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{length}\PY{p}{(}\PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m}{1}
+              \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{n}{[1}\PY{o}{:}\PY{n}{In}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste }\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}\PY{n}{In}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+              \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{n}{[In}\PY{l+m}{+1}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+              \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tst}\PY{p}{)}\PY{n}{[1}\PY{o}{:}\PY{n}{In}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste }\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}\PY{n}{In}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+              \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tst}\PY{p}{)}\PY{n}{[In}\PY{l+m}{+1}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+              \PY{n+nf}{if }\PY{p}{(}\PY{n}{tt} \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+                  \PY{n}{test} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{x\PYZus{}tra}
+              \PY{p}{\PYZcb{}}
+              \PY{n}{else} \PY{p}{\PYZob{}}
+                  \PY{n}{test} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{x\PYZus{}tst}
+              \PY{p}{\PYZcb{}}
+              
+              \PY{n}{hr.train} \PY{o}{=} \PY{n}{x\PYZus{}tra}\PY{n}{[}\PY{p}{,}\PY{n+nf}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X2\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{X3\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{X4\PYZdq{}}\PY{p}{)}\PY{n}{]}
+              \PY{n}{hr.labels.train} \PY{o}{=} \PY{n}{x\PYZus{}tra}\PY{n}{[}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}\PY{n}{]}
+              \PY{n}{hr.labels.train} \PY{o}{=} \PY{n+nf}{factor}\PY{p}{(}\PY{n}{hr.labels.train}\PY{p}{,} \PY{n}{levels}\PY{o}{=}\PY{n+nf}{c}\PY{p}{(}\PY{l+m}{1}\PY{p}{,}\PY{l+m}{2}\PY{p}{,}\PY{l+m}{3}\PY{p}{)}\PY{p}{)}
+              \PY{n}{fitMulti}\PY{o}{=}\PY{n+nf}{train}\PY{p}{(}\PY{n}{hr.train}\PY{p}{,}\PY{n}{hr.labels.train}\PY{p}{,}
+                            \PY{n}{method}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{knn\PYZdq{}}\PY{p}{,} \PY{n}{metric}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{Accuracy\PYZdq{}}\PY{p}{,}
+                            \PY{n}{tuneGrid} \PY{o}{=} \PY{n+nf}{data.frame}\PY{p}{(}\PY{n}{.k}\PY{o}{=}\PY{l+m}{3}\PY{p}{)}\PY{p}{)}
+              
+              \PY{n}{labels} \PY{o}{=} \PY{n+nf}{factor}\PY{p}{(}\PY{n}{test}\PY{n}{[}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}\PY{n}{]}\PY{p}{,}\PY{n}{levels}\PY{o}{=}\PY{n+nf}{c}\PY{p}{(}\PY{l+m}{1}\PY{p}{,}\PY{l+m}{2}\PY{p}{,}\PY{l+m}{3}\PY{p}{)}\PY{p}{)}
+              \PY{n}{yprime}\PY{o}{=}\PY{n+nf}{predict}\PY{p}{(}\PY{n}{fitMulti}\PY{p}{,}\PY{n}{newdata}\PY{o}{=}\PY{n}{test}\PY{n}{[}\PY{p}{,}\PY{n+nf}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X2\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{X3\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{X4\PYZdq{}}\PY{p}{)}\PY{n}{]}\PY{p}{)}
+              \PY{n}{err} \PY{o}{=} \PY{l+m}{1}\PY{o}{\PYZhy{}}\PY{n+nf}{postResample}\PY{p}{(}\PY{n}{pred} \PY{o}{=} \PY{n}{yprime}\PY{p}{,} \PY{n}{obs} \PY{o}{=} \PY{n}{labels}\PY{p}{)}\PY{n}{[1}\PY{n}{]}
+              
+          \PY{p}{\PYZcb{}}
+          \PY{n}{knnMSEtrain.all}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n+nf}{mean}\PY{p}{(}\PY{n+nf}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{10}\PY{p}{,}\PY{n}{run\PYZus{}knn\PYZus{}fold}\PY{p}{,}\PY{n}{nombre}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)}\PY{p}{)}
+          \PY{n}{knnMSEtest.all}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n+nf}{mean}\PY{p}{(}\PY{n+nf}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{10}\PY{p}{,}\PY{n}{run\PYZus{}knn\PYZus{}fold}\PY{p}{,}\PY{n}{nombre}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)}\PY{p}{)}
+          \PY{n+nf}{print}\PY{p}{(}\PY{n}{knnMSEtrain.all}\PY{p}{)}
+          \PY{n+nf}{print}\PY{p}{(}\PY{n}{knnMSEtest.all}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1] 0.1444444
+[1] 0.25625
+
+    \end{Verbatim}
+
+    Como se puede ver por los resultdos obtenidos, el algoritmo de knn tiene
+sobreaprendizaje.
+
+    \hypertarget{modelos-con-el-algoritmo-lda}{%
+\subsubsection{Modelos con el algoritmo
+LDA}\label{modelos-con-el-algoritmo-lda}}
+
+En este apartado utilizaremos el algoritmo LDA para crear un modelo que
+prediga la clase a que pertenece cada dato. Antes de crear los modelos
+con LDA, comprobaremos si las variables tienen una varianza igual y
+tienen una ditribución normal; al igual que pare el algoritmo KNN,
+solamente utilizaremos las variables \emph{Age}, \emph{EducationalLevel}
+y \emph{MaritalStatus}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{c+c1}{\PYZsh{} Separamos las variables de entrada y las clases en dos variables distintas para poder utilizarlo con caret.}
+         \PY{n}{hr.train} \PY{o}{=} \PY{n}{hayesroth}\PY{n}{[}\PY{p}{,}\PY{n+nf}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Age\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{EducationalLevel\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{MaritalStatus\PYZdq{}}\PY{p}{)}\PY{n}{]}
+         \PY{n}{hr.labels.train} \PY{o}{=} \PY{n}{hayesroth}\PY{n}{[}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Class\PYZdq{}}\PY{n}{]}
+         \PY{n}{hr.labels.train} \PY{o}{=} \PY{n+nf}{factor}\PY{p}{(}\PY{n}{hr.labels.train}\PY{p}{,} \PY{n}{levels}\PY{o}{=}\PY{n+nf}{c}\PY{p}{(}\PY{l+m}{1}\PY{p}{,}\PY{l+m}{2}\PY{p}{,}\PY{l+m}{3}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Normalizamos los datos.}
+         \PY{n}{hr.train} \PY{o}{=} \PY{n+nf}{as.data.frame}\PY{p}{(}\PY{n+nf}{lapply}\PY{p}{(}\PY{n}{hr.train}\PY{p}{,}
+                                        \PY{n}{scale}\PY{p}{,} \PY{n}{center} \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,} \PY{n}{scale} \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{c+c1}{\PYZsh{} Cargamos la librería necesaria para comprobar si las distribuciones son normales.}
+         \PY{n+nf}{require}\PY{p}{(}\PY{n}{MASS}\PY{p}{)} \PY{c+c1}{\PYZsh{} lda y qda.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{c+c1}{\PYZsh{} Comprobamos si tienen una distribución normal y misma varianza.}
+         \PY{n+nf}{shapiro.test}\PY{p}{(}\PY{n}{hr.train}\PY{o}{\PYZdl{}}\PY{n}{Age}\PY{p}{)}
+         \PY{n+nf}{shapiro.test}\PY{p}{(}\PY{n}{hr.train}\PY{o}{\PYZdl{}}\PY{n}{EducationalLevel}\PY{p}{)}
+         \PY{n+nf}{shapiro.test}\PY{p}{(}\PY{n}{hr.train}\PY{o}{\PYZdl{}}\PY{n}{MaritalStatus}\PY{p}{)}
+         
+         \PY{n+nf}{var}\PY{p}{(}\PY{n}{hr.train}\PY{o}{\PYZdl{}}\PY{n}{Age}\PY{p}{)}
+         \PY{n+nf}{var}\PY{p}{(}\PY{n}{hr.train}\PY{o}{\PYZdl{}}\PY{n}{EducationalLevel}\PY{p}{)}
+         \PY{n+nf}{var}\PY{p}{(}\PY{n}{hr.train}\PY{o}{\PYZdl{}}\PY{n}{MaritalStatus}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+	Shapiro-Wilk normality test
+
+data:  hr.train$Age
+W = 0.8329, p-value = 3.074e-12
+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+
+	Shapiro-Wilk normality test
+
+data:  hr.train$EducationalLevel
+W = 0.8329, p-value = 3.074e-12
+
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+
+	Shapiro-Wilk normality test
+
+data:  hr.train$MaritalStatus
+W = 0.8329, p-value = 3.074e-12
+
+    \end{verbatim}
+
+    
+    1
+
+    
+    1
+
+    
+    1
+
+    
+    Como se puede ver según los resultados de los test de Shapiro-Wilk,
+ninguna de las variables predictoras tiene una distribución normal, esto
+hará que el algoritmo LDA no funcione correctamente. Las varianzas de
+las variables es 1 para todas (esto ocurre porque los datos están
+normalizados).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{c+c1}{\PYZsh{} Ejecutamos el algoritmo LDA.}
+         \PY{n}{temp} \PY{o}{=} \PY{n}{hr.train}
+         \PY{n}{temp}\PY{o}{\PYZdl{}}\PY{n}{Class} \PY{o}{=} \PY{n}{hr.labels.train}
+         \PY{n}{lda.fit} \PY{o}{=} \PY{n+nf}{lda}\PY{p}{(}\PY{n}{Class}\PY{o}{\PYZti{}}\PY{n}{Age}\PY{o}{+}\PY{n}{EducationalLevel}\PY{o}{+}\PY{n}{MaritalStatus}\PY{p}{,}
+                      \PY{n}{data}\PY{o}{=}\PY{n}{temp}\PY{p}{)}
+         \PY{n}{lda.fit}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+Call:
+lda(Class ~ Age + EducationalLevel + MaritalStatus, data = temp)
+
+Prior probabilities of groups:
+      1       2       3 
+0.40625 0.40000 0.19375 
+
+Group means:
+         Age EducationalLevel MaritalStatus
+1 -0.3669775      -0.33417501   -0.30137255
+2 -0.0233205      -0.05663549   -0.08995048
+3  0.8176144       0.81761441    0.81761441
+
+Coefficients of linear discriminants:
+                      LD1         LD2
+Age              0.833050 -0.69799777
+EducationalLevel 0.815173  0.00993965
+MaritalStatus    0.797296  0.71787707
+
+Proportion of trace:
+   LD1    LD2 
+0.9985 0.0015 
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{n+nf}{require}\PY{p}{(}\PY{n}{klaR}\PY{p}{)}
+         \PY{n+nf}{partimat}\PY{p}{(}\PY{n}{Class}\PY{o}{\PYZti{}}\PY{n}{Age}\PY{o}{+}\PY{n}{EducationalLevel}\PY{o}{+}\PY{n}{MaritalStatus}\PY{p}{,}
+                      \PY{n}{data}\PY{o}{=}\PY{n}{temp}\PY{p}{,} \PY{n}{method}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lda\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_52_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_52_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}96}]:} \PY{c+c1}{\PYZsh{} Calculamos el error de LDA.}
+         \PY{n}{lda.pred} \PY{o}{=} \PY{n+nf}{predict}\PY{p}{(}\PY{n}{lda.fit}\PY{p}{,} \PY{n}{temp}\PY{n}{[}\PY{p}{,}\PY{l+m}{\PYZhy{}4}\PY{n}{]}\PY{p}{)}
+         \PY{n+nf}{mean}\PY{p}{(}\PY{n}{lda.pred}\PY{o}{\PYZdl{}}\PY{n}{class}\PY{o}{!=}\PY{n}{temp}\PY{o}{\PYZdl{}}\PY{n}{Class}\PY{p}{)}
+\end{Verbatim}
+
+
+    0.45625
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{c+c1}{\PYZsh{} Validación cruzada para LDA.}
+         \PY{n}{nombre} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{hayes\PYZhy{}roth/hayes\PYZhy{}roth\PYZdq{}}
+         
+         \PY{n}{run\PYZus{}knn\PYZus{}fold} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{function}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{tt} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+             \PY{n}{file} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}10\PYZhy{}\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tra.dat\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{x\PYZus{}tra} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.csv}\PY{p}{(}\PY{n}{file}\PY{p}{,} \PY{n}{comment.char}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+             \PY{n}{file} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}10\PYZhy{}\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tst.dat\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{x\PYZus{}tst} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.csv}\PY{p}{(}\PY{n}{file}\PY{p}{,} \PY{n}{comment.char}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+             \PY{n}{In} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{length}\PY{p}{(}\PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m}{1}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{n}{[1}\PY{o}{:}\PY{n}{In}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste }\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}\PY{n}{In}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{n}{[In}\PY{l+m}{+1}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tst}\PY{p}{)}\PY{n}{[1}\PY{o}{:}\PY{n}{In}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste }\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}\PY{n}{In}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tst}\PY{p}{)}\PY{n}{[In}\PY{l+m}{+1}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+             \PY{n+nf}{if }\PY{p}{(}\PY{n}{tt} \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+                 \PY{n}{test} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{x\PYZus{}tra}
+             \PY{p}{\PYZcb{}}
+             \PY{n}{else} \PY{p}{\PYZob{}}
+                 \PY{n}{test} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{x\PYZus{}tst}
+             \PY{p}{\PYZcb{}}
+             
+             \PY{n}{hr.train} \PY{o}{=} \PY{n}{x\PYZus{}tra}\PY{n}{[}\PY{p}{,}\PY{n+nf}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X2\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{X3\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{X4\PYZdq{}}\PY{p}{)}\PY{n}{]}
+             \PY{n}{hr.labels.train} \PY{o}{=} \PY{n}{x\PYZus{}tra}\PY{n}{[}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}\PY{n}{]}
+             \PY{n}{hr.labels.train} \PY{o}{=} \PY{n+nf}{factor}\PY{p}{(}\PY{n}{hr.labels.train}\PY{p}{,} \PY{n}{levels}\PY{o}{=}\PY{n+nf}{c}\PY{p}{(}\PY{l+m}{1}\PY{p}{,}\PY{l+m}{2}\PY{p}{,}\PY{l+m}{3}\PY{p}{)}\PY{p}{)}
+             \PY{n}{hr.train}\PY{o}{\PYZdl{}}\PY{n}{Y} \PY{o}{=} \PY{n}{hr.labels.train}
+             \PY{n}{fitMulti}\PY{o}{=}\PY{n+nf}{lda}\PY{p}{(}\PY{n}{Y}\PY{o}{\PYZti{}}\PY{n}{X2}\PY{o}{+}\PY{n}{X3}\PY{o}{+}\PY{n}{X4}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{hr.train}\PY{p}{)}
+             \PY{n}{labels} \PY{o}{=} \PY{n+nf}{factor}\PY{p}{(}\PY{n}{test}\PY{n}{[}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}\PY{n}{]}\PY{p}{,}\PY{n}{levels}\PY{o}{=}\PY{n+nf}{c}\PY{p}{(}\PY{l+m}{1}\PY{p}{,}\PY{l+m}{2}\PY{p}{,}\PY{l+m}{3}\PY{p}{)}\PY{p}{)}
+             \PY{n}{yprime}\PY{o}{=}\PY{n+nf}{predict}\PY{p}{(}\PY{n}{fitMulti}\PY{p}{,}\PY{n}{test}\PY{n}{[}\PY{p}{,}\PY{n+nf}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X2\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{X3\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{X4\PYZdq{}}\PY{p}{)}\PY{n}{]}\PY{p}{)}
+             \PY{n}{err} \PY{o}{=} \PY{n+nf}{mean}\PY{p}{(}\PY{n}{yprime}\PY{o}{\PYZdl{}}\PY{n}{class}\PY{o}{!=}\PY{n}{labels}\PY{p}{)}
+             
+         \PY{p}{\PYZcb{}}
+         \PY{n}{ldaERRtrain.all}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n+nf}{mean}\PY{p}{(}\PY{n+nf}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{10}\PY{p}{,}\PY{n}{run\PYZus{}knn\PYZus{}fold}\PY{p}{,}\PY{n}{nombre}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ldaERRtest.all}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n+nf}{mean}\PY{p}{(}\PY{n+nf}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{10}\PY{p}{,}\PY{n}{run\PYZus{}knn\PYZus{}fold}\PY{p}{,}\PY{n}{nombre}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n+nf}{print}\PY{p}{(}\PY{n}{ldaERRtrain.all}\PY{p}{)}
+         \PY{n+nf}{print}\PY{p}{(}\PY{n}{ldaERRtest.all}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1] 0.4583333
+[1] 0.4625
+
+    \end{Verbatim}
+
+    Como se puede ver, el algoritmo LDA no tiene sobreaprendizaje, pero sí
+que obtiene peores resultados que el algoritmo KNN.
+
+    \hypertarget{modelos-con-algoritmo-qda}{%
+\subsubsection{Modelos con algoritmo
+QDA}\label{modelos-con-algoritmo-qda}}
+
+En este apartado utilizaremos el algoritmo QDA para predecir las clases,
+para ello utilizaremos comprobaremos sí los datos cumplen las
+características necesarias para que QDA funcione correctamente. Tras
+esto, crearemos un modelo con las variables \emph{Age},
+\emph{MaritalStatus} y \emph{EducationalLevel} y realizaremos validación
+cruzada.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} \PY{c+c1}{\PYZsh{} Comprobamos que las varianzas de los predictores para las diferentes clases}
+         \PY{c+c1}{\PYZsh{} son diferentes.}
+         \PY{n+nf}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Varianzas para Age:\PYZbs{}n\PYZdq{}}\PY{p}{)}
+         \PY{n+nf}{var}\PY{p}{(}\PY{n}{temp}\PY{n}{[temp}\PY{o}{\PYZdl{}}\PY{n}{Class}\PY{o}{==}\PY{l+m}{1}\PY{p}{,}\PY{n}{]}\PY{o}{\PYZdl{}}\PY{n}{Age}\PY{p}{)}
+         \PY{n+nf}{var}\PY{p}{(}\PY{n}{temp}\PY{n}{[temp}\PY{o}{\PYZdl{}}\PY{n}{Class}\PY{o}{==}\PY{l+m}{2}\PY{p}{,}\PY{n}{]}\PY{o}{\PYZdl{}}\PY{n}{Age}\PY{p}{)}
+         \PY{n+nf}{var}\PY{p}{(}\PY{n}{temp}\PY{n}{[temp}\PY{o}{\PYZdl{}}\PY{n}{Class}\PY{o}{==}\PY{l+m}{3}\PY{p}{,}\PY{n}{]}\PY{o}{\PYZdl{}}\PY{n}{Age}\PY{p}{)}
+         \PY{n+nf}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Varianzas para EducationalLevel:\PYZbs{}n\PYZdq{}}\PY{p}{)}
+         \PY{n+nf}{var}\PY{p}{(}\PY{n}{temp}\PY{n}{[temp}\PY{o}{\PYZdl{}}\PY{n}{Class}\PY{o}{==}\PY{l+m}{1}\PY{p}{,}\PY{n}{]}\PY{o}{\PYZdl{}}\PY{n}{EducationalLevel}\PY{p}{)}
+         \PY{n+nf}{var}\PY{p}{(}\PY{n}{temp}\PY{n}{[temp}\PY{o}{\PYZdl{}}\PY{n}{Class}\PY{o}{==}\PY{l+m}{2}\PY{p}{,}\PY{n}{]}\PY{o}{\PYZdl{}}\PY{n}{EducationalLevel}\PY{p}{)}
+         \PY{n+nf}{var}\PY{p}{(}\PY{n}{temp}\PY{n}{[temp}\PY{o}{\PYZdl{}}\PY{n}{Class}\PY{o}{==}\PY{l+m}{3}\PY{p}{,}\PY{n}{]}\PY{o}{\PYZdl{}}\PY{n}{EducationalLevel}\PY{p}{)}
+         \PY{n+nf}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Varianzas para MaritalStatus:\PYZbs{}n\PYZdq{}}\PY{p}{)}
+         \PY{n+nf}{var}\PY{p}{(}\PY{n}{temp}\PY{n}{[temp}\PY{o}{\PYZdl{}}\PY{n}{Class}\PY{o}{==}\PY{l+m}{1}\PY{p}{,}\PY{n}{]}\PY{o}{\PYZdl{}}\PY{n}{MaritalStatus}\PY{p}{)}
+         \PY{n+nf}{var}\PY{p}{(}\PY{n}{temp}\PY{n}{[temp}\PY{o}{\PYZdl{}}\PY{n}{Class}\PY{o}{==}\PY{l+m}{2}\PY{p}{,}\PY{n}{]}\PY{o}{\PYZdl{}}\PY{n}{MaritalStatus}\PY{p}{)}
+         \PY{n+nf}{var}\PY{p}{(}\PY{n}{temp}\PY{n}{[temp}\PY{o}{\PYZdl{}}\PY{n}{Class}\PY{o}{==}\PY{l+m}{3}\PY{p}{,}\PY{n}{]}\PY{o}{\PYZdl{}}\PY{n}{MaritalStatus}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Varianzas para Age:
+
+    \end{Verbatim}
+
+    0.695029416616264
+
+    
+    0.520625914769053
+
+    
+    1.74022919596947
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Varianzas para EducationalLevel:
+
+    \end{Verbatim}
+
+    0.720164128223456
+
+    
+    0.516115890602131
+
+    
+    1.74022919596947
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Varianzas para MaritalStatus:
+
+    \end{Verbatim}
+
+    0.743113212734371
+
+    
+    0.509350854351748
+
+    
+    1.74022919596947
+
+    
+    Como todas las varianzas son diferentes, en principio QDA debería de
+funcionar mejor que LDA. Lo siguiente que haremos será crear un modelo y
+ver los resultados que obtiene.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{c+c1}{\PYZsh{} creamos el modelo con QDA.}
+         \PY{n}{qda.fit} \PY{o}{=} \PY{n+nf}{qda}\PY{p}{(}\PY{n}{Class}\PY{o}{\PYZti{}}\PY{n}{Age}\PY{o}{+}\PY{n}{EducationalLevel}\PY{o}{+}\PY{n}{MaritalStatus}\PY{p}{,}
+                      \PY{n}{data}\PY{o}{=}\PY{n}{temp}\PY{p}{)}
+         \PY{n}{qda.fit}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+Call:
+qda(Class ~ Age + EducationalLevel + MaritalStatus, data = temp)
+
+Prior probabilities of groups:
+      1       2       3 
+0.40625 0.40000 0.19375 
+
+Group means:
+         Age EducationalLevel MaritalStatus
+1 -0.3669775      -0.33417501   -0.30137255
+2 -0.0233205      -0.05663549   -0.08995048
+3  0.8176144       0.81761441    0.81761441
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} \PY{c+c1}{\PYZsh{} dibujamos los resultados obtenidos por QDA.}
+         \PY{n+nf}{partimat}\PY{p}{(}\PY{n}{Class}\PY{o}{\PYZti{}}\PY{n}{Age}\PY{o}{+}\PY{n}{EducationalLevel}\PY{o}{+}\PY{n}{MaritalStatus}\PY{p}{,}
+                      \PY{n}{data}\PY{o}{=}\PY{n}{temp}\PY{p}{,} \PY{n}{method}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{qda\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_60_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_60_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}98}]:} \PY{c+c1}{\PYZsh{} Calculamos el error para qda.}
+         \PY{n}{qda.pred} \PY{o}{=} \PY{n+nf}{predict}\PY{p}{(}\PY{n}{qda.fit}\PY{p}{,} \PY{n}{temp}\PY{n}{[}\PY{p}{,}\PY{l+m}{\PYZhy{}4}\PY{n}{]}\PY{p}{)}
+         \PY{n+nf}{mean}\PY{p}{(}\PY{n}{qda.pred}\PY{o}{\PYZdl{}}\PY{n}{class}\PY{o}{!=}\PY{n}{temp}\PY{o}{\PYZdl{}}\PY{n}{Class}\PY{p}{)}
+\end{Verbatim}
+
+
+    0.275
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}100}]:} \PY{c+c1}{\PYZsh{} Realizamos validación cruzada para QDA}
+          \PY{n}{nombre} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{hayes\PYZhy{}roth/hayes\PYZhy{}roth\PYZdq{}}
+          
+          \PY{n}{run\PYZus{}knn\PYZus{}fold} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{function}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{tt} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+              \PY{n}{file} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}10\PYZhy{}\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tra.dat\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{x\PYZus{}tra} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.csv}\PY{p}{(}\PY{n}{file}\PY{p}{,} \PY{n}{comment.char}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+              \PY{n}{file} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}10\PYZhy{}\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tst.dat\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{x\PYZus{}tst} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.csv}\PY{p}{(}\PY{n}{file}\PY{p}{,} \PY{n}{comment.char}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+              \PY{n}{In} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{length}\PY{p}{(}\PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m}{1}
+              \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{n}{[1}\PY{o}{:}\PY{n}{In}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste }\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}\PY{n}{In}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+              \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{n}{[In}\PY{l+m}{+1}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+              \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tst}\PY{p}{)}\PY{n}{[1}\PY{o}{:}\PY{n}{In}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste }\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}\PY{n}{In}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+              \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tst}\PY{p}{)}\PY{n}{[In}\PY{l+m}{+1}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+              \PY{n+nf}{if }\PY{p}{(}\PY{n}{tt} \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+                  \PY{n}{test} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{x\PYZus{}tra}
+              \PY{p}{\PYZcb{}}
+              \PY{n}{else} \PY{p}{\PYZob{}}
+                  \PY{n}{test} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{x\PYZus{}tst}
+              \PY{p}{\PYZcb{}}
+              
+              \PY{n}{hr.train} \PY{o}{=} \PY{n}{x\PYZus{}tra}\PY{n}{[}\PY{p}{,}\PY{n+nf}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X2\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{X3\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{X4\PYZdq{}}\PY{p}{)}\PY{n}{]}
+              \PY{n}{hr.labels.train} \PY{o}{=} \PY{n}{x\PYZus{}tra}\PY{n}{[}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}\PY{n}{]}
+              \PY{n}{hr.labels.train} \PY{o}{=} \PY{n+nf}{factor}\PY{p}{(}\PY{n}{hr.labels.train}\PY{p}{,} \PY{n}{levels}\PY{o}{=}\PY{n+nf}{c}\PY{p}{(}\PY{l+m}{1}\PY{p}{,}\PY{l+m}{2}\PY{p}{,}\PY{l+m}{3}\PY{p}{)}\PY{p}{)}
+              \PY{n}{hr.train}\PY{o}{\PYZdl{}}\PY{n}{Y} \PY{o}{=} \PY{n}{hr.labels.train}
+              \PY{n}{fitMulti}\PY{o}{=}\PY{n+nf}{qda}\PY{p}{(}\PY{n}{Y}\PY{o}{\PYZti{}}\PY{n}{X2}\PY{o}{+}\PY{n}{X3}\PY{o}{+}\PY{n}{X4}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{hr.train}\PY{p}{)}
+              \PY{n}{labels} \PY{o}{=} \PY{n+nf}{factor}\PY{p}{(}\PY{n}{test}\PY{n}{[}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}\PY{n}{]}\PY{p}{,}\PY{n}{levels}\PY{o}{=}\PY{n+nf}{c}\PY{p}{(}\PY{l+m}{1}\PY{p}{,}\PY{l+m}{2}\PY{p}{,}\PY{l+m}{3}\PY{p}{)}\PY{p}{)}
+              \PY{n}{yprime}\PY{o}{=}\PY{n+nf}{predict}\PY{p}{(}\PY{n}{fitMulti}\PY{p}{,}\PY{n}{test}\PY{n}{[}\PY{p}{,}\PY{n+nf}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X2\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{X3\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{X4\PYZdq{}}\PY{p}{)}\PY{n}{]}\PY{p}{)}
+              \PY{n}{err} \PY{o}{=} \PY{n+nf}{mean}\PY{p}{(}\PY{n}{yprime}\PY{o}{\PYZdl{}}\PY{n}{class}\PY{o}{!=}\PY{n}{labels}\PY{p}{)}
+              
+          \PY{p}{\PYZcb{}}
+          \PY{n}{qdaERRtrain.all}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n+nf}{mean}\PY{p}{(}\PY{n+nf}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{10}\PY{p}{,}\PY{n}{run\PYZus{}knn\PYZus{}fold}\PY{p}{,}\PY{n}{nombre}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)}\PY{p}{)}
+          \PY{n}{qdaERRtest.all}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n+nf}{mean}\PY{p}{(}\PY{n+nf}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{10}\PY{p}{,}\PY{n}{run\PYZus{}knn\PYZus{}fold}\PY{p}{,}\PY{n}{nombre}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)}\PY{p}{)}
+          \PY{n+nf}{print}\PY{p}{(}\PY{n}{qdaERRtrain.all}\PY{p}{)}
+          \PY{n+nf}{print}\PY{p}{(}\PY{n}{qdaERRtest.all}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1] 0.2590278
+[1] 0.35
+
+    \end{Verbatim}
+
+    Como se puede ver, QDA obtiene mejores resultados que LDA, pero tiene
+sobreaprendizaje. Por ahora, el mejor modelo que hemos obtenido es el
+generado por KNN, ya que obtiene un entre 22-26 por ciento de error, lo
+cual mejora en un 10\% a QDA y un 20\% a LDA.
+
+    \hypertarget{modelos-con-uxe1rboles-de-decisiuxf3n}{%
+\subsubsection{Modelos con árboles de
+decisión}\label{modelos-con-uxe1rboles-de-decisiuxf3n}}
+
+Este apartado es adicional y se ha hecho ya que parece que el dataset
+puede predecirse mejor con un árbol de decisión, ya que existen muy
+pocas diferencias entre los datos de cada clase y cada variable (pueden
+verse los scatterplots divididos por clase en el apartado de análisis
+exploratorio).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}115}]:} \PY{c+c1}{\PYZsh{} cargamos la librería que contiene los árboles de decisión.}
+          \PY{n+nf}{require}\PY{p}{(}\PY{n}{tree}\PY{p}{)}
+          
+          \PY{n}{temp}\PY{o}{=}\PY{n}{hayesroth}
+          \PY{n}{temp}\PY{o}{\PYZdl{}}\PY{n}{Class} \PY{o}{=} \PY{n+nf}{factor}\PY{p}{(}\PY{n}{temp}\PY{o}{\PYZdl{}}\PY{n}{Class}\PY{p}{,}\PY{n}{levels}\PY{o}{=}\PY{n+nf}{c}\PY{p}{(}\PY{l+m}{1}\PY{p}{,}\PY{l+m}{2}\PY{p}{,}\PY{l+m}{3}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n+nf}{set.seed }\PY{p}{(}\PY{l+m}{2}\PY{p}{)}
+          \PY{n}{train}\PY{o}{=}\PY{n+nf}{sample }\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{n+nf}{nrow}\PY{p}{(}\PY{n}{temp}\PY{p}{)}\PY{p}{,} \PY{n+nf}{round}\PY{p}{(}\PY{n+nf}{nrow}\PY{p}{(}\PY{n}{temp}\PY{p}{)}\PY{o}{*}\PY{l+m}{0.8}\PY{p}{)} \PY{p}{)}
+          \PY{n}{hayes.test}\PY{o}{=}\PY{n}{temp}\PY{n}{[}\PY{o}{\PYZhy{}}\PY{n}{train} \PY{p}{,}\PY{n}{]}
+          
+          \PY{c+c1}{\PYZsh{} Construyo el arbol sobre el conjunto de entrenamiento}
+          \PY{n}{tree.hayes} \PY{o}{=}\PY{n+nf}{tree}\PY{p}{(}\PY{n}{Class}\PY{o}{\PYZti{}}\PY{n}{Age}\PY{o}{+}\PY{n}{EducationalLevel}\PY{o}{+}\PY{n}{MaritalStatus} \PY{p}{,}
+                          \PY{n}{temp} \PY{p}{,}\PY{n}{subset} \PY{o}{=}\PY{n}{train} \PY{p}{)}
+          
+          \PY{n+nf}{summary}\PY{p}{(}\PY{n}{tree.hayes}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Aplico el arbol sobre el conjunto de test}
+          \PY{n}{tree.pred} \PY{o}{=}\PY{n+nf}{predict }\PY{p}{(}\PY{n}{tree.hayes}\PY{p}{,}\PY{n}{hayes.test}\PY{p}{,}\PY{n}{type} \PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{class\PYZdq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Visualizo la matriz de confusion}
+          \PY{n+nf}{table}\PY{p}{(}\PY{n}{tree.pred} \PY{p}{,} \PY{n}{hayes.test}\PY{n}{[}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Class\PYZdq{}}\PY{n}{]}\PY{p}{)}
+          \PY{n+nf}{mean}\PY{p}{(}\PY{n}{tree.pred}\PY{o}{!=}\PY{n}{hayes.test}\PY{o}{\PYZdl{}}\PY{n}{Class}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+Classification tree:
+tree(formula = Class ~ Age + EducationalLevel + MaritalStatus, 
+    data = temp, subset = train)
+Number of terminal nodes:  12 
+Residual mean deviance:  0.6289 = 72.95 / 116 
+Misclassification error rate: 0.1484 = 19 / 128 
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+         
+tree.pred  1  2  3
+        1 12  0  2
+        2  4  9  2
+        3  0  0  3
+    \end{verbatim}
+
+    
+    0.25
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}116}]:} \PY{c+c1}{\PYZsh{} Dibujamos el árbol.}
+          \PY{n+nf}{plot}\PY{p}{(}\PY{n}{tree.hayes}\PY{p}{)}
+          \PY{n+nf}{text}\PY{p}{(}\PY{n}{tree.hayes}\PY{p}{,} \PY{n}{pretty}\PY{o}{=}\PY{l+m}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_66_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}119}]:} \PY{c+c1}{\PYZsh{} Validación cruzada para el árbol de decisión.}
+          \PY{n}{nombre} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{hayes\PYZhy{}roth/hayes\PYZhy{}roth\PYZdq{}}
+          
+          \PY{n}{run\PYZus{}knn\PYZus{}fold} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{function}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{tt} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+              \PY{n}{file} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}10\PYZhy{}\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tra.dat\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{x\PYZus{}tra} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.csv}\PY{p}{(}\PY{n}{file}\PY{p}{,} \PY{n}{comment.char}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+              \PY{n}{file} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}10\PYZhy{}\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tst.dat\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{x\PYZus{}tst} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.csv}\PY{p}{(}\PY{n}{file}\PY{p}{,} \PY{n}{comment.char}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+              \PY{n}{In} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{length}\PY{p}{(}\PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m}{1}
+              \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{n}{[1}\PY{o}{:}\PY{n}{In}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste }\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}\PY{n}{In}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+              \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{n}{[In}\PY{l+m}{+1}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+              \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tst}\PY{p}{)}\PY{n}{[1}\PY{o}{:}\PY{n}{In}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste }\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}\PY{n}{In}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+              \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tst}\PY{p}{)}\PY{n}{[In}\PY{l+m}{+1}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+              \PY{n+nf}{if }\PY{p}{(}\PY{n}{tt} \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+                  \PY{n}{test} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{x\PYZus{}tra}
+              \PY{p}{\PYZcb{}}
+              \PY{n}{else} \PY{p}{\PYZob{}}
+                  \PY{n}{test} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{x\PYZus{}tst}
+              \PY{p}{\PYZcb{}}
+              
+              \PY{n}{hr.train} \PY{o}{=} \PY{n}{x\PYZus{}tra}\PY{n}{[}\PY{p}{,}\PY{n+nf}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X2\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{X3\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{X4\PYZdq{}}\PY{p}{)}\PY{n}{]}
+              \PY{n}{hr.labels.train} \PY{o}{=} \PY{n}{x\PYZus{}tra}\PY{n}{[}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}\PY{n}{]}
+              \PY{n}{hr.labels.train} \PY{o}{=} \PY{n+nf}{factor}\PY{p}{(}\PY{n}{hr.labels.train}\PY{p}{,} \PY{n}{levels}\PY{o}{=}\PY{n+nf}{c}\PY{p}{(}\PY{l+m}{1}\PY{p}{,}\PY{l+m}{2}\PY{p}{,}\PY{l+m}{3}\PY{p}{)}\PY{p}{)}
+              \PY{n}{hr.train}\PY{o}{\PYZdl{}}\PY{n}{Y} \PY{o}{=} \PY{n}{hr.labels.train}
+              \PY{n}{fitMulti}\PY{o}{=}\PY{n+nf}{tree}\PY{p}{(}\PY{n}{Y}\PY{o}{\PYZti{}}\PY{n}{X2}\PY{o}{+}\PY{n}{X3}\PY{o}{+}\PY{n}{X4}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{hr.train}\PY{p}{)}
+              \PY{n}{labels} \PY{o}{=} \PY{n+nf}{factor}\PY{p}{(}\PY{n}{test}\PY{n}{[}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}\PY{n}{]}\PY{p}{,}\PY{n}{levels}\PY{o}{=}\PY{n+nf}{c}\PY{p}{(}\PY{l+m}{1}\PY{p}{,}\PY{l+m}{2}\PY{p}{,}\PY{l+m}{3}\PY{p}{)}\PY{p}{)}
+              \PY{n}{yprime}\PY{o}{=}\PY{n+nf}{predict}\PY{p}{(}\PY{n}{fitMulti}\PY{p}{,}\PY{n}{test}\PY{p}{,} \PY{n}{type}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{class\PYZdq{}}\PY{p}{)}
+              \PY{n}{err} \PY{o}{=} \PY{n+nf}{mean}\PY{p}{(}\PY{n}{yprime}\PY{o}{!=}\PY{n}{labels}\PY{p}{)}
+              
+          \PY{p}{\PYZcb{}}
+          \PY{n}{treeERRtrain.all}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n+nf}{mean}\PY{p}{(}\PY{n+nf}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{10}\PY{p}{,}\PY{n}{run\PYZus{}knn\PYZus{}fold}\PY{p}{,}\PY{n}{nombre}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)}\PY{p}{)}
+          \PY{n}{treeERRtest.all}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n+nf}{mean}\PY{p}{(}\PY{n+nf}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{10}\PY{p}{,}\PY{n}{run\PYZus{}knn\PYZus{}fold}\PY{p}{,}\PY{n}{nombre}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)}\PY{p}{)}
+          \PY{n+nf}{print}\PY{p}{(}\PY{n}{treeERRtrain.all}\PY{p}{)}
+          \PY{n+nf}{print}\PY{p}{(}\PY{n}{treeERRtest.all}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1] 0.1125
+[1] 0.175
+
+    \end{Verbatim}
+
+    Como se puede ver, el modelo con árboles de decisión cuenta también con
+cierto sobreaprendizaje, pero es el que mejores resultados obtiene de
+todos. Aún así no lo utilizaremos para compararlo con el resto de
+algoritmos ya que no se pide en la práctica.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
