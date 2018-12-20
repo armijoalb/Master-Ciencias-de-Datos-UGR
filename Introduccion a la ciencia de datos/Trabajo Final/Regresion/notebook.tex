@@ -323,17 +323,19 @@ información contiene.
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} Leemos el fichero del dataset. La forma de escribir el PATH puede variar dependiendo de la organización o del SO.}
-        treasury \PY{o}{=} read.csv\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{treasury//treasury.dat\PYZsq{}}\PY{p}{,} comment.char \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{@\PYZsq{}}\PY{p}{,} header \PY{o}{=} \PY{k+kc}{FALSE}\PY{p}{,}
-                           stringsAsFactors \PY{o}{=} \PY{k+kc}{FALSE}\PY{p}{)}
+        \PY{n}{treasury} \PY{o}{=} \PY{n+nf}{read.csv}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{treasury//treasury.dat\PYZsq{}}\PY{p}{,} \PY{n}{comment.char} \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{@\PYZsq{}}\PY{p}{,} \PY{n}{header} \PY{o}{=} \PY{k+kc}{FALSE}\PY{p}{,}
+                           \PY{n}{stringsAsFactors} \PY{o}{=} \PY{k+kc}{FALSE}\PY{p}{)}
         
         \PY{c+c1}{\PYZsh{} Añadimos los nombres de las características y de la variable que vamos a predecir.}
         \PY{c+c1}{\PYZsh{} Se cambiará un poco los nombres de las variables para que no haya problemas con R.}
-        y\PYZus{}var \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{MonthCDRate\PYZsq{}}
-        pred\PYZus{}vars \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{CMaturityRate\PYZus{}1Y\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{CMortgageRate\PYZus{}30Y\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{Rate\PYZus{}AuctionAverage\PYZus{}3M\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{Rate\PYZus{}SecondaryMarket\PYZus{}3M\PYZsq{}}\PY{p}{,}
-                      \PY{l+s}{\PYZsq{}}\PY{l+s}{CMaturityRate\PYZus{}3Y\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{CMaturityRate\PYZus{}5Y\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{bankCredit\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{currency\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{demandDeposits\PYZsq{}}\PY{p}{,}
-                      \PY{l+s}{\PYZsq{}}\PY{l+s}{federalFunds\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{moneyStock\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{checkableDeposits\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{loansLeases\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{savingsDeposits\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{tradeCurrencies\PYZsq{}}\PY{p}{)}
-        \PY{k+kp}{colnames}\PY{p}{(}treasury\PY{p}{)} \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}pred\PYZus{}vars\PY{p}{,}y\PYZus{}var\PY{p}{)}
-        str\PY{p}{(}treasury\PY{p}{)}
+        \PY{n}{y\PYZus{}var} \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{MonthCDRate\PYZsq{}}
+        \PY{n}{pred\PYZus{}vars} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{CMaturityRate\PYZus{}1Y\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{CMortgageRate\PYZus{}30Y\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{Rate\PYZus{}AuctionAverage\PYZus{}3M\PYZsq{}}\PY{p}{,}
+                      \PY{l+s}{\PYZsq{}}\PY{l+s}{Rate\PYZus{}SecondaryMarket\PYZus{}3M\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{CMaturityRate\PYZus{}3Y\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{CMaturityRate\PYZus{}5Y\PYZsq{}}\PY{p}{,}
+                      \PY{l+s}{\PYZsq{}}\PY{l+s}{bankCredit\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{currency\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{demandDeposits\PYZsq{}}\PY{p}{,}\PY{l+s}{\PYZsq{}}\PY{l+s}{federalFunds\PYZsq{}}\PY{p}{,}
+                      \PY{l+s}{\PYZsq{}}\PY{l+s}{moneyStock\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{checkableDeposits\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{loansLeases\PYZsq{}}\PY{p}{,}
+                      \PY{l+s}{\PYZsq{}}\PY{l+s}{savingsDeposits\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{tradeCurrencies\PYZsq{}}\PY{p}{)}
+        \PY{n+nf}{colnames}\PY{p}{(}\PY{n}{treasury}\PY{p}{)} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{n}{pred\PYZus{}vars}\PY{p}{,}\PY{n}{y\PYZus{}var}\PY{p}{)}
+        \PY{n+nf}{str}\PY{p}{(}\PY{n}{treasury}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -363,7 +365,7 @@ le he puesto en vez de los que vienen en el archivo .dat
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Utilizaremos la función summary para ver la media de las variables.}
-        \PY{k+kp}{summary}\PY{p}{(}treasury\PY{p}{)}
+        \PY{n+nf}{summary}\PY{p}{(}\PY{n}{treasury}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -409,12 +411,12 @@ le he puesto en vez de los que vienen en el archivo .dat
     
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} Calculamos la media y la desviación estándar de las variables.}
-        media \PY{o}{=} \PY{k+kp}{sapply}\PY{p}{(}treasury\PY{p}{,}\PY{k+kp}{mean}\PY{p}{)}
-        desviacion \PY{o}{=} \PY{k+kp}{sapply}\PY{p}{(}treasury\PY{p}{,}sd\PY{p}{)}
+        \PY{n}{media} \PY{o}{=} \PY{n+nf}{sapply}\PY{p}{(}\PY{n}{treasury}\PY{p}{,}\PY{n}{mean}\PY{p}{)}
+        \PY{n}{desviacion} \PY{o}{=} \PY{n+nf}{sapply}\PY{p}{(}\PY{n}{treasury}\PY{p}{,}\PY{n}{sd}\PY{p}{)}
         
         \PY{c+c1}{\PYZsh{} Mostramos los valores.}
-        med\PYZus{}desv \PY{o}{=} \PY{k+kp}{cbind}\PY{p}{(}media\PY{p}{,}desviacion\PY{p}{)}
-        med\PYZus{}desv
+        \PY{n}{med\PYZus{}desv} \PY{o}{=} \PY{n+nf}{cbind}\PY{p}{(}\PY{n}{media}\PY{p}{,}\PY{n}{desviacion}\PY{p}{)}
+        \PY{n}{med\PYZus{}desv}
 \end{Verbatim}
 
 
@@ -446,122 +448,184 @@ le he puesto en vez de los que vienen en el archivo .dat
         \PY{c+c1}{\PYZsh{} gráfica de densidad de cada una de las variables ya que son datos reales.}
         
         \PY{c+c1}{\PYZsh{} Cargamos librería para mostrar los datos.}
-        \PY{k+kn}{library}\PY{p}{(}ggplot2\PY{p}{)}
+        \PY{n+nf}{library}\PY{p}{(}\PY{n}{ggplot2}\PY{p}{)}
         
         \PY{c+c1}{\PYZsh{} Pintamos los gráficos de densidad de cada una de las variables. En naranja se muestra la media de dicha variable,}
         \PY{c+c1}{\PYZsh{} en rojo, se muestra la mediana de dicha variable. Con la función ..count.. especificamos que queremos saber el número}
         \PY{c+c1}{\PYZsh{} de casos en vez de la densidad.}
-        ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}CMaturityRate\PYZus{}1Y\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}CMaturityRate\PYZus{}1Y\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
-                     linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}CMaturityRate\PYZus{}1Y\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
-                          linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
-                scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{CMaturityRate\PYZus{}1Y}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}density}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{..count..}\PY{p}{)}\PY{p}{,}\PY{n}{fill}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{mean}\PY{p}{(}\PY{n}{CMaturityRate\PYZus{}1Y}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                     \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{median}\PY{p}{(}\PY{n}{CMaturityRate\PYZus{}1Y}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                          \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{scale\PYZus{}color\PYZus{}manual}\PY{p}{(}\PY{n}{name} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,}
+                        \PY{n}{values} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{n}{mean} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} \PY{n}{median} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
         
-        ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}CMortgageRate\PYZus{}30Y\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}CMortgageRate\PYZus{}30Y\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
-                     linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}CMortgageRate\PYZus{}30Y\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
-                          linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
-                scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{CMortgageRate\PYZus{}30Y}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}density}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{..count..}\PY{p}{)}\PY{p}{,}\PY{n}{fill}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{mean}\PY{p}{(}\PY{n}{CMortgageRate\PYZus{}30Y}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                     \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{median}\PY{p}{(}\PY{n}{CMortgageRate\PYZus{}30Y}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                          \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{scale\PYZus{}color\PYZus{}manual}\PY{p}{(}\PY{n}{name} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} 
+                        \PY{n}{values} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{n}{mean} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} \PY{n}{median} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
         
-        ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}Rate\PYZus{}AuctionAverage\PYZus{}3M\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}Rate\PYZus{}AuctionAverage\PYZus{}3M\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
-                     linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}Rate\PYZus{}AuctionAverage\PYZus{}3M\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
-                          linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
-                scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{Rate\PYZus{}AuctionAverage\PYZus{}3M}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}density}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{..count..}\PY{p}{)}\PY{p}{,}\PY{n}{fill}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{mean}\PY{p}{(}\PY{n}{Rate\PYZus{}AuctionAverage\PYZus{}3M}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                     \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{median}\PY{p}{(}\PY{n}{Rate\PYZus{}AuctionAverage\PYZus{}3M}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                          \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{scale\PYZus{}color\PYZus{}manual}\PY{p}{(}\PY{n}{name} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} 
+                        \PY{n}{values} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{n}{mean} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} \PY{n}{median} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
         
-        ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}Rate\PYZus{}SecondaryMarket\PYZus{}3M\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}Rate\PYZus{}SecondaryMarket\PYZus{}3M\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
-                     linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}Rate\PYZus{}SecondaryMarket\PYZus{}3M\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
-                          linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
-                scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{Rate\PYZus{}SecondaryMarket\PYZus{}3M}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{n+nf}{geom\PYZus{}density}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{..count..}\PY{p}{)}\PY{p}{,}\PY{n}{fill}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{mean}\PY{p}{(}\PY{n}{Rate\PYZus{}SecondaryMarket\PYZus{}3M}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                     \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{median}\PY{p}{(}\PY{n}{Rate\PYZus{}SecondaryMarket\PYZus{}3M}\PY{p}{)}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                          \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{scale\PYZus{}color\PYZus{}manual}\PY{p}{(}\PY{n}{name} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,}
+                        \PY{n}{values} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{n}{mean} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} \PY{n}{median} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
         
-        ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}CMaturityRate\PYZus{}3Y\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}CMaturityRate\PYZus{}3Y\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
-                     linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}CMaturityRate\PYZus{}3Y\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
-                          linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
-                scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{CMaturityRate\PYZus{}3Y}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}density}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{..count..}\PY{p}{)}\PY{p}{,}\PY{n}{fill}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{mean}\PY{p}{(}\PY{n}{CMaturityRate\PYZus{}3Y}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                     \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{median}\PY{p}{(}\PY{n}{CMaturityRate\PYZus{}3Y}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                          \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{scale\PYZus{}color\PYZus{}manual}\PY{p}{(}\PY{n}{name} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,}
+                        \PY{n}{values} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{n}{mean} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} \PY{n}{median} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
         
-        ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}CMaturityRate\PYZus{}5Y\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}CMaturityRate\PYZus{}5Y\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
-                     linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}CMaturityRate\PYZus{}5Y\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
-                          linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
-                scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{CMaturityRate\PYZus{}5Y}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+                \PY{n+nf}{geom\PYZus{}density}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{..count..}\PY{p}{)}\PY{p}{,}\PY{n}{fill}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{mean}\PY{p}{(}\PY{n}{CMaturityRate\PYZus{}5Y}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                     \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{median}\PY{p}{(}\PY{n}{CMaturityRate\PYZus{}5Y}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                          \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{scale\PYZus{}color\PYZus{}manual}\PY{p}{(}\PY{n}{name} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,}
+                        \PY{n}{values} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{n}{mean} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} \PY{n}{median} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
         
-        ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}bankCredit\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}bankCredit\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
-                     linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}bankCredit\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
-                          linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
-                scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{bankCredit}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+                \PY{n+nf}{geom\PYZus{}density}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{..count..}\PY{p}{)}\PY{p}{,}\PY{n}{fill}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{mean}\PY{p}{(}\PY{n}{bankCredit}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                     \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{median}\PY{p}{(}\PY{n}{bankCredit}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                          \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{scale\PYZus{}color\PYZus{}manual}\PY{p}{(}\PY{n}{name} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} 
+                        \PY{n}{values} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{n}{mean} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} \PY{n}{median} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
         
-        ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}currency\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}currency\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
-                     linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}currency\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
-                          linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
-                scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{currency}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+                \PY{n+nf}{geom\PYZus{}density}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{..count..}\PY{p}{)}\PY{p}{,}\PY{n}{fill}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{mean}\PY{p}{(}\PY{n}{currency}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                     \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{median}\PY{p}{(}\PY{n}{currency}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                          \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{scale\PYZus{}color\PYZus{}manual}\PY{p}{(}\PY{n}{name} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,}
+                        \PY{n}{values} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{n}{mean} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} \PY{n}{median} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
         
-        ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}demandDeposits\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}demandDeposits\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
-                     linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}demandDeposits\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
-                          linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
-                scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{demandDeposits}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}density}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{..count..}\PY{p}{)}\PY{p}{,}\PY{n}{fill}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{mean}\PY{p}{(}\PY{n}{demandDeposits}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                     \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{median}\PY{p}{(}\PY{n}{demandDeposits}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                          \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{scale\PYZus{}color\PYZus{}manual}\PY{p}{(}\PY{n}{name} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,}
+                        \PY{n}{values} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{n}{mean} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} \PY{n}{median} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
         
-        ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}federalFunds\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}federalFunds\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
-                     linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}federalFunds\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
-                          linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
-                scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{federalFunds}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+                \PY{n+nf}{geom\PYZus{}density}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{..count..}\PY{p}{)}\PY{p}{,}\PY{n}{fill}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{mean}\PY{p}{(}\PY{n}{federalFunds}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                     \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{median}\PY{p}{(}\PY{n}{federalFunds}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                          \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{scale\PYZus{}color\PYZus{}manual}\PY{p}{(}\PY{n}{name} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} 
+                        \PY{n}{values} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{n}{mean} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} \PY{n}{median} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
         
-        ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}moneyStock\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}moneyStock\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
-                     linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}moneyStock\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
-                          linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
-                scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{moneyStock}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+                \PY{n+nf}{geom\PYZus{}density}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{..count..}\PY{p}{)}\PY{p}{,}\PY{n}{fill}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{mean}\PY{p}{(}\PY{n}{moneyStock}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                     \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{median}\PY{p}{(}\PY{n}{moneyStock}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                          \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{scale\PYZus{}color\PYZus{}manual}\PY{p}{(}\PY{n}{name} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} 
+                        \PY{n}{values} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{n}{mean} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} \PY{n}{median} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
         
-        ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}checkableDeposits\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}checkableDeposits\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
-                     linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}checkableDeposits\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
-                          linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
-                scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{checkableDeposits}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+                \PY{n+nf}{geom\PYZus{}density}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{..count..}\PY{p}{)}\PY{p}{,}\PY{n}{fill}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{mean}\PY{p}{(}\PY{n}{checkableDeposits}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                     \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{median}\PY{p}{(}\PY{n}{checkableDeposits}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                          \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{scale\PYZus{}color\PYZus{}manual}\PY{p}{(}\PY{n}{name} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} 
+                        \PY{n}{values} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{n}{mean} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} \PY{n}{median} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
         
-        ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}loansLeases\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}loansLeases\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
-                     linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}loansLeases\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
-                          linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
-                scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{loansLeases}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+                \PY{n+nf}{geom\PYZus{}density}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{..count..}\PY{p}{)}\PY{p}{,}\PY{n}{fill}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{mean}\PY{p}{(}\PY{n}{loansLeases}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                     \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{median}\PY{p}{(}\PY{n}{loansLeases}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                          \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{scale\PYZus{}color\PYZus{}manual}\PY{p}{(}\PY{n}{name} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} 
+                        \PY{n}{values} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{n}{mean} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} \PY{n}{median} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
         
-        ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}savingsDeposits\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}savingsDeposits\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
-                     linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}savingsDeposits\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
-                          linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
-                scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{savingsDeposits}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+                \PY{n+nf}{geom\PYZus{}density}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{..count..}\PY{p}{)}\PY{p}{,}\PY{n}{fill}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{mean}\PY{p}{(}\PY{n}{savingsDeposits}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                     \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{median}\PY{p}{(}\PY{n}{savingsDeposits}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                          \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{scale\PYZus{}color\PYZus{}manual}\PY{p}{(}\PY{n}{name} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} 
+                        \PY{n}{values} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{n}{mean} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} \PY{n}{median} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
         
-        ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}tradeCurrencies\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}tradeCurrencies\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
-                     linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}tradeCurrencies\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
-                          linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
-                scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{tradeCurrencies}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+                \PY{n+nf}{geom\PYZus{}density}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{..count..}\PY{p}{)}\PY{p}{,}\PY{n}{fill}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{mean}\PY{p}{(}\PY{n}{tradeCurrencies}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                     \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{median}\PY{p}{(}\PY{n}{tradeCurrencies}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                          \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{scale\PYZus{}color\PYZus{}manual}\PY{p}{(}\PY{n}{name} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} 
+                        \PY{n}{values} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{n}{mean} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} \PY{n}{median} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
         
-        ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}MonthCDRate\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}MonthCDRate\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
-                     linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}MonthCDRate\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
-                          linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
-                scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{MonthCDRate}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+                \PY{n+nf}{geom\PYZus{}density}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{..count..}\PY{p}{)}\PY{p}{,}\PY{n}{fill}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{mean}\PY{p}{(}\PY{n}{MonthCDRate}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                     \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{median}\PY{p}{(}\PY{n}{MonthCDRate}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                          \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{scale\PYZus{}color\PYZus{}manual}\PY{p}{(}\PY{n}{name} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} 
+                        \PY{n}{values} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{n}{mean} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} \PY{n}{median} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -694,22 +758,38 @@ transformar los datos para ver si mejora su distribución.
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Pintamos los boxplots. En rojo se muestran ( si es que hay) los outliers.}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}CMaturityRate\PYZus{}1Y\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}CMortgageRate\PYZus{}30Y\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}Rate\PYZus{}AuctionAverage\PYZus{}3M\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}Rate\PYZus{}SecondaryMarket\PYZus{}3M\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}CMaturityRate\PYZus{}3Y\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}CMaturityRate\PYZus{}5Y\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}bankCredit\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}currency\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}demandDeposits\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}federalFunds\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}moneyStock\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}checkableDeposits\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}loansLeases\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}savingsDeposits\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}tradeCurrencies\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}MonthCDRate\PY{p}{)}\PY{p}{)}\PY{o}{+} geom\PYZus{}boxplot\PY{p}{(}outlier.color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{CMaturityRate\PYZus{}1Y}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+            \PY{n+nf}{geom\PYZus{}boxplot}\PY{p}{(}\PY{n}{outlier.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{CMortgageRate\PYZus{}30Y}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+            \PY{n+nf}{geom\PYZus{}boxplot}\PY{p}{(}\PY{n}{outlier.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{Rate\PYZus{}AuctionAverage\PYZus{}3M}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+            \PY{n+nf}{geom\PYZus{}boxplot}\PY{p}{(}\PY{n}{outlier.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{Rate\PYZus{}SecondaryMarket\PYZus{}3M}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+            \PY{n+nf}{geom\PYZus{}boxplot}\PY{p}{(}\PY{n}{outlier.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{CMaturityRate\PYZus{}3Y}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+            \PY{n+nf}{geom\PYZus{}boxplot}\PY{p}{(}\PY{n}{outlier.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{CMaturityRate\PYZus{}5Y}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+            \PY{n+nf}{geom\PYZus{}boxplot}\PY{p}{(}\PY{n}{outlier.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{bankCredit}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+            \PY{n+nf}{geom\PYZus{}boxplot}\PY{p}{(}\PY{n}{outlier.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{currency}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+            \PY{n+nf}{geom\PYZus{}boxplot}\PY{p}{(}\PY{n}{outlier.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{demandDeposits}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+            \PY{n+nf}{geom\PYZus{}boxplot}\PY{p}{(}\PY{n}{outlier.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{federalFunds}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+            \PY{n+nf}{geom\PYZus{}boxplot}\PY{p}{(}\PY{n}{outlier.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{moneyStock}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+            \PY{n+nf}{geom\PYZus{}boxplot}\PY{p}{(}\PY{n}{outlier.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{checkableDeposits}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+            \PY{n+nf}{geom\PYZus{}boxplot}\PY{p}{(}\PY{n}{outlier.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{loansLeases}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+            \PY{n+nf}{geom\PYZus{}boxplot}\PY{p}{(}\PY{n}{outlier.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{savingsDeposits}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+            \PY{n+nf}{geom\PYZus{}boxplot}\PY{p}{(}\PY{n}{outlier.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{tradeCurrencies}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+            \PY{n+nf}{geom\PYZus{}boxplot}\PY{p}{(}\PY{n}{outlier.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{MonthCDRate}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+            \PY{n+nf}{geom\PYZus{}boxplot}\PY{p}{(}\PY{n}{outlier.color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{red\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -836,7 +916,7 @@ Por último, dibujaremos las correlaciones entre las variables.
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Dibujamos las correlaciones entre las variables.}
-        pairs\PY{p}{(}treasury\PY{p}{,}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{,} main\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{Correlaciones de los datos\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{pairs}\PY{p}{(}\PY{n}{treasury}\PY{p}{,}\PY{n}{col}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{,} \PY{n}{main}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{Correlaciones de los datos\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -846,7 +926,7 @@ Por último, dibujaremos las correlaciones entre las variables.
     { \hspace*{\fill} \\}
     
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}7}]:} cor\PY{p}{(}treasury\PY{p}{)}
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n+nf}{cor}\PY{p}{(}\PY{n}{treasury}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -884,21 +964,36 @@ que tenemos que predecir, esto puede ser interesante a la hora de crear
 un modelo lineal con dichas variables.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}8}]:} ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}MonthCDRate\PY{p}{,}x\PY{o}{=}CMaturityRate\PYZus{}1Y\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} geom\PYZus{}smooth\PY{p}{(}method\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}MonthCDRate\PY{p}{,}x\PY{o}{=}CMortgageRate\PYZus{}30Y\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} geom\PYZus{}smooth\PY{p}{(}method\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}MonthCDRate\PY{p}{,}x\PY{o}{=}Rate\PYZus{}AuctionAverage\PYZus{}3M\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} geom\PYZus{}smooth\PY{p}{(}method\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}MonthCDRate\PY{p}{,}x\PY{o}{=}Rate\PYZus{}SecondaryMarket\PYZus{}3M\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} geom\PYZus{}smooth\PY{p}{(}method\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}MonthCDRate\PY{p}{,}x\PY{o}{=}CMaturityRate\PYZus{}3Y\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} geom\PYZus{}smooth\PY{p}{(}method\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}MonthCDRate\PY{p}{,}x\PY{o}{=}CMaturityRate\PYZus{}5Y\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} geom\PYZus{}smooth\PY{p}{(}method\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}MonthCDRate\PY{p}{,}x\PY{o}{=}bankCredit\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} geom\PYZus{}smooth\PY{p}{(}method\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}MonthCDRate\PY{p}{,}x\PY{o}{=}currency\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} geom\PYZus{}smooth\PY{p}{(}method\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}MonthCDRate\PY{p}{,}x\PY{o}{=}demandDeposits\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} geom\PYZus{}smooth\PY{p}{(}method\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}MonthCDRate\PY{p}{,}x\PY{o}{=}federalFunds\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} geom\PYZus{}smooth\PY{p}{(}method\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}MonthCDRate\PY{p}{,}x\PY{o}{=}moneyStock\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} geom\PYZus{}smooth\PY{p}{(}method\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}MonthCDRate\PY{p}{,}x\PY{o}{=}checkableDeposits\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} geom\PYZus{}smooth\PY{p}{(}method\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}MonthCDRate\PY{p}{,}x\PY{o}{=}loansLeases\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} geom\PYZus{}smooth\PY{p}{(}method\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}MonthCDRate\PY{p}{,}x\PY{o}{=}savingsDeposits\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} geom\PYZus{}smooth\PY{p}{(}method\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
-        ggplot\PY{p}{(}treasury\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}MonthCDRate\PY{p}{,}x\PY{o}{=}tradeCurrencies\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} geom\PYZus{}smooth\PY{p}{(}method\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{MonthCDRate}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{n}{CMaturityRate\PYZus{}1Y}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+            \PY{n+nf}{geom\PYZus{}point}\PY{p}{(}\PY{n}{col}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} \PY{n+nf}{geom\PYZus{}smooth}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{MonthCDRate}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{n}{CMortgageRate\PYZus{}30Y}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+            \PY{n+nf}{geom\PYZus{}point}\PY{p}{(}\PY{n}{col}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} \PY{n+nf}{geom\PYZus{}smooth}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{MonthCDRate}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{n}{Rate\PYZus{}AuctionAverage\PYZus{}3M}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+            \PY{n+nf}{geom\PYZus{}point}\PY{p}{(}\PY{n}{col}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} \PY{n+nf}{geom\PYZus{}smooth}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{MonthCDRate}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{n}{Rate\PYZus{}SecondaryMarket\PYZus{}3M}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+            \PY{n+nf}{geom\PYZus{}point}\PY{p}{(}\PY{n}{col}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} \PY{n+nf}{geom\PYZus{}smooth}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{MonthCDRate}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{n}{CMaturityRate\PYZus{}3Y}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+            \PY{n+nf}{geom\PYZus{}point}\PY{p}{(}\PY{n}{col}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} \PY{n+nf}{geom\PYZus{}smooth}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{MonthCDRate}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{n}{CMaturityRate\PYZus{}5Y}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+            \PY{n+nf}{geom\PYZus{}point}\PY{p}{(}\PY{n}{col}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} \PY{n+nf}{geom\PYZus{}smooth}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{MonthCDRate}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{n}{bankCredit}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+            \PY{n+nf}{geom\PYZus{}point}\PY{p}{(}\PY{n}{col}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} \PY{n+nf}{geom\PYZus{}smooth}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{MonthCDRate}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{n}{currency}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+            \PY{n+nf}{geom\PYZus{}point}\PY{p}{(}\PY{n}{col}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} \PY{n+nf}{geom\PYZus{}smooth}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{MonthCDRate}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{n}{demandDeposits}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+            \PY{n+nf}{geom\PYZus{}point}\PY{p}{(}\PY{n}{col}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} \PY{n+nf}{geom\PYZus{}smooth}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{MonthCDRate}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{n}{federalFunds}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+            \PY{n+nf}{geom\PYZus{}point}\PY{p}{(}\PY{n}{col}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} \PY{n+nf}{geom\PYZus{}smooth}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{MonthCDRate}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{n}{moneyStock}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+            \PY{n+nf}{geom\PYZus{}point}\PY{p}{(}\PY{n}{col}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} \PY{n+nf}{geom\PYZus{}smooth}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{MonthCDRate}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{n}{checkableDeposits}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+            \PY{n+nf}{geom\PYZus{}point}\PY{p}{(}\PY{n}{col}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} \PY{n+nf}{geom\PYZus{}smooth}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{MonthCDRate}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{n}{loansLeases}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+            \PY{n+nf}{geom\PYZus{}point}\PY{p}{(}\PY{n}{col}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} \PY{n+nf}{geom\PYZus{}smooth}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{MonthCDRate}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{n}{savingsDeposits}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+            \PY{n+nf}{geom\PYZus{}point}\PY{p}{(}\PY{n}{col}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} \PY{n+nf}{geom\PYZus{}smooth}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{MonthCDRate}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{n}{tradeCurrencies}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+            \PY{n+nf}{geom\PYZus{}point}\PY{p}{(}\PY{n}{col}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} \PY{n+nf}{geom\PYZus{}smooth}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -1015,21 +1110,26 @@ cuadrados/logaritmos a los modelos que hagamos.
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} Copiamos una variable del dataset para ver como le afectaría las transformaciones.}
-        temp \PY{o}{=} treasury\PY{o}{\PYZdl{}}moneyStock
+        \PY{n}{temp} \PY{o}{=} \PY{n}{treasury}\PY{o}{\PYZdl{}}\PY{n}{moneyStock}
         
-        log.temp \PY{o}{=} \PY{k+kt}{data.frame}\PY{p}{(}log.data\PY{o}{=}\PY{k+kp}{log}\PY{p}{(}temp\PY{p}{)}\PY{p}{)}
-        log.temp\PY{o}{\PYZdl{}}MonthCDRate \PY{o}{=} treasury\PY{o}{\PYZdl{}}MonthCDRate
-        ggplot\PY{p}{(}log.temp\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}log.data\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}density\PY{p}{(}aes\PY{p}{(}y\PY{o}{=}\PY{l+m}{.}\PY{l+m}{.}count..\PY{p}{)}\PY{p}{,}fill\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} \PY{k+kp}{mean}\PY{p}{(}log.data\PY{p}{)}\PY{p}{,}color \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
-                     linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
-                geom\PYZus{}vline\PY{p}{(}aes\PY{p}{(}xintercept \PY{o}{=} median\PY{p}{(}log.data\PY{p}{)}\PY{p}{,}color\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
-                          linetype \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} size \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
-                scale\PYZus{}color\PYZus{}manual\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} values \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}mean \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} median \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{log.temp} \PY{o}{=} \PY{n+nf}{data.frame}\PY{p}{(}\PY{n}{log.data}\PY{o}{=}\PY{n+nf}{log}\PY{p}{(}\PY{n}{temp}\PY{p}{)}\PY{p}{)}
+        \PY{n}{log.temp}\PY{o}{\PYZdl{}}\PY{n}{MonthCDRate} \PY{o}{=} \PY{n}{treasury}\PY{o}{\PYZdl{}}\PY{n}{MonthCDRate}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{log.temp}\PY{p}{,}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{log.data}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+            \PY{n+nf}{geom\PYZus{}density}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{..count..}\PY{p}{)}\PY{p}{,}\PY{n}{fill}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{lightblue\PYZsq{}}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{mean}\PY{p}{(}\PY{n}{log.data}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{mean\PYZdq{}}\PY{p}{)}\PY{p}{,} 
+                     \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6}\PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{geom\PYZus{}vline}\PY{p}{(}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{xintercept} \PY{o}{=} \PY{n+nf}{median}\PY{p}{(}\PY{n}{log.data}\PY{p}{)}\PY{p}{,}
+                               \PY{n}{color}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{median\PYZdq{}}\PY{p}{)}\PY{p}{,}
+                          \PY{n}{linetype} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{dashed\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m}{0.6} \PY{p}{)} \PY{o}{+}
+                \PY{n+nf}{scale\PYZus{}color\PYZus{}manual}\PY{p}{(}\PY{n}{name} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{statistics\PYZdq{}}\PY{p}{,} 
+                        \PY{n}{values} \PY{o}{=} \PY{n+nf}{c}\PY{p}{(}\PY{n}{mean} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}FC4E07\PYZdq{}}\PY{p}{,} \PY{n}{median} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{blue\PYZdq{}}\PY{p}{)}\PY{p}{)}
         
-        ggplot\PY{p}{(}log.temp\PY{p}{,} aes\PY{p}{(}y\PY{o}{=}MonthCDRate\PY{p}{,}x\PY{o}{=}log.data\PY{p}{)}\PY{p}{)} \PY{o}{+} geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} geom\PYZus{}smooth\PY{p}{(}method\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
+        \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{log.temp}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{MonthCDRate}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{n}{log.data}\PY{p}{)}\PY{p}{)} \PY{o}{+}
+            \PY{n+nf}{geom\PYZus{}point}\PY{p}{(}\PY{n}{col}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} \PY{n+nf}{geom\PYZus{}smooth}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
         
-        \PY{k+kp}{print}\PY{p}{(}cor\PY{p}{(}log.temp\PY{p}{)}\PY{p}{)}
-        \PY{k+kp}{print}\PY{p}{(}cor\PY{p}{(}treasury\PY{o}{\PYZdl{}}moneyStock\PY{p}{,} treasury\PY{o}{\PYZdl{}}MonthCDRate\PY{p}{)}\PY{p}{)}
+        \PY{n+nf}{print}\PY{p}{(}\PY{n+nf}{cor}\PY{p}{(}\PY{n}{log.temp}\PY{p}{)}\PY{p}{)}
+        \PY{n+nf}{print}\PY{p}{(}\PY{n+nf}{cor}\PY{p}{(}\PY{n}{treasury}\PY{o}{\PYZdl{}}\PY{n}{moneyStock}\PY{p}{,} \PY{n}{treasury}\PY{o}{\PYZdl{}}\PY{n}{MonthCDRate}\PY{p}{)}\PY{p}{)}
         \PY{c+c1}{\PYZsh{} Para este caso, es mejor no transformar la variable, ya que como se puede ver, pierde la relación lineal con nuestra}
         \PY{c+c1}{\PYZsh{} variable predictora.}
 \end{Verbatim}
@@ -1107,13 +1207,13 @@ variables en el apartado anterior).
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} Creamos el modelo.}
-         fit1 \PY{o}{=} lm\PY{p}{(}MonthCDRate\PY{o}{\PYZti{}}CMortgageRate\PYZus{}30Y\PY{p}{,} data\PY{o}{=}treasury\PY{p}{)}
-         \PY{k+kp}{summary}\PY{p}{(}fit1\PY{p}{)}
+         \PY{n}{fit1} \PY{o}{=} \PY{n+nf}{lm}\PY{p}{(}\PY{n}{MonthCDRate}\PY{o}{\PYZti{}}\PY{n}{CMortgageRate\PYZus{}30Y}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{treasury}\PY{p}{)}
+         \PY{n+nf}{summary}\PY{p}{(}\PY{n}{fit1}\PY{p}{)}
          
          \PY{c+c1}{\PYZsh{} Dibujamos el ajuste.}
-         confint\PY{p}{(}fit1\PY{p}{)}
-         ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}CMortgageRate\PYZus{}30Y\PY{p}{,}y\PY{o}{=}MonthCDRate\PY{p}{)}\PY{p}{)} \PY{o}{+} 
-             geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} geom\PYZus{}smooth\PY{p}{(}method\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
+         \PY{n+nf}{confint}\PY{p}{(}\PY{n}{fit1}\PY{p}{)}
+         \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{CMortgageRate\PYZus{}30Y}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{n}{MonthCDRate}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+             \PY{n+nf}{geom\PYZus{}point}\PY{p}{(}\PY{n}{col}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} \PY{n+nf}{geom\PYZus{}smooth}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -1159,13 +1259,13 @@ F-statistic: 2.227e+04 on 1 and 1047 DF,  p-value: < 2.2e-16
     
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} Creamos el modelo.}
-         fit2 \PY{o}{=} lm\PY{p}{(}MonthCDRate\PY{o}{\PYZti{}}Rate\PYZus{}SecondaryMarket\PYZus{}3M\PY{p}{,} data\PY{o}{=}treasury\PY{p}{)}
-         \PY{k+kp}{summary}\PY{p}{(}fit2\PY{p}{)}
+         \PY{n}{fit2} \PY{o}{=} \PY{n+nf}{lm}\PY{p}{(}\PY{n}{MonthCDRate}\PY{o}{\PYZti{}}\PY{n}{Rate\PYZus{}SecondaryMarket\PYZus{}3M}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{treasury}\PY{p}{)}
+         \PY{n+nf}{summary}\PY{p}{(}\PY{n}{fit2}\PY{p}{)}
          
          \PY{c+c1}{\PYZsh{} Dibujamos el ajuste.}
-         confint\PY{p}{(}fit2\PY{p}{)}
-         ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}Rate\PYZus{}SecondaryMarket\PYZus{}3M\PY{p}{,}y\PY{o}{=}MonthCDRate\PY{p}{)}\PY{p}{)} \PY{o}{+} 
-             geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} geom\PYZus{}smooth\PY{p}{(}method\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
+         \PY{n+nf}{confint}\PY{p}{(}\PY{n}{fit2}\PY{p}{)}
+         \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{Rate\PYZus{}SecondaryMarket\PYZus{}3M}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{n}{MonthCDRate}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+             \PY{n+nf}{geom\PYZus{}point}\PY{p}{(}\PY{n}{col}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} \PY{n+nf}{geom\PYZus{}smooth}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -1211,13 +1311,13 @@ F-statistic: 5.339e+04 on 1 and 1047 DF,  p-value: < 2.2e-16
     
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Creamos el modelo.}
-         fit3 \PY{o}{=} lm\PY{p}{(}MonthCDRate\PY{o}{\PYZti{}}CMaturityRate\PYZus{}3Y\PY{p}{,} data\PY{o}{=}treasury\PY{p}{)}
-         \PY{k+kp}{summary}\PY{p}{(}fit3\PY{p}{)}
+         \PY{n}{fit3} \PY{o}{=} \PY{n+nf}{lm}\PY{p}{(}\PY{n}{MonthCDRate}\PY{o}{\PYZti{}}\PY{n}{CMaturityRate\PYZus{}3Y}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{treasury}\PY{p}{)}
+         \PY{n+nf}{summary}\PY{p}{(}\PY{n}{fit3}\PY{p}{)}
          
          \PY{c+c1}{\PYZsh{} Dibujamos el ajuste.}
-         confint\PY{p}{(}fit3\PY{p}{)}
-         ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}CMaturityRate\PYZus{}3Y\PY{p}{,}y\PY{o}{=}MonthCDRate\PY{p}{)}\PY{p}{)} \PY{o}{+} 
-             geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} geom\PYZus{}smooth\PY{p}{(}method\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
+         \PY{n+nf}{confint}\PY{p}{(}\PY{n}{fit3}\PY{p}{)}
+         \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{CMaturityRate\PYZus{}3Y}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{n}{MonthCDRate}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+             \PY{n+nf}{geom\PYZus{}point}\PY{p}{(}\PY{n}{col}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} \PY{n+nf}{geom\PYZus{}smooth}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -1263,13 +1363,13 @@ F-statistic: 6.257e+04 on 1 and 1047 DF,  p-value: < 2.2e-16
     
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} Creamos el modelo.}
-         fit4 \PY{o}{=} lm\PY{p}{(}MonthCDRate\PY{o}{\PYZti{}}CMaturityRate\PYZus{}5Y\PY{p}{,} data\PY{o}{=}treasury\PY{p}{)}
-         \PY{k+kp}{summary}\PY{p}{(}fit4\PY{p}{)}
+         \PY{n}{fit4} \PY{o}{=} \PY{n+nf}{lm}\PY{p}{(}\PY{n}{MonthCDRate}\PY{o}{\PYZti{}}\PY{n}{CMaturityRate\PYZus{}5Y}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{treasury}\PY{p}{)}
+         \PY{n+nf}{summary}\PY{p}{(}\PY{n}{fit4}\PY{p}{)}
          
          \PY{c+c1}{\PYZsh{} Dibujamos el ajuste.}
-         confint\PY{p}{(}fit4\PY{p}{)}
-         ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}CMaturityRate\PYZus{}5Y\PY{p}{,}y\PY{o}{=}MonthCDRate\PY{p}{)}\PY{p}{)} \PY{o}{+} 
-             geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} geom\PYZus{}smooth\PY{p}{(}method\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
+         \PY{n+nf}{confint}\PY{p}{(}\PY{n}{fit4}\PY{p}{)}
+         \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{CMaturityRate\PYZus{}5Y}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{n}{MonthCDRate}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+             \PY{n+nf}{geom\PYZus{}point}\PY{p}{(}\PY{n}{col}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} \PY{n+nf}{geom\PYZus{}smooth}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -1315,13 +1415,13 @@ F-statistic:  7646 on 1 and 1047 DF,  p-value: < 2.2e-16
     
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} Creamos el modelo.}
-         fit5 \PY{o}{=} lm\PY{p}{(}MonthCDRate\PY{o}{\PYZti{}}moneyStock\PY{p}{,} data\PY{o}{=}treasury\PY{p}{)}
-         \PY{k+kp}{summary}\PY{p}{(}fit5\PY{p}{)}
+         \PY{n}{fit5} \PY{o}{=} \PY{n+nf}{lm}\PY{p}{(}\PY{n}{MonthCDRate}\PY{o}{\PYZti{}}\PY{n}{moneyStock}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{treasury}\PY{p}{)}
+         \PY{n+nf}{summary}\PY{p}{(}\PY{n}{fit5}\PY{p}{)}
          
          \PY{c+c1}{\PYZsh{} Dibujamos el ajuste.}
-         confint\PY{p}{(}fit5\PY{p}{)}
-         ggplot\PY{p}{(}treasury\PY{p}{,}aes\PY{p}{(}x\PY{o}{=}moneyStock\PY{p}{,}y\PY{o}{=}MonthCDRate\PY{p}{)}\PY{p}{)} \PY{o}{+} 
-             geom\PYZus{}point\PY{p}{(}col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} geom\PYZus{}smooth\PY{p}{(}method\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
+         \PY{n+nf}{confint}\PY{p}{(}\PY{n}{fit5}\PY{p}{)}
+         \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{treasury}\PY{p}{,}\PY{n+nf}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{moneyStock}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{n}{MonthCDRate}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+             \PY{n+nf}{geom\PYZus{}point}\PY{p}{(}\PY{n}{col}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{deepskyblue\PYZdq{}}\PY{p}{)} \PY{o}{+} \PY{n+nf}{geom\PYZus{}smooth}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{lm\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -1390,31 +1490,31 @@ dataset que se han proprocionado junto con el dataset; para comprobar si
 hay sobreajuste y la calidad de nuestro mejor modelo obtenido.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}15}]:} nombre \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{treasury//treasury\PYZdq{}}
-         run\PYZus{}lm\PYZus{}fold \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kr}{function}\PY{p}{(}i\PY{p}{,} x\PY{p}{,} tt \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
-             file \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{paste}\PY{p}{(}x\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} i\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tra.dat\PYZdq{}}\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
-             x\PYZus{}tra \PY{o}{\PYZlt{}\PYZhy{}} read.csv\PY{p}{(}\PY{k+kp}{file}\PY{p}{,} comment.char\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} header\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
-             file \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{paste}\PY{p}{(}x\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} i\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tst.dat\PYZdq{}}\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
-             x\PYZus{}tst \PY{o}{\PYZlt{}\PYZhy{}} read.csv\PY{p}{(}\PY{k+kp}{file}\PY{p}{,} comment.char\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} header\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
-             In \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{length}\PY{p}{(}\PY{k+kp}{names}\PY{p}{(}x\PYZus{}tra\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m}{1}
-             \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tra\PY{p}{)}\PY{p}{[}\PY{l+m}{1}\PY{o}{:}In\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} paste \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}In\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
-             \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tra\PY{p}{)}\PY{p}{[}In\PY{l+m}{+1}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
-             \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tst\PY{p}{)}\PY{p}{[}\PY{l+m}{1}\PY{o}{:}In\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} paste \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}In\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
-             \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tst\PY{p}{)}\PY{p}{[}In\PY{l+m}{+1}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
-             \PY{k+kr}{if} \PY{p}{(}tt \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
-                 test \PY{o}{\PYZlt{}\PYZhy{}} x\PYZus{}tra
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{nombre} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{treasury//treasury\PYZdq{}}
+         \PY{n}{run\PYZus{}lm\PYZus{}fold} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{function}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{tt} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+             \PY{n}{file} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tra.dat\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{x\PYZus{}tra} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.csv}\PY{p}{(}\PY{n}{file}\PY{p}{,} \PY{n}{comment.char}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+             \PY{n}{file} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tst.dat\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{x\PYZus{}tst} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.csv}\PY{p}{(}\PY{n}{file}\PY{p}{,} \PY{n}{comment.char}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+             \PY{n}{In} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{length}\PY{p}{(}\PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m}{1}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{n}{[1}\PY{o}{:}\PY{n}{In}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste }\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}\PY{n}{In}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{n}{[In}\PY{l+m}{+1}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tst}\PY{p}{)}\PY{n}{[1}\PY{o}{:}\PY{n}{In}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste }\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}\PY{n}{In}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tst}\PY{p}{)}\PY{n}{[In}\PY{l+m}{+1}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+             \PY{n+nf}{if }\PY{p}{(}\PY{n}{tt} \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+                 \PY{n}{test} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{x\PYZus{}tra}
              \PY{p}{\PYZcb{}}
-             \PY{k+kr}{else} \PY{p}{\PYZob{}}
-                 test \PY{o}{\PYZlt{}\PYZhy{}} x\PYZus{}tst
+             \PY{n}{else} \PY{p}{\PYZob{}}
+                 \PY{n}{test} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{x\PYZus{}tst}
              \PY{p}{\PYZcb{}}
-             fitMulti\PY{o}{=}lm\PY{p}{(}Y\PY{o}{\PYZti{}}X11\PY{p}{,}x\PYZus{}tra\PY{p}{)}
-             yprime\PY{o}{=}predict\PY{p}{(}fitMulti\PY{p}{,}test\PY{p}{)}
-             \PY{k+kp}{sum}\PY{p}{(}\PY{k+kp}{abs}\PY{p}{(}test\PY{o}{\PYZdl{}}Y\PY{o}{\PYZhy{}}yprime\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}\PY{o}{/}\PY{k+kp}{length}\PY{p}{(}yprime\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZsh{}MSE}
+             \PY{n}{fitMulti}\PY{o}{=}\PY{n+nf}{lm}\PY{p}{(}\PY{n}{Y}\PY{o}{\PYZti{}}\PY{n}{X11}\PY{p}{,}\PY{n}{x\PYZus{}tra}\PY{p}{)}
+             \PY{n}{yprime}\PY{o}{=}\PY{n+nf}{predict}\PY{p}{(}\PY{n}{fitMulti}\PY{p}{,}\PY{n}{test}\PY{p}{)}
+             \PY{n+nf}{sum}\PY{p}{(}\PY{n+nf}{abs}\PY{p}{(}\PY{n}{test}\PY{o}{\PYZdl{}}\PY{n}{Y}\PY{o}{\PYZhy{}}\PY{n}{yprime}\PY{p}{)}\PY{n}{\PYZca{}2}\PY{p}{)}\PY{o}{/}\PY{n+nf}{length}\PY{p}{(}\PY{n}{yprime}\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZsh{}MSE}
          \PY{p}{\PYZcb{}}
-         lmMSEtrain.simple\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{mean}\PY{p}{(}\PY{k+kp}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}run\PYZus{}lm\PYZus{}fold\PY{p}{,}nombre\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)}\PY{p}{)}
-         lmMSEtest.simple\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{mean}\PY{p}{(}\PY{k+kp}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}run\PYZus{}lm\PYZus{}fold\PY{p}{,}nombre\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)}\PY{p}{)}
-         \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{train: \PYZdq{}}\PY{p}{,}lmMSEtrain.simple\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}n\PYZdq{}}\PY{p}{)}
-         \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{test: \PYZdq{}}\PY{p}{,}lmMSEtest.simple\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}n\PYZdq{}}\PY{p}{)}
+         \PY{n}{lmMSEtrain.simple}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n+nf}{mean}\PY{p}{(}\PY{n+nf}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}\PY{n}{run\PYZus{}lm\PYZus{}fold}\PY{p}{,}\PY{n}{nombre}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{lmMSEtest.simple}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n+nf}{mean}\PY{p}{(}\PY{n+nf}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}\PY{n}{run\PYZus{}lm\PYZus{}fold}\PY{p}{,}\PY{n}{nombre}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n+nf}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{train: \PYZdq{}}\PY{p}{,}\PY{n}{lmMSEtrain.simple}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}n\PYZdq{}}\PY{p}{)}
+         \PY{n+nf}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{test: \PYZdq{}}\PY{p}{,}\PY{n}{lmMSEtest.simple}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}n\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -1438,10 +1538,10 @@ variables y probando interaciones entre las variables.
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} Creamos el modelo}
-         fit.multiple1 \PY{o}{=} lm\PY{p}{(}MonthCDRate\PY{o}{\PYZti{}}\PY{l+m}{.}\PY{p}{,} treasury\PY{p}{)}
+         \PY{n}{fit.multiple1} \PY{o}{=} \PY{n+nf}{lm}\PY{p}{(}\PY{n}{MonthCDRate}\PY{o}{\PYZti{}}\PY{n}{.,} \PY{n}{treasury}\PY{p}{)}
          
          \PY{c+c1}{\PYZsh{} Comprobamos los resultados}
-         \PY{k+kp}{summary}\PY{p}{(}fit.multiple1\PY{p}{)}
+         \PY{n+nf}{summary}\PY{p}{(}\PY{n}{fit.multiple1}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -1496,13 +1596,14 @@ variables.
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{} Creamos el modelo}
-         fit.multiple2 \PY{o}{=} lm\PY{p}{(}MonthCDRate\PY{o}{\PYZti{}}CMaturityRate\PYZus{}1Y\PY{o}{+}CMortgageRate\PYZus{}30Y\PY{o}{+}CMaturityRate\PYZus{}3Y\PY{o}{+}
-                            bankCredit\PY{o}{+}currency\PY{o}{+}demandDeposits\PY{o}{+}moneyStock\PY{o}{+}
-                            checkableDeposits\PY{o}{+}loansLeases\PY{o}{+}savingsDeposits\PY{o}{+}
-                            tradeCurrencies\PY{p}{,} treasury\PY{p}{)}
+         \PY{n}{fit.multiple2} \PY{o}{=} \PY{n+nf}{lm}\PY{p}{(}\PY{n}{MonthCDRate}\PY{o}{\PYZti{}}\PY{n}{CMaturityRate\PYZus{}1Y}\PY{o}{+}
+                            \PY{n}{CMortgageRate\PYZus{}30Y}\PY{o}{+}\PY{n}{CMaturityRate\PYZus{}3Y}\PY{o}{+}
+                            \PY{n}{bankCredit}\PY{o}{+}\PY{n}{currency}\PY{o}{+}\PY{n}{demandDeposits}\PY{o}{+}\PY{n}{moneyStock}\PY{o}{+}
+                            \PY{n}{checkableDeposits}\PY{o}{+}\PY{n}{loansLeases}\PY{o}{+}\PY{n}{savingsDeposits}\PY{o}{+}
+                            \PY{n}{tradeCurrencies}\PY{p}{,} \PY{n}{treasury}\PY{p}{)}
          
          \PY{c+c1}{\PYZsh{} Comprobamos los resultados}
-         \PY{k+kp}{summary}\PY{p}{(}fit.multiple2\PY{p}{)}
+         \PY{n+nf}{summary}\PY{p}{(}\PY{n}{fit.multiple2}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -1550,11 +1651,12 @@ variables que tengan poca imporancia para el modelo, como
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} Creamos el modelo}
-         fit.multiple3 \PY{o}{=} lm\PY{p}{(}MonthCDRate\PY{o}{\PYZti{}}CMaturityRate\PYZus{}1Y\PY{o}{+}CMortgageRate\PYZus{}30Y\PY{o}{+}CMaturityRate\PYZus{}3Y\PY{o}{+}
-                            currency\PY{o}{+}moneyStock\PY{o}{+}tradeCurrencies\PY{p}{,} treasury\PY{p}{)}
+         \PY{n}{fit.multiple3} \PY{o}{=} \PY{n+nf}{lm}\PY{p}{(}\PY{n}{MonthCDRate}\PY{o}{\PYZti{}}\PY{n}{CMaturityRate\PYZus{}1Y}\PY{o}{+}
+                            \PY{n}{CMortgageRate\PYZus{}30Y}\PY{o}{+}\PY{n}{CMaturityRate\PYZus{}3Y}\PY{o}{+}
+                            \PY{n}{currency}\PY{o}{+}\PY{n}{moneyStock}\PY{o}{+}\PY{n}{tradeCurrencies}\PY{p}{,} \PY{n}{treasury}\PY{p}{)}
          
          \PY{c+c1}{\PYZsh{} Comprobamos los resultados}
-         \PY{k+kp}{summary}\PY{p}{(}fit.multiple3\PY{p}{)}
+         \PY{n+nf}{summary}\PY{p}{(}\PY{n}{fit.multiple3}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -1597,11 +1699,12 @@ variables o al cuadrado para intentar mejorar algo más los resultados.
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} Creamos el modelo}
-         fit.multiple4 \PY{o}{=} lm\PY{p}{(}MonthCDRate\PY{o}{\PYZti{}}CMortgageRate\PYZus{}30Y\PY{o}{+}CMaturityRate\PYZus{}3Y\PY{o}{+}
-                            CMaturityRate\PYZus{}5Y\PY{o}{+}moneyStock\PY{o}{+}Rate\PYZus{}SecondaryMarket\PYZus{}3M\PY{p}{,} treasury\PY{p}{)}
+         \PY{n}{fit.multiple4} \PY{o}{=} \PY{n+nf}{lm}\PY{p}{(}\PY{n}{MonthCDRate}\PY{o}{\PYZti{}}\PY{n}{CMortgageRate\PYZus{}30Y}\PY{o}{+}\PY{n}{CMaturityRate\PYZus{}3Y}\PY{o}{+}
+                            \PY{n}{CMaturityRate\PYZus{}5Y}\PY{o}{+}\PY{n}{moneyStock}\PY{o}{+}\PY{n}{Rate\PYZus{}SecondaryMarket\PYZus{}3M}\PY{p}{,}
+                            \PY{n}{treasury}\PY{p}{)}
          
          \PY{c+c1}{\PYZsh{} Comprobamos los resultados}
-         \PY{k+kp}{summary}\PY{p}{(}fit.multiple4\PY{p}{)}
+         \PY{n+nf}{summary}\PY{p}{(}\PY{n}{fit.multiple4}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -1642,11 +1745,11 @@ no afecta a la predicción de la variable \emph{MonthCDRate}.
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{} Creamos el modelo}
-         fit.multiple5 \PY{o}{=} lm\PY{p}{(}MonthCDRate\PY{o}{\PYZti{}}CMortgageRate\PYZus{}30Y\PY{o}{+}CMaturityRate\PYZus{}3Y\PY{o}{+}
-                            CMaturityRate\PYZus{}5Y\PY{o}{+}moneyStock\PY{p}{,} treasury\PY{p}{)}
+         \PY{n}{fit.multiple5} \PY{o}{=} \PY{n+nf}{lm}\PY{p}{(}\PY{n}{MonthCDRate}\PY{o}{\PYZti{}}\PY{n}{CMortgageRate\PYZus{}30Y}\PY{o}{+}\PY{n}{CMaturityRate\PYZus{}3Y}\PY{o}{+}
+                            \PY{n}{CMaturityRate\PYZus{}5Y}\PY{o}{+}\PY{n}{moneyStock}\PY{p}{,} \PY{n}{treasury}\PY{p}{)}
          
          \PY{c+c1}{\PYZsh{} Comprobamos los resultados}
-         \PY{k+kp}{summary}\PY{p}{(}fit.multiple5\PY{p}{)}
+         \PY{n+nf}{summary}\PY{p}{(}\PY{n}{fit.multiple5}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -1684,11 +1787,13 @@ variables que parezca estar algo relacionadas del modelo
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} Creamos el modelo}
-         fit.multiple6 \PY{o}{=} lm\PY{p}{(}MonthCDRate\PY{o}{\PYZti{}}CMaturityRate\PYZus{}1Y\PY{o}{+}CMortgageRate\PYZus{}30Y\PY{o}{+}CMaturityRate\PYZus{}3Y\PY{o}{+}
-                            currency\PY{o}{+}moneyStock\PY{o}{+}tradeCurrencies\PY{o}{+}\PY{k+kp}{I}\PY{p}{(}tradeCurrencies\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}\PY{p}{,} treasury\PY{p}{)}
+         \PY{n}{fit.multiple6} \PY{o}{=} \PY{n+nf}{lm}\PY{p}{(}\PY{n}{MonthCDRate}\PY{o}{\PYZti{}}\PY{n}{CMaturityRate\PYZus{}1Y}\PY{o}{+}
+                            \PY{n}{CMortgageRate\PYZus{}30Y}\PY{o}{+}\PY{n}{CMaturityRate\PYZus{}3Y}\PY{o}{+}
+                            \PY{n}{currency}\PY{o}{+}\PY{n}{moneyStock}\PY{o}{+}\PY{n}{tradeCurrencies}\PY{o}{+}
+                            \PY{n+nf}{I}\PY{p}{(}\PY{n}{tradeCurrencies}\PY{n}{\PYZca{}2}\PY{p}{)}\PY{p}{,} \PY{n}{treasury}\PY{p}{)}
          
          \PY{c+c1}{\PYZsh{} Comprobamos los resultados}
-         \PY{k+kp}{summary}\PY{p}{(}fit.multiple6\PY{p}{)}
+         \PY{n+nf}{summary}\PY{p}{(}\PY{n}{fit.multiple6}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -1729,20 +1834,23 @@ que lo quitaremos y probaremos con otras variables.
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{} Creamos el modelo}
-         fit.multiple7 \PY{o}{=} lm\PY{p}{(}MonthCDRate\PY{o}{\PYZti{}}CMaturityRate\PYZus{}1Y\PY{o}{+}CMortgageRate\PYZus{}30Y\PY{o}{+}CMaturityRate\PYZus{}3Y\PY{o}{+}
-                            currency\PY{o}{+}moneyStock\PY{o}{+}tradeCurrencies\PY{o}{+}
-                            \PY{k+kp}{I}\PY{p}{(}CMaturityRate\PYZus{}1Y\PY{o}{*}currency\PY{p}{)}\PY{p}{,} treasury\PY{p}{)}
+         \PY{n}{fit.multiple7} \PY{o}{=} \PY{n+nf}{lm}\PY{p}{(}\PY{n}{MonthCDRate}\PY{o}{\PYZti{}}\PY{n}{CMaturityRate\PYZus{}1Y}\PY{o}{+}\PY{n}{CMortgageRate\PYZus{}30Y}\PY{o}{+}
+                            \PY{n}{CMaturityRate\PYZus{}3Y}\PY{o}{+}
+                            \PY{n}{currency}\PY{o}{+}\PY{n}{moneyStock}\PY{o}{+}
+                            \PY{n}{tradeCurrencies}\PY{o}{+}
+                            \PY{n+nf}{I}\PY{p}{(}\PY{n}{CMaturityRate\PYZus{}1Y}\PY{o}{*}\PY{n}{currency}\PY{p}{)}\PY{p}{,} \PY{n}{treasury}\PY{p}{)}
          
          \PY{c+c1}{\PYZsh{} Comprobamos los resultados}
-         \PY{k+kp}{summary}\PY{p}{(}fit.multiple7\PY{p}{)}
+         \PY{n+nf}{summary}\PY{p}{(}\PY{n}{fit.multiple7}\PY{p}{)}
          
          \PY{c+c1}{\PYZsh{} Creamos el modelo}
-         fit.multiple8 \PY{o}{=} lm\PY{p}{(}MonthCDRate\PY{o}{\PYZti{}}CMaturityRate\PYZus{}1Y\PY{o}{+}CMortgageRate\PYZus{}30Y\PY{o}{+}CMaturityRate\PYZus{}3Y\PY{o}{+}
-                            currency\PY{o}{+}moneyStock\PY{o}{+}tradeCurrencies\PY{o}{+}
-                            \PY{k+kp}{I}\PY{p}{(}CMortgageRate\PYZus{}30Y\PY{o}{*}moneyStock\PY{p}{)}\PY{p}{,} treasury\PY{p}{)}
+         \PY{n}{fit.multiple8} \PY{o}{=} \PY{n+nf}{lm}\PY{p}{(}\PY{n}{MonthCDRate}\PY{o}{\PYZti{}}\PY{n}{CMaturityRate\PYZus{}1Y}\PY{o}{+}\PY{n}{CMortgageRate\PYZus{}30Y}\PY{o}{+}
+                            \PY{n}{CMaturityRate\PYZus{}3Y}\PY{o}{+}
+                            \PY{n}{currency}\PY{o}{+}\PY{n}{moneyStock}\PY{o}{+}\PY{n}{tradeCurrencies}\PY{o}{+}
+                            \PY{n+nf}{I}\PY{p}{(}\PY{n}{CMortgageRate\PYZus{}30Y}\PY{o}{*}\PY{n}{moneyStock}\PY{p}{)}\PY{p}{,} \PY{n}{treasury}\PY{p}{)}
          
          \PY{c+c1}{\PYZsh{} Comprobamos los resultados}
-         \PY{k+kp}{summary}\PY{p}{(}fit.multiple8\PY{p}{)}
+         \PY{n+nf}{summary}\PY{p}{(}\PY{n}{fit.multiple8}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -1826,21 +1934,23 @@ Lo siguiente será probar no linealidad con las variables.
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} Creamos el modelo}
-         fit.multiple9 \PY{o}{=} lm\PY{p}{(}MonthCDRate\PY{o}{\PYZti{}}CMaturityRate\PYZus{}1Y\PY{o}{+}CMortgageRate\PYZus{}30Y\PY{o}{+}CMaturityRate\PYZus{}3Y\PY{o}{+}
-                            currency\PY{o}{+}moneyStock\PY{o}{+}tradeCurrencies\PY{o}{+}
-                            \PY{k+kp}{I}\PY{p}{(}CMaturityRate\PYZus{}1Y\PY{o}{*}tradeCurrencies\PY{p}{)}\PY{p}{,} treasury\PY{p}{)}
+         \PY{n}{fit.multiple9} \PY{o}{=} \PY{n+nf}{lm}\PY{p}{(}\PY{n}{MonthCDRate}\PY{o}{\PYZti{}}\PY{n}{CMaturityRate\PYZus{}1Y}\PY{o}{+}
+                            \PY{n}{CMortgageRate\PYZus{}30Y}\PY{o}{+}\PY{n}{CMaturityRate\PYZus{}3Y}\PY{o}{+}
+                            \PY{n}{currency}\PY{o}{+}\PY{n}{moneyStock}\PY{o}{+}\PY{n}{tradeCurrencies}\PY{o}{+}
+                            \PY{n+nf}{I}\PY{p}{(}\PY{n}{CMaturityRate\PYZus{}1Y}\PY{o}{*}\PY{n}{tradeCurrencies}\PY{p}{)}\PY{p}{,} \PY{n}{treasury}\PY{p}{)}
          
          \PY{c+c1}{\PYZsh{} Comprobamos los resultados}
-         \PY{k+kp}{summary}\PY{p}{(}fit.multiple9\PY{p}{)}
+         \PY{n+nf}{summary}\PY{p}{(}\PY{n}{fit.multiple9}\PY{p}{)}
          
          
          \PY{c+c1}{\PYZsh{} Creamos el modelo}
-         fit.multiple10 \PY{o}{=} lm\PY{p}{(}MonthCDRate\PY{o}{\PYZti{}}CMaturityRate\PYZus{}1Y\PY{o}{+}CMortgageRate\PYZus{}30Y\PY{o}{+}CMaturityRate\PYZus{}3Y\PY{o}{+}
-                            currency\PY{o}{+}moneyStock\PY{o}{+}tradeCurrencies\PY{o}{+}
-                            \PY{k+kp}{I}\PY{p}{(}moneyStock\PY{o}{*}tradeCurrencies\PY{p}{)}\PY{p}{,} treasury\PY{p}{)}
+         \PY{n}{fit.multiple10} \PY{o}{=} \PY{n+nf}{lm}\PY{p}{(}\PY{n}{MonthCDRate}\PY{o}{\PYZti{}}\PY{n}{CMaturityRate\PYZus{}1Y}\PY{o}{+}
+                             \PY{n}{CMortgageRate\PYZus{}30Y}\PY{o}{+}\PY{n}{CMaturityRate\PYZus{}3Y}\PY{o}{+}
+                            \PY{n}{currency}\PY{o}{+}\PY{n}{moneyStock}\PY{o}{+}\PY{n}{tradeCurrencies}\PY{o}{+}
+                            \PY{n+nf}{I}\PY{p}{(}\PY{n}{moneyStock}\PY{o}{*}\PY{n}{tradeCurrencies}\PY{p}{)}\PY{p}{,} \PY{n}{treasury}\PY{p}{)}
          
          \PY{c+c1}{\PYZsh{} Comprobamos los resultados}
-         \PY{k+kp}{summary}\PY{p}{(}fit.multiple10\PY{p}{)}
+         \PY{n+nf}{summary}\PY{p}{(}\PY{n}{fit.multiple10}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -1919,12 +2029,13 @@ F-statistic: 2.828e+04 on 7 and 1041 DF,  p-value: < 2.2e-16
     
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} Creamos el modelo}
-         fit.multiple11 \PY{o}{=} lm\PY{p}{(}MonthCDRate\PY{o}{\PYZti{}}CMaturityRate\PYZus{}1Y\PY{o}{+}CMortgageRate\PYZus{}30Y\PY{o}{+}CMaturityRate\PYZus{}3Y\PY{o}{+}
-                            currency\PY{o}{+}moneyStock\PY{o}{+}tradeCurrencies\PY{o}{+}
-                            \PY{k+kp}{I}\PY{p}{(}CMaturityRate\PYZus{}1Y\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)}\PY{p}{,} treasury\PY{p}{)}
+         \PY{n}{fit.multiple11} \PY{o}{=} \PY{n+nf}{lm}\PY{p}{(}\PY{n}{MonthCDRate}\PY{o}{\PYZti{}}\PY{n}{CMaturityRate\PYZus{}1Y}\PY{o}{+}
+                             \PY{n}{CMortgageRate\PYZus{}30Y}\PY{o}{+}\PY{n}{CMaturityRate\PYZus{}3Y}\PY{o}{+}
+                            \PY{n}{currency}\PY{o}{+}\PY{n}{moneyStock}\PY{o}{+}\PY{n}{tradeCurrencies}\PY{o}{+}
+                            \PY{n+nf}{I}\PY{p}{(}\PY{n}{CMaturityRate\PYZus{}1Y}\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)}\PY{p}{,} \PY{n}{treasury}\PY{p}{)}
          
          \PY{c+c1}{\PYZsh{} Comprobamos los resultados}
-         \PY{k+kp}{summary}\PY{p}{(}fit.multiple11\PY{p}{)}
+         \PY{n+nf}{summary}\PY{p}{(}\PY{n}{fit.multiple11}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -1962,12 +2073,13 @@ F-statistic: 2.83e+04 on 7 and 1041 DF,  p-value: < 2.2e-16
     
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} Creamos el modelo}
-         fit.multiple12 \PY{o}{=} lm\PY{p}{(}MonthCDRate\PY{o}{\PYZti{}}CMaturityRate\PYZus{}1Y\PY{o}{+}CMortgageRate\PYZus{}30Y\PY{o}{+}CMaturityRate\PYZus{}3Y\PY{o}{+}
-                            currency\PY{o}{+}moneyStock\PY{o}{+}tradeCurrencies\PY{o}{+}
-                            \PY{k+kp}{I}\PY{p}{(}CMortgageRate\PYZus{}30Y\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)}\PY{p}{,} treasury\PY{p}{)}
+         \PY{n}{fit.multiple12} \PY{o}{=} \PY{n+nf}{lm}\PY{p}{(}\PY{n}{MonthCDRate}\PY{o}{\PYZti{}}\PY{n}{CMaturityRate\PYZus{}1Y}\PY{o}{+}
+                             \PY{n}{CMortgageRate\PYZus{}30Y}\PY{o}{+}\PY{n}{CMaturityRate\PYZus{}3Y}\PY{o}{+}
+                            \PY{n}{currency}\PY{o}{+}\PY{n}{moneyStock}\PY{o}{+}\PY{n}{tradeCurrencies}\PY{o}{+}
+                            \PY{n+nf}{I}\PY{p}{(}\PY{n}{CMortgageRate\PYZus{}30Y}\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)}\PY{p}{,} \PY{n}{treasury}\PY{p}{)}
          
          \PY{c+c1}{\PYZsh{} Comprobamos los resultados}
-         \PY{k+kp}{summary}\PY{p}{(}fit.multiple12\PY{p}{)}
+         \PY{n+nf}{summary}\PY{p}{(}\PY{n}{fit.multiple12}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -2005,12 +2117,13 @@ F-statistic: 2.841e+04 on 7 and 1041 DF,  p-value: < 2.2e-16
     
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} Creamos el modelo}
-         fit.multiple13 \PY{o}{=} lm\PY{p}{(}MonthCDRate\PY{o}{\PYZti{}}CMaturityRate\PYZus{}1Y\PY{o}{+}CMortgageRate\PYZus{}30Y\PY{o}{+}CMaturityRate\PYZus{}3Y\PY{o}{+}
-                            currency\PY{o}{+}moneyStock\PY{o}{+}tradeCurrencies\PY{o}{+}
-                            \PY{k+kp}{I}\PY{p}{(}CMaturityRate\PYZus{}3Y\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)}\PY{p}{,} treasury\PY{p}{)}
+         \PY{n}{fit.multiple13} \PY{o}{=} \PY{n+nf}{lm}\PY{p}{(}\PY{n}{MonthCDRate}\PY{o}{\PYZti{}}\PY{n}{CMaturityRate\PYZus{}1Y}\PY{o}{+}
+                             \PY{n}{CMortgageRate\PYZus{}30Y}\PY{o}{+}\PY{n}{CMaturityRate\PYZus{}3Y}\PY{o}{+}
+                            \PY{n}{currency}\PY{o}{+}\PY{n}{moneyStock}\PY{o}{+}\PY{n}{tradeCurrencies}\PY{o}{+}
+                            \PY{n+nf}{I}\PY{p}{(}\PY{n}{CMaturityRate\PYZus{}3Y}\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)}\PY{p}{,} \PY{n}{treasury}\PY{p}{)}
          
          \PY{c+c1}{\PYZsh{} Comprobamos los resultados}
-         \PY{k+kp}{summary}\PY{p}{(}fit.multiple13\PY{p}{)}
+         \PY{n+nf}{summary}\PY{p}{(}\PY{n}{fit.multiple13}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -2048,12 +2161,13 @@ F-statistic: 2.854e+04 on 7 and 1041 DF,  p-value: < 2.2e-16
     
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} Creamos el modelo}
-         fit.multiple14 \PY{o}{=} lm\PY{p}{(}MonthCDRate\PY{o}{\PYZti{}}CMaturityRate\PYZus{}1Y\PY{o}{+}CMortgageRate\PYZus{}30Y\PY{o}{+}CMaturityRate\PYZus{}3Y\PY{o}{+}
-                            currency\PY{o}{+}moneyStock\PY{o}{+}tradeCurrencies\PY{o}{+}
-                            \PY{k+kp}{I}\PY{p}{(}currency\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)}\PY{p}{,} treasury\PY{p}{)}
+         \PY{n}{fit.multiple14} \PY{o}{=} \PY{n+nf}{lm}\PY{p}{(}\PY{n}{MonthCDRate}\PY{o}{\PYZti{}}\PY{n}{CMaturityRate\PYZus{}1Y}\PY{o}{+}
+                             \PY{n}{CMortgageRate\PYZus{}30Y}\PY{o}{+}\PY{n}{CMaturityRate\PYZus{}3Y}\PY{o}{+}
+                            \PY{n}{currency}\PY{o}{+}\PY{n}{moneyStock}\PY{o}{+}\PY{n}{tradeCurrencies}\PY{o}{+}
+                            \PY{n+nf}{I}\PY{p}{(}\PY{n}{currency}\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)}\PY{p}{,} \PY{n}{treasury}\PY{p}{)}
          
          \PY{c+c1}{\PYZsh{} Comprobamos los resultados}
-         \PY{k+kp}{summary}\PY{p}{(}fit.multiple14\PY{p}{)}
+         \PY{n+nf}{summary}\PY{p}{(}\PY{n}{fit.multiple14}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -2091,12 +2205,13 @@ F-statistic: 2.83e+04 on 7 and 1041 DF,  p-value: < 2.2e-16
     
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{} Creamos el modelo}
-         fit.multiple15 \PY{o}{=} lm\PY{p}{(}MonthCDRate\PY{o}{\PYZti{}}CMaturityRate\PYZus{}1Y\PY{o}{+}CMortgageRate\PYZus{}30Y\PY{o}{+}CMaturityRate\PYZus{}3Y\PY{o}{+}
-                            currency\PY{o}{+}moneyStock\PY{o}{+}tradeCurrencies\PY{o}{+}
-                            \PY{k+kp}{I}\PY{p}{(}moneyStock\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)}\PY{p}{,} treasury\PY{p}{)}
+         \PY{n}{fit.multiple15} \PY{o}{=} \PY{n+nf}{lm}\PY{p}{(}\PY{n}{MonthCDRate}\PY{o}{\PYZti{}}\PY{n}{CMaturityRate\PYZus{}1Y}\PY{o}{+}
+                             \PY{n}{CMortgageRate\PYZus{}30Y}\PY{o}{+}\PY{n}{CMaturityRate\PYZus{}3Y}\PY{o}{+}
+                            \PY{n}{currency}\PY{o}{+}\PY{n}{moneyStock}\PY{o}{+}\PY{n}{tradeCurrencies}\PY{o}{+}
+                            \PY{n+nf}{I}\PY{p}{(}\PY{n}{moneyStock}\PY{o}{*}\PY{o}{*}\PY{l+m}{2}\PY{p}{)}\PY{p}{,} \PY{n}{treasury}\PY{p}{)}
          
          \PY{c+c1}{\PYZsh{} Comprobamos los resultados}
-         \PY{k+kp}{summary}\PY{p}{(}fit.multiple15\PY{p}{)}
+         \PY{n+nf}{summary}\PY{p}{(}\PY{n}{fit.multiple15}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -2146,32 +2261,32 @@ que mejores resultados nos ofrezca para después compararlo con otros
 modelos.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}29}]:} nombre \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{treasury//treasury\PYZdq{}}
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{nombre} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{treasury//treasury\PYZdq{}}
          
-         run\PYZus{}lm\PYZus{}fold \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kr}{function}\PY{p}{(}i\PY{p}{,} x\PY{p}{,} tt \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
-             file \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{paste}\PY{p}{(}x\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} i\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tra.dat\PYZdq{}}\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
-             x\PYZus{}tra \PY{o}{\PYZlt{}\PYZhy{}} read.csv\PY{p}{(}\PY{k+kp}{file}\PY{p}{,} comment.char\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} header\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
-             file \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{paste}\PY{p}{(}x\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} i\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tst.dat\PYZdq{}}\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
-             x\PYZus{}tst \PY{o}{\PYZlt{}\PYZhy{}} read.csv\PY{p}{(}\PY{k+kp}{file}\PY{p}{,} comment.char\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} header\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
-             In \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{length}\PY{p}{(}\PY{k+kp}{names}\PY{p}{(}x\PYZus{}tra\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m}{1}
-             \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tra\PY{p}{)}\PY{p}{[}\PY{l+m}{1}\PY{o}{:}In\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} paste \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}In\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
-             \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tra\PY{p}{)}\PY{p}{[}In\PY{l+m}{+1}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
-             \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tst\PY{p}{)}\PY{p}{[}\PY{l+m}{1}\PY{o}{:}In\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} paste \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}In\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
-             \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tst\PY{p}{)}\PY{p}{[}In\PY{l+m}{+1}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
-             \PY{k+kr}{if} \PY{p}{(}tt \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
-                 test \PY{o}{\PYZlt{}\PYZhy{}} x\PYZus{}tra
+         \PY{n}{run\PYZus{}lm\PYZus{}fold} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{function}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{tt} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+             \PY{n}{file} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tra.dat\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{x\PYZus{}tra} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.csv}\PY{p}{(}\PY{n}{file}\PY{p}{,} \PY{n}{comment.char}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+             \PY{n}{file} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tst.dat\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{x\PYZus{}tst} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.csv}\PY{p}{(}\PY{n}{file}\PY{p}{,} \PY{n}{comment.char}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+             \PY{n}{In} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{length}\PY{p}{(}\PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m}{1}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{n}{[1}\PY{o}{:}\PY{n}{In}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste }\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}\PY{n}{In}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{n}{[In}\PY{l+m}{+1}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tst}\PY{p}{)}\PY{n}{[1}\PY{o}{:}\PY{n}{In}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste }\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}\PY{n}{In}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tst}\PY{p}{)}\PY{n}{[In}\PY{l+m}{+1}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+             \PY{n+nf}{if }\PY{p}{(}\PY{n}{tt} \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+                 \PY{n}{test} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{x\PYZus{}tra}
              \PY{p}{\PYZcb{}}
-             \PY{k+kr}{else} \PY{p}{\PYZob{}}
-                 test \PY{o}{\PYZlt{}\PYZhy{}} x\PYZus{}tst
+             \PY{n}{else} \PY{p}{\PYZob{}}
+                 \PY{n}{test} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{x\PYZus{}tst}
              \PY{p}{\PYZcb{}}
-             fitMulti\PY{o}{=}lm\PY{p}{(}Y\PY{o}{\PYZti{}}X1\PY{o}{+}X2\PY{o}{+}X5\PY{o}{+}X7\PY{o}{+}X8\PY{o}{+}X9\PY{o}{+}X11\PY{o}{+}X12\PY{o}{+}X13\PY{o}{+}X14\PY{o}{+}X15\PY{p}{,}x\PYZus{}tra\PY{p}{)}
-             yprime\PY{o}{=}predict\PY{p}{(}fitMulti\PY{p}{,}test\PY{p}{)}
-             \PY{k+kp}{sum}\PY{p}{(}\PY{k+kp}{abs}\PY{p}{(}test\PY{o}{\PYZdl{}}Y\PY{o}{\PYZhy{}}yprime\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}\PY{o}{/}\PY{k+kp}{length}\PY{p}{(}yprime\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZsh{}MSE}
+             \PY{n}{fitMulti}\PY{o}{=}\PY{n+nf}{lm}\PY{p}{(}\PY{n}{Y}\PY{o}{\PYZti{}}\PY{n}{X1}\PY{o}{+}\PY{n}{X2}\PY{o}{+}\PY{n}{X5}\PY{o}{+}\PY{n}{X7}\PY{o}{+}\PY{n}{X8}\PY{o}{+}\PY{n}{X9}\PY{o}{+}\PY{n}{X11}\PY{o}{+}\PY{n}{X12}\PY{o}{+}\PY{n}{X13}\PY{o}{+}\PY{n}{X14}\PY{o}{+}\PY{n}{X15}\PY{p}{,}\PY{n}{x\PYZus{}tra}\PY{p}{)}
+             \PY{n}{yprime}\PY{o}{=}\PY{n+nf}{predict}\PY{p}{(}\PY{n}{fitMulti}\PY{p}{,}\PY{n}{test}\PY{p}{)}
+             \PY{n+nf}{sum}\PY{p}{(}\PY{n+nf}{abs}\PY{p}{(}\PY{n}{test}\PY{o}{\PYZdl{}}\PY{n}{Y}\PY{o}{\PYZhy{}}\PY{n}{yprime}\PY{p}{)}\PY{n}{\PYZca{}2}\PY{p}{)}\PY{o}{/}\PY{n+nf}{length}\PY{p}{(}\PY{n}{yprime}\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZsh{}MSE}
          \PY{p}{\PYZcb{}}
-         lmMSEtrain.multiple1\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{mean}\PY{p}{(}\PY{k+kp}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}run\PYZus{}lm\PYZus{}fold\PY{p}{,}nombre\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)}\PY{p}{)}
-         lmMSEtest.multiple1\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{mean}\PY{p}{(}\PY{k+kp}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}run\PYZus{}lm\PYZus{}fold\PY{p}{,}nombre\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)}\PY{p}{)}
-         \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{train: \PYZdq{}}\PY{p}{,}lmMSEtrain.multiple1\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}n\PYZdq{}}\PY{p}{)}
-         \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{test: \PYZdq{}}\PY{p}{,}lmMSEtest.multiple1\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}n\PYZdq{}}\PY{p}{)}
+         \PY{n}{lmMSEtrain.multiple1}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n+nf}{mean}\PY{p}{(}\PY{n+nf}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}\PY{n}{run\PYZus{}lm\PYZus{}fold}\PY{p}{,}\PY{n}{nombre}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{lmMSEtest.multiple1}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n+nf}{mean}\PY{p}{(}\PY{n+nf}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}\PY{n}{run\PYZus{}lm\PYZus{}fold}\PY{p}{,}\PY{n}{nombre}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n+nf}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{train: \PYZdq{}}\PY{p}{,}\PY{n}{lmMSEtrain.multiple1}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}n\PYZdq{}}\PY{p}{)}
+         \PY{n+nf}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{test: \PYZdq{}}\PY{p}{,}\PY{n}{lmMSEtest.multiple1}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}n\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -2182,31 +2297,31 @@ test:  0.05881755
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}30}]:} nombre \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{treasury//treasury\PYZdq{}}
-         run\PYZus{}lm\PYZus{}fold \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kr}{function}\PY{p}{(}i\PY{p}{,} x\PY{p}{,} tt \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
-             file \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{paste}\PY{p}{(}x\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} i\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tra.dat\PYZdq{}}\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
-             x\PYZus{}tra \PY{o}{\PYZlt{}\PYZhy{}} read.csv\PY{p}{(}\PY{k+kp}{file}\PY{p}{,} comment.char\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} header\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
-             file \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{paste}\PY{p}{(}x\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} i\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tst.dat\PYZdq{}}\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
-             x\PYZus{}tst \PY{o}{\PYZlt{}\PYZhy{}} read.csv\PY{p}{(}\PY{k+kp}{file}\PY{p}{,} comment.char\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} header\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
-             In \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{length}\PY{p}{(}\PY{k+kp}{names}\PY{p}{(}x\PYZus{}tra\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m}{1}
-             \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tra\PY{p}{)}\PY{p}{[}\PY{l+m}{1}\PY{o}{:}In\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} paste \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}In\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
-             \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tra\PY{p}{)}\PY{p}{[}In\PY{l+m}{+1}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
-             \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tst\PY{p}{)}\PY{p}{[}\PY{l+m}{1}\PY{o}{:}In\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} paste \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}In\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
-             \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tst\PY{p}{)}\PY{p}{[}In\PY{l+m}{+1}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
-             \PY{k+kr}{if} \PY{p}{(}tt \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
-                 test \PY{o}{\PYZlt{}\PYZhy{}} x\PYZus{}tra
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{nombre} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{treasury//treasury\PYZdq{}}
+         \PY{n}{run\PYZus{}lm\PYZus{}fold} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{function}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{tt} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+             \PY{n}{file} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tra.dat\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{x\PYZus{}tra} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.csv}\PY{p}{(}\PY{n}{file}\PY{p}{,} \PY{n}{comment.char}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+             \PY{n}{file} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tst.dat\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{x\PYZus{}tst} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.csv}\PY{p}{(}\PY{n}{file}\PY{p}{,} \PY{n}{comment.char}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+             \PY{n}{In} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{length}\PY{p}{(}\PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m}{1}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{n}{[1}\PY{o}{:}\PY{n}{In}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste }\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}\PY{n}{In}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{n}{[In}\PY{l+m}{+1}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tst}\PY{p}{)}\PY{n}{[1}\PY{o}{:}\PY{n}{In}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste }\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}\PY{n}{In}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tst}\PY{p}{)}\PY{n}{[In}\PY{l+m}{+1}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+             \PY{n+nf}{if }\PY{p}{(}\PY{n}{tt} \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+                 \PY{n}{test} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{x\PYZus{}tra}
              \PY{p}{\PYZcb{}}
-             \PY{k+kr}{else} \PY{p}{\PYZob{}}
-                 test \PY{o}{\PYZlt{}\PYZhy{}} x\PYZus{}tst
+             \PY{n}{else} \PY{p}{\PYZob{}}
+                 \PY{n}{test} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{x\PYZus{}tst}
              \PY{p}{\PYZcb{}}
-             fitMulti\PY{o}{=}lm\PY{p}{(}Y\PY{o}{\PYZti{}}X1\PY{o}{+}X2\PY{o}{+}X5\PY{o}{+}X8\PY{o}{+}X11\PY{o}{+}X15\PY{p}{,}x\PYZus{}tra\PY{p}{)}
-             yprime\PY{o}{=}predict\PY{p}{(}fitMulti\PY{p}{,}test\PY{p}{)}
-             \PY{k+kp}{sum}\PY{p}{(}\PY{k+kp}{abs}\PY{p}{(}test\PY{o}{\PYZdl{}}Y\PY{o}{\PYZhy{}}yprime\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}\PY{o}{/}\PY{k+kp}{length}\PY{p}{(}yprime\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZsh{}MSE}
+             \PY{n}{fitMulti}\PY{o}{=}\PY{n+nf}{lm}\PY{p}{(}\PY{n}{Y}\PY{o}{\PYZti{}}\PY{n}{X1}\PY{o}{+}\PY{n}{X2}\PY{o}{+}\PY{n}{X5}\PY{o}{+}\PY{n}{X8}\PY{o}{+}\PY{n}{X11}\PY{o}{+}\PY{n}{X15}\PY{p}{,}\PY{n}{x\PYZus{}tra}\PY{p}{)}
+             \PY{n}{yprime}\PY{o}{=}\PY{n+nf}{predict}\PY{p}{(}\PY{n}{fitMulti}\PY{p}{,}\PY{n}{test}\PY{p}{)}
+             \PY{n+nf}{sum}\PY{p}{(}\PY{n+nf}{abs}\PY{p}{(}\PY{n}{test}\PY{o}{\PYZdl{}}\PY{n}{Y}\PY{o}{\PYZhy{}}\PY{n}{yprime}\PY{p}{)}\PY{n}{\PYZca{}2}\PY{p}{)}\PY{o}{/}\PY{n+nf}{length}\PY{p}{(}\PY{n}{yprime}\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZsh{}MSE}
          \PY{p}{\PYZcb{}}
-         lmMSEtrain.multiple2\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{mean}\PY{p}{(}\PY{k+kp}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}run\PYZus{}lm\PYZus{}fold\PY{p}{,}nombre\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)}\PY{p}{)}
-         lmMSEtest.multiple2\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{mean}\PY{p}{(}\PY{k+kp}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}run\PYZus{}lm\PYZus{}fold\PY{p}{,}nombre\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)}\PY{p}{)}
-         \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{train: \PYZdq{}}\PY{p}{,}lmMSEtrain.multiple2\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}n\PYZdq{}}\PY{p}{)}
-         \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{test: \PYZdq{}}\PY{p}{,}lmMSEtest.multiple2\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}n\PYZdq{}}\PY{p}{)}
+         \PY{n}{lmMSEtrain.multiple2}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n+nf}{mean}\PY{p}{(}\PY{n+nf}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}\PY{n}{run\PYZus{}lm\PYZus{}fold}\PY{p}{,}\PY{n}{nombre}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{lmMSEtest.multiple2}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n+nf}{mean}\PY{p}{(}\PY{n+nf}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}\PY{n}{run\PYZus{}lm\PYZus{}fold}\PY{p}{,}\PY{n}{nombre}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n+nf}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{train: \PYZdq{}}\PY{p}{,}\PY{n}{lmMSEtrain.multiple2}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}n\PYZdq{}}\PY{p}{)}
+         \PY{n+nf}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{test: \PYZdq{}}\PY{p}{,}\PY{n}{lmMSEtest.multiple2}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}n\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -2236,123 +2351,129 @@ se probarán diferentes tamaños de k para ver si mejoran los resultados.
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{} cargamos la librería para utilizar knn}
-         \PY{k+kn}{library}\PY{p}{(}kknn\PY{p}{)}
+         \PY{n+nf}{library}\PY{p}{(}\PY{n}{kknn}\PY{p}{)}
+         \PY{n}{treasury.norm} \PY{o}{=} \PY{n+nf}{as.data.frame}\PY{p}{(}\PY{n+nf}{lapply}\PY{p}{(}\PY{n}{treasury}\PY{p}{,}
+                                        \PY{n}{scale}\PY{p}{,} \PY{n}{center} \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,} \PY{n}{scale} \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{} Creamos un modelo y calculamos su RMSE}
-         fitknn1 \PY{o}{=} kknn\PY{p}{(}MonthCDRate\PY{o}{\PYZti{}}\PY{l+m}{.}\PY{p}{,} treasury\PY{p}{,} treasury\PY{p}{)}
-         yprime \PY{o}{=} fitknn1\PY{o}{\PYZdl{}}fitted.values
-         \PY{k+kp}{print}\PY{p}{(}\PY{k+kp}{sqrt}\PY{p}{(}\PY{k+kp}{sum}\PY{p}{(}\PY{p}{(}treasury\PY{o}{\PYZdl{}}MonthCDRate\PY{o}{\PYZhy{}}yprime\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}\PY{o}{/}\PY{k+kp}{length}\PY{p}{(}yprime\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}RMSE}
+         \PY{n}{fitknn1} \PY{o}{=} \PY{n+nf}{kknn}\PY{p}{(}\PY{n}{MonthCDRate}\PY{o}{\PYZti{}}\PY{n}{.,} \PY{n}{treasury.norm}\PY{p}{,} \PY{n}{treasury.norm}\PY{p}{)}
+         \PY{n}{yprime} \PY{o}{=} \PY{n}{fitknn1}\PY{o}{\PYZdl{}}\PY{n}{fitted.values}
+         \PY{n+nf}{print}\PY{p}{(}\PY{n+nf}{sqrt}\PY{p}{(}\PY{n+nf}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{treasury.norm}\PY{o}{\PYZdl{}}\PY{n}{MonthCDRate}\PY{o}{\PYZhy{}}\PY{n}{yprime}\PY{p}{)}\PY{n}{\PYZca{}2}\PY{p}{)}\PY{o}{/}\PY{n+nf}{length}\PY{p}{(}\PY{n}{yprime}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}RMSE}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-[1] 0.1144729
+[1] 0.03389563
 
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{} Creamos un modelo y calculamos su RMSE}
-         fitknn2 \PY{o}{=} kknn\PY{p}{(}MonthCDRate\PY{o}{\PYZti{}}CMaturityRate\PYZus{}1Y\PY{o}{+}CMortgageRate\PYZus{}30Y\PY{o}{+}CMaturityRate\PYZus{}3Y\PY{o}{+}
-                            bankCredit\PY{o}{+}currency\PY{o}{+}demandDeposits\PY{o}{+}moneyStock\PY{o}{+}
-                            checkableDeposits\PY{o}{+}loansLeases\PY{o}{+}savingsDeposits\PY{o}{+}
-                            tradeCurrencies\PY{p}{,} treasury\PY{p}{,} treasury\PY{p}{)}
-         yprime \PY{o}{=} fitknn2\PY{o}{\PYZdl{}}fitted.values
-         \PY{k+kp}{print}\PY{p}{(}\PY{k+kp}{sqrt}\PY{p}{(}\PY{k+kp}{sum}\PY{p}{(}\PY{p}{(}treasury\PY{o}{\PYZdl{}}MonthCDRate\PY{o}{\PYZhy{}}yprime\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}\PY{o}{/}\PY{k+kp}{length}\PY{p}{(}yprime\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}RMSE}
+         \PY{n}{fitknn2} \PY{o}{=} \PY{n+nf}{kknn}\PY{p}{(}\PY{n}{MonthCDRate}\PY{o}{\PYZti{}}\PY{n}{CMaturityRate\PYZus{}1Y}\PY{o}{+}
+                        \PY{n}{CMortgageRate\PYZus{}30Y}\PY{o}{+}\PY{n}{CMaturityRate\PYZus{}3Y}\PY{o}{+}
+                            \PY{n}{bankCredit}\PY{o}{+}\PY{n}{currency}\PY{o}{+}\PY{n}{demandDeposits}\PY{o}{+}\PY{n}{moneyStock}\PY{o}{+}
+                            \PY{n}{checkableDeposits}\PY{o}{+}\PY{n}{loansLeases}\PY{o}{+}\PY{n}{savingsDeposits}\PY{o}{+}
+                            \PY{n}{tradeCurrencies}\PY{p}{,} \PY{n}{treasury.norm}\PY{p}{,} \PY{n}{treasury.norm}\PY{p}{)}
+         \PY{n}{yprime} \PY{o}{=} \PY{n}{fitknn2}\PY{o}{\PYZdl{}}\PY{n}{fitted.values}
+         \PY{n+nf}{print}\PY{p}{(}\PY{n+nf}{sqrt}\PY{p}{(}\PY{n+nf}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{treasury.norm}\PY{o}{\PYZdl{}}\PY{n}{MonthCDRate}\PY{o}{\PYZhy{}}\PY{n}{yprime}\PY{p}{)}\PY{n}{\PYZca{}2}\PY{p}{)}\PY{o}{/}\PY{n+nf}{length}\PY{p}{(}\PY{n}{yprime}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}RMSE}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-[1] 0.118278
+[1] 0.03502235
 
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}34}]:} \PY{c+c1}{\PYZsh{} Creamos un modelo y calculamos su RMSE}
-         fitknn3 \PY{o}{=} kknn\PY{p}{(}MonthCDRate\PY{o}{\PYZti{}}CMaturityRate\PYZus{}1Y\PY{o}{+}CMortgageRate\PYZus{}30Y\PY{o}{+}CMaturityRate\PYZus{}3Y\PY{o}{+}
-                            bankCredit\PY{o}{+}currency\PY{o}{+}demandDeposits\PY{o}{+}moneyStock\PY{o}{+}
-                            checkableDeposits\PY{o}{+}loansLeases\PY{o}{+}savingsDeposits\PY{o}{+}
-                            tradeCurrencies\PY{p}{,} treasury\PY{p}{,} treasury\PY{p}{,}k\PY{o}{=}\PY{l+m}{5}\PY{p}{)}
-         yprime \PY{o}{=} fitknn3\PY{o}{\PYZdl{}}fitted.values
-         \PY{k+kp}{print}\PY{p}{(}\PY{k+kp}{sqrt}\PY{p}{(}\PY{k+kp}{sum}\PY{p}{(}\PY{p}{(}treasury\PY{o}{\PYZdl{}}MonthCDRate\PY{o}{\PYZhy{}}yprime\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}\PY{o}{/}\PY{k+kp}{length}\PY{p}{(}yprime\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}RMSE}
+         \PY{n}{fitknn3} \PY{o}{=} \PY{n+nf}{kknn}\PY{p}{(}\PY{n}{MonthCDRate}\PY{o}{\PYZti{}}\PY{n}{CMaturityRate\PYZus{}1Y}\PY{o}{+}
+                        \PY{n}{CMortgageRate\PYZus{}30Y}\PY{o}{+}\PY{n}{CMaturityRate\PYZus{}3Y}\PY{o}{+}
+                            \PY{n}{bankCredit}\PY{o}{+}\PY{n}{currency}\PY{o}{+}\PY{n}{demandDeposits}\PY{o}{+}\PY{n}{moneyStock}\PY{o}{+}
+                            \PY{n}{checkableDeposits}\PY{o}{+}\PY{n}{loansLeases}\PY{o}{+}\PY{n}{savingsDeposits}\PY{o}{+}
+                            \PY{n}{tradeCurrencies}\PY{p}{,} \PY{n}{treasury.norm}\PY{p}{,} \PY{n}{treasury.norm}\PY{p}{,}\PY{n}{k}\PY{o}{=}\PY{l+m}{5}\PY{p}{)}
+         \PY{n}{yprime} \PY{o}{=} \PY{n}{fitknn3}\PY{o}{\PYZdl{}}\PY{n}{fitted.values}
+         \PY{n+nf}{print}\PY{p}{(}\PY{n+nf}{sqrt}\PY{p}{(}\PY{n+nf}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{treasury.norm}\PY{o}{\PYZdl{}}\PY{n}{MonthCDRate}\PY{o}{\PYZhy{}}\PY{n}{yprime}\PY{p}{)}\PY{n}{\PYZca{}2}\PY{p}{)}\PY{o}{/}\PY{n+nf}{length}\PY{p}{(}\PY{n}{yprime}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}RMSE}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-[1] 0.09717242
+[1] 0.02877294
 
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}35}]:} \PY{c+c1}{\PYZsh{} Creamos un modelo y calculamos su RMSE}
-         fitknn4 \PY{o}{=} kknn\PY{p}{(}MonthCDRate\PY{o}{\PYZti{}}\PY{l+m}{.}\PY{p}{,} treasury\PY{p}{,} treasury\PY{p}{,}k\PY{o}{=}\PY{l+m}{5}\PY{p}{)}
-         yprime \PY{o}{=} fitknn4\PY{o}{\PYZdl{}}fitted.values
-         \PY{k+kp}{print}\PY{p}{(}\PY{k+kp}{sqrt}\PY{p}{(}\PY{k+kp}{sum}\PY{p}{(}\PY{p}{(}treasury\PY{o}{\PYZdl{}}MonthCDRate\PY{o}{\PYZhy{}}yprime\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}\PY{o}{/}\PY{k+kp}{length}\PY{p}{(}yprime\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}RMSE}
+         \PY{n}{fitknn4} \PY{o}{=} \PY{n+nf}{kknn}\PY{p}{(}\PY{n}{MonthCDRate}\PY{o}{\PYZti{}}\PY{n}{.,} \PY{n}{treasury.norm}\PY{p}{,} \PY{n}{treasury.norm}\PY{p}{,}\PY{n}{k}\PY{o}{=}\PY{l+m}{5}\PY{p}{)}
+         \PY{n}{yprime} \PY{o}{=} \PY{n}{fitknn4}\PY{o}{\PYZdl{}}\PY{n}{fitted.values}
+         \PY{n+nf}{print}\PY{p}{(}\PY{n+nf}{sqrt}\PY{p}{(}\PY{n+nf}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{treasury.norm}\PY{o}{\PYZdl{}}\PY{n}{MonthCDRate}\PY{o}{\PYZhy{}}\PY{n}{yprime}\PY{p}{)}\PY{n}{\PYZca{}2}\PY{p}{)}\PY{o}{/}\PY{n+nf}{length}\PY{p}{(}\PY{n}{yprime}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}RMSE}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-[1] 0.09282986
+[1] 0.02748709
 
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}36}]:} \PY{c+c1}{\PYZsh{} Creamos un modelo y calculamos su RMSE}
-         fitknn5 \PY{o}{=} kknn\PY{p}{(}MonthCDRate\PY{o}{\PYZti{}}CMaturityRate\PYZus{}1Y\PY{o}{+}CMortgageRate\PYZus{}30Y\PY{o}{+}CMaturityRate\PYZus{}3Y\PY{o}{+}
-                            bankCredit\PY{o}{+}currency\PY{o}{+}demandDeposits\PY{o}{+}moneyStock\PY{o}{+}
-                            checkableDeposits\PY{o}{+}loansLeases\PY{o}{+}savingsDeposits\PY{o}{+}
-                            tradeCurrencies\PY{p}{,} treasury\PY{p}{,} treasury\PY{p}{,}k\PY{o}{=}\PY{l+m}{7}\PY{p}{)}
-         yprime \PY{o}{=} fitknn5\PY{o}{\PYZdl{}}fitted.values
-         \PY{k+kp}{print}\PY{p}{(}\PY{k+kp}{sqrt}\PY{p}{(}\PY{k+kp}{sum}\PY{p}{(}\PY{p}{(}treasury\PY{o}{\PYZdl{}}MonthCDRate\PY{o}{\PYZhy{}}yprime\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}\PY{o}{/}\PY{k+kp}{length}\PY{p}{(}yprime\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}RMSE}
+         \PY{n}{fitknn5} \PY{o}{=} \PY{n+nf}{kknn}\PY{p}{(}\PY{n}{MonthCDRate}\PY{o}{\PYZti{}}\PY{n}{CMaturityRate\PYZus{}1Y}\PY{o}{+}
+                        \PY{n}{CMortgageRate\PYZus{}30Y}\PY{o}{+}\PY{n}{CMaturityRate\PYZus{}3Y}\PY{o}{+}
+                            \PY{n}{bankCredit}\PY{o}{+}\PY{n}{currency}\PY{o}{+}\PY{n}{demandDeposits}\PY{o}{+}\PY{n}{moneyStock}\PY{o}{+}
+                            \PY{n}{checkableDeposits}\PY{o}{+}\PY{n}{loansLeases}\PY{o}{+}\PY{n}{savingsDeposits}\PY{o}{+}
+                            \PY{n}{tradeCurrencies}\PY{p}{,} \PY{n}{treasury.norm}\PY{p}{,} \PY{n}{treasury.norm}\PY{p}{,}\PY{n}{k}\PY{o}{=}\PY{l+m}{7}\PY{p}{)}
+         \PY{n}{yprime} \PY{o}{=} \PY{n}{fitknn5}\PY{o}{\PYZdl{}}\PY{n}{fitted.values}
+         \PY{n+nf}{print}\PY{p}{(}\PY{n+nf}{sqrt}\PY{p}{(}\PY{n+nf}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{treasury.norm}\PY{o}{\PYZdl{}}\PY{n}{MonthCDRate}\PY{o}{\PYZhy{}}\PY{n}{yprime}\PY{p}{)}\PY{n}{\PYZca{}2}\PY{p}{)}\PY{o}{/}\PY{n+nf}{length}\PY{p}{(}\PY{n}{yprime}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}RMSE}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-[1] 0.118278
+[1] 0.03502235
 
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}37}]:} \PY{c+c1}{\PYZsh{} Creamos un modelo y calculamos su RMSE}
-         fitknn6 \PY{o}{=} kknn\PY{p}{(}MonthCDRate\PY{o}{\PYZti{}}\PY{l+m}{.}\PY{p}{,} treasury\PY{p}{,} treasury\PY{p}{,}k\PY{o}{=}\PY{l+m}{7}\PY{p}{)}
-         yprime \PY{o}{=} fitknn6\PY{o}{\PYZdl{}}fitted.values
-         \PY{k+kp}{print}\PY{p}{(}\PY{k+kp}{sqrt}\PY{p}{(}\PY{k+kp}{sum}\PY{p}{(}\PY{p}{(}treasury\PY{o}{\PYZdl{}}MonthCDRate\PY{o}{\PYZhy{}}yprime\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}\PY{o}{/}\PY{k+kp}{length}\PY{p}{(}yprime\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}RMSE}
+         \PY{n}{fitknn6} \PY{o}{=} \PY{n+nf}{kknn}\PY{p}{(}\PY{n}{MonthCDRate}\PY{o}{\PYZti{}}\PY{n}{.,} \PY{n}{treasury.norm}\PY{p}{,} \PY{n}{treasury.norm}\PY{p}{,}\PY{n}{k}\PY{o}{=}\PY{l+m}{7}\PY{p}{)}
+         \PY{n}{yprime} \PY{o}{=} \PY{n}{fitknn6}\PY{o}{\PYZdl{}}\PY{n}{fitted.values}
+         \PY{n+nf}{print}\PY{p}{(}\PY{n+nf}{sqrt}\PY{p}{(}\PY{n+nf}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{treasury.norm}\PY{o}{\PYZdl{}}\PY{n}{MonthCDRate}\PY{o}{\PYZhy{}}\PY{n}{yprime}\PY{p}{)}\PY{n}{\PYZca{}2}\PY{p}{)}\PY{o}{/}\PY{n+nf}{length}\PY{p}{(}\PY{n}{yprime}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}RMSE}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-[1] 0.1144729
+[1] 0.03389563
 
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}38}]:} \PY{c+c1}{\PYZsh{} Creamos un modelo y calculamos su RMSE}
-         fitknn7 \PY{o}{=} kknn\PY{p}{(}MonthCDRate\PY{o}{\PYZti{}}CMaturityRate\PYZus{}1Y\PY{o}{+}CMortgageRate\PYZus{}30Y\PY{o}{+}CMaturityRate\PYZus{}3Y\PY{o}{+}
-                            bankCredit\PY{o}{+}currency\PY{o}{+}demandDeposits\PY{o}{+}moneyStock\PY{o}{+}
-                            checkableDeposits\PY{o}{+}loansLeases\PY{o}{+}savingsDeposits\PY{o}{+}
-                            tradeCurrencies\PY{p}{,} treasury\PY{p}{,} treasury\PY{p}{,}k\PY{o}{=}\PY{l+m}{9}\PY{p}{)}
-         yprime \PY{o}{=} fitknn7\PY{o}{\PYZdl{}}fitted.values
-         \PY{k+kp}{print}\PY{p}{(}\PY{k+kp}{sqrt}\PY{p}{(}\PY{k+kp}{sum}\PY{p}{(}\PY{p}{(}treasury\PY{o}{\PYZdl{}}MonthCDRate\PY{o}{\PYZhy{}}yprime\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}\PY{o}{/}\PY{k+kp}{length}\PY{p}{(}yprime\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}RMSE}
+         \PY{n}{fitknn7} \PY{o}{=} \PY{n+nf}{kknn}\PY{p}{(}\PY{n}{MonthCDRate}\PY{o}{\PYZti{}}\PY{n}{CMaturityRate\PYZus{}1Y}\PY{o}{+}
+                        \PY{n}{CMortgageRate\PYZus{}30Y}\PY{o}{+}\PY{n}{CMaturityRate\PYZus{}3Y}\PY{o}{+}
+                            \PY{n}{bankCredit}\PY{o}{+}\PY{n}{currency}\PY{o}{+}\PY{n}{demandDeposits}\PY{o}{+}\PY{n}{moneyStock}\PY{o}{+}
+                            \PY{n}{checkableDeposits}\PY{o}{+}\PY{n}{loansLeases}\PY{o}{+}\PY{n}{savingsDeposits}\PY{o}{+}
+                            \PY{n}{tradeCurrencies}\PY{p}{,} \PY{n}{treasury.norm}\PY{p}{,} \PY{n}{treasury.norm}\PY{p}{,}\PY{n}{k}\PY{o}{=}\PY{l+m}{9}\PY{p}{)}
+         \PY{n}{yprime} \PY{o}{=} \PY{n}{fitknn7}\PY{o}{\PYZdl{}}\PY{n}{fitted.values}
+         \PY{n+nf}{print}\PY{p}{(}\PY{n+nf}{sqrt}\PY{p}{(}\PY{n+nf}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{treasury.norm}\PY{o}{\PYZdl{}}\PY{n}{MonthCDRate}\PY{o}{\PYZhy{}}\PY{n}{yprime}\PY{p}{)}\PY{n}{\PYZca{}2}\PY{p}{)}\PY{o}{/}\PY{n+nf}{length}\PY{p}{(}\PY{n}{yprime}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}RMSE}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-[1] 0.1359792
+[1] 0.04026369
 
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{} Creamos un modelo y calculamos su RMSE}
-         fitknn8 \PY{o}{=} kknn\PY{p}{(}MonthCDRate\PY{o}{\PYZti{}}\PY{l+m}{.}\PY{p}{,} treasury\PY{p}{,} treasury\PY{p}{,}k\PY{o}{=}\PY{l+m}{9}\PY{p}{)}
-         yprime \PY{o}{=} fitknn8\PY{o}{\PYZdl{}}fitted.values
-         \PY{k+kp}{print}\PY{p}{(}\PY{k+kp}{sqrt}\PY{p}{(}\PY{k+kp}{sum}\PY{p}{(}\PY{p}{(}treasury\PY{o}{\PYZdl{}}MonthCDRate\PY{o}{\PYZhy{}}yprime\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}\PY{o}{/}\PY{k+kp}{length}\PY{p}{(}yprime\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}RMSE}
+         \PY{n}{fitknn8} \PY{o}{=} \PY{n+nf}{kknn}\PY{p}{(}\PY{n}{MonthCDRate}\PY{o}{\PYZti{}}\PY{n}{.,} \PY{n}{treasury.norm}\PY{p}{,} \PY{n}{treasury.norm}\PY{p}{,}\PY{n}{k}\PY{o}{=}\PY{l+m}{9}\PY{p}{)}
+         \PY{n}{yprime} \PY{o}{=} \PY{n}{fitknn8}\PY{o}{\PYZdl{}}\PY{n}{fitted.values}
+         \PY{n+nf}{print}\PY{p}{(}\PY{n+nf}{sqrt}\PY{p}{(}\PY{n+nf}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{treasury.norm}\PY{o}{\PYZdl{}}\PY{n}{MonthCDRate}\PY{o}{\PYZhy{}}\PY{n}{yprime}\PY{p}{)}\PY{n}{\PYZca{}2}\PY{p}{)}\PY{o}{/}\PY{n+nf}{length}\PY{p}{(}\PY{n}{yprime}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}RMSE}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-[1] 0.1324192
+[1] 0.03920956
 
     \end{Verbatim}
 
@@ -2367,74 +2488,77 @@ obtienen. Si el resultado no cambiara demasiado, nos quedaríamos con el
 modelo más simple.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}40}]:} nombre \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{treasury//treasury\PYZdq{}}
-         run\PYZus{}knn\PYZus{}fold \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kr}{function}\PY{p}{(}i\PY{p}{,} x\PY{p}{,} tt \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
-             file \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{paste}\PY{p}{(}x\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} i\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tra.dat\PYZdq{}}\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
-             x\PYZus{}tra \PY{o}{\PYZlt{}\PYZhy{}} read.csv\PY{p}{(}\PY{k+kp}{file}\PY{p}{,} comment.char\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} header\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
-             file \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{paste}\PY{p}{(}x\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} i\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tst.dat\PYZdq{}}\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
-             x\PYZus{}tst \PY{o}{\PYZlt{}\PYZhy{}} read.csv\PY{p}{(}\PY{k+kp}{file}\PY{p}{,} comment.char\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} header\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
-             In \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{length}\PY{p}{(}\PY{k+kp}{names}\PY{p}{(}x\PYZus{}tra\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m}{1}
-             \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tra\PY{p}{)}\PY{p}{[}\PY{l+m}{1}\PY{o}{:}In\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} paste \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}In\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
-             \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tra\PY{p}{)}\PY{p}{[}In\PY{l+m}{+1}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
-             \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tst\PY{p}{)}\PY{p}{[}\PY{l+m}{1}\PY{o}{:}In\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} paste \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}In\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
-             \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tst\PY{p}{)}\PY{p}{[}In\PY{l+m}{+1}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
-             \PY{k+kr}{if} \PY{p}{(}tt \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
-                 test \PY{o}{\PYZlt{}\PYZhy{}} x\PYZus{}tra
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{nombre} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{treasury//treasury\PYZdq{}}
+         \PY{n}{run\PYZus{}knn\PYZus{}fold} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{function}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{tt} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+             \PY{n}{file} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tra.dat\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{x\PYZus{}tra} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.csv}\PY{p}{(}\PY{n}{file}\PY{p}{,} \PY{n}{comment.char}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+             \PY{n}{file} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tst.dat\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{x\PYZus{}tst} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.csv}\PY{p}{(}\PY{n}{file}\PY{p}{,} \PY{n}{comment.char}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+             \PY{n}{In} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{length}\PY{p}{(}\PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m}{1}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{n}{[1}\PY{o}{:}\PY{n}{In}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste }\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}\PY{n}{In}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{n}{[In}\PY{l+m}{+1}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tst}\PY{p}{)}\PY{n}{[1}\PY{o}{:}\PY{n}{In}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste }\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}\PY{n}{In}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tst}\PY{p}{)}\PY{n}{[In}\PY{l+m}{+1}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+             \PY{n+nf}{if }\PY{p}{(}\PY{n}{tt} \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+                 \PY{n}{test} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{x\PYZus{}tra}
              \PY{p}{\PYZcb{}}
-             \PY{k+kr}{else} \PY{p}{\PYZob{}}
-                 test \PY{o}{\PYZlt{}\PYZhy{}} x\PYZus{}tst
+             \PY{n}{else} \PY{p}{\PYZob{}}
+                 \PY{n}{test} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{x\PYZus{}tst}
              \PY{p}{\PYZcb{}}
-             fitMulti\PY{o}{=}kknn\PY{p}{(}Y\PY{o}{\PYZti{}}\PY{l+m}{.}\PY{p}{,}x\PYZus{}tra\PY{p}{,}test\PY{p}{,}k\PY{o}{=}\PY{l+m}{5}\PY{p}{)}
-             \PY{c+c1}{\PYZsh{} Transformamos los datos a su forma normal ya que la predicción está hecha sobre log(Y) y no sobre Y}
-             yprime\PY{o}{=}fitMulti\PY{o}{\PYZdl{}}fitted.values
-             \PY{k+kp}{sum}\PY{p}{(}\PY{k+kp}{abs}\PY{p}{(}test\PY{o}{\PYZdl{}}Y\PY{o}{\PYZhy{}}yprime\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}\PY{o}{/}\PY{k+kp}{length}\PY{p}{(}yprime\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZsh{}MSE}
+             \PY{n}{x\PYZus{}tra} \PY{o}{=} \PY{n+nf}{lapply}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{,}\PY{n}{scale}\PY{p}{,} \PY{n}{center} \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,} \PY{n}{scale} \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}
+             \PY{n}{test} \PY{o}{=} \PY{n+nf}{lapply}\PY{p}{(}\PY{n}{test}\PY{p}{,}\PY{n}{scale}\PY{p}{,} \PY{n}{center} \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,} \PY{n}{scale} \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}
+             \PY{n}{fitMulti}\PY{o}{=}\PY{n+nf}{kknn}\PY{p}{(}\PY{n}{Y}\PY{o}{\PYZti{}}\PY{n}{.,x\PYZus{}tra}\PY{p}{,}\PY{n}{test}\PY{p}{,}\PY{n}{k}\PY{o}{=}\PY{l+m}{5}\PY{p}{)}
+             \PY{n}{yprime}\PY{o}{=}\PY{n}{fitMulti}\PY{o}{\PYZdl{}}\PY{n}{fitted.values}
+             \PY{n+nf}{sum}\PY{p}{(}\PY{n+nf}{abs}\PY{p}{(}\PY{n}{test}\PY{o}{\PYZdl{}}\PY{n}{Y}\PY{o}{\PYZhy{}}\PY{n}{yprime}\PY{p}{)}\PY{n}{\PYZca{}2}\PY{p}{)}\PY{o}{/}\PY{n+nf}{length}\PY{p}{(}\PY{n}{yprime}\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZsh{}MSE}
          \PY{p}{\PYZcb{}}
-         knnMSEtrain.all\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{mean}\PY{p}{(}\PY{k+kp}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}run\PYZus{}knn\PYZus{}fold\PY{p}{,}nombre\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)}\PY{p}{)}
-         knnMSEtest.all\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{mean}\PY{p}{(}\PY{k+kp}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}run\PYZus{}knn\PYZus{}fold\PY{p}{,}nombre\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)}\PY{p}{)}
-         \PY{k+kp}{print}\PY{p}{(}knnMSEtrain.all\PY{p}{)}
-         \PY{k+kp}{print}\PY{p}{(}knnMSEtest.all\PY{p}{)}
+         \PY{n}{knnMSEtrain.all}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n+nf}{mean}\PY{p}{(}\PY{n+nf}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}\PY{n}{run\PYZus{}knn\PYZus{}fold}\PY{p}{,}\PY{n}{nombre}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{knnMSEtest.all}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n+nf}{mean}\PY{p}{(}\PY{n+nf}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}\PY{n}{run\PYZus{}knn\PYZus{}fold}\PY{p}{,}\PY{n}{nombre}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n+nf}{print}\PY{p}{(}\PY{n}{knnMSEtrain.all}\PY{p}{)}
+         \PY{n+nf}{print}\PY{p}{(}\PY{n}{knnMSEtest.all}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-[1] 0.0106916
-[1] 0.04609969
+[1] 0.0009382513
+[1] 0.007427103
 
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}41}]:} nombre \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{treasury//treasury\PYZdq{}}
-         run\PYZus{}knn\PYZus{}fold \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kr}{function}\PY{p}{(}i\PY{p}{,} x\PY{p}{,} tt \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
-             file \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{paste}\PY{p}{(}x\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} i\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tra.dat\PYZdq{}}\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
-             x\PYZus{}tra \PY{o}{\PYZlt{}\PYZhy{}} read.csv\PY{p}{(}\PY{k+kp}{file}\PY{p}{,} comment.char\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} header\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
-             file \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{paste}\PY{p}{(}x\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} i\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tst.dat\PYZdq{}}\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
-             x\PYZus{}tst \PY{o}{\PYZlt{}\PYZhy{}} read.csv\PY{p}{(}\PY{k+kp}{file}\PY{p}{,} comment.char\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} header\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
-             In \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{length}\PY{p}{(}\PY{k+kp}{names}\PY{p}{(}x\PYZus{}tra\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m}{1}
-             \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tra\PY{p}{)}\PY{p}{[}\PY{l+m}{1}\PY{o}{:}In\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} paste \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}In\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
-             \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tra\PY{p}{)}\PY{p}{[}In\PY{l+m}{+1}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
-             \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tst\PY{p}{)}\PY{p}{[}\PY{l+m}{1}\PY{o}{:}In\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} paste \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}In\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
-             \PY{k+kp}{names}\PY{p}{(}x\PYZus{}tst\PY{p}{)}\PY{p}{[}In\PY{l+m}{+1}\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
-             \PY{k+kr}{if} \PY{p}{(}tt \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
-                 test \PY{o}{\PYZlt{}\PYZhy{}} x\PYZus{}tra
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{nombre} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{treasury//treasury\PYZdq{}}
+         \PY{n}{run\PYZus{}knn\PYZus{}fold} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{function}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{tt} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+             \PY{n}{file} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tra.dat\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{x\PYZus{}tra} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.csv}\PY{p}{(}\PY{n}{file}\PY{p}{,} \PY{n}{comment.char}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+             \PY{n}{file} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tst.dat\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{x\PYZus{}tst} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.csv}\PY{p}{(}\PY{n}{file}\PY{p}{,} \PY{n}{comment.char}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+             \PY{n}{In} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{length}\PY{p}{(}\PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m}{1}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{n}{[1}\PY{o}{:}\PY{n}{In}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste }\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}\PY{n}{In}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{n}{[In}\PY{l+m}{+1}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tst}\PY{p}{)}\PY{n}{[1}\PY{o}{:}\PY{n}{In}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste }\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}\PY{n}{In}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tst}\PY{p}{)}\PY{n}{[In}\PY{l+m}{+1}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+             \PY{n+nf}{if }\PY{p}{(}\PY{n}{tt} \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+                 \PY{n}{test} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{x\PYZus{}tra}
              \PY{p}{\PYZcb{}}
-             \PY{k+kr}{else} \PY{p}{\PYZob{}}
-                 test \PY{o}{\PYZlt{}\PYZhy{}} x\PYZus{}tst
+             \PY{n}{else} \PY{p}{\PYZob{}}
+                 \PY{n}{test} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{x\PYZus{}tst}
              \PY{p}{\PYZcb{}}
-             fitMulti\PY{o}{=}kknn\PY{p}{(}Y\PY{o}{\PYZti{}}X1\PY{o}{+}X2\PY{o}{+}X5\PY{o}{+}X7\PY{o}{+}X8\PY{o}{+}X9\PY{o}{+}X11\PY{o}{+}X12\PY{o}{+}X13\PY{o}{+}X14\PY{o}{+}X15 \PY{p}{,}x\PYZus{}tra\PY{p}{,}test\PY{p}{,}k\PY{o}{=}\PY{l+m}{5}\PY{p}{)}
-             \PY{c+c1}{\PYZsh{} Transformamos los datos a su forma normal ya que la predicción está hecha sobre log(Y) y no sobre Y}
-             yprime\PY{o}{=}fitMulti\PY{o}{\PYZdl{}}fitted.values
-             \PY{k+kp}{sum}\PY{p}{(}\PY{k+kp}{abs}\PY{p}{(}test\PY{o}{\PYZdl{}}Y\PY{o}{\PYZhy{}}yprime\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}\PY{o}{/}\PY{k+kp}{length}\PY{p}{(}yprime\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZsh{}MSE}
+             \PY{n}{x\PYZus{}tra} \PY{o}{=} \PY{n+nf}{lapply}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{,}\PY{n}{scale}\PY{p}{,} \PY{n}{center} \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,} \PY{n}{scale} \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}
+             \PY{n}{test} \PY{o}{=} \PY{n+nf}{lapply}\PY{p}{(}\PY{n}{test}\PY{p}{,}\PY{n}{scale}\PY{p}{,} \PY{n}{center} \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{,} \PY{n}{scale} \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}
+             \PY{n}{fitMulti}\PY{o}{=}\PY{n+nf}{kknn}\PY{p}{(}\PY{n}{Y}\PY{o}{\PYZti{}}\PY{n}{X1}\PY{o}{+}\PY{n}{X2}\PY{o}{+}\PY{n}{X5}\PY{o}{+}\PY{n}{X7}\PY{o}{+}\PY{n}{X8}\PY{o}{+}\PY{n}{X9}\PY{o}{+}\PY{n}{X11}\PY{o}{+}\PY{n}{X12}\PY{o}{+}\PY{n}{X13}\PY{o}{+}\PY{n}{X14}\PY{o}{+}\PY{n}{X15} \PY{p}{,}\PY{n}{x\PYZus{}tra}\PY{p}{,}\PY{n}{test}\PY{p}{,}\PY{n}{k}\PY{o}{=}\PY{l+m}{5}\PY{p}{)}
+             
+             \PY{n}{yprime}\PY{o}{=}\PY{n}{fitMulti}\PY{o}{\PYZdl{}}\PY{n}{fitted.values}
+             \PY{n+nf}{sum}\PY{p}{(}\PY{n+nf}{abs}\PY{p}{(}\PY{n}{test}\PY{o}{\PYZdl{}}\PY{n}{Y}\PY{o}{\PYZhy{}}\PY{n}{yprime}\PY{p}{)}\PY{n}{\PYZca{}2}\PY{p}{)}\PY{o}{/}\PY{n+nf}{length}\PY{p}{(}\PY{n}{yprime}\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZsh{}MSE}
          \PY{p}{\PYZcb{}}
-         knnMSEtrain.simple\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{mean}\PY{p}{(}\PY{k+kp}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}run\PYZus{}knn\PYZus{}fold\PY{p}{,}nombre\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)}\PY{p}{)}
-         knnMSEtest.simple\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{mean}\PY{p}{(}\PY{k+kp}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}run\PYZus{}knn\PYZus{}fold\PY{p}{,}nombre\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)}\PY{p}{)}
-         \PY{k+kp}{print}\PY{p}{(}knnMSEtrain.simple\PY{p}{)}
-         \PY{k+kp}{print}\PY{p}{(}knnMSEtest.simple\PY{p}{)}
+         \PY{n}{knnMSEtrain.simple}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n+nf}{mean}\PY{p}{(}\PY{n+nf}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}\PY{n}{run\PYZus{}knn\PYZus{}fold}\PY{p}{,}\PY{n}{nombre}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{knnMSEtest.simple}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n+nf}{mean}\PY{p}{(}\PY{n+nf}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}\PY{n}{run\PYZus{}knn\PYZus{}fold}\PY{p}{,}\PY{n}{nombre}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n+nf}{print}\PY{p}{(}\PY{n}{knnMSEtrain.simple}\PY{p}{)}
+         \PY{n+nf}{print}\PY{p}{(}\PY{n}{knnMSEtest.simple}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-[1] 0.01136343
-[1] 0.04357275
+[1] 0.0009965356
+[1] 0.007039017
 
     \end{Verbatim}
 
@@ -2447,101 +2571,406 @@ y test.
     \hypertarget{comparaciuxf3n-de-modelos}{%
 \subsection{Comparación de modelos}\label{comparaciuxf3n-de-modelos}}
 
-En este apartado compararemos los algoritmos de regresión múltiple
-obtenidos en el apartado anterior y descubriremos cual de los dos es
-mejor. Para ello, utilizaremos el test de Wilcoxon.
+En este apartado se compararán los modelos de regresión múltiple
+obtenidos, es decir, el modelo de regresión lineal múltiple, y el modelo
+creado a partir del algoritmo de KNN. También se compararán estos
+algoritmos con el algoritmo MD5.
+
+    \hypertarget{comparaciuxf3n-de-algoritmos-de-regresiuxf3n-muxfaltiple}{%
+\subsubsection{Comparación de algoritmos de regresión
+múltiple}\label{comparaciuxf3n-de-algoritmos-de-regresiuxf3n-muxfaltiple}}
+
+Como para el algoritmo de regresión múltiple lineal no tenemos hecha
+validación cruzada, crearemos este modelo y nos quedaremos con los
+errores medios. También calcularemos los resultados obtenidos por KNN
+sin utilizar normalización, para que no haya ninguna diferencia entre
+los datos utilizados por los algoritmos.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}42}]:} \PY{c+c1}{\PYZsh{} Primero guardamos los resultados del la validación cruzada en un tabla.}
-         tablatst \PY{o}{=} \PY{k+kp}{cbind}\PY{p}{(}lmMSEtest.multiple1\PY{p}{,}lmMSEtest.multiple2\PY{p}{)}
-         \PY{c+c1}{\PYZsh{} Normalizamos los datos ya que es regresión.}
-         difs \PY{o}{\PYZlt{}\PYZhy{}} \PY{p}{(}tablatst\PY{p}{[}\PY{p}{,}\PY{l+m}{1}\PY{p}{]} \PY{o}{\PYZhy{}} tablatst\PY{p}{[}\PY{p}{,}\PY{l+m}{2}\PY{p}{]}\PY{p}{)} \PY{o}{/} tablatst\PY{p}{[}\PY{p}{,}\PY{l+m}{1}\PY{p}{]}
-         wilc\PYZus{}1\PYZus{}2 \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{cbind}\PY{p}{(}ifelse \PY{p}{(}difs\PY{o}{\PYZlt{}}\PY{l+m}{0}\PY{p}{,} \PY{k+kp}{abs}\PY{p}{(}difs\PY{p}{)}\PY{l+m}{+0.1}\PY{p}{,} \PY{l+m}{0}\PY{l+m}{+0.1}\PY{p}{)}\PY{p}{,} ifelse \PY{p}{(}difs\PY{o}{\PYZgt{}}\PY{l+m}{0}\PY{p}{,} \PY{k+kp}{abs}\PY{p}{(}difs\PY{p}{)}\PY{l+m}{+0.1}\PY{p}{,} \PY{l+m}{0}\PY{l+m}{+0.1}\PY{p}{)}\PY{p}{)}
-         \PY{k+kp}{colnames}\PY{p}{(}wilc\PYZus{}1\PYZus{}2\PY{p}{)} \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kt}{c}\PY{p}{(}\PY{k+kp}{colnames}\PY{p}{(}tablatst\PY{p}{)}\PY{p}{[}\PY{l+m}{1}\PY{p}{]}\PY{p}{,} \PY{k+kp}{colnames}\PY{p}{(}tablatst\PY{p}{)}\PY{p}{[}\PY{l+m}{2}\PY{p}{]}\PY{p}{)}
-         wilc\PYZus{}1\PYZus{}2
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{nombre} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{treasury//treasury\PYZdq{}}
+         \PY{n}{run\PYZus{}lm\PYZus{}fold} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{function}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{tt} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+             \PY{n}{file} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tra.dat\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{x\PYZus{}tra} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.csv}\PY{p}{(}\PY{n}{file}\PY{p}{,} \PY{n}{comment.char}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+             \PY{n}{file} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tst.dat\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{x\PYZus{}tst} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.csv}\PY{p}{(}\PY{n}{file}\PY{p}{,} \PY{n}{comment.char}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+             \PY{n}{In} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{length}\PY{p}{(}\PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m}{1}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{n}{[1}\PY{o}{:}\PY{n}{In}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste }\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}\PY{n}{In}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{n}{[In}\PY{l+m}{+1}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tst}\PY{p}{)}\PY{n}{[1}\PY{o}{:}\PY{n}{In}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste }\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}\PY{n}{In}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tst}\PY{p}{)}\PY{n}{[In}\PY{l+m}{+1}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+             \PY{n+nf}{if }\PY{p}{(}\PY{n}{tt} \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+                 \PY{n}{test} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{x\PYZus{}tra}
+             \PY{p}{\PYZcb{}}
+             \PY{n}{else} \PY{p}{\PYZob{}}
+                 \PY{n}{test} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{x\PYZus{}tst}
+             \PY{p}{\PYZcb{}}
+             \PY{n}{fitMulti}\PY{o}{=}\PY{n+nf}{lm}\PY{p}{(}\PY{n}{Y}\PY{o}{\PYZti{}}\PY{n}{.,x\PYZus{}tra}\PY{p}{)}
+             \PY{n}{yprime}\PY{o}{=}\PY{n+nf}{predict}\PY{p}{(}\PY{n}{fitMulti}\PY{p}{,}\PY{n}{test}\PY{p}{)}
+             \PY{n+nf}{sum}\PY{p}{(}\PY{n+nf}{abs}\PY{p}{(}\PY{n}{test}\PY{o}{\PYZdl{}}\PY{n}{Y}\PY{o}{\PYZhy{}}\PY{n}{yprime}\PY{p}{)}\PY{n}{\PYZca{}2}\PY{p}{)}\PY{o}{/}\PY{n+nf}{length}\PY{p}{(}\PY{n}{yprime}\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZsh{}MSE}
+         \PY{p}{\PYZcb{}}
+         \PY{n}{lmMSEtrain.all}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n+nf}{mean}\PY{p}{(}\PY{n+nf}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}\PY{n}{run\PYZus{}lm\PYZus{}fold}\PY{p}{,}\PY{n}{nombre}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{lmMSEtest.all}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n+nf}{mean}\PY{p}{(}\PY{n+nf}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}\PY{n}{run\PYZus{}lm\PYZus{}fold}\PY{p}{,}\PY{n}{nombre}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n+nf}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{train: \PYZdq{}}\PY{p}{,}\PY{n}{lmMSEtrain.all}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}n\PYZdq{}}\PY{p}{)}
+         \PY{n+nf}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{test: \PYZdq{}}\PY{p}{,}\PY{n}{lmMSEtest.all}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}n\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 
 
-    \begin{tabular}{r|ll}
-  & lmMSEtest.multiple1 & lmMSEtest.multiple2\\
+    \begin{Verbatim}[commandchars=\\\{\}]
+train:  0.05514981 
+test:  0.0606244 
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{nombre} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{treasury//treasury\PYZdq{}}
+         \PY{n}{run\PYZus{}knn\PYZus{}fold} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{function}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{tt} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+             \PY{n}{file} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tra.dat\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{x\PYZus{}tra} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.csv}\PY{p}{(}\PY{n}{file}\PY{p}{,} \PY{n}{comment.char}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+             \PY{n}{file} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}5\PYZhy{}\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{tst.dat\PYZdq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{x\PYZus{}tst} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{read.csv}\PY{p}{(}\PY{n}{file}\PY{p}{,} \PY{n}{comment.char}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{@\PYZdq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+             \PY{n}{In} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{length}\PY{p}{(}\PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m}{1}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{n}{[1}\PY{o}{:}\PY{n}{In}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste }\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}\PY{n}{In}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tra}\PY{p}{)}\PY{n}{[In}\PY{l+m}{+1}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tst}\PY{p}{)}\PY{n}{[1}\PY{o}{:}\PY{n}{In}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{paste }\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}\PY{n}{In}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nf}{names}\PY{p}{(}\PY{n}{x\PYZus{}tst}\PY{p}{)}\PY{n}{[In}\PY{l+m}{+1}\PY{n}{]} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Y\PYZdq{}}
+             \PY{n+nf}{if }\PY{p}{(}\PY{n}{tt} \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)} \PY{p}{\PYZob{}}
+                 \PY{n}{test} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{x\PYZus{}tra}
+             \PY{p}{\PYZcb{}}
+             \PY{n}{else} \PY{p}{\PYZob{}}
+                 \PY{n}{test} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{x\PYZus{}tst}
+             \PY{p}{\PYZcb{}}
+             \PY{n}{fitMulti}\PY{o}{=}\PY{n+nf}{kknn}\PY{p}{(}\PY{n}{Y}\PY{o}{\PYZti{}}\PY{n}{.,x\PYZus{}tra}\PY{p}{,}\PY{n}{test}\PY{p}{,}\PY{n}{k}\PY{o}{=}\PY{l+m}{5}\PY{p}{)}
+             \PY{n}{yprime}\PY{o}{=}\PY{n}{fitMulti}\PY{o}{\PYZdl{}}\PY{n}{fitted.values}
+             \PY{n+nf}{sum}\PY{p}{(}\PY{n+nf}{abs}\PY{p}{(}\PY{n}{test}\PY{o}{\PYZdl{}}\PY{n}{Y}\PY{o}{\PYZhy{}}\PY{n}{yprime}\PY{p}{)}\PY{n}{\PYZca{}2}\PY{p}{)}\PY{o}{/}\PY{n+nf}{length}\PY{p}{(}\PY{n}{yprime}\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZsh{}MSE}
+         \PY{p}{\PYZcb{}}
+         \PY{n}{knnMSEtrain.all}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n+nf}{mean}\PY{p}{(}\PY{n+nf}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}\PY{n}{run\PYZus{}knn\PYZus{}fold}\PY{p}{,}\PY{n}{nombre}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{train\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{knnMSEtest.all}\PY{o}{\PYZlt{}\PYZhy{}}\PY{n+nf}{mean}\PY{p}{(}\PY{n+nf}{sapply}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{,}\PY{n}{run\PYZus{}knn\PYZus{}fold}\PY{p}{,}\PY{n}{nombre}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{test\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n+nf}{print}\PY{p}{(}\PY{n}{knnMSEtrain.all}\PY{p}{)}
+         \PY{n+nf}{print}\PY{p}{(}\PY{n}{knnMSEtest.all}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1] 0.0106916
+[1] 0.04609969
+
+    \end{Verbatim}
+
+    Leemos los resultados de las tablas \emph{regr\_test\_alumnos.csv} y
+\emph{regr\_train\_alumnos.csv}. Allí reemplazaremos los resultados por
+los que se han obtenido en este estudio.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{c+c1}{\PYZsh{} Leemos los resultados de train.}
+         \PY{n}{resultados.train} \PY{o}{=} \PY{n+nf}{read.csv}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{regr\PYZus{}train\PYZus{}alumnos.csv\PYZdq{}}\PY{p}{)}
+         \PY{n+nf}{rownames}\PY{p}{(}\PY{n}{resultados.train}\PY{p}{)} \PY{o}{=} \PY{n}{resultados.train}\PY{o}{\PYZdl{}}\PY{n}{X}
+         \PY{n}{resultados.train}\PY{o}{\PYZdl{}}\PY{n}{X} \PY{o}{=} \PY{k+kc}{NULL}
+         \PY{n}{resultados.train}\PY{n}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{treasury\PYZdq{}}\PY{p}{,}\PY{n}{]}\PY{o}{\PYZdl{}}\PY{n}{out\PYZus{}train\PYZus{}lm} \PY{o}{=} \PY{n}{lmMSEtrain.all}
+         \PY{n}{resultados.train}\PY{n}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{treasury\PYZdq{}}\PY{p}{,}\PY{n}{]}\PY{o}{\PYZdl{}}\PY{n}{out\PYZus{}train\PYZus{}kknn} \PY{o}{=} \PY{n}{knnMSEtrain.all}
+         
+         \PY{n}{resultados.train}
+         
+         \PY{c+c1}{\PYZsh{} Hacemos lo mismo para test.}
+         \PY{n}{resultados.test} \PY{o}{=} \PY{n+nf}{read.csv}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{regr\PYZus{}test\PYZus{}alumnos.csv\PYZdq{}}\PY{p}{)}
+         \PY{n+nf}{rownames}\PY{p}{(}\PY{n}{resultados.test}\PY{p}{)} \PY{o}{=} \PY{n}{resultados.test}\PY{o}{\PYZdl{}}\PY{n}{X}
+         \PY{n}{resultados.test}\PY{o}{\PYZdl{}}\PY{n}{X} \PY{o}{=} \PY{k+kc}{NULL}
+         \PY{n}{resultados.test}\PY{n}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{treasury\PYZdq{}}\PY{p}{,}\PY{n}{]}\PY{o}{\PYZdl{}}\PY{n}{out\PYZus{}test\PYZus{}lm} \PY{o}{=} \PY{n}{lmMSEtest.all}
+         \PY{n}{resultados.test}\PY{n}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{treasury\PYZdq{}}\PY{p}{,}\PY{n}{]}\PY{o}{\PYZdl{}}\PY{n}{out\PYZus{}test\PYZus{}kknn} \PY{o}{=} \PY{n}{knnMSEtest.all}
+         
+         \PY{n}{resultados.test}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|lll}
+  & out\_train\_lm & out\_train\_kknn & out\_train\_m5p\\
 \hline
-	lmMSEtest.multiple1 & 0.1509776 & 0.1      \\
+	abalone & 4.820000e+00 & 2.220000e+00 & 4.250000e+00\\
+	ANACALT & 1.700000e-01 & 6.300000e-03 & 5.900000e-03\\
+	autoMPG6 & 1.129000e+01 & 3.530000e+00 & 6.870000e+00\\
+	autoMPG8 & 1.079000e+01 & 3.550000e+00 & 6.600000e+00\\
+	baseball & 4.481590e+05 & 2.020880e+05 & 3.925890e+05\\
+	california & 4.826190e+09 & 1.560869e+09 & 2.558518e+09\\
+	concrete & 1.070000e+02 & 2.870000e+01 & 3.000000e+01\\
+	dee & 1.618800e-01 & 7.611000e-02 & 1.620100e-01\\
+	delta\_ail & 2.960000e-08 & 1.400000e-08 & 2.510000e-08\\
+	delta\_elv & 2.100000e-06 & 1.050000e-06 & 2.020000e-06\\
+	forestFires & 3.945000e+03 & 2.206000e+03 & 3.980000e+03\\
+	friedman & 7.230000e+00 & 1.420000e+00 & 4.360000e+00\\
+	house & 2.061567e+09 & 5.259870e+08 & 9.384299e+08\\
+	mortgage & 1.354300e-02 & 8.827000e-03 & 1.101500e-02\\
+	stock & 5.350000e+00 & 1.800000e-01 & 5.900000e-01\\
+	treasury & 5.514981e-02 & 1.069160e-02 & 4.040400e-02\\
+	wankara & 2.430000e+00 & 2.740000e+00 & 1.510000e+00\\
+	wizmir & 1.565000e+00 & 2.538000e+00 & 1.358000e+00\\
 \end{tabular}
 
 
     
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}43}]:} \PY{c+c1}{\PYZsh{} Realizamos el test de wilcoxon y analizamos los resultados.}
-         LMvstst \PY{o}{\PYZlt{}\PYZhy{}} wilcox.test\PY{p}{(}wilc\PYZus{}1\PYZus{}2\PY{p}{[}\PY{p}{,}\PY{l+m}{1}\PY{p}{]}\PY{p}{,} wilc\PYZus{}1\PYZus{}2\PY{p}{[}\PY{p}{,}\PY{l+m}{2}\PY{p}{]}\PY{p}{,} alternative \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{two.sided\PYZdq{}}\PY{p}{,} paired\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{)}
-         Rmas \PY{o}{\PYZlt{}\PYZhy{}} LMvstst\PY{o}{\PYZdl{}}statistic
-         pvalue \PY{o}{\PYZlt{}\PYZhy{}} LMvstst\PY{o}{\PYZdl{}}p.value
-         LMvstst \PY{o}{\PYZlt{}\PYZhy{}} wilcox.test\PY{p}{(}wilc\PYZus{}1\PYZus{}2\PY{p}{[}\PY{p}{,}\PY{l+m}{2}\PY{p}{]}\PY{p}{,} wilc\PYZus{}1\PYZus{}2\PY{p}{[}\PY{p}{,}\PY{l+m}{1}\PY{p}{]}\PY{p}{,} alternative \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{two.sided\PYZdq{}}\PY{p}{,} paired\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{)}
-         Rmenos \PY{o}{\PYZlt{}\PYZhy{}} LMvstst\PY{o}{\PYZdl{}}statistic
-         Rmas
-         Rmenos
-         pvalue
-\end{Verbatim}
-
-
-    \textbf{V:} 1
-
-    
-    \textbf{V:} 0
-
-    
-    1
-
-    
-    Como podemos ver, no hay diferencias significativas entre los dos
-modelos, por ello, no podemos decir que uno de los modelos sea mejor que
-el otro. Por ello, compararemos también el modelo de regresión múltiple
-que hemos elegido antes y lo compararemos con el modelo obtenido por el
-algoritmo de knn y veremos si hay diferencias significativas.
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}44}]:} \PY{c+c1}{\PYZsh{} Primero guardamos los resultados del la validación cruzada en un tabla.}
-         tablatst \PY{o}{=} \PY{k+kp}{cbind}\PY{p}{(}knnMSEtest.simple\PY{p}{,}lmMSEtest.multiple1\PY{p}{)}
-         \PY{c+c1}{\PYZsh{} Normalizamos los datos ya que es regresión.}
-         difs \PY{o}{\PYZlt{}\PYZhy{}} \PY{p}{(}tablatst\PY{p}{[}\PY{p}{,}\PY{l+m}{1}\PY{p}{]} \PY{o}{\PYZhy{}} tablatst\PY{p}{[}\PY{p}{,}\PY{l+m}{2}\PY{p}{]}\PY{p}{)} \PY{o}{/} tablatst\PY{p}{[}\PY{p}{,}\PY{l+m}{1}\PY{p}{]}
-         wilc\PYZus{}1\PYZus{}2 \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{cbind}\PY{p}{(}ifelse \PY{p}{(}difs\PY{o}{\PYZlt{}}\PY{l+m}{0}\PY{p}{,} \PY{k+kp}{abs}\PY{p}{(}difs\PY{p}{)}\PY{l+m}{+0.1}\PY{p}{,} \PY{l+m}{0}\PY{l+m}{+0.1}\PY{p}{)}\PY{p}{,} ifelse \PY{p}{(}difs\PY{o}{\PYZgt{}}\PY{l+m}{0}\PY{p}{,} \PY{k+kp}{abs}\PY{p}{(}difs\PY{p}{)}\PY{l+m}{+0.1}\PY{p}{,} \PY{l+m}{0}\PY{l+m}{+0.1}\PY{p}{)}\PY{p}{)}
-         \PY{k+kp}{colnames}\PY{p}{(}wilc\PYZus{}1\PYZus{}2\PY{p}{)} \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kt}{c}\PY{p}{(}\PY{k+kp}{colnames}\PY{p}{(}tablatst\PY{p}{)}\PY{p}{[}\PY{l+m}{1}\PY{p}{]}\PY{p}{,} \PY{k+kp}{colnames}\PY{p}{(}tablatst\PY{p}{)}\PY{p}{[}\PY{l+m}{2}\PY{p}{]}\PY{p}{)}
-         wilc\PYZus{}1\PYZus{}2
-\end{Verbatim}
-
-
-    \begin{tabular}{r|ll}
-  & knnMSEtest.simple & lmMSEtest.multiple1\\
+    \begin{tabular}{r|lll}
+  & out\_test\_lm & out\_test\_kknn & out\_test\_m5p\\
 \hline
-	knnMSEtest.simple & 0.4498699 & 0.1      \\
+	abalone & 4.950000e+00 & 5.400000e+00 & 4.680000e+00\\
+	ANACALT & 1.700000e-01 & 1.200000e-02 & 7.000000e-03\\
+	autoMPG6 & 1.162000e+01 & 7.740000e+00 & 8.240000e+00\\
+	autoMPG8 & 1.140000e+01 & 8.110000e+00 & 8.350000e+00\\
+	baseball & 5.366760e+05 & 5.661130e+05 & 5.464640e+05\\
+	california & 4.844366e+09 & 3.845914e+09 & 3.158145e+09\\
+	concrete & 1.090000e+02 & 6.835600e+01 & 3.800000e+01\\
+	dee & 1.705200e-01 & 1.732600e-01 & 1.699600e-01\\
+	delta\_ail & 2.960000e-08 & 3.140000e-08 & 2.720000e-08\\
+	delta\_elv & 2.100000e-06 & 2.410000e-06 & 2.050000e-06\\
+	forestFires & 4.060940e+03 & 5.841000e+03 & 4.071040e+03\\
+	friedman & 7.298700e+00 & 3.196100e+00 & 5.349100e+00\\
+	house & 2.072908e+09 & 1.425915e+09 & 1.305419e+09\\
+	mortgage & 1.484100e-02 & 3.003600e-02 & 1.448300e-02\\
+	stock & 5.510000e+00 & 4.500000e-01 & 1.000000e+00\\
+	treasury & 6.062440e-02 & 4.609969e-02 & 8.124800e-02\\
+	wankara & 2.490000e+00 & 6.790000e+00 & 1.650000e+00\\
+	wizmir & 1.605000e+00 & 6.060000e+00 & 1.449000e+00\\
 \end{tabular}
 
 
     
+    Ahora realizaremos el test de Wilcoxon para los datos de test.
+
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}45}]:} \PY{c+c1}{\PYZsh{} Realizamos el test de wilcoxon y analizamos los resultados.}
-         LMvsKNNtst \PY{o}{\PYZlt{}\PYZhy{}} wilcox.test\PY{p}{(}wilc\PYZus{}1\PYZus{}2\PY{p}{[}\PY{p}{,}\PY{l+m}{1}\PY{p}{]}\PY{p}{,} wilc\PYZus{}1\PYZus{}2\PY{p}{[}\PY{p}{,}\PY{l+m}{2}\PY{p}{]}\PY{p}{,} alternative \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{two.sided\PYZdq{}}\PY{p}{,} paired\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{)}
-         Rmas \PY{o}{\PYZlt{}\PYZhy{}} LMvsKNNtst\PY{o}{\PYZdl{}}statistic
-         pvalue \PY{o}{\PYZlt{}\PYZhy{}} LMvsKNNtst\PY{o}{\PYZdl{}}p.value
-         LMvsKNNtst \PY{o}{\PYZlt{}\PYZhy{}} wilcox.test\PY{p}{(}wilc\PYZus{}1\PYZus{}2\PY{p}{[}\PY{p}{,}\PY{l+m}{2}\PY{p}{]}\PY{p}{,} wilc\PYZus{}1\PYZus{}2\PY{p}{[}\PY{p}{,}\PY{l+m}{1}\PY{p}{]}\PY{p}{,} alternative \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{two.sided\PYZdq{}}\PY{p}{,} paired\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{)}
-         Rmenos \PY{o}{\PYZlt{}\PYZhy{}} LMvsKNNtst\PY{o}{\PYZdl{}}statistic
-         Rmas
-         Rmenos
-         pvalue
+{\color{incolor}In [{\color{incolor}45}]:} \PY{c+c1}{\PYZsh{} Preparamos los datos para realizar el test de Wilcoxon.}
+         \PY{c+c1}{\PYZsh{} Utilizaremos el modelo de KNN como referencia.}
+         \PY{n}{tablatst} \PY{o}{=} \PY{n}{resultados.test}
+         \PY{n}{difs} \PY{o}{=} \PY{p}{(}\PY{n}{tablatst}\PY{n}{[}\PY{p}{,}\PY{l+m}{1}\PY{n}{]}\PY{o}{\PYZhy{}}\PY{n}{tablatst}\PY{n}{[}\PY{p}{,}\PY{l+m}{2}\PY{n}{]}\PY{p}{)}\PY{o}{/}\PY{n}{tablatst}\PY{n}{[}\PY{p}{,}\PY{l+m}{1}\PY{n}{]}
+         \PY{n}{wilc\PYZus{}1\PYZus{}2} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{cbind}\PY{p}{(}\PY{n+nf}{ifelse }\PY{p}{(}\PY{n}{difs}\PY{o}{\PYZlt{}}\PY{l+m}{0}\PY{p}{,} \PY{n+nf}{abs}\PY{p}{(}\PY{n}{difs}\PY{p}{)}\PY{l+m}{+0.1}\PY{p}{,} \PY{l+m}{0}\PY{l+m}{+0.1}\PY{p}{)}\PY{p}{,}
+                           \PY{n+nf}{ifelse }\PY{p}{(}\PY{n}{difs}\PY{o}{\PYZgt{}}\PY{l+m}{0}\PY{p}{,} \PY{n+nf}{abs}\PY{p}{(}\PY{n}{difs}\PY{p}{)}\PY{l+m}{+0.1}\PY{p}{,} \PY{l+m}{0}\PY{l+m}{+0.1}\PY{p}{)}\PY{p}{)}
+         \PY{n+nf}{colnames}\PY{p}{(}\PY{n}{wilc\PYZus{}1\PYZus{}2}\PY{p}{)} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{c}\PY{p}{(}\PY{n+nf}{colnames}\PY{p}{(}\PY{n}{tablatst}\PY{p}{)}\PY{n}{[1}\PY{n}{]}\PY{p}{,} \PY{n+nf}{colnames}\PY{p}{(}\PY{n}{tablatst}\PY{p}{)}\PY{n}{[2}\PY{n}{]}\PY{p}{)}
+         \PY{n+nf}{head}\PY{p}{(}\PY{n}{wilc\PYZus{}1\PYZus{}2}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Aplicamos el test e interpretamos los datos.}
+         \PY{n}{LMvsKNNtst} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{wilcox.test}\PY{p}{(}\PY{n}{wilc\PYZus{}1\PYZus{}2}\PY{n}{[}\PY{p}{,}\PY{l+m}{1}\PY{n}{]}\PY{p}{,} \PY{n}{wilc\PYZus{}1\PYZus{}2}\PY{n}{[}\PY{p}{,}\PY{l+m}{2}\PY{n}{]}\PY{p}{,}
+                                   \PY{n}{alternative} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{two.sided\PYZdq{}}\PY{p}{,} \PY{n}{paired}\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{)}
+         \PY{n}{Rmas} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{LMvsKNNtst}\PY{o}{\PYZdl{}}\PY{n}{statistic}
+         \PY{n}{pvalue} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{LMvsKNNtst}\PY{o}{\PYZdl{}}\PY{n}{p.value}
+         \PY{n}{LMvsKNNtst} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{wilcox.test}\PY{p}{(}\PY{n}{wilc\PYZus{}1\PYZus{}2}\PY{n}{[}\PY{p}{,}\PY{l+m}{2}\PY{n}{]}\PY{p}{,} \PY{n}{wilc\PYZus{}1\PYZus{}2}\PY{n}{[}\PY{p}{,}\PY{l+m}{1}\PY{n}{]}\PY{p}{,}
+                                   \PY{n}{alternative} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{two.sided\PYZdq{}}\PY{p}{,} \PY{n}{paired}\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{)}
+         \PY{n}{Rmenos} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{LMvsKNNtst}\PY{o}{\PYZdl{}}\PY{n}{statistic}
+         \PY{n}{Rmas}
+         \PY{n}{Rmenos}
+         \PY{n}{pvalue}
 \end{Verbatim}
 
 
-    \textbf{V:} 1
+    \begin{tabular}{ll}
+ out\_test\_lm & out\_test\_kknn\\
+\hline
+	 0.1909091 & 0.1000000\\
+	 0.1000000 & 1.0294118\\
+	 0.1000000 & 0.4339071\\
+	 0.1000000 & 0.3885965\\
+	 0.1548506 & 0.1000000\\
+	 0.1000000 & 0.3061057\\
+\end{tabular}
+
 
     
-    \textbf{V:} 0
+    \textbf{V:} 78
 
     
-    1
+    \textbf{V:} 93
 
     
-    En este caso el test de wilcoxon no hay diferencias significativas ya
-que el p-valor es muy alto, por ello no podemos decir que haya
-diferencias entre el algoritmo de knn y regresión lineal múltiple.
+    0.766029357910156
+
+    
+    Según los resultados obtenidos,no hay diferencias significativas entre
+ambos algoritmos. Solamente tenemos un 23.4\% de confianza (1-0.76603)
+que de los algoritmos sean distintos.
+
+    \hypertarget{comparaciuxf3n-de-todos-los-algoritmos}{%
+\subsubsection{Comparación de todos los
+algoritmos}\label{comparaciuxf3n-de-todos-los-algoritmos}}
+
+Ya hemos visto que no hay diferencias significativas entre los
+algoritmos de regresión múltiple. Ahora, comprobaremos si existen
+diferencias significativas entre alguno de los algoritmos, es decir,
+tendremos también en cuenta los resultados proporcionados por el
+algoritmo M5'.
+
+Para compararlos utilizaremos el test de Friedman, y analizaremos sus
+resultados. Después, independientemente de los resultados obtenidos por
+el test de Friedman, realizaremos un test post-hoc de Holm para
+comproabr si existe alguna diferencia entre los algoritmos.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{c+c1}{\PYZsh{} Realizamos el test de Friedman.}
+         \PY{n}{test\PYZus{}friedman} \PY{o}{=} \PY{n+nf}{friedman.test}\PY{p}{(}\PY{n+nf}{as.matrix}\PY{p}{(}\PY{n}{tablatst}\PY{p}{)}\PY{p}{)}
+         \PY{n}{test\PYZus{}friedman}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+	Friedman rank sum test
+
+data:  as.matrix(tablatst)
+Friedman chi-squared = 8.4444, df = 2, p-value = 0.01467
+
+    \end{verbatim}
+
+    
+    Como podemos ver, el valor del p-valor del test de Friedman es muy
+pequeño, por lo que podemos concluir que existen diferencias
+significativas para al menos un par de algoritmos. Ahora realizaremos el
+test de Holm para que algoritmo es el que se diferencia.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{c+c1}{\PYZsh{} Aplicamos el test de Holm.}
+         \PY{n}{tam} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{dim}\PY{p}{(}\PY{n}{tablatst}\PY{p}{)}
+         \PY{n}{groups} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{rep}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{n}{tam}\PY{n}{[2}\PY{n}{]}\PY{p}{,} \PY{n}{each}\PY{o}{=}\PY{n}{tam}\PY{n}{[1}\PY{n}{]}\PY{p}{)}
+         \PY{n+nf}{pairwise.wilcox.test}\PY{p}{(}\PY{n+nf}{as.matrix}\PY{p}{(}\PY{n}{tablatst}\PY{p}{)}\PY{p}{,}
+                              \PY{n}{groups}\PY{p}{,} \PY{n}{p.adjust} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{holm\PYZdq{}}\PY{p}{,}
+                              \PY{n}{paired} \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+	Pairwise comparisons using Wilcoxon signed rank test 
+
+data:  as.matrix(tablatst) and groups 
+
+  1     2    
+2 0.580 -    
+3 0.081 0.108
+
+P value adjustment method: holm 
+    \end{verbatim}
+
+    
+    Como se puede ver en la tabla que nos devuelve este test, el algoritmo 3
+(M5'), obtiene diferencias significativas con respecto a los algoritmos
+1 (regresión lineal múltiple) y 2 (KNN). Los otros dos algoritmos
+(regresión lineal múltiple y KNN) se pueden considerar iguales según la
+información obtenida en el test (y la obtenida anteriormente en el test
+de Wilcoxon).
+
+    \hypertarget{comparaciones-para-los-datos-de-train}{%
+\subsubsection{Comparaciones para los datos de
+train}\label{comparaciones-para-los-datos-de-train}}
+
+Por último, se aplicarán los mismo test pero a los datos obtenidos en
+train, de esta forma podemos ver si existen diferencias entre los
+resultados de test y los de train.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{c+c1}{\PYZsh{} creamos la tabla para train y aplicacamos el test de Wilcoxon}
+         \PY{c+c1}{\PYZsh{} para los datos de regresión lineal múltiple y KNN.}
+         \PY{n}{tablatrain} \PY{o}{=} \PY{n}{resultados.train}
+         \PY{n}{difs} \PY{o}{=} \PY{p}{(}\PY{n}{tablatrain}\PY{n}{[}\PY{p}{,}\PY{l+m}{1}\PY{n}{]}\PY{o}{\PYZhy{}}\PY{n}{tablatrain}\PY{n}{[}\PY{p}{,}\PY{l+m}{2}\PY{n}{]}\PY{p}{)}\PY{o}{/}\PY{n}{tablatrain}\PY{n}{[}\PY{p}{,}\PY{l+m}{1}\PY{n}{]}
+         \PY{n}{wilc\PYZus{}1\PYZus{}2} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{cbind}\PY{p}{(}\PY{n+nf}{ifelse }\PY{p}{(}\PY{n}{difs}\PY{o}{\PYZlt{}}\PY{l+m}{0}\PY{p}{,} \PY{n+nf}{abs}\PY{p}{(}\PY{n}{difs}\PY{p}{)}\PY{l+m}{+0.1}\PY{p}{,} \PY{l+m}{0}\PY{l+m}{+0.1}\PY{p}{)}\PY{p}{,}
+                           \PY{n+nf}{ifelse }\PY{p}{(}\PY{n}{difs}\PY{o}{\PYZgt{}}\PY{l+m}{0}\PY{p}{,} \PY{n+nf}{abs}\PY{p}{(}\PY{n}{difs}\PY{p}{)}\PY{l+m}{+0.1}\PY{p}{,} \PY{l+m}{0}\PY{l+m}{+0.1}\PY{p}{)}\PY{p}{)}
+         \PY{n+nf}{colnames}\PY{p}{(}\PY{n}{wilc\PYZus{}1\PYZus{}2}\PY{p}{)} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{c}\PY{p}{(}\PY{n+nf}{colnames}\PY{p}{(}\PY{n}{tablatrain}\PY{p}{)}\PY{n}{[1}\PY{n}{]}\PY{p}{,} \PY{n+nf}{colnames}\PY{p}{(}\PY{n}{tablatrain}\PY{p}{)}\PY{n}{[2}\PY{n}{]}\PY{p}{)}
+         \PY{n+nf}{head}\PY{p}{(}\PY{n}{wilc\PYZus{}1\PYZus{}2}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Aplicamos el test e interpretamos los datos.}
+         \PY{n}{LMvsKNNtst} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{wilcox.test}\PY{p}{(}\PY{n}{wilc\PYZus{}1\PYZus{}2}\PY{n}{[}\PY{p}{,}\PY{l+m}{1}\PY{n}{]}\PY{p}{,} \PY{n}{wilc\PYZus{}1\PYZus{}2}\PY{n}{[}\PY{p}{,}\PY{l+m}{2}\PY{n}{]}\PY{p}{,}
+                                   \PY{n}{alternative} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{two.sided\PYZdq{}}\PY{p}{,} \PY{n}{paired}\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{)}
+         \PY{n}{Rmas} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{LMvsKNNtst}\PY{o}{\PYZdl{}}\PY{n}{statistic}
+         \PY{n}{pvalue} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{LMvsKNNtst}\PY{o}{\PYZdl{}}\PY{n}{p.value}
+         \PY{n}{LMvsKNNtst} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{wilcox.test}\PY{p}{(}\PY{n}{wilc\PYZus{}1\PYZus{}2}\PY{n}{[}\PY{p}{,}\PY{l+m}{2}\PY{n}{]}\PY{p}{,} \PY{n}{wilc\PYZus{}1\PYZus{}2}\PY{n}{[}\PY{p}{,}\PY{l+m}{1}\PY{n}{]}\PY{p}{,}
+                                   \PY{n}{alternative} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{two.sided\PYZdq{}}\PY{p}{,} \PY{n}{paired}\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{)}
+         \PY{n}{Rmenos} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{LMvsKNNtst}\PY{o}{\PYZdl{}}\PY{n}{statistic}
+         \PY{n}{Rmas}
+         \PY{n}{Rmenos}
+         \PY{n}{pvalue}
+\end{Verbatim}
+
+
+    \begin{tabular}{ll}
+ out\_train\_lm & out\_train\_kknn\\
+\hline
+	 0.1       & 0.6394191\\
+	 0.1       & 1.0629412\\
+	 0.1       & 0.7873339\\
+	 0.1       & 0.7709917\\
+	 0.1       & 0.6490708\\
+	 0.1       & 0.7765836\\
+\end{tabular}
+
+
+    
+    \textbf{V:} 10
+
+    
+    \textbf{V:} 161
+
+    
+    0.00032806396484375
+
+    
+    Como se puede ver podemos afirmar que para train, con un 99.96\% de
+confianza (1-0.0003281), existen diferencias entre los algoritmos. Esto
+es así porque el algoritmo KNN suele ajustarse mucho a los datos con los
+que se entrena (train), pero no tanto a los datos de test (sobreajuste);
+por ello, existen diferencias significativas en train pero no en test
+(como se puede ver en el apartado anterior).
+
+Ahora realizaremos el test de Friedman y post-hoc y analizaremos los
+resultados.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{c+c1}{\PYZsh{} Realizamos el test de Friedman.}
+         \PY{n}{test\PYZus{}friedman} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{friedman.test}\PY{p}{(}\PY{n+nf}{as.matrix}\PY{p}{(}\PY{n}{tablatrain}\PY{p}{)}\PY{p}{)}
+         \PY{n}{test\PYZus{}friedman}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+	Friedman rank sum test
+
+data:  as.matrix(tablatrain)
+Friedman chi-squared = 20.333, df = 2, p-value = 3.843e-05
+
+    \end{verbatim}
+
+    
+    Al igual que en el apartado anterior, el test de Friedman nos muestra
+que existen diferencias entre los algoritmos que estamos comparando.
+Realizamos el test de Holm y analizamos los resultados obtenidos.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{c+c1}{\PYZsh{} Realizamos el test de Holm.}
+         \PY{n}{tam} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{dim}\PY{p}{(}\PY{n}{tablatrain}\PY{p}{)}
+         \PY{n}{groups} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{rep}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{n}{tam}\PY{n}{[2}\PY{n}{]}\PY{p}{,} \PY{n}{each}\PY{o}{=}\PY{n}{tam}\PY{n}{[1}\PY{n}{]}\PY{p}{)}
+         \PY{n+nf}{pairwise.wilcox.test}\PY{p}{(}\PY{n+nf}{as.matrix}\PY{p}{(}\PY{n}{tablatrain}\PY{p}{)}\PY{p}{,}
+                              \PY{n}{groups}\PY{p}{,} \PY{n}{p.adjust} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{holm\PYZdq{}}\PY{p}{,} 
+                              \PY{n}{paired} \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+	Pairwise comparisons using Wilcoxon signed rank test 
+
+data:  as.matrix(tablatrain) and groups 
+
+  1      2     
+2 0.0031 -     
+3 0.0032 0.0032
+
+P value adjustment method: holm 
+    \end{verbatim}
+
+    
+    Según los resultados obtenidos para este test, no existen diferencias
+significativas entre los algoritmos que hemos comparado, a diferencia de
+los resultados de test. Esto ocurre por el sobreajuste de los algoritmos
+para los datos de train; dado que estamos comparando resultados
+obtenidos para los datos con los que se entrenan los algoritmos, y por
+lo tanto se ajustan mejor que para otros datos diferentes (test), es más
+difícil encontrar diferencias significativas.
 
 
     % Add a bibliography block to the postdoc
