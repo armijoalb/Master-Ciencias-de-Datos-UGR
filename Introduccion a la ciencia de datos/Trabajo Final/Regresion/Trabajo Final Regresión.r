@@ -1,4 +1,4 @@
-# Cambiar con el path donde se encuentren los archivos
+# Cambiar con el path donde se encuentren los archivos en cada ordenador
 setwd("C:/Users/Alberto Armijo Ruiz/Universidad/Introduccion a la ciencia de datos/Trabajo Final/Regresion")
 # Leemos el fichero del dataset. La forma de escribir el PATH puede variar dependiendo de la organización o del SO.
 treasury = read.csv('treasury//treasury.dat', comment.char = '@', header = FALSE,
