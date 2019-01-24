@@ -1,0 +1,49 @@
+---
+title: "kaggle_arboles"
+author: "Alberto Armijo Ruiz"
+date: "24 de enero de 2019"
+output: pdf_document
+editor_options:
+  chunk_output_type: console
+---
+
+
+Primero leemos los datos de train y de test.
+```{r}
+datos.train = read.csv('train.csv',na.strings = c("","NA","?"))
+datos.test = read.csv('test.csv',na.strings = c("","NA","?"))
+
+head(datos.train)
+```
+
+Lo siguiente que vamos a hacer es comprobar si el dataset que vamos a estudiar tiene la clase balanceadas.
+```{r}
+require(ggplot2)
+
+clase = datos.train$C
+table(clase)
+
+
+ggplot(datos.train, aes(as.factor(datos.train$C)))+geom_bar(color="black",fill="deepskyblue") + 
+  xlab("Clase") + labs(title="Distribución de los datos de la clase")
+  
+  
+```
+Como se puede ver, los datos no están demasiado bien distribuidos, se puede ver que hay casi el doble de datos de la clase 0 que de la clase 1. Este problema puede ser resuelto más tarde utilizando algún método de oversampling como SMOTE. Lo siguiente que haremos será mirar la distribución del resto de datos, para intentar intentar descubrir que variables tienen una distribución normal, y cuales no son interesantes para crear un modelo basado en árboles.
+
+```{r}
+histogram_by = function(datos,var, bins=5){
+  
+  ggplot(datos,aes_string(x=var)) +
+        geom_histogram(fill='lightblue', color="black", bins=bins)
+}
+
+histogram_by(datos.train,names(datos.train)[1])
+lapply(names(datos.train)[1:50],histogram_by,datos=datos.train)
+```
+
+
+```{r}
+summary(datos.train)
+```
+

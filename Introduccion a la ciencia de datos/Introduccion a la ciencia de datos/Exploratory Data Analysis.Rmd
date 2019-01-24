@@ -1,0 +1,24 @@
+---
+title: "Exploratory Data Analysis"
+author: "Alberto Armijo Ruiz"
+date: "8 de noviembre de 2018"
+output: pdf_document
+---
+
+```{r}
+library(foreign)
+datos_empleados = read.spss("../datos_empleados.sav",to.data.frame = TRUE, use.value.labels = FALSE)
+str(datos_empleados)
+head(datos_empleados)
+```
+
+```{r}
+hist(datos_empleados$salario,breaks=datos_empleados$catlab)
+boxplot(as.numeric(datos_empleados$salario)~datos_empleados$catlab)
+```
+
+```{r}
+
+boxplot(as.numeric(datos_empleados$salario))
+```
+

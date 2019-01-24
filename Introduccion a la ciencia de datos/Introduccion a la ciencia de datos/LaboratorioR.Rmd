@@ -1,0 +1,241 @@
+---
+title: "LaboratorioR"
+author: "Alberto Armijo Ruiz"
+date: "19 de noviembre de 2018"
+output: pdf_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+require(MASS)
+require(ISLR)
+
+?Boston
+attach(Boston)
+lstat
+```
+
+
+```{r}
+temp <- Boston
+plotY <- function (x,y) {
+  plot(temp[,y]~temp[,x], xlab=paste(names(temp)[x]," X",x,sep=""),
+       ylab=names(temp)[y])
+}
+par(mfrow=c(3,4))
+x <- sapply(1:(dim(temp)[2]-1), plotY, dim(temp)[2])
+par(mfrow=c(1,1))
+
+par(mfrow=c(3,3))
+x <- sapply(c(1, 5, 6, 7, 8, 10, 11, 12, 13), plotY, dim(temp)[2])
+par(mfrow=c(1,1))
+```
+
+
+```{r}
+# Probamos primero con un modelo linear simple
+fit1=lm(medv~lstat,data=Boston)
+fit1
+
+
+# Probamos con otro modelo.
+fit2=lm(medv~rm,data=Boston)
+fit2
+```
+
+```{r}
+# Ahora miramos la información más detallada de cada uno de los modelos.
+summary(fit1)
+par(mfrow=c(2,1))
+plot(medv~lstat,data=Boston)
+abline(fit1,col="red")
+confint(fit1)
+```
+
+```{r}
+# Hacemos los mismo para el modelo anterior.
+summary(fit2)
+plot(medv~rm,data=Boston)
+abline(fit2,col="blue")
+confint(fit2)
+par(mfrow=c(1,1))
+```
+
+```{r}
+# Viendo que nuestro primer modelo tiene un mejor ajuste, nos centraremos en el modelo 'fit1'
+# Por ello, vamos a calcular el error cuadrático medio (RMSE)
+sqrt(sum(fit1$residuals^2)/length(fit1$residuals))
+
+
+predict(fit1,data.frame(lstat=c(5,10,15)))
+```
+
+```{r}
+# Ahora vamos a probar a añadir más variables a nuestro modelo lineal.
+fit3=lm(medv~lstat+age,data=Boston)
+summary(fit3)
+```
+Como se puede ver la variable 'age' no nos aporta demasiada información, así que probaremos con otro modelo.
+```{r}
+fit4=lm(medv~lstat+rm,data=Boston)
+summary(fit4)
+```
+En este caso, al ser un modelo con las dos variables que mejor funcionaban, el modelo que une a las dos funciona mejor.
+
+Visualización de pares de variables por escala de grises:
+```{r}
+temp <- Boston
+plot(temp[,-dim(temp)[2]],pch=16,col=gray(1-(temp[,dim(temp)[2]]/max(temp[,dim(temp)[2]]))))
+```
+
+Ahora vamos a seguir viendo que variables nos funciona mejor, para ello crearemos un modelo lineal con todas las variables y veremos cuales son significativas.
+```{r}
+fit5=lm(medv~.,data=Boston)
+summary(fit5)
+
+# Ahora vamos a probar con todas menos con las variables menos significativas.
+fit6=lm(medv~.-age-indus,data=Boston)
+summary(fit6)
+
+# Ahora probamos las variables que son significativas solamente.
+fit7=lm(medv~.-age-indus-chas-crim,data=Boston)
+summary(fit7)
+```
+
+Como ya parece que no se puede mejorar el modelo lineal deberíamos de probar con la no linealidad.
+
+```{r}
+attach(Boston)
+fit8=lm(medv~lstat*rm,Boston)
+summary(fit8)
+plot(medv~lstat)
+points(lstat,fitted(fit8),col="green",pch=20)
+```
+
+
+```{r}
+fit9=lm(medv~lstat +I(lstat^2),Boston)
+summary(fit9)
+plot(medv~lstat)
+points(lstat,fitted(fit9),col="red",pch=20)
+```
+
+```{r}
+fitprueba=lm(medv~lstat +rm +I(lstat * rm) +I(lstat^2) +I(lstat^2 * rm),Boston)
+summary(fitprueba)
+plot(medv~lstat)
+points(lstat,fitted(fitprueba),col="red",pch=20)
+
+yprime=predict(fit8,Boston)
+sqrt(sum(abs(Boston$medv-yprime)^2)/length(yprime))
+```
+
+## Lectura de datasets con formato KEEL
+
+```{r}
+xtra = read.csv("./datos/california.dat", comment.char = "@", header=FALSE)
+head(xtra)
+names(xtra) = c("Longitude","Latitude","HousingMedianAge",
+                "TotalRooms","TotalBedrooms","Population","Households","MedianIncome","MedianHouseValue")
+head(xtrad)
+```
+
+## Uso de Knn para problemas de regresión.
+```{r}
+# Cargamos el paquete de knn.
+require(kknn)
+```
+
+Comenzamos a crear modelos con KNN.
+```{r}
+fitknn1 <- kknn(medv ~ ., Boston, Boston)
+names(fitknn1)
+plot(medv~lstat)
+points(lstat,fitknn1$fitted.values,col="blue",pch=20)
+```
+
+Ahora podemos crear nuevos modelos aplicando la información que hemos descubierto antes.
+```{r}
+fitknn2 <- kknn(medv ~ lstat*rm+I(lstat^2)+age+crim+dis, Boston, Boston)
+yprime = fitknn2$fitted.values;
+sqrt(sum((Boston$medv-yprime)^2)/length(yprime)) #RMSE
+
+fitknn3 <- kknn(medv ~ lstat*rm+I(lstat^2)+age+crim+dis+black+nox, Boston, Boston)
+yprime = fitknn3$fitted.values; sqrt(sum((Boston$medv-yprime)^2)/length(yprime)) #RMSE
+
+fitknn4 <- kknn(medv ~ . + lstat*rm+I(lstat^2) - chas, Boston, Boston)
+yprime = fitknn4$fitted.values; sqrt(sum((Boston$medv-yprime)^2)/length(yprime)) #RMSE
+
+fitknn5 <- kknn(medv ~ . - chas, Boston, Boston)
+yprime = fitknn5$fitted.values; sqrt(sum((Boston$medv-yprime)^2)/length(yprime)) #RMSE
+
+fitknn6 <- kknn(medv ~ . - chas - ptratio -zn, Boston, Boston)
+yprime = fitknn6$fitted.values; sqrt(sum((Boston$medv-yprime)^2)/length(yprime)) #RMSE
+
+plot(medv~lstat)
+points(lstat,fitknn1$fitted.values,col="blue",pch=20)
+points(lstat,fitknn5$fitted.values,col="red",pch=20)
+points(lstat,fitknn6$fitted.values,col="green",pch=20)
+```
+
+Como se puede ver, los datos obtenidos con KNN son mejores que los obtenidos con la regressión lineal. Aún así, estos datos están siendo para training, puede ser que el error en test sea peor para KNN que para la regressión lineal, ya que el algoritmo KNN se ajusta muy bien a los datos de training siempre.
+
+Ahora, podemos hacer validación cruzada para comprobar si va bien o no el test.
+```{r}
+nombre <- "./datos/california"
+run_lm_fold <- function(i, x, tt = "test") {
+file <- paste(x, "-5-", i, "tra.dat", sep="")
+x_tra <- read.csv(file, comment.char="@",header=FALSE)
+file <- paste(x, "-5-", i, "tst.dat", sep="")
+x_tst <- read.csv(file, comment.char="@", header=FALSE)
+In <- length(names(x_tra)) - 1
+names(x_tra)[1:In] <- paste ("X", 1:In, sep="")
+names(x_tra)[In+1] <- "Y"
+names(x_tst)[1:In] <- paste ("X", 1:In, sep="")
+names(x_tst)[In+1] <- "Y"
+if (tt == "train") {
+test <- x_tra
+}
+else {
+test <- x_tst
+}
+fitMulti=lm(Y~.,x_tra)
+yprime=predict(fitMulti,test)
+sum(abs(test$Y-yprime)^2)/length(yprime) ##MSE
+}
+lmMSEtrain<-mean(sapply(1:5,run_lm_fold,nombre,"train"))
+lmMSEtest<-mean(sapply(1:5,run_lm_fold,nombre,"test"))
+lmMSEtrain
+lmMSEtest
+```
+
+
+```{r}
+nombre <- "./datos/california"
+run_knn_fold <- function(i, x, tt = "test") {
+file <- paste(x, "-5-", i, "tra.dat", sep="")
+x_tra <- read.csv(file, comment.char="@",header = FALSE)
+file <- paste(x, "-5-", i, "tst.dat", sep="")
+x_tst <- read.csv(file, comment.char="@",header=FALSE)
+In <- length(names(x_tra)) - 1
+names(x_tra)[1:In] <- paste ("X", 1:In, sep="")
+names(x_tra)[In+1] <- "Y"
+names(x_tst)[1:In] <- paste ("X", 1:In, sep="")
+names(x_tst)[In+1] <- "Y"
+if (tt == "train") {
+test <- x_tra
+}
+else {
+test <- x_tst
+}
+fitMulti=kknn(Y~.,x_tra,test)
+yprime=fitMulti$fitted.values
+sum(abs(test$Y-yprime)^2)/length(yprime) ##MSE
+}
+knnMSEtrain<-mean(sapply(1:5,run_knn_fold,nombre,"train"))
+knnMSEtest<-mean(sapply(1:5,run_knn_fold,nombre,"test"))
+knnMSEtrain
+knnMSEtest
+```
+
