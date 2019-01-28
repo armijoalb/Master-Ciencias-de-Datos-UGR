@@ -1,0 +1,211 @@
+---
+title: "Trabajo Final Detección de Anomalías"
+author: "Alberto Armijo Ruiz"
+date: "28 de enero de 2019"
+output: pdf_document
+editor_options: 
+  chunk_output_type: console
+---
+
+# Configuración inicial
+Antes de empezar a trabajar, deberemos de establecer el PATH de trabajo y después cargar los ficheros *!Outliers_...* para cargar las librerías y funciones necesarias para trabajar con la práctica. Una vez hemos hecho esto podemos cargar el fichero y comenzar a buscar outliers.
+```{r}
+# Ponemos el path deseado. PATH_HASTA_DIRECTORIO_TRABAJO_FINAL
+setwd(paste("~/Universidad/Mineria\ de\ datos.\ " ,
+ "Aprendizaje\ no\ supervisado\ ", "y\ deteccion\ de\ anomalias/",
+ "trabajo\ final",sep=""))
+
+# Cargamos los ficheros de librerías y funciones.
+source("./data/!Outliers_A2_Librerias_a_cargar_en_cada_sesion.R", echo=FALSE)
+source("./data/!Outliers_A3_Funciones_a_cargar_en_cada_sesion.R", echo=FALSE)
+```
+
+# Lectura de los datos
+Al igual que con el dataset que se utilizó en las sesiones de prácticas, se va a utilizar las mismas variables cambiando solamente sus valores. 
+```{r}
+# leemos los datos
+mydata.numeric = read.csv('./data/magic.dat', header=FALSE, comment.char = "@")
+
+# añadimos nombres de las columnas
+names(mydata.numeric) = c('FLength', 'FWidth', 'FSize', 'FConc', 'FConc1', 'FAsym', 'FM3Long', 'FM3Trans', 'FAlpha', 'FDist', 'Class')
+
+# dado que es un dataset de clasificación, quitaremos para el estudio de anomalías la variable 'Class'.
+mydata.numeric = subset(mydata.numeric,select=-Class)
+
+head(mydata.numeric)
+
+# declaramos el resto de variables
+indice.columna = 1
+nombre.mydata = "magic"
+
+# declaramos valores escalados. Necesarios para algunos apartados de la práctica.
+mydata.numeric.scaled = scale(mydata.numeric)
+columna         = mydata.numeric[, indice.columna]
+nombre.columna  = names(mydata.numeric)[indice.columna]
+columna.scaled  = mydata.numeric.scaled[, indice.columna]
+```
+
+Ahora ya podemos comenzar con el estudio de anomalias.
+
+# Cómputo de Outliers IQR
+Lo primero que haremos será calcular el IQR de la columna que hemos seleccionado, después analizaremos qué datos son anomalías según el análisis de ese IQR.
+```{r}
+cuartil.primero = quantile(columna.scaled,0.25)
+cuartil.tercero = quantile(columna.scaled,0.75)
+iqr = IQR(columna.scaled)
+
+# Ahora calculamos los valores para calcular los outliers.
+extremo.superior.outlier.normal = cuartil.tercero + (1.5*iqr)
+extremo.inferior.outlier.normal = cuartil.primero - (1.5*iqr)
+extremo.inferior.outlier.extremo = cuartil.primero - (3*iqr)
+extremo.superior.outlier.extremo = cuartil.tercero + (3*iqr)
+
+# Ahora calculamos los vectores.
+vector.es.outlier.normal = columna.scaled < extremo.inferior.outlier.normal | columna.scaled > extremo.superior.outlier.normal
+vector.es.outlier.extremo = columna.scaled < extremo.inferior.outlier.extremo | columna.scaled > extremo.superior.outlier.extremo
+```
+
+Dado que tenemos una gran cantidad de datos, para el caso de este dataset son 19020 instancias, miraremos si los vectores que hemos calculado anteriormente contienen algún dato igual a *TRUE*.
+```{r}
+cat("outliers normales:", any(vector.es.outlier.normal==TRUE),"\n",
+    "outliers extremos:", any(vector.es.outlier.extremo==TRUE))
+```
+
+Por lo que podemos ver en la salida, nuestro dataset contiene tanto outliers normales (< o > $1.5*IQR$) como outliers extremos (< o > $3*IQR$). Lo siguiente que vamos a hacer es calcular y mostrar estos datos que son outliers.
+
+```{r}
+# Valores outliers normales
+claves.outliers.normales = which(vector.es.outlier.normal)
+head(claves.outliers.normales)
+data.frame.outliers.normales = mydata.numeric[claves.outliers.normales,]
+head(data.frame.outliers.normales)
+nombres.outliers.normales = row.names(data.frame.outliers.normales)
+head(nombres.outliers.normales)
+valores.outliers.normales = data.frame.outliers.normales[,indice.columna]
+head(valores.outliers.normales)
+
+# Valores outliers extremos
+claves.outliers.extremos = which(vector.es.outlier.extremo)
+head(claves.outliers.extremos)
+data.frame.outliers.extremos = mydata.numeric[claves.outliers.extremos,]
+head(data.frame.outliers.extremos)
+nombres.outliers.extremos = row.names(data.frame.outliers.extremos)
+head(nombres.outliers.extremos)
+valores.outliers.extremos = data.frame.outliers.extremos[,indice.columna]
+head(valores.outliers.extremos)
+
+# Mostramos dichos valores.
+cat("indices de los outliers normales:\n",
+    nombres.outliers.normales,"\n",
+    "valores de los outliers:\n",
+    valores.outliers.normales,"\n",
+    "número de outliers normales:",length(valores.outliers.normales),"\n")
+
+cat("indices de los outliers extremos:\n",
+    nombres.outliers.extremos,"\n",
+    "valores de los outliers:\n",
+    valores.outliers.extremos,"\n",
+    "número de outliers extremos:", length(valores.outliers.extremos),"\n")
+```
+
+Como se puede ver en los resultados, tenemos 971 datos en la columna que se consideran outliers normales, de esos, 236 datos también son outliers extremos. Ahora obtendremos los valores de dichos outliers y veremos la desviación con respecto a la media de la columna.
+
+```{r}
+valores.normalizados.outliers.normales = columna.scaled[claves.outliers.normales]
+sd(valores.normalizados.outliers.normales)
+
+valores.normalizados.outliers.extremos = columna.scaled[claves.outliers.extremos]
+sd(valores.normalizados.outliers.extremos)
+```
+
+El siguiente paso será mostrar en un gráfico los datos que son outliers para identificarlos mejor, para ello haremos uso de la función *MiPlot_Univariate_Outliers()*.
+
+```{r}
+MiPlot_Univariate_Outliers(columna,claves.outliers.normales, "Outliers normales")
+MiPlot_Univariate_Outliers(columna,claves.outliers.extremos, "Outliers extremos")
+```
+
+Gracias a la información que se muestra en los gráficos, podemos que nuestros outliers en su gran mayoría se encuentran al final del dataset (más o menos en el último tercio de los datos) menos unos pocos. Esto puede hacernos pensar que sea posible que esa gran cantidad de datos anómalos esté relacionada también con alguna otra variable del dataset. Otro tipo de gráfica que usaremos es un Boxplot. Para ello utilizaremos la función *MiBoxPlot_IQR_Univariate_Outliers()*.
+
+```{r}
+MiBoxPlot_IQR_Univariate_Outliers(mydata.numeric,indice.columna,coef=1.5)
+MiBoxPlot_IQR_Univariate_Outliers(mydata.numeric.scaled,indice.columna,coef=1.5)
+```
+
+En este caso solamente lo utilizamos para los outliers normales, ya que la función de ggplot no nos permite expecificar un valor para calcular el outlier, utiliza directamente $1.5*IQR$. Si quisieramos ver donde están representados los datos , podríamos mostrar los labels de las instancias.
+
+```{r}
+MiBoxPlot_IQR_Univariate_Outliers(mydata.numeric,indice.columna,coef=3)
+MiBoxPlot_IQR_Univariate_Outliers(mydata.numeric.scaled,indice.columna,coef=3)
+```
+
+Como se puede ver, los outliers que se consideran extremos son aquellos que tiene valores superiores a 200 para la columna que estamos analizando.
+
+Lo siguiente que vamos a hacer es mirar que valores toman cada outlier en cada una de las columnas de nuestro dataset, así podemos apreciar si las instancias que toman valores anómalos en la columna que hemos estado estudiando toman también valores anómalos para otras columnas; para ello haremos uso de la función *MiBoxPlot_juntos()* y *MiBoxPlot_juntos_con_etiquetas()*.
+
+```{r}
+# BoxPlot para outliers normales
+MiBoxPlot_juntos(mydata.numeric)
+MiBoxPlot_juntos_con_etiquetas(mydata.numeric)
+
+# BoxPlot para outliers extremos
+MiBoxPlot_juntos_con_etiquetas(mydata.numeric,coef=3.0)
+```
+
+Como se puede ver en las gráficas, la gran mayoría de las variables contienen tanto outliers normales como extremos. Por desgracia al haber tantos datos considerados como outliers es difícil saber si un label aparece en dos columnas distintas, aún así es posible comprobarlo. Lo que sí se puede apreciar, al menos por lo poco que se vé en las etiquetas, es que una buena parte de los datos que considera como outliers son aquellos que se encuentran al final del dataset.
+
+Ahora lo que vamos a hacer es calcular las filas del dataset que contienen un outlier en algunas de sus columnas, para ello vamos a utilizar la función *vector_claves_outliers_IQR()*; a la cual hay que pasarle nuestro conjunto de datos, la columna para la cual queremos calcular las claves y el coeficiente con el cual calcula si es outlier o no (por defecto es 1.5).
+
+```{r}
+v = 1:ncol(mydata.numeric)
+indices.en.alguna.columna = sapply( v, vector_claves_outliers_IQR,datos=mydata.numeric)
+indices.en.alguna.columna = unlist(indices.en.alguna.columna)
+indices.en.alguna.columna = sort(unique(indices.en.alguna.columna))
+head(indices.en.alguna.columna,10)
+
+v = 1:ncol(mydata.numeric)
+indices.en.alguna.columna.extremos = sapply( v, vector_claves_outliers_IQR,datos=mydata.numeric,coef=3)
+indices.en.alguna.columna.extremos = unlist(indices.en.alguna.columna.extremos)
+indices.en.alguna.columna.extremos = sort(unique(indices.en.alguna.columna.extremos))
+head(indices.en.alguna.columna.extremos,10)
+
+cat("número de outliers en alguna columna:",
+    length(indices.en.alguna.columna),"\n",
+    "número de outliers extremos en alguna columna:",
+    length(indices.en.alguna.columna.extremos),"\n")
+```
+
+Como se puede ver, el número de outliers normales es mucho mayor que el número de outliers extremos. Ahora lo que haremos será crear un dataset para cada tipo de outlier con los datos normalizados.
+
+```{r}
+mis.datos.outliers.normalizados = mydata.numeric.scaled[indices.en.alguna.columna,]
+head(mis.datos.outliers.normalizados)
+
+mis.datos.outliers.normalizados.extremos = mydata.numeric.scaled[indices.en.alguna.columna.extremos,]
+head(mis.datos.outliers.normalizados.extremos)
+```
+
+Para esto que hemos hecho antes se podría haber creado una función como la siguiente.
+```{r}
+vector_claves_outliers_IQR_en_alguna_columna = function(datos,coef=1.5){
+  v = 1:ncol(datos)
+  indices.en.alguna.columna = sapply( v, vector_claves_outliers_IQR,datos=datos,coef=coef)
+  indices.en.alguna.columna = sort(unique(unlist(indices.en.alguna.columna)))
+  indices.en.alguna.columna
+}
+
+head(vector_claves_outliers_IQR_en_alguna_columna(mydata.numeric))
+```
+
+Con la función anterior, podemos crear una función que devuelva un vector con aquellas instancias que contienen algún índices, dicha función sería la siguiente.
+```{r}
+vector_es_outlier_IQR_en_alguna_columna = function(datos, coef = 1.5){
+  indices.de.outliers.en.alguna.columna =  vector_claves_outliers_IQR_en_alguna_columna(datos, coef)
+  todos = c(1:nrow(datos))
+  bools = todos %in% indices.de.outliers.en.alguna.columna
+  return (bools)
+}
+
+head(vector_es_outlier_IQR_en_alguna_columna(mydata.numeric),10)
+```
+
