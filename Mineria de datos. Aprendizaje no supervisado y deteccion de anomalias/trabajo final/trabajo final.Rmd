@@ -209,3 +209,132 @@ vector_es_outlier_IQR_en_alguna_columna = function(datos, coef = 1.5){
 head(vector_es_outlier_IQR_en_alguna_columna(mydata.numeric),10)
 ```
 
+# Detección de outliers con test estadísticos
+En este apartado realizaremos la detección de outliers en nuestro dataset con test estadísticos, como por ejemplo el test de Grubbs.
+
+Comenzaremos mostrando los datos para ver si se puede identificar algún dato a simple vista.
+```{r}
+histogram_by = function(datos,var, bins=5){
+  
+  ggplot(datos,aes_string(x=var)) +
+        geom_histogram(fill='lightblue', color="black", bins=bins)+
+      ggtitle("histogram")
+}
+
+scatter_by = function(datos,var){
+  x= seq_along(datos[,var])
+  ggplot(datos,aes_string(y=var,x=x))+
+    geom_point()+xlab("")+ggtitle("scatter")
+    
+}
+
+hist_and_scatter=function(datos,var,bins=10){
+  h = histogram_by(datos,var,bins)
+  s = scatter_by(datos,var)
+  gridExtra::grid.arrange(h,s,nrow=2,
+                          top=var)
+}
+
+
+lapply(names(mydata.numeric),hist_and_scatter,datos=mydata.numeric)
+```
+
+Según lo que se puede ver, las variables aparentemente no tienen outliers. Utilizaremos los test para intentar identificar outliers. Primero comenzaremos comprobando si existe al menos un outlier en cada una de las variables, para ello utilizaremos el test de Grubbs, este test se considera significativo si los valores que obtenemos son menores que 0.01.
+```{r}
+test.de.Grubbs = apply(mydata.numeric,2,grubbs.test,two.sided=TRUE)
+test.de.Grubbs 
+```
+
+Según los resultados del test de Grubbs, las variables FLength, FSize, FWidth, FConc, FAsym, FM3Long, FM3Trans, FAlpha. Ahora guardaremos las posiciones de los outliers y su valor.
+
+```{r}
+aux = mydata.numeric[,c("FLength",'FWidth', 'FConc', 'FAsym', 'FM3Long', 'FM3Trans', 'FAlpha')]
+
+#Obtenemos la posicion para los valores mayores.
+indices.outliers = apply(abs(aux),2,order,decreasing=TRUE)
+indices.outliers = indices.outliers[1,]
+valores.outliers = mydata.numeric[indices.outliers,c("FLength",'FWidth', 'FConc', 'FAsym', 'FM3Long', 'FM3Trans', 'FAlpha')]
+valores.outliers = diag(as.matrix(valores.outliers))
+names(valores.outliers) = c("FLength",'FWidth', 'FConc', 'FAsym', 'FM3Long', 'FM3Trans', 'FAlpha')
+
+rm(aux)
+
+cat("Posiciones outliers:\n",
+    indices.outliers,"\n",
+    "Valores outliers:\n",
+    valores.outliers,"\n")
+
+```
+
+
+Ahora que ya tenemos los indices de los outliers, podemos mostrar un gráfico idenficando los outliers de cada variable, para ello podemos utilizar la función *MiPlot_Univariate_Outliers()* que ya viene implementada.
+
+```{r}
+MiPlot_Univariate_Outliers(mydata.numeric$FLength,indices.outliers[1],"Outlier en los datos de FLength")
+MiPlot_Univariate_Outliers(mydata.numeric$FWidth,indices.outliers[2],"Outlier en los datos de FWidth")
+MiPlot_Univariate_Outliers(mydata.numeric$FConc,indices.outliers[3],"Outlier en los datos de FConc")
+MiPlot_Univariate_Outliers(mydata.numeric$FAsym,indices.outliers[4],"Outlier en los datos de FAsym")
+MiPlot_Univariate_Outliers(mydata.numeric$FM3Long,indices.outliers[5],"Outlier en los datos de FM3Long")
+MiPlot_Univariate_Outliers(mydata.numeric$FM3Trans,indices.outliers[6],"Outlier en los datos de FM3Trans")
+MiPlot_Univariate_Outliers(mydata.numeric$FAlpha,indices.outliers[7],"Outlier en los datos de FAlpha")
+```
+
+Gracias a las gráficas, podemos saber que en alguno de los datos los outliers detectados no son reales, como por ejemplo en FConc o FAlpha. Todo esto que hemos hecho anteriormente para poder mostrar los datos ya se encuentra implementado en la función *MiPlot_resultados_TestGrubbs()*. Ahora utilizaremos esta función para mostrar los resultados del test de Grubbs con todas las funciones, ya que es posible que en alguna de las variables que hemos rechazado se haya producido el error de masking, al igual que en algunas de las variables sí se han identificado outliers en lugares donde no los había.
+
+```{r}
+aux = mydata.numeric
+apply(aux,2,MiPlot_resultados_TestGrubbs)
+rm(aux)
+```
+
+Las variables que no se han pintado son aquellas que según el test de Grubbs no contienen ningún outlier. Lo siguiente que vamos a hacer es utilizar el test de Rosner para ver si hay un número de outliers que k, el cual definimos nosotros. Para ello utilizaremos la función *rosnerTest()*.
+
+```{r}
+
+# Función para obtener los valores interesantes.
+obtener_valores_Rosner = function(data,k=4){
+  rTest = rosnerTest(data,k=k)
+  bool.outlier = rTest$all.stats$Outlier
+  indices.outliers.rosner = rTest$all.stats$Obs.Num
+  resultados = list(bools=bool.outlier,indices=indices.outliers.rosner)
+  resultados
+}
+
+test.de.Rosner = apply(mydata.numeric,2,obtener_valores_Rosner)
+test.de.Rosner
+```
+
+Con este test, podemos ver que para algunas de las variables no obtenemos ningún outlier, como por ejemplo FConc, para la cual antes sí obteniamos que había un outlier. Ahora utilizaremos la función *MiPlot_Univariate_Outliers()* al igual que antes para representar los datos de aquellos que sí que haya encontrado outliers, aunque solo con los datos que sí sean realmente outliers.
+
+```{r}
+# Función para devolver la posición de los outliers reales (TRUE) del test de Rosner
+obtener_outlier_reales_Rosner = function(data=list()){
+  m_data = data.frame(bool=data$bools,ind=data$indices)
+  resultados = as.vector(subset(m_data,bool==TRUE,select=ind)$ind)
+  resultados
+}
+
+indices.rosner = lapply(test.de.Rosner, obtener_outlier_reales_Rosner)
+# Eliminamos los que no tienen resultados.
+indices.rosner$FConc = NULL
+indices.rosner$FConc1 = NULL
+indices.rosner$FAlpha = NULL
+indices.rosner$FDist = NULL
+
+# Dibujamos los resultados.
+MiPlot_Univariate_Outliers(mydata.numeric$FLength, indices.rosner$FLength,"Outliers Rosner FLength")
+MiPlot_Univariate_Outliers(mydata.numeric$FWidth, indices.rosner$FWidth,"Outliers Rosner FWidth")
+MiPlot_Univariate_Outliers(mydata.numeric$FSize, indices.rosner$FSize,"Outliers Rosner FSize")
+MiPlot_Univariate_Outliers(mydata.numeric$FAsym, indices.rosner$FAsym,"Outliers Rosner FAsym")
+MiPlot_Univariate_Outliers(mydata.numeric$FM3Long, indices.rosner$FM3Long,"Outliers Rosner FM3Long")
+MiPlot_Univariate_Outliers(mydata.numeric$FM3Trans, indices.rosner$FM3Trans,"Outliers Rosner FM3Trans")
+```
+
+Como se puede ver, el test de Rosner ofrece mejores resultados para obtener outliers en este conjunto de datos, ya que los datos considerados como outliers tienen bastante sentido. Todo este proceso realizado anteriormente se encuentra ya hecho en la función *MiPlot_resultados_TestRosner()*, veamos los resultados que obtiene con nuestro dataset.
+
+```{r}
+apply(mydata.numeric,2,MiPlot_resultados_TestRosner)
+```
+
+Se puede apreciar, que a diferencia de la función que utiliza el test de Grubbs, esta muestra todas las variables, y dibuja los outliers en rojo, si el test de Grubbs realmente no ha encontrado ningún outlier, ninguno de los puntos serán rojos para esa variable.
+
