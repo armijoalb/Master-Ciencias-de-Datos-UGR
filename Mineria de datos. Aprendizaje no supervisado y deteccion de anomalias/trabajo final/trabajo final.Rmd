@@ -21,7 +21,7 @@ source("./data/!Outliers_A3_Funciones_a_cargar_en_cada_sesion.R", echo=FALSE)
 ```
 
 # Lectura de los datos
-Al igual que con el dataset que se utilizó en las sesiones de prácticas, se va a utilizar las mismas variables cambiando solamente sus valores. 
+Al igual que con el dataset que se utilizó en las sesiones de prácticas, se va a utilizar las mismas variables cambiando solamente sus valores. El dataset que vamos a utilizar se puede obtener de la siguiente página [https://sci2s.ugr.es/keel/dataset.php?cod=102](https://sci2s.ugr.es/keel/dataset.php?cod=102) .
 ```{r}
 # leemos los datos
 mydata.numeric = read.csv('./data/magic.dat', header=FALSE, comment.char = "@")
@@ -338,3 +338,308 @@ apply(mydata.numeric,2,MiPlot_resultados_TestRosner)
 
 Se puede apreciar, que a diferencia de la función que utiliza el test de Grubbs, esta muestra todas las variables, y dibuja los outliers en rojo, si el test de Grubbs realmente no ha encontrado ningún outlier, ninguno de los puntos serán rojos para esa variable.
 
+# Detección de outliers multivariados
+En este apartado vamos a detectar en nuestro conjunto de datos outliers multivariados, es decir, que la combinación de los valores de varias columnas sea anómalo, aunque dichos valores de las columnas no tienen porque ser anómalos por si solos. Para detectar dichos outliers, utilizaremos el paquete mvoutliers que utiliza la distancia de Mahalanobis con MCD para detectar si se trata de un outlier o no. Veamos como se hace.
+
+```{r}
+set.seed(12)
+mvoulier.plot = uni.plot(mydata.numeric.scaled,symb = FALSE, alpha=0.05)
+head(mvoulier.plot$outliers,10)
+```
+
+Como se puede ver en el gráfico, una gran cantidad de los datos son considerados outliers según este método. Lo siguiente que vamos a hacer es guardar dichos outliers, y con ellos calcularemos el número de outliers multivariantes y el índice de estos.
+
+```{r}
+is.MCD.outlier = mvoulier.plot$outliers
+numero.de.outliers.MCD = length(which(is.MCD.outlier))
+cat("número de outliers multivariante: ",numero.de.outliers.MCD,"\n")
+indices.MCD.outliers = which(is.MCD.outlier)
+cat("índices de los primeros outliers multivariante:\n",
+    head(indices.MCD.outliers,10),"\n")
+```
+
+Ahora, vamos a intentar saber cuanta es la desviación de los datos que son considerados outliers conforme a la media, para ello vamos a utilizar el dataset con los datos escalados, y miraremos solamente los índices de los datos que son outliers.
+
+```{r}
+head(mydata.numeric.scaled[indices.MCD.outliers,],50)
+cat("media de la desviación por columna:\n",
+    apply(mydata.numeric.scaled[indices.MCD.outliers,],2,mean),
+    "\n")
+MiBoxPlot_juntos(mydata.numeric.scaled,is.MCD.outlier)
+```
+
+Como se puede ver, la gráfica con los boxplots no aporta mucha información ya que hay un gran número de outliers multivariados (6574); vamos a utilizar un biplot para intentar obtener más información de los outliers.
+```{r}
+MiBiPlot_Multivariate_Outliers(mydata.numeric.scaled, is.MCD.outlier, "Outliers MAGIC")
+```
+
+Por desgracia, el biplot tampoco nos da demasiada información, ya que hay demasiados puntos y tapan las variables; además, no explica bien la varianza de los datos, ya que $PC1 + PC2 = 42.2 + 15.8 = 58$. Ahora vamos a ver cual de los datos son realmente multivariantes puros, es decir, no hay ningún valor en alguna de sus columnas que sea un outlier univariado, para ello haremos los siguiente.
+
+```{r}
+indices.de.outliers.en.alguna.columna = vector_claves_outliers_IQR_en_alguna_columna(mydata.numeric)
+indices.de.outliers.MCD.pero.no.1variantes = setdiff(indices.MCD.outliers,indices.de.outliers.en.alguna.columna)
+nombres.de.outliers.multivariantes.MCD.pero.no.1variantes = rownames(mydata.numeric)[indices.de.outliers.MCD.pero.no.1variantes]
+
+#Mostramos una porción de los datos que nos salen.
+head(indices.MCD.outliers,10)
+
+head(indices.de.outliers.MCD.pero.no.1variantes,10)
+head(nombres.de.outliers.multivariantes.MCD.pero.no.1variantes,10)
+
+cat("número de datos multivariantes puros:",
+    length(indices.de.outliers.MCD.pero.no.1variantes),
+    "\n",
+    "número de datos multivariantes:",
+    length(indices.MCD.outliers),"\n")
+```
+
+Como podemos ver solamente el 50% más o menos son realemente outliers multivariantes puros.
+
+# Cálculo de LOF outliers
+
+En este apartado, identificadores outliers mediante métodos centrados en ratio de densidad; para ello utilizaremos los datos normalizados. 
+```{r}
+numero.de.vecinos.lof = 15
+lof.scores = lofactor(mydata.numeric.scaled,numero.de.vecinos.lof)
+head(lof.scores,10)
+
+plot(lof.scores)
+numero.de.outliers = 6000
+
+indices.de.lof.outliers.ordenados = order(lof.scores, decreasing = TRUE)[1:numero.de.outliers] # decreasing debe ser TRUE para que vaya de mayor a menor
+head(indices.de.lof.outliers.ordenados,10)
+
+is.lof.outlier = rownames(mydata.numeric.scaled) %in% indices.de.lof.outliers.ordenados
+
+MiBiPlot_Multivariate_Outliers(mydata.numeric.scaled,is.lof.outlier, "LOF outliers")
+
+```
+
+En la gráfica se puede ver que la mayoría de los puntos de alrededor son detectados como outliers. Lo siguiente que vamos a hacer es descubrir cuales de los puntos son univariados y cuales son multivariados.
+
+```{r}
+vector.claves.outliers.IQR.en.alguna.columna = vector_claves_outliers_IQR_en_alguna_columna(mydata.numeric.scaled)
+vector.es.outlier.IQR.en.alguna.columna = vector_es_outlier_IQR_en_alguna_columna(mydata.numeric.scaled)
+
+indices.de.outliers.multivariantes.LOF.pero.no.1variantes = setdiff(
+  indices.de.lof.outliers.ordenados,vector.claves.outliers.IQR.en.alguna.columna)
+
+head(indices.de.outliers.multivariantes.LOF.pero.no.1variantes,10)
+```
+
+Vamos a representar los datos en un biplot.
+
+```{r}
+is.lof.outlier = rownames(mydata.numeric.scaled) %in% indices.de.outliers.multivariantes.LOF.pero.no.1variantes
+MiBiPlot_Multivariate_Outliers(mydata.numeric.scaled,
+                               is.lof.outlier, "LOF outliers")
+```
+
+Como se puede ver , los puntos que se representan están en la parte central, en vez de estar en los extremos, de ahí podemos saber que el resto de los datos que antes estaban representados como LOF outlier eran outliers univariantes.
+
+# Cálculo de outliers basados en clustering
+
+En este apartado se utilizarán diferentes métodos de clústering para detección de outliers, para utilizar estos datos utilizaremos  los datos escalados (esto normalmente es requerido por los algoritmos de clústering). Lo primero que vamos a hacer es cálcular outliers dependiendo de la distancia euclídea que tenga hacia su clúster más cercano; para ello hay que construir un modelo k-means. Después cálculamos la distancia de cada punto a su centroide y nos quedamos con los que tengan la distancia más alta.
+```{r}
+numero.de.outliers   = 15
+numero.de.clusters   = 3
+
+set.seed(2) 
+
+# Cálculamos el modelo k-means.
+modelo.kmeans = kmeans(mydata.numeric.scaled, centers=numero.de.clusters)
+
+indices.clusterings.magic = modelo.kmeans$cluster
+head(indices.clusterings.magic)
+centroides.normalizados.magic = modelo.kmeans$centers
+head(centroides.normalizados.magic)
+
+# Función para calcular la distancia euclídea de cada punto a los centros.
+distancias_a_centroides = function (datos.normalizados, 
+                                    indices.asignacion.clustering, 
+                                    datos.centroides.normalizados){
+  
+  sqrt(rowSums(   (datos.normalizados - datos.centroides.normalizados[indices.asignacion.clustering,])^2   ))
+}
+# Obtenemos los elementos con mayor distancia.
+top.outliers.magic = distancias_a_centroides(mydata.numeric.scaled,
+                                            indices.clusterings.magic,
+                                            centroides.normalizados.magic)
+top.outliers.magic = order(top.outliers.magic,decreasing = TRUE)[1:numero.de.outliers]
+top.outliers.magic
+```
+
+Este proceso se puede automatizar con una función, veamos como se haría.
+```{r}
+# Función para cálcular outliers con k-means.
+top_clusterings_outliers = function(datos.normalizados=mydata.numeric.scaled,
+                                    indices.asignacion.clustering=indices.asignacion.clustering,
+                                    datos.centroides.normalizados=centroides.normalizados.magic,
+                                    numero.de.outliers=numero.de.outliers){
+  
+  top.outliers.magic = distancias_a_centroides(datos.normalizados,
+                                              indices.asignacion.clustering,
+                                              centroides.normalizados.magic)
+  
+  indices.top.outliers.magic = order(top.outliers.magic,decreasing = TRUE)[1:numero.de.outliers]
+  
+  mi.lista = list(indices=indices.top.outliers.magic,
+                  distancias=top.outliers.magic[indices.top.outliers.magic]
+                  )
+  mi.lista
+}
+
+top_clustering = top_clusterings_outliers(mydata.numeric.scaled,
+                                          indices.clusterings.magic,
+                                          centroides.normalizados.magic,
+                                          numero.de.outliers)
+
+top_clustering$indices
+top_clustering$distancias
+```
+
+A continuación mostaremos los datos en un biplot para intentar identificarlos, y así también descubrir si los datos que estamos describiendo como outliers lo son realmente o no.
+```{r}
+numero.de.datos   = nrow(mydata.numeric.scaled)
+is.kmeans.outlier = rep(FALSE, numero.de.datos) 
+is.kmeans.outlier[top_clustering$indices] = TRUE
+
+
+BIPLOT.isOutlier             = is.kmeans.outlier
+BIPLOT.cluster.colors        = c("blue","red","green")     # Tantos colores como diga numero.de.clusters
+BIPLOT.asignaciones.clusters = indices.clusterings.magic
+MiBiPlot_Clustering_Outliers(mydata.numeric.scaled, "K-Means Clustering Outliers")
+```
+
+Como se puede ver en la gráfica, la mayoría de los outliers son aquellos que están en la periferia del tercer clúster; otros sin embargo parecen que son considerados outliers del segundo clúster y están mezclados con los datos del tercer clúster, por lo que no se pueden diferenciar a simple vista. Lo siguiente que vamos a hacer es obtener la posición real de los centroides obtenidos por k-means, para ellos debemos deshacer la normalización z-score; para obtener dichos datos haremos lo siguiente.
+
+```{r}
+# Obtenemos medias y desviaciones de los datos.
+mis.datos.medias = colMeans(mydata.numeric)
+mis.datos.desviaciones = apply(mydata.numeric,2, sd)
+
+# Deshacemos el z-score de cada columna.
+valores.centroides = sweep(centroides.normalizados.magic,2,mis.datos.desviaciones,'*')
+valores.centroides = sweep(valores.centroides,2,mis.datos.medias,'+')
+```
+
+
+Lo siguiente que vamos a hacer es utilizar la distancia de mahalanobis en vez de la distancia euclídea para hacer el cálculo de los outliers, después analizaremos los resultados obtenidos. Para ello utilizaremos la siguiente función.
+```{r}
+library(MASS)
+top_clustering_outliers_distancia_mahalanobis = function(datos, 
+                                                         indices.asignacion.clustering, 
+                                                         numero.de.outliers){
+  
+  cluster.ids = unique(indices.asignacion.clustering)
+  k           = length(cluster.ids)
+  seleccion   = sapply(1:k, function(x) indices.asignacion.clustering == x)
+  
+  
+  # Usando medias y covarianzas:
+  # lista.matriz.de.covarianzas   = lapply(1:k, function(x) cov(mis.datos.numericos[seleccion[,x],]))
+  # lista.vector.de.medias        = lapply(1:k, function(x) colMeans(mis.datos.numericos[seleccion[,x],]))
+  
+  
+  # Usando la estimaci?n robusta de la media y covarianza: (cov.rob del paquete MASS:
+  lista.matriz.de.covarianzas   = lapply(1:k, function(x) cov.rob(mydata.numeric[seleccion[,x],])$cov)
+  lista.vector.de.medias        = lapply(1:k, function(x) cov.rob(mydata.numeric[seleccion[,x],])$center)
+  
+  
+  mah.distances   = lapply(1:k, 
+                           function(x) mahalanobis(mydata.numeric[seleccion[,x],], 
+                                                   lista.vector.de.medias[[x]], 
+                                                   lista.matriz.de.covarianzas[[x]]))  
+  
+  todos.juntos = unlist(mah.distances)
+  todos.juntos.ordenados = names(todos.juntos[order(todos.juntos, decreasing=TRUE)])
+  indices.top.mah.outliers = as.numeric(todos.juntos.ordenados[1:numero.de.outliers])
+  
+  
+  list(distancias = mah.distances[indices.top.mah.outliers]  , indices = indices.top.mah.outliers)
+}
+
+top.clustering.outliers.mah = top_clustering_outliers_distancia_mahalanobis(mydata.numeric, 
+                                                                            indices.clusterings.magic, 
+                                                                            numero.de.outliers)
+
+numero.de.datos = nrow(mydata.numeric)
+is.kmeans.outlier.mah = rep(FALSE, numero.de.datos) 
+is.kmeans.outlier.mah[top.clustering.outliers.mah$indices] = TRUE
+
+BIPLOT.isOutlier             = is.kmeans.outlier.mah
+BIPLOT.cluster.colors        = c("blue","red","brown")     # Tantos colores como diga numero.de.clusters
+BIPLOT.asignaciones.clusters = indices.clusterings.magic
+MiBiPlot_Clustering_Outliers(mydata.numeric, "K-Means Clustering Outliers Mahalanobis")
+```
+
+Como se puede ver, hay una clara diferencia en los outliers obtenidos por este método. En este caso la mayoría de los outliers pertenecen al primer clúster, y el resto (que están mezclados con los datos del primer clúster) pertenecen al segundo clúster; además no se repite ninguno de los que teníamos en los outliers calculados con k-means y distancia de Mahalanobis. Esto se debe a que Mahalanobis tiene una forma elíptica para el cálculo de distancias, por ello ninguno de los datos del tercer clúster son outliers aunque estén más dispersos que el resto de clúster; por esa misma razón sí que aparecen outliers en el primer y segundo clúster, ya que no se encuentran dentro del "radio" de la elipse producida en su correspondiente clúster.
+
+Por último, crearemos una función que calcule los outliers utilizando la distancia relativa en vez de la distancia, al igual que los métodos basados en LOF outliers. De esta manera podemos detectar outliers que se encuentren cerca de datos que sí pertenecen a un clúster y que con solamente la distancia no seríamos capaces de detectarlos. Para ello utilizamos la siguiente función.
+
+```{r}
+top_clustering_outliers_distancia_relativa = function(datos.normalizados, 
+                                                      indices.asignacion.clustering, 
+                                                      datos.centroides.normalizados, 
+                                                      numero.de.outliers){
+  
+  dist_centroides = distancias_a_centroides (datos.normalizados, 
+                                             indices.asignacion.clustering, 
+                                             datos.centroides.normalizados)
+  
+  cluster.ids = unique(indices.asignacion.clustering)
+  k           = length(cluster.ids)
+  
+  distancias.a.centroides.por.cluster    = sapply(1:k , 
+                                                  function(x) dist_centroides [indices.asignacion.clustering  == cluster.ids[x]])
+  
+  distancias.medianas.de.cada.cluster    = sapply(1:k , 
+                                                  function(x) median(dist_centroides[[x]]))
+  
+  todas.las.distancias.medianas.de.cada.cluster  =  distancias.medianas.de.cada.cluster[indices.asignacion.clustering]
+  ratios = dist_centroides   /  todas.las.distancias.medianas.de.cada.cluster
+  
+  indices.top.outliers           = order(ratios, decreasing=T)[1:numero.de.outliers]
+  
+  list(distancias = ratios[indices.top.outliers]  , indices = indices.top.outliers)
+}
+
+
+
+top.outliers.kmeans.distancia.relativa = top_clustering_outliers_distancia_relativa(mydata.numeric.scaled, 
+                                                                                    indices.clusterings.magic, 
+                                                                                    centroides.normalizados.magic, 
+                                                                                    numero.de.outliers)
+
+
+cat("?ndices de los top k clustering outliers (k-means, usando distancia relativa)\n")
+top.outliers.kmeans.distancia.relativa$indices 
+cat("Distancias a sus centroides de los top k clustering outliers (k-means, usando distancia relativa)\n")
+top.outliers.kmeans.distancia.relativa$distancias
+```
+
+Como se puede ver los outliers seleccionados en este caso son diferentes a los que selecciona k-means utilizando la distancia en vez de la distancia relativa. Vamos a pintarlos con un biplot para ver donde aparecen estos outliers calculados.
+```{r}
+numero.de.datos = nrow(mydata.numeric)
+is.kmeans.outlier.rel = rep(FALSE, numero.de.datos) 
+is.kmeans.outlier.rel[top.outliers.kmeans.distancia.relativa$indices] = TRUE
+
+BIPLOT.isOutlier             = is.kmeans.outlier.rel
+BIPLOT.cluster.colors        = c("blue","red","green")     # Tantos colores como diga numero.de.clusters
+BIPLOT.asignaciones.clusters = indices.clusterings.magic
+MiBiPlot_Clustering_Outliers(mydata.numeric, "K-Means Clustering Outliers Mahalanobis")
+```
+
+Como se puede ver, en este caso los outliers seleccionados son datos que se encuentran relativamente cerca de los clústers pero que su distancia relativa es más alta que para el resto. Dentro de la gráfica podemos distinguir facilmente los seleccionados del segundo clúster; los demás outliers selecionados que se encuentran mezclados con los datos del segundo clúster posiblemente serán del primer o tercer clúster (a simple vista no se pueden distinguir por la gran cantidad de datos), exceptuando el 17980 que seguramente pertenezca también al segundo clúster pero está mezclado con los datos del primer clúster.
+
+# Resumen final
+Por todas las pruebas que se han podido realizar podemos decir lo siguiente:
+1. El cálculo de outliers con IQR es poco útil en este caso ya que obtenemos un número muy alto de outliers, unos 3000 outliers en alguna columna, por lo que es difícil saber cual de estos outliers realmente nos puede dar alguna información relevante del dataset.
+
+2. El cálculo de outliers con test estadísticos puede ser más útil, aunque el número de outliers que se han seleccionado sea muy pequeño para el tamaño del dataset, los outliers que podemos seleccionar con el test de Rosner al representarlos de verdad parecen outliers. El test de Grubbs en este dataset es poco útil, porque es bastante fácil que haya más de un outlier por columna con tantos datos y tengamos problemas de masking al realizar este test. Esto se vé reflejado en la diferencia de resultados obtenidos entre el test de Rosner y el test de Grubbs.
+
+3. Con la detección de outliers multivariados tenemos el mismo problema que con los outliers obtenidos con IQR, obtenemos un número muy alto de ellos, unos 3600, por lo que también es complicado obtener alguna información relevante de ellos.
+
+4. El cálculo de LOF outliers nos muestra que muchos de los outliers de nuestro dataset son realmente univariados y se encuentran en los extremos del biplot que los representa; aún así también se detectan algunos multivariados que se encuentran en la parte central de los datos más o menos. Aún así, la calidad del biplot que podemos obtener es de poca calidad y no es muy representativo.
+
+5. El cálculo de outlier mediante técnicas de clústering obtiene unos resultados interesantes dependiendo de la técnica que utilizemos. Para este estudio hemos escogido un número relativamente pequeño de outliers, 15 solamente. Si utilizamos k-means con distancia euclídea, la mayoría de los outliers seleccionados son muy parecidos a los obtenidos con LOF outliers, los cuales también son outliers 1-variados; si utilizamos la distancia de Mahalanobis o la distancia relativa, obtenemos unos resultados más parecidos a los obtenidos por LOF outliers con outliers unicamente multivariados.

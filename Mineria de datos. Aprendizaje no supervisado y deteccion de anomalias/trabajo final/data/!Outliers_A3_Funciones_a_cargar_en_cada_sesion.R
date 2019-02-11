@@ -239,7 +239,7 @@ MiBiplot = function(datos){
 MiBiPlot_Multivariate_Outliers = function (datos, vectorTFoutliers, titulo){
    identificadores_de_datos = rownames(datos)
    identificadores_de_datos[!vectorTFoutliers] = ''
-   cat(identificadores_de_datos)
+   #cat(identificadores_de_datos)
  
    PCA.model = princomp(scale(datos))
    outlier.shapes = c(".","x") #c(21,8)
