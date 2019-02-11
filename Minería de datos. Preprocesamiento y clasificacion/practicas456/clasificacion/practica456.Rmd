@@ -112,6 +112,7 @@ PerformanceAnalytics::chart.Correlation(na.omit(datos.train[,1:5]), histogram = 
 Ahora lo que vamos que hacer es eliminar las variables que estén altamente correladas.
 ```{r}
 altamenteCorreladas = caret::findCorrelation(corrMatrix, cutoff = 0.8)
+print(length(altamenteCorreladas))
 filtrado = datos.train[,-altamenteCorreladas]
 filtrado
 ```
