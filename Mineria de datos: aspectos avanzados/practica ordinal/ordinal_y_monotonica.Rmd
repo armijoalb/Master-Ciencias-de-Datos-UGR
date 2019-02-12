@@ -1,0 +1,170 @@
+---
+title: "practica ordinal y monotonica"
+author: "Alberto Armijo Ruiz"
+date: "12 de febrero de 2019"
+output: pdf_document
+---
+
+Leemos el archivo que vamos a utilizar primero.
+```{r}
+library(foreign)
+datos.ordinal = read.arff(file = 'Material/esl.arff')
+
+library(Hmisc)
+head(datos.ordinal)
+describe(datos.ordinal)
+```
+
+
+
+Primero creamos una función que a partir de un dataset multiclase genere uno binario según la clase seleccionada, después generamos otra función que se encargue de generar de 1:n datasets, esto se puede hacer con una función sapply. Marcamos como 0 la clase seleccionada y como 1 el resto de clases.
+
+```{r}
+# función para generar datasets binarios a partir de un dataset normal para programación ordinal.
+generateBinaryDataset = function(data,class_label,class_position){
+  indices = which(data[,class_position] <= class_label)
+  new_dataset = data[,1:class_position-1]
+  y = data[,class_position]
+  y[indices] = 0
+  y[-indices] = 1
+  
+  new_dataset = cbind(new_dataset,class=as.factor(y) )
+}
+
+# Probamos que funciona correctamente.
+dataset1 = generateBinaryDataset(datos.ordinal,1,ncol(datos.ordinal))
+head(dataset1)
+which(dataset1$class == 0)
+which(datos.ordinal$out1 == 1)
+```
+
+Creamos una función que nos genere de forma general modelos J48 de Weka.
+```{r}
+library(RWeka)
+generateModel =  function(posicion_clase,datos){
+  nombre_clase = names(datos)[posicion_clase]
+  formula_modelo = as.formula(paste(nombre_clase,"~.",sep=""))
+  model = J48(formula_modelo,data=datos)
+}
+
+# Probamos los resultados obtenido con el dataset de ejemplo anterior.
+model1 = generateModel(ncol(dataset1),dataset1)
+model1
+```
+
+Creamos un función generalizada para realizar este proceso.
+```{r}
+# función para devolver solamente la probabilidad de que sea 1.
+probBeingOne = function(data){
+  data[,2]
+}
+
+# función para calcular las probabilidades dado una fila del dataset.
+calculateProbs = function(data){
+  p1 = 1-data[1]
+  pfinal = data[length(data)-1]
+  
+  ps = sapply(2:(length(data)-1),function(pos){
+    p = data[pos-1] * (1-data[pos])
+  })
+  
+  ps = unlist(ps)
+  
+  myProbs = c(p1,ps,pfinal)
+  myProbs = unlist(myProbs)
+  
+}
+
+generalOrdinalJ48 = function(datos, posicion_clase){
+  # Obtenemos el número de clases y ordenamos el resultado.
+  clases_dataset = sort(unique(datos[,posicion_clase]))
+  
+  # Eliminamos la última clase ya que no es necesario para calcular las probabilidades
+  clases_dataset = clases_dataset[-length(clases_dataset)]
+  
+  # Generamos todos los modelos necesarios.
+  datasets = lapply(clases_dataset,generateBinaryDataset,data=datos,class_position = posicion_clase)
+  cat("creados datasets\n")
+  
+  # Generamos los modelos.
+  modelos = lapply(datasets,generateModel,posicion_clase=posicion_clase)
+  cat("modelos obtenidos\n")
+  
+  # Calculamos las probabilidades.
+  probs = lapply(modelos, predict, newdata=datos[,-posicion_clase],type="probability")
+  cat("haciendo predicciones")
+  # Nos quedamos solamente con las que son 1 y las metemos en un dataset.
+  prob_v = lapply(probs,probBeingOne)
+  data_prob = data.frame(matrix(unlist(prob_v), nrow=nrow(datos), byrow = FALSE))
+  
+  cat("calculando probabilidades\n")
+  real_probs = t(apply(data_prob,1,calculateProbs))
+  prediction = apply(real_probs,1,which.max)
+  prediction
+}
+
+prediction_j48 = generalOrdinalJ48(datos.ordinal,ncol(datos.ordinal))
+acc = sum(prediction_j48 == datos.ordinal$out1) / length(prediction_j48)
+acc
+```
+
+Ahora probamos a crear un nuevo modelo para hacer, por ejemplo SVM y volvemos a realizar el mismo proceso.
+```{r}
+library(e1071)
+generateSVMModel = function(posicion_clase, datos){
+  nombre_clase = names(datos)[posicion_clase]
+  formula_modelo = as.formula(paste(nombre_clase,"~.",sep=""))
+  model = svm(formula_modelo,data=datos, probability = TRUE)
+}
+
+model1 = generateSVMModel(ncol(dataset1),dataset1)
+model1
+
+p = predict(model1, dataset1[,-ncol(dataset1)],probability = TRUE)
+attr(p,"prob")[,'1']
+```
+
+```{r}
+
+probBeingOneSVM = function(data){
+  attr(data,"prob")[,'1']
+}
+
+predictOrdinalSVM = function(modelos, datos_test){
+  # Calculamos las probabilidades.
+  probs = lapply(modelos, predict, newdata=datos_test,probability=TRUE)
+  cat("haciendo predicciones")
+  # Nos quedamos solamente con las que son 1 y las metemos en un dataset.
+  prob_v = lapply(probs,probBeingOneSVM)
+  data_prob = data.frame(matrix(unlist(prob_v), nrow=nrow(datos_test), byrow = FALSE))
+  
+  cat("calculando probabilidades\n")
+  real_probs = t(apply(data_prob,1,calculateProbs))
+  prediction = apply(real_probs,1,which.max)
+  prediction
+}
+
+generalOrdinalSVM = function(datos, posicion_clase){
+  # Obtenemos el número de clases y ordenamos el resultado.
+  clases_dataset = sort(unique(datos[,posicion_clase]))
+  
+  # Eliminamos la última clase ya que no es necesario para calcular las probabilidades
+  clases_dataset = clases_dataset[-length(clases_dataset)]
+  
+  # Generamos todos los modelos necesarios.
+  datasets = lapply(clases_dataset,generateBinaryDataset,data=datos,class_position = posicion_clase)
+  cat("creados datasets\n")
+  
+  # Generamos los modelos.
+  modelos = lapply(datasets,generateSVMModel,posicion_clase=posicion_clase)
+  cat("modelos obtenidos\n")
+  
+  modelos
+}
+
+modelos_svm = generalOrdinalSVM(datos.ordinal,ncol(datos.ordinal))
+prediction_svm = predictOrdinalSVM(modelos_svm,datos.ordinal[,-ncol(datos.ordinal)])
+acc = sum(prediction_svm == datos.ordinal$out1) / length(prediction_svm)
+acc
+```
+
