@@ -1,25 +1,12 @@
----
-title: "practica ordinal y monotonica"
-author: "Alberto Armijo Ruiz"
-date: "12 de febrero de 2019"
-output: pdf_document
----
-
-Leemos el archivo que vamos a utilizar primero.
-```{r}
+# Cargamos el dataset y las librerías correspondientes.
 library(foreign)
+library(RWeka)
+library(e1071)
 datos.ordinal = read.arff(file = 'Material/esl.arff')
+datos.era = read.arff('Material/era.arff')
+datos.swd = read.arff('Material/swd.arff')
+datos.lev = read.arff('Material/lev.arff')
 
-library(Hmisc)
-head(datos.ordinal)
-describe(datos.ordinal)
-```
-
-
-
-Primero creamos una función que a partir de un dataset multiclase genere uno binario según la clase seleccionada, después generamos otra función que se encargue de generar de 1:n datasets, esto se puede hacer con una función sapply. Marcamos como 0 la clase seleccionada y como 1 el resto de clases.
-
-```{r}
 # función para generar datasets binarios a partir de un dataset normal para programación ordinal.
 generateBinaryDataset = function(data,class_label,class_position){
   indices = which(data[,class_position] <= class_label)
@@ -31,29 +18,13 @@ generateBinaryDataset = function(data,class_label,class_position){
   new_dataset = cbind(new_dataset,class=as.factor(y) )
 }
 
-# Probamos que funciona correctamente.
-dataset1 = generateBinaryDataset(datos.ordinal,1,ncol(datos.ordinal))
-head(dataset1)
-which(dataset1$class == 0)
-which(datos.ordinal$out1 == 1)
-```
-
-Creamos una función que nos genere de forma general modelos J48 de Weka.
-```{r}
-library(RWeka)
+# Función para generar un modelo con J48
 generateModel =  function(posicion_clase,datos){
   nombre_clase = names(datos)[posicion_clase]
   formula_modelo = as.formula(paste(nombre_clase,"~.",sep=""))
   model = J48(formula_modelo,data=datos)
 }
 
-# Probamos los resultados obtenido con el dataset de ejemplo anterior.
-model1 = generateModel(ncol(dataset1),dataset1)
-model1
-```
-
-Creamos un función generalizada para realizar este proceso.
-```{r}
 # función para devolver solamente la probabilidad de que sea 1.
 probBeingOne = function(data){
   data[,2]
@@ -74,7 +45,7 @@ calculateProbs = function(data){
   myProbs = unlist(myProbs)
   
 }
-
+# función general para ejecutar el algoritmo con J48
 generalOrdinalJ48 = function(datos, posicion_clase){
   # Obtenemos el número de clases y ordenamos el resultado.
   clases_dataset = sort(unique(datos[,posicion_clase]))
@@ -103,33 +74,36 @@ generalOrdinalJ48 = function(datos, posicion_clase){
   prediction
 }
 
+# Obtenemos resultados para el algoritmo que utiliza J48
 prediction_j48 = generalOrdinalJ48(datos.ordinal,ncol(datos.ordinal))
-acc = sum(prediction_j48 == datos.ordinal$out1) / length(prediction_j48)
-acc
-```
+acc_j48 = sum(prediction_j48 == datos.ordinal$out1) / length(prediction_j48)
+acc_j48
 
-Ahora probamos a crear un nuevo modelo para hacer, por ejemplo SVM y volvemos a realizar el mismo proceso.
-```{r}
-library(e1071)
+prediction_j48 = generalOrdinalJ48(datos.era,ncol(datos.era))
+acc_era_j48 = sum(prediction_j48 == datos.era$out1) / length(prediction_j48)
+acc_era_j48
+
+prediction_j48 = generalOrdinalJ48(datos.lev,ncol(datos.lev))
+acc_lev_j48 = sum(prediction_j48 == datos.lev$Out1) / length(prediction_j48)
+acc_lev_j48
+
+prediction_j48 = generalOrdinalJ48(datos.swd,ncol(datos.swd))
+acc_swd_j48 = sum(prediction_j48 == datos.swd$Out1) / length(prediction_j48)
+
+
+# función para generar un modelo con SVM, haciendo que tenga como salida probabilidades en vez de una clase.
 generateSVMModel = function(posicion_clase, datos){
   nombre_clase = names(datos)[posicion_clase]
   formula_modelo = as.formula(paste(nombre_clase,"~.",sep=""))
   model = svm(formula_modelo,data=datos, probability = TRUE)
 }
 
-model1 = generateSVMModel(ncol(dataset1),dataset1)
-model1
-
-p = predict(model1, dataset1[,-ncol(dataset1)],probability = TRUE)
-attr(p,"prob")[,'1']
-```
-
-```{r}
-
+# Función para obtener las probabilidades de unos datos predecidos con el modelo SVM
 probBeingOneSVM = function(data){
   attr(data,"prob")[,'1']
 }
 
+# Función para predecir la salida dados los modelos.
 predictOrdinalSVM = function(modelos, datos_test){
   # Calculamos las probabilidades.
   probs = lapply(modelos, predict, newdata=datos_test,probability=TRUE)
@@ -144,6 +118,7 @@ predictOrdinalSVM = function(modelos, datos_test){
   prediction
 }
 
+# Función para obtener los modelos necesarios para el algoritmo.
 generalOrdinalSVM = function(datos, posicion_clase){
   # Obtenemos el número de clases y ordenamos el resultado.
   clases_dataset = sort(unique(datos[,posicion_clase]))
@@ -161,70 +136,23 @@ generalOrdinalSVM = function(datos, posicion_clase){
   
   modelos
 }
-
+# Probamos a ver los resultados con el algo
 modelos_svm = generalOrdinalSVM(datos.ordinal,ncol(datos.ordinal))
 prediction_svm = predictOrdinalSVM(modelos_svm,datos.ordinal[,-ncol(datos.ordinal)])
-acc = sum(prediction_svm == datos.ordinal$out1) / length(prediction_svm)
-acc
-```
+acc_svm = sum(prediction_svm == datos.ordinal$out1) / length(prediction_svm)
+acc_svm
 
-Monotónica con xgboost, hay que hacer lo mismo que para el caso anterior pero cambiando la condición.
-```{r}
-library(xgboost)
-generateBinaryDatasetXGBoost = function(data,class_label,class_position){
-  indices = which(data[,class_position] >= class_label)
-  new_dataset = data[,1:class_position-1]
-  y = data[,class_position]
-  y[indices] = 1
-  y[-indices] = 0
-  
-  new_dataset = cbind(new_dataset,class=as.factor(y) )
-}
+modelos_svm_era = generalOrdinalSVM(datos.era,ncol(datos.era))
+prediction_svm_era = predictOrdinalSVM(modelos_svm_era,datos.era[,-ncol(datos.era)])
+acc_svm_era = sum(prediction_svm_era == datos.era$out1) / length(prediction_svm_era)
+acc_svm_era
 
-dataset2 = generateBinaryDatasetXGBoost(datos.ordinal,2,ncol(datos.ordinal))
-head(dataset2)
-```
-Ahora debemos crear una función que englobe esto y genere datasets desde 2 hasta 9.
+modelos_svm_lev = generalOrdinalSVM(datos.lev,ncol(datos.lev))
+prediction_svm_lev = predictOrdinalSVM(modelos_svm_lev,datos.lev[,-ncol(datos.lev)])
+acc_svm_lev = sum(prediction_svm_lev == datos.lev$Out1) / length(prediction_svm_lev)
+acc_svm_lev
 
-```{r}
-generateXGBoostModel = function(data,pos_clase){
-  real_data = as.matrix(data[,-pos_clase])
-  labels = as.numeric(as.vector.factor(data[,pos_clase]))
-  model = xgboost(real_data,labels,nrounds=50, verbose = 0, objective = "binary:logistic",
-                  monotone_constraints=1)
-}
-
-generalMonotonicXGBoost = function(datos, posicion_clase){
-  clases_dataset = sort(unique(datos[,posicion_clase]))
-  
-  # La primera clase no la necesitamos ya que para ese caso todos los valores serán 1.
-  clases_dataset = clases_dataset[-1]
-  
-  # Generamos los dataset correspondientes
-  datasets = lapply(clases_dataset, generateBinaryDataset,data=datos,class_position=posicion_clase)
-  cat("datasets binarios creados\n")
-  
-  # Generamos los modelos con xgboost
-  modelos = lapply(datasets,generateXGBoostModel,pos_clase = posicion_clase)
-  cat("modelos obtenidos\n")
-  
-  modelos
-}
-
-predictModelXboost = function(models,data,pos_clase){
-  prob_l = lapply(models,predict,as.matrix(data[,-pos_clase]))
-  predictions_binary = lapply(prob_l,function(x) ifelse(x>0.5,1,0))
-  predictions_binary = data.frame(matrix(unlist(predictions_binary), nrow=nrow(data),byrow = FALSE))
-  predictions = apply(predictions_binary,1,function(x){
-    prediction = 1 + sum(x)
-  })
-}
-
-modelos_xgboost = generalMonotonicXGBoost(datos.ordinal,ncol(datos.ordinal))
-predictions_xgboost = predictModelXboost(modelos_xgboost,datos.ordinal,ncol(datos.ordinal))
-head(predictions_xgboost)
-
-acc = sum(predictions_xgboost == datos.ordinal$out1) / length(datos.ordinal$out1)
-acc
-```
-
+modelos_svm_swd = generalOrdinalSVM(datos.swd,ncol(datos.swd))
+prediction_svm_swd = predictOrdinalSVM(modelos_svm_swd,datos.swd[,-ncol(datos.swd)])
+acc_svm_swd = sum(prediction_svm_swd == datos.swd$Out1) / length(prediction_svm_swd)
+acc_svm_swd
