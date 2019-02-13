@@ -168,3 +168,62 @@ acc = sum(prediction_svm == datos.ordinal$out1) / length(prediction_svm)
 acc
 ```
 
+Monotónica con xgboost, hay que hacer lo mismo que para el caso anterior pero cambiando la condición.
+```{r}
+library(xgboost)
+generateBinaryDatasetXGBoost = function(data,class_label,class_position){
+  indices = which(data[,class_position] >= class_label)
+  new_dataset = data[,1:class_position-1]
+  y = data[,class_position]
+  y[indices] = 1
+  y[-indices] = 0
+  
+  new_dataset = cbind(new_dataset,class=as.factor(y) )
+}
+
+dataset2 = generateBinaryDatasetXGBoost(datos.ordinal,2,ncol(datos.ordinal))
+head(dataset2)
+```
+Ahora debemos crear una función que englobe esto y genere datasets desde 2 hasta 9.
+
+```{r}
+generateXGBoostModel = function(data,pos_clase){
+  real_data = as.matrix(data[,-pos_clase])
+  labels = as.numeric(as.vector.factor(data[,pos_clase]))
+  model = xgboost(real_data,labels,nrounds=50, verbose = 0, objective = "binary:logistic")
+}
+
+generalMonotonicXGBoost = function(datos, posicion_clase){
+  clases_dataset = sort(unique(datos[,posicion_clase]))
+  
+  # La primera clase no la necesitamos ya que para ese caso todos los valores serán 1.
+  clases_dataset = clases_dataset[-1]
+  
+  # Generamos los dataset correspondientes
+  datasets = lapply(clases_dataset, generateBinaryDataset,data=datos,class_position=posicion_clase)
+  cat("datasets binarios creados\n")
+  
+  # Generamos los modelos con xgboost
+  modelos = lapply(datasets,generateXGBoostModel,pos_clase = posicion_clase)
+  cat("modelos obtenidos\n")
+  
+  modelos
+}
+
+predictModelXboost = function(models,data,pos_clase){
+  prob_l = lapply(models,predict,as.matrix(data[,-pos_clase]))
+  predictions_binary = lapply(prob_l,function(x) ifelse(x>0.5,1,0))
+  predictions_binary = data.frame(matrix(unlist(predictions_binary), nrow=nrow(data),byrow = FALSE))
+  predictions = apply(predictions_binary,1,function(x){
+    prediction = 1 + sum(x)
+  })
+}
+
+modelos_xgboost = generalMonotonicXGBoost(datos.ordinal,ncol(datos.ordinal))
+predictions_xgboost = predictModelXboost(modelos_xgboost,datos.ordinal,ncol(datos.ordinal))
+head(predictions_xgboost)
+
+acc = sum(predictions_xgboost == datos.ordinal$out1) / length(datos.ordinal$out1)
+acc
+```
+
