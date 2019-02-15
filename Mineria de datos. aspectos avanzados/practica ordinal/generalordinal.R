@@ -156,3 +156,6 @@ modelos_svm_swd = generalOrdinalSVM(datos.swd,ncol(datos.swd))
 prediction_svm_swd = predictOrdinalSVM(modelos_svm_swd,datos.swd[,-ncol(datos.swd)])
 acc_svm_swd = sum(prediction_svm_swd == datos.swd$Out1) / length(prediction_svm_swd)
 acc_svm_swd
+
+"Para los datos de esl ambos modelos (SVM y J48) obtienen buenos resultados, en cambio el resto de dataset no; esto puede ser porque en el dataset esl
+exista orden entre las clases y en el resto de datasets no."

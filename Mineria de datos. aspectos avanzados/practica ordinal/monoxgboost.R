@@ -74,3 +74,7 @@ modelos_xgboost_swd = generalMonotonicXGBoost(datos.swd,ncol(datos.swd))
 predictions_xgboost_swd = predictModelXboost(modelos_xgboost_swd,datos.swd,ncol(datos.swd))
 acc_swd = sum(predictions_xgboost_swd == datos.swd$Out1) / length(datos.swd$Out1)
 acc_swd
+
+"En este caso se puede ver que el algoritmo de xgboost para problemas monotónicos obtiene unos resultados muy pobres,
+siendo el mejor caso 0.63 de acierto para el dataset lev. Esto puede ser porque estos datasets no tengan relaciones de orden
+entre las clases y por lo tanto no sirven para este tipo de problema."
