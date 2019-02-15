@@ -144,11 +144,19 @@ trainingData,classes = loadTrainingData()
 
 
 # Función para crear un SVM y entrarnalo con las imágenes.
-def train(trainingData,classes,kernel=cv.ml.SVM_LINEAR):
+def train(trainingData,classes,kernel=cv.ml.SVM_LINEAR, degree = 2):
+
+    params = dict(kernel_type = kernel,
+            svm_type=cv.ml.SVM_C_SVC,
+            degree=1)
+    
+    if(kernel == cv.ml.SVM_POLY):
+        params['degree'] = degree
     
     svm = cv.ml.SVM_create()
-    svm.setKernel(kernel)
-    svm.setType(cv.ml.SVM_C_SVC)
+    svm.setKernel(params['kernel_type'])
+    svm.setType(params['svm_type'])
+    svm.setDegree(params['degree'])
     svm.train(trainingData,cv.ml.ROW_SAMPLE,classes)
     
     return svm
@@ -241,7 +249,8 @@ clases_imagenes = [dato[1] for dato in predict_test]
 clases_imagenes = np.array(clases_imagenes, dtype=np.int32)
 
 # Calculamos el accuracy.
-iguales = np.equal(clases_imagenes,classesTest, out=None)
+
+iguales =  np.equal(clases_imagenes,classesTest, out=iguales)
 accuracy = sum(iguales==True)/iguales.size
 accuracy
 
@@ -373,7 +382,7 @@ def obtainClassPredicted(data):
 
 
 # función para hacer validación cruzada con el modelo de openCV
-def crossValidation(data,labels,kfolds = 5, kernelType=cv.ml.SVM_LINEAR):
+def crossValidation(data,labels,kfolds = 5, kernelType=cv.ml.SVM_LINEAR, degree_ = 2):
     # variable para almacenar el mejor modelo.
     bestModel = 0
     # variable para almacenar los resultados de los modelos con los datos.
@@ -389,7 +398,7 @@ def crossValidation(data,labels,kfolds = 5, kernelType=cv.ml.SVM_LINEAR):
         x_train, x_test, y_train, y_test = train_test_split(data, labels,test_size=0.2)
         
         # Entrenamos el modelo.
-        model = train(x_train,y_train,kernelType)
+        model = train(x_train,y_train,kernelType,degree=degree_)
         # Hacemos la predicción de los modelos.
         pred_label = model.predict(x_test)[1].flatten()
         # Obtenemos los resultados.
@@ -431,6 +440,16 @@ print("La media de acierto de los modelos es:"+str(resultsCV_radialkernel['mean_
 print("El mejor modelo obtuvo un accuracy de:"+str(resultsCV_radialkernel['best_accuracy']))
 print("Métricas obtenidas en cada validación:\n"+str(resultsCV_radialkernel['metrics_cv']))
 
+
+resultsCV_poli = crossValidation(totalData,totalClases,kernelType=cv.ml.SVM_POLY)
+print("La media de acierto de los modelos es:"+str(resultsCV_poli['mean_accuracy']))
+print("El mejor modelo obtuvo un accuracy de:"+str(resultsCV_poli['best_accuracy']))
+print("Métricas obtenidas en cada validación:\n"+str(resultsCV_poli['metrics_cv']))
+
+resultsCV_poli = crossValidation(totalData,totalClases,kernelType=cv.ml.SVM_POLY,degree_=3)
+print("La media de acierto de los modelos es:"+str(resultsCV_poli['mean_accuracy']))
+print("El mejor modelo obtuvo un accuracy de:"+str(resultsCV_poli['best_accuracy']))
+print("Métricas obtenidas en cada validación:\n"+str(resultsCV_poli['metrics_cv']))
 
 # In[49]:
 

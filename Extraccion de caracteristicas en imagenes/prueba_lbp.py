@@ -13,11 +13,19 @@ EXAMPLE_POSITIVE = PATH_POSITIVE_TEST + "AnnotationsPos_0.000000_crop_000011b_0.
 EXAMPLE_NEGATIVE = PATH_NEGATIVE_TEST+"AnnotationsNeg_0.000000_00000002a_0.png"
 
 
-def train(trainingData,classes,kernel=cv.ml.SVM_LINEAR):
+def train(trainingData,classes,kernel=cv.ml.SVM_LINEAR, degree = 2):
+
+    params = dict(kernel_type = kernel,
+            svm_type=cv.ml.SVM_C_SVC,
+            degree=1)
+    
+    if(kernel == cv.ml.SVM_POLY):
+        params['degree'] = degree
     
     svm = cv.ml.SVM_create()
-    svm.setKernel(kernel)
-    svm.setType(cv.ml.SVM_C_SVC)
+    svm.setKernel(params['kernel_type'])
+    svm.setType(params['svm_type'])
+    svm.setDegree(params['degree'])
     svm.train(trainingData,cv.ml.ROW_SAMPLE,classes)
     
     return svm
@@ -48,7 +56,7 @@ def calculateMetrics(predictedData,realData):
     
     return metrics
 
-def crossValidation(data,labels,kfolds = 5, kernelType=cv.ml.SVM_LINEAR):
+def crossValidation(data,labels,kfolds = 5, kernelType=cv.ml.SVM_LINEAR, degree_=2):
     # variable para almacenar el mejor modelo.
     bestModel = 0
     # variable para almacenar los resultados de los modelos con los datos.
@@ -65,7 +73,7 @@ def crossValidation(data,labels,kfolds = 5, kernelType=cv.ml.SVM_LINEAR):
         
         # Entrenamos el modelo.
         print('Training model')
-        model = train(x_train,y_train,kernelType)
+        model = train(x_train,y_train,kernelType,degree=degree_)
         # Hacemos la predicción de los modelos.
         print('Predicting results')
         pred_label = model.predict(x_test)[1].flatten()
@@ -86,28 +94,22 @@ def crossValidation(data,labels,kfolds = 5, kernelType=cv.ml.SVM_LINEAR):
 def loadImages():
     totalClases = []
     totalData = []
-    
-    aux_images = [cv.imread(PATH_POSITIVE_TRAIN+file,cv.IMREAD_COLOR)
-                    for file in os.listdir(PATH_POSITIVE_TRAIN)]
-    totalData.extend([LBP(img).compute() for img in aux_images])
+
+    totalData.extend([LBP(cv.imread(PATH_POSITIVE_TRAIN+file,cv.IMREAD_COLOR)).compute() for file in os.listdir(PATH_POSITIVE_TRAIN)])
     totalClases.extend(1 for file in os.listdir(PATH_POSITIVE_TRAIN))
         
     print("Leidas " + str(len(
         [name for name in os.listdir(PATH_POSITIVE_TRAIN) if os.path.isfile(os.path.join(PATH_POSITIVE_TRAIN, name)) ]))
          + " imágenes de entrenamiento -> positivas")
 
-    aux_images = [cv.imread(PATH_NEGATIVE_TRAIN+file,cv.IMREAD_COLOR)
-                    for file in os.listdir(PATH_NEGATIVE_TRAIN)]
-    totalData.extend([LBP(img).compute() for img in aux_images])
+    totalData.extend([LBP(cv.imread(PATH_NEGATIVE_TRAIN+file,cv.IMREAD_COLOR)).compute() for file in os.listdir(PATH_NEGATIVE_TRAIN)])
     totalClases.extend(0 for file in os.listdir(PATH_NEGATIVE_TRAIN))
         
     print("Leidas " + str(len(
         [name for name in os.listdir(PATH_NEGATIVE_TRAIN) if os.path.isfile(os.path.join(PATH_NEGATIVE_TRAIN, name)) ]))
          + " imágenes de entrenamiento -> negativas")
     
-    aux_images = [cv.imread(PATH_POSITIVE_TEST+file,cv.IMREAD_COLOR)
-                    for file in os.listdir(PATH_POSITIVE_TEST)]
-    totalData.extend([LBP(img).compute() for img in aux_images])
+    totalData.extend([LBP(cv.imread(PATH_POSITIVE_TEST+file,cv.IMREAD_COLOR)).compute() for file in os.listdir(PATH_POSITIVE_TEST)])
     totalClases.extend(1 for file in os.listdir(PATH_POSITIVE_TEST))
     
         
@@ -115,16 +117,14 @@ def loadImages():
         [name for name in os.listdir(PATH_POSITIVE_TEST) if os.path.isfile(os.path.join(PATH_POSITIVE_TEST, name)) ]))
          + " imágenes de entrenamiento -> positivas")
 
-    aux_images = [cv.imread(PATH_NEGATIVE_TEST+file,cv.IMREAD_COLOR)
-                    for file in os.listdir(PATH_NEGATIVE_TEST)]
-    totalData.extend([LBP(img).compute() for img in aux_images])
+    totalData.extend([LBP(cv.imread(PATH_NEGATIVE_TEST+file,cv.IMREAD_COLOR)).compute() for file in os.listdir(PATH_NEGATIVE_TEST)])
     totalClases.extend(1 for file in os.listdir(PATH_NEGATIVE_TEST))
        
     print("Leidas " + str(len(
         [name for name in os.listdir(PATH_NEGATIVE_TEST) if os.path.isfile(os.path.join(PATH_NEGATIVE_TEST, name)) ]))
          + " imágenes de entrenamiento -> negativas")
     
-    totalData = np.array(totalData)
+    totalData = np.array(totalData, dtype=np.float)
     totalClases = np.array(totalClases,dtype=np.int32)
     
     
@@ -139,16 +139,22 @@ totalData = np.load('lbp_data.npy')
 totalClases = np.load('lbp_clases.npy')
 totalData = np.array(totalData,dtype=np.float32)
 
-resultados_lineal = crossValidation(totalData,totalClases)
+#resultados_lineal = crossValidation(totalData,totalClases)
 
-print("Resultados LBP con modelo lineal:")
-print("La media de acierto de los modelos es:"+str(resultados_lineal['mean_accuracy']))
-print("El mejor modelo obtuvo un accuracy de:"+str(resultados_lineal['best_accuracy']))
-print("Métricas obtenidas en cada validación:\n"+str(resultados_lineal['metrics_cv']))
+#print("Resultados LBP con modelo lineal:")
+#print("La media de acierto de los modelos es:"+str(resultados_lineal['mean_accuracy']))
+#print("El mejor modelo obtuvo un accuracy de:"+str(resultados_lineal['best_accuracy']))
+#print("Métricas obtenidas en cada validación:\n"+str(resultados_lineal['metrics_cv']))
 
-resultados_rbf = crossValidation(totalData,totalClases,kernelType=cv.ml.SVM_RBF)
+#resultados_rbf = crossValidation(totalData,totalClases,kernelType=cv.ml.SVM_RBF)
 
-print("Resultados LBP con modelo radial:")
-print("La media de acierto de los modelos es:"+str(resultados_rbf['mean_accuracy']))
-print("El mejor modelo obtuvo un accuracy de:"+str(resultados_rbf['best_accuracy']))
-print("Métricas obtenidas en cada validación:\n"+str(resultados_rbf['metrics_cv']))
+#print("Resultados LBP con modelo radial:")
+#print("La media de acierto de los modelos es:"+str(resultados_rbf['mean_accuracy']))
+#print("El mejor modelo obtuvo un accuracy de:"+str(resultados_rbf['best_accuracy']))
+#print("Métricas obtenidas en cada validación:\n"+str(resultados_rbf['metrics_cv']))
+
+resultados_poli = crossValidation(totalData,totalClases,kernelType=cv.ml.SVM_POLY, degree_= 3)
+print("Resultados LBP con modelo polinomial:")
+print("La media de acierto de los modelos es:"+str(resultados_poli['mean_accuracy']))
+print("El mejor modelo obtuvo un accuracy de:"+str(resultados_poli['best_accuracy']))
+print("Métricas obtenidas en cada validación:\n"+str(resultados_poli['metrics_cv']))

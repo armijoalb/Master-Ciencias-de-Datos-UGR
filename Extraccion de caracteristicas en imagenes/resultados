@@ -1,7 +1,7 @@
 Resultados pruebas
 
 LBP + kernel radial.
-         F1  accuracy  precision  truenegativerate  truepositiverate
+        F1  accuracy  precision  truenegativerate  truepositiverate
 0  0.705812  0.546211   0.545370          0.004057          1.000000
 1  0.715389  0.557301   0.556892          0.002083          1.000000
 2  0.705389  0.545287   0.544866          0.002028          1.000000
@@ -16,6 +16,23 @@ LBP + kernel lineal.
 3  0.695312  0.639556   0.681470          0.542857          0.709729
 4  0.723810  0.678373   0.719243          0.609649          0.728435
 
+LBP + kernel polinomial de grado 2.
+        F1  accuracy  precision  truenegativerate  truepositiverate
+0  0.708562  0.657116   0.694915          0.567686          0.722756
+1  0.704156  0.664510   0.681388          0.586912          0.728499
+2  0.731511  0.691312   0.722222          0.626068          0.741042
+3  0.705138  0.655268   0.667665          0.542268          0.747069
+4  0.718115  0.679298   0.717532          0.627409          0.718699
+
+LBP + kernel polinomial de grado 3.
+        F1  accuracy  precision  truenegativerate  truepositiverate
+0  0.718204  0.686691   0.716418          0.645228          0.720000
+1  0.676296  0.647874   0.680342          0.618367          0.672297
+2  0.710784  0.672828   0.693780          0.604124          0.728643
+3  0.738462  0.701479   0.721519          0.632568          0.756219
+4  0.690554  0.648799   0.704319          0.609649          0.677316
+
+
 HOG + kernel lineal.
         F1  accuracy  precision  truenegativerate  truepositiverate
 0  0.949580  0.955638   0.963753          0.971619          0.935818
@@ -26,9 +43,25 @@ HOG + kernel lineal.
 
 
 HOG + kernel radial.
-         F1  accuracy  precision  truenegativerate  truepositiverate
+        F1  accuracy  precision  truenegativerate  truepositiverate
 0  0.835267  0.868762   0.954907          0.971524          0.742268
 1  0.860022  0.884473   0.964824          0.976150          0.775758
 2  0.867749  0.894640   0.949239          0.967427          0.799145
 3  0.865106  0.888170   0.953317          0.967905          0.791837
 4  0.880274  0.902957   0.965000          0.976860          0.809224
+
+HOG + kernel polinomial de grado 2
+        F1  accuracy  precision  truenegativerate  truepositiverate
+0  0.965739  0.970425   0.982571          0.986820          0.949474
+1  0.970772  0.974122   0.981013          0.984950          0.960744
+2  0.971739  0.975970   0.982418          0.987034          0.961290
+3  0.969499  0.974122   0.984513          0.988636          0.954936
+4  0.968553  0.972274   0.985075          0.988275          0.952577
+
+HOG + kernel polinomial de grado 3.
+        F1  accuracy  precision  truenegativerate  truepositiverate
+0  0.971787  0.975046   0.985169          0.988275          0.958763
+1  0.958071  0.963031   0.982796          0.986509          0.934560
+2  0.973931  0.976895   0.983158          0.986622          0.964876
+3  0.979079  0.981516   0.993631          0.994975          0.964948
+4  0.965445  0.969501   0.987152          0.989899          0.944672
