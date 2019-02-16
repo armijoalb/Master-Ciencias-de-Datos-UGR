@@ -33,9 +33,9 @@ probBeingOne = function(data){
 # función para calcular las probabilidades dado una fila del dataset.
 calculateProbs = function(data){
   p1 = 1-data[1]
-  pfinal = data[length(data)-1]
+  pfinal = data[length(data)]
   
-  ps = sapply(2:(length(data)-1),function(pos){
+  ps = sapply(2:(length(data)),function(pos){
     p = data[pos-1] * (1-data[pos])
   })
   
