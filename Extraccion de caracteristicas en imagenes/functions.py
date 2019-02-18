@@ -22,21 +22,21 @@ def loadImages(descriptor_class):
     totalData = []
     
 
-    totalData.extend([descriptor_class.compute(cv.imread(PATH_POSITIVE_TRAIN+file,cv.IMREAD_COLOR)) for file in os.listdir(PATH_POSITIVE_TRAIN)])
+    totalData.extend([descriptor_class.compute(cv.imread(PATH_POSITIVE_TRAIN+file,cv.IMREAD_COLOR)).flatten() for file in os.listdir(PATH_POSITIVE_TRAIN)])
     totalClases.extend(1 for file in os.listdir(PATH_POSITIVE_TRAIN))
         
     print("Leidas " + str(len(
         [name for name in os.listdir(PATH_POSITIVE_TRAIN) if os.path.isfile(os.path.join(PATH_POSITIVE_TRAIN, name)) ]))
          + " imágenes de entrenamiento -> positivas")
 
-    totalData.extend([descriptor_class.compute(cv.imread(PATH_NEGATIVE_TRAIN+file,cv.IMREAD_COLOR)) for file in os.listdir(PATH_NEGATIVE_TRAIN)])
+    totalData.extend([descriptor_class.compute(cv.imread(PATH_NEGATIVE_TRAIN+file,cv.IMREAD_COLOR)).flatten() for file in os.listdir(PATH_NEGATIVE_TRAIN)])
     totalClases.extend(0 for file in os.listdir(PATH_NEGATIVE_TRAIN))
         
     print("Leidas " + str(len(
         [name for name in os.listdir(PATH_NEGATIVE_TRAIN) if os.path.isfile(os.path.join(PATH_NEGATIVE_TRAIN, name)) ]))
          + " imágenes de entrenamiento -> negativas")
     
-    totalData.extend([descriptor_class.compute(cv.imread(PATH_POSITIVE_TEST+file,cv.IMREAD_COLOR)) for file in os.listdir(PATH_POSITIVE_TEST)])
+    totalData.extend([descriptor_class.compute(cv.imread(PATH_POSITIVE_TEST+file,cv.IMREAD_COLOR)).flatten() for file in os.listdir(PATH_POSITIVE_TEST)])
     totalClases.extend(1 for file in os.listdir(PATH_POSITIVE_TEST))
     
         
@@ -44,8 +44,8 @@ def loadImages(descriptor_class):
         [name for name in os.listdir(PATH_POSITIVE_TEST) if os.path.isfile(os.path.join(PATH_POSITIVE_TEST, name)) ]))
          + " imágenes de entrenamiento -> positivas")
 
-    totalData.extend([descriptor_class.compute(cv.imread(PATH_NEGATIVE_TEST+file,cv.IMREAD_COLOR)) for file in os.listdir(PATH_NEGATIVE_TEST)])
-    totalClases.extend(1 for file in os.listdir(PATH_NEGATIVE_TEST))
+    totalData.extend([descriptor_class.compute(cv.imread(PATH_NEGATIVE_TEST+file,cv.IMREAD_COLOR)).flatten() for file in os.listdir(PATH_NEGATIVE_TEST)])
+    totalClases.extend(0 for file in os.listdir(PATH_NEGATIVE_TEST))
        
     print("Leidas " + str(len(
         [name for name in os.listdir(PATH_NEGATIVE_TEST) if os.path.isfile(os.path.join(PATH_NEGATIVE_TEST, name)) ]))
@@ -134,3 +134,69 @@ def crossValidation(data,labels,kfolds = 5, kernelType=cv.ml.SVM_LINEAR, degree_
     
     return dict(best_model=bestModel,best_accuracy=bestAcc,
                 metrics_cv=pd.DataFrame(metrics),mean_accuracy=np.mean(meanAcc))
+
+def loadAllImages():
+    totalClases = []
+    totalData = []
+    
+    for file in os.listdir(PATH_POSITIVE_TRAIN):
+        img = cv.imread(PATH_POSITIVE_TRAIN+file,cv.IMREAD_COLOR)
+        
+        hog = cv.HOGDescriptor()
+        descriptor = hog.compute(img)
+        totalData.append(descriptor.flatten())
+        totalClases.append(1)
+        
+    print("Leidas " + str(len(
+        [name for name in os.listdir(PATH_POSITIVE_TRAIN) if os.path.isfile(os.path.join(PATH_POSITIVE_TRAIN, name)) ]))
+         + " imágenes de entrenamiento -> positivas")
+        
+    for file in os.listdir(PATH_NEGATIVE_TRAIN):
+        img = cv.imread(PATH_NEGATIVE_TRAIN+file,cv.IMREAD_COLOR)
+        
+        hog = cv.HOGDescriptor()
+        descriptor = hog.compute(img)
+        totalData.append(descriptor.flatten())
+        totalClases.append(0)
+       
+        
+    print("Leidas " + str(len(
+        [name for name in os.listdir(PATH_NEGATIVE_TRAIN) if os.path.isfile(os.path.join(PATH_NEGATIVE_TRAIN, name)) ]))
+         + " imágenes de entrenamiento -> negativas")
+    
+    for file in os.listdir(PATH_POSITIVE_TEST):
+        img = cv.imread(PATH_POSITIVE_TEST+file,cv.IMREAD_COLOR)
+        
+        hog = cv.HOGDescriptor()
+        descriptor = hog.compute(img)
+        totalData.append(descriptor.flatten())
+        totalClases.append(1)
+        
+    print("Leidas " + str(len(
+        [name for name in os.listdir(PATH_POSITIVE_TEST) if os.path.isfile(os.path.join(PATH_POSITIVE_TEST, name)) ]))
+         + " imágenes de entrenamiento -> positivas")
+        
+    for file in os.listdir(PATH_NEGATIVE_TEST):
+        img = cv.imread(PATH_NEGATIVE_TEST+file,cv.IMREAD_COLOR)
+        
+        hog = cv.HOGDescriptor()
+        descriptor = hog.compute(img)
+        totalData.append(descriptor.flatten())
+        totalClases.append(0)
+       
+    print("Leidas " + str(len(
+        [name for name in os.listdir(PATH_NEGATIVE_TEST) if os.path.isfile(os.path.join(PATH_NEGATIVE_TEST, name)) ]))
+         + " imágenes de entrenamiento -> negativas")
+    
+    
+    
+    totalData = np.array(totalData)
+    totalClases = np.array(totalClases,dtype=np.int32)
+    
+    
+    return totalData, totalClases
+
+def addTwoDescriptors(hogdesc,lbpdesc):
+    united = [np.append(hog,lbp) for hog,lbp in zip(hogdesc,lbpdesc)]
+    united = np.array(united,dtype=np.float32)
+    return united

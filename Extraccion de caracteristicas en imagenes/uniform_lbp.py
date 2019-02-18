@@ -54,7 +54,7 @@ class ULBP:
     
     def compute(self, image):
         gray_image = cv.cvtColor(image,cv.COLOR_RGB2GRAY)
-        return self.computeLBPWindow(gray_image)
+        return np.array(self.computeLBPWindow(gray_image))
 
     def generateInitialVec(self,numberofones,numberofneightboors):
         init_vec = [1 for i in range(numberofones)]
