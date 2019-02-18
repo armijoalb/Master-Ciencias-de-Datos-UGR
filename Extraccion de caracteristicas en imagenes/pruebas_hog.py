@@ -3,14 +3,14 @@ import cv2 as cv
 import os
 from lbp import LBP
 from uniform_lbp import ULBP
-from functions import loadImages,crossValidation,loadAllImages
+from functions import loadImages,crossValidation
 
 
 if __name__ == "__main__":
-    print("PRUEBAS CON LBP\n")
+    totalClases = np.load('hog_clases.npy')
+    totalData = np.load('hog_data.npy')
 
-    totalData = np.load('lbp_data.npy')
-    totalClases = np.load('lbp_clases.npy')
+    print("PRUEBAS CON HOG\n")
 
     cv_lineal = crossValidation(totalData,totalClases)
     print("Pruebas con SVM lineal:\n")
@@ -27,9 +27,3 @@ if __name__ == "__main__":
     cv_poli3 = crossValidation(totalData,totalClases,kernelType=cv.ml.SVM_POLY,degree_=3)
     print("Pruebas con SVM polinomial grado 3:\n")
     print(str(cv_poli3['metrics_cv']))
-
-
-
-
-
-
