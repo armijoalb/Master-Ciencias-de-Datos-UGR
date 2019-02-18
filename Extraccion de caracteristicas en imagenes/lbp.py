@@ -2,8 +2,13 @@ import cv2 as cv
 import numpy as np
 
 class LBP:
-    def __init__(self,image):
-        self.image = cv.cvtColor(image,cv.COLOR_RGB2GRAY)
+    def __init__(self):
+        self.window_width = 64
+        self.window_heigth = 128
+        self.block_width = 16
+        self.block_heigth = 16
+        self.desp_x = 8
+        self.desp_y = 8
         
     def checkPixel(self,pixel_value,image,x,y):
         value = 0
@@ -34,13 +39,13 @@ class LBP:
         return lbp_value
 
     def computeLBPblock(self,ini_x,ini_y,image):
-        return [self.computeLBPpixel(x,y,image) for y in range(ini_y,ini_y+16) for x in range(ini_x,ini_x+16)]
+        return [self.computeLBPpixel(x,y,image) for y in range(ini_y,ini_y+self.block_heigth) for x in range(ini_x,ini_x+self.block_width)]
 
     def computeLBPWindow(self,image,ini_x=0,ini_y=0):
-        size_y, size_x = image.shape[:2]
+        size_y, size_x = [self.window_heigth,self.window_width]
         # TODO cambiar pos iniciales solamente para valores que y,x + 16 < size_y,size_x
-        pos_iniciales = [[y,x] for y in range(ini_y,size_y,8) for x in range(ini_x,size_x,8)
-                        if (x+16) <= size_x  and (y+16) <= size_y]
+        pos_iniciales = [[y,x] for y in range(ini_y,size_y,self.desp_y) for x in range(ini_x,size_x,self.desp_x)
+                        if (x+self.block_width) <= size_x  and (y+self.block_heigth) <= size_y]
 
         lbp_hist = [self.computeLBPblock(x,y,image) for y,x in pos_iniciales]
 
@@ -48,5 +53,6 @@ class LBP:
 
         return lbp_hist
     
-    def compute(self):
-        return self.computeLBPWindow(self.image)
+    def compute(self,image):
+        gray_image = cv.cvtColor(image,cv.COLOR_RGB2GRAY)
+        return self.computeLBPWindow(gray_image)
