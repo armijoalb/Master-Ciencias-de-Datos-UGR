@@ -3,14 +3,16 @@ import cv2 as cv
 import os
 from lbp import LBP
 from uniform_lbp import ULBP
-from functions import loadImages,crossValidation,loadAllImages
+from functions import loadImages,crossValidation,loadAllImages,loadCompresedData
 
 
 if __name__ == "__main__":
     print("PRUEBAS CON LBP\n")
 
-    totalData = np.load('lbp_data.npy')
+    totalData = loadCompresedData('lbp_data.npz')
     totalClases = np.load('lbp_clases.npy')
+
+    print(totalData.shape)
 
     cv_lineal = crossValidation(totalData,totalClases)
     print("Pruebas con SVM lineal:\n")
@@ -27,6 +29,14 @@ if __name__ == "__main__":
     cv_poli3 = crossValidation(totalData,totalClases,kernelType=cv.ml.SVM_POLY,degree_=3)
     print("Pruebas con SVM polinomial grado 3:\n")
     print(str(cv_poli3['metrics_cv']))
+
+    cv_poli4 = crossValidation(totalData,totalClases,kernelType=cv.ml.SVM_POLY,degree_=4)
+    print("Pruebas con SVM polinomial grado 4:\n")
+    print(str(cv_poli4['metrics_cv']))
+
+    cv_poli5 = crossValidation(totalData,totalClases,kernelType=cv.ml.SVM_POLY,degree_=5)
+    print("Pruebas con SVM polinomial grado 5:\n")
+    print(str(cv_poli5['metrics_cv']))
 
 
 

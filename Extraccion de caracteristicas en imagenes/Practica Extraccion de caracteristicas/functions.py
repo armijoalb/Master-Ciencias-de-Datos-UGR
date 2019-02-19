@@ -100,6 +100,11 @@ def calculateMetrics(predictedData,realData):
     
     return metrics
 
+def loadCompresedData(file_name):
+    arr = np.load(file_name)
+    arr = arr.f.arr_0
+    return arr
+
 def crossValidation(data,labels,kfolds = 5, kernelType=cv.ml.SVM_LINEAR, degree_=2):
     # variable para almacenar el mejor modelo.
     bestModel = 0

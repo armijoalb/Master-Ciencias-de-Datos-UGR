@@ -3,13 +3,13 @@ import cv2 as cv
 import os
 from lbp import LBP
 from uniform_lbp import ULBP
-from functions import loadImages,crossValidation,addTwoDescriptors
+from functions import loadImages,crossValidation,addTwoDescriptors,loadCompresedData
 
 
 if __name__ == "__main__":
     totalClases = np.load('hog_clases.npy')
-    totalDataHOG = np.load('hog_data.npy')
-    totalDataLBP = np.load('lbp_data.npy')
+    totalDataHOG = loadCompresedData('hog_data.npz')
+    totalDataLBP = loadCompresedData('lbp_data.npz')
     totalData = addTwoDescriptors(totalDataHOG,totalDataLBP)
 
     print("PRUEBAS CON HOG Y LBP COMBINADOS\n")
@@ -51,7 +51,7 @@ if __name__ == "__main__":
     print("Pruebas con SVM polinomial grado 3:\n")
     print(str(cv_poli3['metrics_cv']))
 
-    totalDataLBP = np.load('lbp_uniform_data.npy')
+    totalDataLBP = loadCompresedData('lbp_uniform_data.npz')
     totalData = addTwoDescriptors(totalDataHOG,totalDataLBP)
 
 

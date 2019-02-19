@@ -3,12 +3,12 @@ import cv2 as cv
 import os
 from lbp import LBP
 from uniform_lbp import ULBP
-from functions import loadImages,crossValidation
+from functions import loadImages,crossValidation, loadCompresedData
 
 
 if __name__ == "__main__":
     totalClases = np.load('hog_clases.npy')
-    totalData = np.load('hog_data.npy')
+    totalData = loadCompresedData('hog_data.npz')
 
     print("PRUEBAS CON HOG\n")
 
@@ -27,3 +27,11 @@ if __name__ == "__main__":
     cv_poli3 = crossValidation(totalData,totalClases,kernelType=cv.ml.SVM_POLY,degree_=3)
     print("Pruebas con SVM polinomial grado 3:\n")
     print(str(cv_poli3['metrics_cv']))
+
+    cv_poli4 = crossValidation(totalData,totalClases,kernelType=cv.ml.SVM_POLY,degree_=4)
+    print("Pruebas con SVM polinomial grado 4:\n")
+    print(str(cv_poli4['metrics_cv']))
+
+    cv_poli5 = crossValidation(totalData,totalClases,kernelType=cv.ml.SVM_POLY,degree_=5)
+    print("Pruebas con SVM polinomial grado 5:\n")
+    print(str(cv_poli5['metrics_cv']))
