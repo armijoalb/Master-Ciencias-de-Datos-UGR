@@ -14,8 +14,7 @@ class LBP:
         value = 0
 
         try:
-            if(image[y][x] >= pixel_value):
-                value=1
+            value = 1*(image[y][x] >= pixel_value)
         except:
             pass
 
