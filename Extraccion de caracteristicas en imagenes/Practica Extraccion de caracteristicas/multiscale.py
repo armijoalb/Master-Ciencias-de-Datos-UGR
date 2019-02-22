@@ -10,6 +10,7 @@ class PedestrianDetector:
         self.window_x = 64
         self.window_y = 128
         self.descriptor = cv.HOGDescriptor()
+
     
     def computeImage(self,image):
         # TODO: Extraer una pirámide de la imagen a diferentes escalas (ej. original,1/2*original,
@@ -25,10 +26,14 @@ class PedestrianDetector:
                     for x in range(0,fin_x,desp) if (y+self.window_y) <= fin_y
                     if (x+self.window_x) <= fin_x ]
 
-        windows = np.array([self.descriptor.compute(image,locations=[position]).flatten()
+        windows = np.array([self.descriptor.compute(image[position[0]:position[0]+self.window_y
+                            ,position[1]:position[1]+self.window_x]).flatten()
                      for position in positions])
+        print(windows.shape)
 
-        return windows
+        data = dict(win=windows,pos=positions)
+
+        return data
 
     def createPyramid(self,original_image):
         images = []
@@ -42,8 +47,8 @@ class PedestrianDetector:
 image = cv.imread('ECI.Practica/data/train/pedestrians/AnnotationsPos_0.000000_crop_000010a_0.png',cv.IMREAD_COLOR)
 img = cv.imread('ECI.Practica/Fry.jpg',cv.IMREAD_COLOR)
 pedestrian = cv.imread('pedestrian.jpg',cv.IMREAD_COLOR)
-plt.imshow(pedestrian)
-plt.show()
+# plt.imshow(pedestrian)
+# plt.show()
 
 # print(image.shape)
 # print(img.shape)
@@ -54,22 +59,97 @@ hist = hog.compute(img,locations=locations).flatten()
 print(hist.shape)
 hist = hog.compute(img,locations=[[0,0],[32,32]]).flatten()
 print(hist.shape)
-print(PedestrianDetector(model=0).computeWindows(img).shape)
+detector = PedestrianDetector(0)
+data = detector.computeWindows(pedestrian)
+pedestrian2 = cv.pyrDown(pedestrian)
+data2 = detector.computeWindows(pedestrian2)
 
-other_img = cv.pyrDown(img)
-print(img.shape)
-print(other_img.shape)
+pos = data['pos']
 
+# for pos_y,pos_x in pos:
+#     plt.imshow(pedestrian[pos_y:pos_y+128,pos_x:pos_x+64])
+#     plt.show()
+#     print(pos_y,pos_x)
 
-pyramid = PedestrianDetector(model=0).createPyramid(pedestrian)
-print(type(pyramid))
-for image in pyramid:
-    plt.imshow(cv.cvtColor(image,cv.COLOR_BGR2RGB))
-    plt.show()
 
 hogData = loadCompresedData('hog_data.npz')
 hogClases = np.load('hog_clases.npy')
-cv_hog = crossValidation(hogData,hogClases)
+#cv_hog = crossValidation(hogData,hogClases)
+# model = cv_hog['best_model']
+# hog = cv.HOGDescriptor()
+hist = hog.compute(image).flatten()
+hist2 = hog.compute(pedestrian[64:64+128,192:192+64]).flatten()
+hist3 = data['win'][28]
+
+model = cv.ml.SVM_load('./linear_svm.xml')
+print(model)
+print(model.predict(np.mat(hist3)))
+print(model.predict(data2['win']))
+print(data2['pos'][3])
+
+position = data2['pos'][3]
+
+positions = [position[1],position[0],position[1]+64,position[0]+128]
+
+results = cv.rectangle(cv.cvtColor(pedestrian2,cv.COLOR_BGR2RGB),(positions[0],positions[1]),(positions[2],positions[3]),(255,0,0),1)
+plt.imshow(results)
+plt.show()
+
+to_scale = np.multiply(positions,[2])
+print(to_scale)
+results_scale = cv.rectangle(cv.cvtColor(pedestrian,cv.COLOR_BGR2RGB),(to_scale[0],to_scale[1]),(to_scale[2],to_scale[3]),(255,0,0),1)
+plt.imshow(results_scale)
+plt.show()
+
+pedestrian = cv.imread('pedestrian_2.jpeg',cv.IMREAD_COLOR)
+data = detector.computeWindows(pedestrian)
+data2 = detector.computeWindows(cv.pyrDown(pedestrian))
+
+print(model.predict(data['win']))
+pred = model.predict(data['win'])[1]
+position = np.where(pred == 1)[0][0]
+position = data['pos'][position]
+positions = [position[1],position[0],position[1]+64,position[0]+128]
+print(position)
+results = cv.rectangle(cv.cvtColor(pedestrian,cv.COLOR_BGR2RGB),(positions[0],positions[1]),(positions[2],positions[3]),(255,0,0),1)
+plt.imshow(results)
+
+plt.show()
+
+pedestrian = cv.imread('pedestrian_3.jpeg',cv.IMREAD_COLOR)
+data = detector.computeWindows(pedestrian)
+data2 = detector.computeWindows(cv.pyrUp(pedestrian))
 
 
+pedestrian = cv.cvtColor(pedestrian,cv.COLOR_BGR2RGB)
 
+print(model.predict(data['win']))
+pred = model.predict(data['win'])[1]
+pos = np.where(pred == 1)[0]
+for pos_i in pos:
+    position = data['pos'][pos_i]
+    print(position)
+    positions = [position[1],position[0],position[1]+64,position[0]+128]
+    print(position)
+    cv.rectangle(pedestrian,(positions[0],positions[1]),(positions[2],positions[3]),(255,0,0),1)
+
+plt.imshow(pedestrian)
+plt.show()
+
+pred = model.predict(data2['win'])[1]
+pos = np.where(pred == 1)[0]
+for pos_i in pos:
+    position = data2['pos'][pos_i]
+    print(position)
+    positions = [position[1],position[0],position[1]+64,position[0]+128]
+    positions = np.multiply(np.array(positions),0.5)
+    print(positions)
+    print(position)
+    cv.rectangle(pedestrian,(positions[0],positions[1]),(positions[2],positions[3]),(255,0,0),1)
+
+plt.imshow(pedestrian)
+plt.show()
+
+# print(model.predict(np.mat(hist)))
+# print(model.predict(np.mat(hist2)))
+# print(model.predict(np.mat(hist3)))
