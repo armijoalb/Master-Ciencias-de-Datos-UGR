@@ -11,6 +11,84 @@ class PedestrianDetector:
         self.window_y = 128
         self.descriptor = cv.HOGDescriptor()
 
+    def inRange(self,pos_1,pos_2,range=8):
+        inRange = False
+        ini_y = pos_1[0]-8
+        fin_y = pos_1[0]+8
+        ini_x = pos_1[0]-8
+        fin_x = pos_1[0]+8
+
+        if(pos_2[0] >= ini_y and pos_2[0] <= fin_y
+            or pos_2[1] >= ini_x and pos_2[1] <= fin_x):
+            inRange = True
+
+        return inRange
+    
+    def checkIfInRange(self,rects,rect):
+        in_range = False
+
+
+        for r in rects:
+            in_range = self.inRange(pos_1=r[:2],pos_2=rect[:2])
+            if(in_range):
+                break
+
+        return in_range
+
+    def compute2(self,image,desplazamiento=32):
+        pyramid,scales =  self.createPyramid(image)
+        real_data = []
+        real_scales = []
+        confidence = []
+        total_positions = []
+        rects = []
+        
+        # Computamos las imagenes que pueden contener la ventana de HOG.
+        for pos in range(len(pyramid)):
+            img = pyramid[pos]
+            if(img.shape[0] >= self.window_y and img.shape[1] >= self.window_x):
+                real_data.append(self.computeWindows(img,desplazamiento))
+                real_scales.append(scales[pos])
+        
+        # Calculamos predicciones y confianza.
+        for data,sc in zip(real_data,real_scales):
+            pred = self.model.predict(data['win'])[1]
+            pred_c = self.model.predict(data['win'],flags=cv.ml.STAT_MODEL_RAW_OUTPUT)[1]
+            pos = np.where(pred==1)[0]
+            print("Encontrados: ",len(pos)," escala:", sc)
+            confidence.extend(self.computeConfidence(pred_c[i])[0] for i in pos)
+            for p in pos:
+                position = data['pos'][p]
+                positions = [position[1],position[0],position[1]+64,position[0]+128]
+                positions = [int(i/sc) for i in positions]
+                total_positions.append(positions)
+        
+        print(total_positions,confidence)
+        total_positions = np.array(total_positions)
+        confidence = np.array(confidence)
+        arg = np.argsort(confidence)[::-1]
+        print(arg)
+        dic_pos = dict(posi=total_positions,conf=confidence)
+        print(dic_pos)
+    
+        confidence = confidence[arg]
+        total_positions = total_positions[arg]
+        rects.append(total_positions[0])
+        for p in range(1,len(total_positions)):
+            if(not self.checkIfInRange(rects,total_positions[p]) and confidence[p] > 0.6):
+                rects.append(total_positions[p])
+
+        print("Rects: ", rects)
+
+        copy = image.copy()
+        for rect in rects:
+            cv.rectangle(copy,(rect[0],rect[1]),(rect[2],rect[3]),(0,0,255),2)
+
+        plt.imshow(cv.cvtColor(copy,cv.COLOR_BGR2RGB))
+        plt.show()
+
+        return None
+
     
     def computeImage(self,image,desplazamiento=32):
         # TODO: Extraer una pirámide de la imagen a diferentes escalas (ej. original,1/2*original,
@@ -18,6 +96,8 @@ class PedestrianDetector:
         # ejemplo 32 píxeles, tanto en x como en y. Guardar el resultado de la imagen, tras esto, obtener los resultados
         # y en aquellas ventas que den positivo (pedestrian), dibujar sobre las cordenadas iniciales de la imagen un rectángulo.
         pyramid,scales = self.createPyramid(image)
+
+        copy = image.copy()
 
         real_data = [self.computeWindows(img,desp=desplazamiento) for img in pyramid]
         dict_data = dict(data=real_data,scale=scales)
@@ -35,21 +115,18 @@ class PedestrianDetector:
                     if(confidence[i] > 0.6):
                         pos_i = pos[i]
                         position = use_data['pos'][pos_i]
-                        print(position[::-1])
                         positions = [position[1],position[0],position[1]+64,position[0]+128]
 
                         if(scale > 1):
                             positions = [int(i/scale) for i in positions[:2]]
-                            print(positions)
                             positions.append(positions[0]+64)
                             positions.append(positions[1]+128)
                         else:
                             positions = [int(i/scale) for i in positions]
 
-                        print(positions)
-                        cv.rectangle(image,(positions[0],positions[1]),(positions[2],positions[3]),(0,0,255),2)
+                        cv.rectangle(copy,(positions[0],positions[1]),(positions[2],positions[3]),(0,0,255),2)
 
-        plt.imshow(cv.cvtColor(image,cv.COLOR_BGR2RGB))
+        plt.imshow(cv.cvtColor(copy,cv.COLOR_BGR2RGB))
         plt.show()
 
         return None
@@ -63,7 +140,6 @@ class PedestrianDetector:
         windows = np.array([self.descriptor.compute(image[position[0]:position[0]+self.window_y
                             ,position[1]:position[1]+self.window_x]).flatten()
                      for position in positions])
-        print(windows.shape)
 
         data = dict(win=windows,pos=positions)
 
@@ -86,8 +162,15 @@ class PedestrianDetector:
 if __name__ == "__main__":
     detector = PedestrianDetector()
     pedestrian = cv.imread('pedestrian.jpg',cv.IMREAD_COLOR)
-    detector.computeImage(pedestrian)
+    #detector.computeImage(pedestrian)
+    detector.compute2(pedestrian)
+
     pedestrian = cv.imread('pedestrian_2.jpeg',cv.IMREAD_COLOR)
-    detector.computeImage(pedestrian,28)
+    #detector.computeImage(pedestrian,28)
+    detector.compute2(pedestrian,28)
+
     pedestrian = cv.imread('pedestrian_3.jpeg',cv.IMREAD_COLOR)
-    detector.computeImage(pedestrian,27)
+    #detector.computeImage(pedestrian,12)
+    detector.compute2(pedestrian,12)
+
+
