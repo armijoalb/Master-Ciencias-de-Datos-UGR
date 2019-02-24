@@ -1,0 +1,14 @@
+\babel@toc {spanish}{}
+\contentsline {section}{\numberline {0.1}Resumen}{3}{section.0.1}
+\contentsline {chapter}{\numberline {1}Evaluaci\IeC {\'o}n del descriptor HOG}{11}{chapter.1}
+\contentsline {section}{\numberline {1.1}Lectura de im\IeC {\'a}genes,creaci\IeC {\'o}n del modelo y predicci\IeC {\'o}n con nuevas im\IeC {\'a}genes}{11}{section.1.1}
+\contentsline {section}{\numberline {1.2}C\IeC {\'a}lculo de medidas de inter\IeC {\'e}s para HOG}{13}{section.1.2}
+\contentsline {section}{\numberline {1.3}Pruebas con HOG}{14}{section.1.3}
+\contentsline {chapter}{\numberline {2}Clasificaci\IeC {\'o}n con descriptor LBP}{19}{chapter.2}
+\contentsline {section}{\numberline {2.1}Pruebas con LBP}{19}{section.2.1}
+\contentsline {chapter}{\numberline {3}Clasificaci\IeC {\'o}n con descriptor LBP Uniforme}{23}{chapter.3}
+\contentsline {section}{\numberline {3.1}Pruebas con LBP Uniforme}{23}{section.3.1}
+\contentsline {chapter}{\numberline {4}Clasificaci\IeC {\'o}n con combinaci\IeC {\'o}n de descriptores}{27}{chapter.4}
+\contentsline {section}{\numberline {4.1}Pruebas con LBP y HOG combinados}{27}{section.4.1}
+\contentsline {section}{\numberline {4.2}Pruebas con LBP Uniforme y HOG combinados}{29}{section.4.2}
+\contentsline {chapter}{\numberline {5}Detector de personas multiescala}{33}{chapter.5}

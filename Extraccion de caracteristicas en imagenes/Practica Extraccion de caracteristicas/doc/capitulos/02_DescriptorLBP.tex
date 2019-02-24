@@ -1,0 +1,118 @@
+\chapter{Clasificación con descriptor LBP}
+\section{Pruebas con LBP}
+\begin{table}[H]
+	\begin{tabular}{llllll}
+		\textbf{Validation} & \textbf{F1} & \textbf{accuracy} & \textbf{precision} & \textbf{truenegativerate} & \textbf{truepositiverate} \\
+		0                   & 0.722057    & 0.740296          & 0.717092           & 0.751724                  & 0.727092                  \\
+		1                   & 0.724521    & 0.747689          & 0.699805           & 0.745033                  & 0.751046                  \\
+		2                   & 0.750000    & 0.767098          & 0.720000           & 0.754591                  & 0.782609                  \\
+		3                   & 0.752753    & 0.771719          & 0.743083           & 0.779287                  & 0.762677                  \\
+		4                   & 0.705385    & 0.742144          & 0.685832           & 0.754019                  & 0.726087                 
+	\end{tabular}
+	\caption{Validación con SVM kernel lineal}
+	\label{table_10}
+\end{table}
+
+\begin{table}[H]
+	\begin{tabular}{llllll}
+		\textbf{Validation} & \textbf{F1} & \textbf{accuracy} & \textbf{precision} & \textbf{truenegativerate} & \textbf{truepositiverate} \\
+		0                   & 0.609646    & 0.439002          & 0.438483           & 0.001645                  & 1.0                       \\
+		1                   & 0.620778    & 0.450092          & 0.450092           & 0.000000                  & 1.0                       \\
+		2                   & 0.612821    & 0.441774          & 0.441774           & 0.000000                  & 1.0                       \\
+		3                   & 0.637681    & 0.468577          & 0.468085           & 0.001736                  & 1.0                       \\
+		4                   & 0.611432    & 0.440850          & 0.440333           & 0.001650                  & 1.0                      
+	\end{tabular}
+	\caption{Validación con SVM kernel RBF}
+	\label{table_11}
+\end{table}
+
+\begin{table}[H]
+	\begin{tabular}{llllll}
+		\textbf{Validation} & \textbf{F1} & \textbf{accuracy} & \textbf{precision} & \textbf{truenegativerate} & \textbf{truepositiverate} \\
+		0                   & 0.757515    & 0.776340          & 0.744094           & 0.780405                  & 0.771429                  \\
+		1                   & 0.742911    & 0.748614          & 0.711957           & 0.723958                  & 0.776680                  \\
+		2                   & 0.752437    & 0.765250          & 0.735238           & 0.760757                  & 0.770459                  \\
+		3                   & 0.738144    & 0.765250          & 0.720322           & 0.771757                  & 0.756871                  \\
+		4                   & 0.754297    & 0.775416          & 0.732809           & 0.774086                  & 0.777083                 
+	\end{tabular}
+	\caption{Validación con SVM kernel polinómico grado 2}
+	\label{table_12}
+\end{table}
+
+\begin{table}[H]
+	\begin{tabular}{llllll}
+		\textbf{Validation} & \textbf{F1} & \textbf{accuracy} & \textbf{precision} & \textbf{truenegativerate} & \textbf{truepositiverate} \\
+		0                   & 0.762548    & 0.772643          & 0.745283           & 0.765625                  & 0.780632                  \\
+		1                   & 0.769691    & 0.786506          & 0.745174           & 0.778894                  & 0.795876                  \\
+		2                   & 0.753651    & 0.766174          & 0.706204           & 0.733002                  & 0.807933                  \\
+		3                   & 0.763674    & 0.788355          & 0.728346           & 0.777778                  & 0.802603                  \\
+		4                   & 0.768145    & 0.787431          & 0.750000           & 0.787625                  & 0.787190                 
+	\end{tabular}
+	\caption{Validación con SVM kernel polinómico grado 3}
+	\label{table_13}
+\end{table}
+
+\begin{table}[H]
+	\begin{tabular}{llllll}
+		\textbf{Validation} & \textbf{F1} & \textbf{accuracy} & \textbf{precision} & \textbf{truenegativerate} & \textbf{truepositiverate} \\
+		0                   & 0.347555    & 0.420518          & 0.352321           & 0.484034                  & 0.342916                  \\
+		1                   & 0.359743    & 0.447320          & 0.365217           & 0.519737                  & 0.354430                  \\
+		2                   & 0.288248    & 0.406654          & 0.311005           & 0.518395                  & 0.268595                  \\
+		3                   & 0.727823    & 0.750462          & 0.691571           & 0.736928                  & 0.768085                  \\
+		4                   & 0.373253    & 0.419593          & 0.349533           & 0.434146                  & 0.400428                 
+	\end{tabular}
+	\caption{Validación con SVM kernel polinómico grado 4}
+	\label{table_14}
+\end{table}
+
+\begin{table}[H]
+	\begin{tabular}{llllll}
+		\textbf{Validation} & \textbf{F1} & \textbf{accuracy} & \textbf{precision} & \textbf{truenegativerate} & \textbf{truepositiverate} \\
+		0                   & 0.613709    & 0.442699          & 0.442699           & 0.0                       & 1.0                       \\
+		1                   & 0.612821    & 0.441774          & 0.441774           & 0.0                       & 1.0                       \\
+		2                   & 0.624285    & 0.453789          & 0.453789           & 0.0                       & 1.0                       \\
+		3                   & 0.623410    & 0.452865          & 0.452865           & 0.0                       & 1.0                       \\
+		4                   & 0.624285    & 0.453789          & 0.453789           & 0.0                       & 1.0                      
+	\end{tabular}
+	\caption{Validación con SVM kernel polinómico grado 5}
+	\label{table_15}
+\end{table}
+
+\begin{table}[H]
+	\begin{tabular}{llllll}
+		\textbf{Validation} & \textbf{F1} & \textbf{accuracy} & \textbf{precision} & \textbf{truenegativerate} & \textbf{truepositiverate} \\
+		0                   & 0.619898    & 0.449168          & 0.449168           & 0.0                       & 1.0                       \\
+		1                   & 0.626032    & 0.455638          & 0.455638           & 0.0                       & 1.0                       \\
+		2                   & 0.609254    & 0.438078          & 0.438078           & 0.0                       & 1.0                       \\
+		3                   & 0.607465    & 0.436229          & 0.436229           & 0.0                       & 1.0                       \\
+		4                   & 0.629512    & 0.459335          & 0.459335           & 0.0                       & 1.0                      
+	\end{tabular}
+	\caption{Validación con SVM kernel sigmoidal}
+	\label{table_16}
+\end{table}
+
+\begin{table}[H]
+	\begin{tabular}{llllll}
+		\textbf{Validation} & \textbf{F1} & \textbf{accuracy} & \textbf{precision} & \textbf{truenegativerate} & \textbf{truepositiverate} \\
+		0                   & 0.619017    & 0.448244          & 0.448244           & 0.000000                  & 1.0                       \\
+		1                   & 0.626429    & 0.456562          & 0.456059           & 0.001698                  & 1.0                       \\
+		2                   & 0.625478    & 0.456562          & 0.455051           & 0.005076                  & 1.0                       \\
+		3                   & 0.612323    & 0.441774          & 0.441258           & 0.001653                  & 1.0                       \\
+		4                   & 0.609646    & 0.439002          & 0.438483           & 0.001645                  & 1.0                      
+	\end{tabular}
+	\caption{Validación con SVM kernel Chi Cuadrado}
+	\label{table_17}
+\end{table}
+
+\begin{table}[H]
+	\begin{tabular}{llllll}
+		\textbf{Validation} & \textbf{F1} & \textbf{accuracy} & \textbf{precision} & \textbf{truenegativerate} & \textbf{truepositiverate} \\
+		0                   & 0.922912    & 0.933457          & 0.907368           & 0.929374                  & 0.938998                  \\
+		1                   & 0.926625    & 0.935305          & 0.920833           & 0.937500                  & 0.932489                  \\
+		2                   & 0.924731    & 0.935305          & 0.932755           & 0.949429                  & 0.916844                  \\
+		3                   & 0.934322    & 0.942699          & 0.928421           & 0.944535                  & 0.940299                  \\
+		4                   & 0.939516    & 0.944547          & 0.939516           & 0.948805                  & 0.939516                 
+	\end{tabular}
+	\caption{Validación con SVM kernel Inter}
+	\label{table_18}
+\end{table}
