@@ -4,10 +4,15 @@
 \BOOKMARK [1][-]{section.1.2}{C\341lculo de medidas de inter\351s para HOG}{chapter.1}% 4
 \BOOKMARK [1][-]{section.1.3}{Pruebas con HOG}{chapter.1}% 5
 \BOOKMARK [0][-]{chapter.2}{Clasificaci\363n con descriptor LBP}{}% 6
-\BOOKMARK [1][-]{section.2.1}{Pruebas con LBP}{chapter.2}% 7
-\BOOKMARK [0][-]{chapter.3}{Clasificaci\363n con descriptor LBP Uniforme}{}% 8
-\BOOKMARK [1][-]{section.3.1}{Pruebas con LBP Uniforme}{chapter.3}% 9
-\BOOKMARK [0][-]{chapter.4}{Clasificaci\363n con combinaci\363n de descriptores}{}% 10
-\BOOKMARK [1][-]{section.4.1}{Pruebas con LBP y HOG combinados}{chapter.4}% 11
-\BOOKMARK [1][-]{section.4.2}{Pruebas con LBP Uniforme y HOG combinados}{chapter.4}% 12
-\BOOKMARK [0][-]{chapter.5}{Detector de personas multiescala}{}% 13
+\BOOKMARK [1][-]{section.2.1}{Implementaci\363n del descriptor LBP}{chapter.2}% 7
+\BOOKMARK [1][-]{section.2.2}{Pruebas con LBP}{chapter.2}% 8
+\BOOKMARK [0][-]{chapter.3}{Clasificaci\363n con descriptor LBP Uniforme}{}% 9
+\BOOKMARK [1][-]{section.3.1}{Implementaci\363n del descriptor ULBP}{chapter.3}% 10
+\BOOKMARK [1][-]{section.3.2}{Pruebas con LBP Uniforme}{chapter.3}% 11
+\BOOKMARK [0][-]{chapter.4}{Clasificaci\363n con combinaci\363n de descriptores}{}% 12
+\BOOKMARK [1][-]{section.4.1}{Combinaci\363n de descriptores}{chapter.4}% 13
+\BOOKMARK [1][-]{section.4.2}{Pruebas con LBP y HOG combinados}{chapter.4}% 14
+\BOOKMARK [1][-]{section.4.3}{Pruebas con LBP Uniforme y HOG combinados}{chapter.4}% 15
+\BOOKMARK [0][-]{chapter.5}{Detector de personas multi-escala}{}% 16
+\BOOKMARK [1][-]{section.5.1}{Implementaci\363n detector de personas}{chapter.5}% 17
+\BOOKMARK [1][-]{section.5.2}{Pruebas con im\341genes}{chapter.5}% 18

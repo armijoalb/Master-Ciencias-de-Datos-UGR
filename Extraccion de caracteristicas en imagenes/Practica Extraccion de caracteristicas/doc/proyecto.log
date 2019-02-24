@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6880 64-bit) (preloaded format=pdflatex 2018.11.22)  24 FEB 2019 14:26
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6880 64-bit) (preloaded format=pdflatex 2018.11.22)  24 FEB 2019 19:32
 entering extended mode
 **./proyecto.tex
 (proyecto.tex
@@ -807,7 +807,7 @@ Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
 (portada/portada.tex
 \centeroffset=\skip75
-<imagenes/logo_ugr.jpg, id=51, 777.90625pt x 231.86626pt>
+<imagenes/logo_ugr.jpg, id=75, 777.90625pt x 231.86626pt>
 File: imagenes/logo_ugr.jpg Graphic file (type jpg)
 <use imagenes/logo_ugr.jpg>
 Package pdftex.def Info: imagenes/logo_ugr.jpg  used on input line 10.
@@ -817,7 +817,7 @@ Overfull \hbox (17.92543pt too wide) in paragraph at lines 7--22
 | $[]$ 
  []
 
-<imagenes/etsiit_logo.png, id=52, 110.814pt x 40.4712pt>
+<imagenes/etsiit_logo.png, id=76, 110.814pt x 40.4712pt>
 File: imagenes/etsiit_logo.png Graphic file (type png)
 <use imagenes/etsiit_logo.png>
 Package pdftex.def Info: imagenes/etsiit_logo.png  used on input line 28.
@@ -906,22 +906,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 15--16
 
  []
 
-<imagenes/prueba_img.png, id=217, 462.528pt x 345.4506pt>
-File: imagenes/prueba_img.png Graphic file (type png)
-<use imagenes/prueba_img.png>
-Package pdftex.def Info: imagenes/prueba_img.png  used on input line 20.
-(pdftex.def)             Requested size: 227.62204pt x 170.00496pt.
-<imagenes/resultado_ini.png, id=218, 316.18124pt x 76.03406pt>
-File: imagenes/resultado_ini.png Graphic file (type png)
-<use imagenes/resultado_ini.png>
-Package pdftex.def Info: imagenes/resultado_ini.png  used on input line 21.
-(pdftex.def)             Requested size: 227.62204pt x 54.73866pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-LaTeX Info: Redefining \. on input line 25.
-LaTeX Info: Redefining \% on input line 25.
-
+LaTeX Info: Redefining \. on input line 17.
+LaTeX Info: Redefining \% on input line 17.
 
 Package Fancyhdr Warning: \headheight is too small (18.0pt): 
 Make it at least 25.2842pt.
@@ -929,82 +915,90 @@ We now make it that large for the rest of the document.
 This may cause the page layout to be inconsistent, however.
 
 [12]
-Underfull \hbox (badness 10000) in paragraph at lines 27--28
+<imagenes/prueba_img.png, id=256, 462.528pt x 345.4506pt>
+File: imagenes/prueba_img.png Graphic file (type png)
+<use imagenes/prueba_img.png>
+Package pdftex.def Info: imagenes/prueba_img.png  used on input line 21.
+(pdftex.def)             Requested size: 227.62204pt x 170.00496pt.
+<imagenes/resultado_ini.png, id=257, 316.18124pt x 76.03406pt>
+File: imagenes/resultado_ini.png Graphic file (type png)
+<use imagenes/resultado_ini.png>
+Package pdftex.def Info: imagenes/resultado_ini.png  used on input line 22.
+(pdftex.def)             Requested size: 227.62204pt x 54.73866pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 28--29
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 29--30
+Underfull \hbox (badness 10000) in paragraph at lines 30--31
 
  []
 
-LaTeX Info: Redefining \. on input line 35.
-LaTeX Info: Redefining \% on input line 35.
+LaTeX Info: Redefining \. on input line 36.
+LaTeX Info: Redefining \% on input line 36.
 [13 <./imagenes/prueba_img.png> <./imagenes/resultado_ini.png>]
-<imagenes/resultados_test.png, id=232, 951.555pt x 14.30344pt>
+<imagenes/resultados_test.png, id=267, 951.555pt x 14.30344pt>
 File: imagenes/resultados_test.png Graphic file (type png)
 <use imagenes/resultados_test.png>
-Package pdftex.def Info: imagenes/resultados_test.png  used on input line 43.
+Package pdftex.def Info: imagenes/resultados_test.png  used on input line 44.
 (pdftex.def)             Requested size: 398.33858pt x 5.98775pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 51--52
+Underfull \hbox (badness 10000) in paragraph at lines 52--53
 
  []
 
-LaTeX Info: Redefining \. on input line 56.
-LaTeX Info: Redefining \% on input line 56.
+LaTeX Info: Redefining \. on input line 57.
+LaTeX Info: Redefining \% on input line 57.
 [14 <./imagenes/resultados_test.png>]
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 67--75
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 68--76
 [][] 
  []
 
 
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 80--88
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 81--89
 [][] 
  []
 
 
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 93--101
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 94--102
+[][] 
+ []
+
+LaTeX Info: Redefining \. on input line 105.
+LaTeX Info: Redefining \% on input line 105.
+[15]
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 107--115
 [][] 
  []
 
 
-Underfull \vbox (badness 1675) has occurred while \output is active []
-
-LaTeX Info: Redefining \. on input line 104.
-LaTeX Info: Redefining \% on input line 104.
- [15]
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 106--114
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 120--128
 [][] 
  []
 
 
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 119--127
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 133--141
 [][] 
  []
 
 
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 132--140
-[][] 
- []
-
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 145--153
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 146--154
 [][] 
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-LaTeX Info: Redefining \. on input line 156.
-LaTeX Info: Redefining \% on input line 156.
+LaTeX Info: Redefining \. on input line 157.
+LaTeX Info: Redefining \% on input line 157.
  [16]
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 158--166
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 159--167
 [][] 
  []
 
 
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 171--179
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 172--180
 [][] 
  []
 
@@ -1016,240 +1010,313 @@ LaTeX Info: Redefining \% on input line 1.
 ]
 Cap\'{\i }tulo 2.
 
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 4--12
-[][] 
- []
+Underfull \hbox (badness 10000) in paragraph at lines 5--6
 
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 17--25
-[][] 
- []
-
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 30--38
-[][] 
- []
-
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 43--51
-[][] 
  []
 
 [19]
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 56--64
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 13--21
 [][] 
  []
 
 
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 69--77
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 26--34
 [][] 
  []
 
 
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 82--90
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 39--47
 [][] 
  []
 
 
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 95--103
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 52--60
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 65--73
+[][] 
+ []
+
+LaTeX Info: Redefining \. on input line 76.
+LaTeX Info: Redefining \% on input line 76.
+[20]
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 78--86
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 91--99
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 104--112
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 117--125
 [][] 
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-LaTeX Info: Redefining \. on input line 106.
-LaTeX Info: Redefining \% on input line 106.
- [20]
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 108--116
-[][] 
+LaTeX Info: Redefining \. on input line 128.
+LaTeX Info: Redefining \% on input line 128.
+ [21]
+Underfull \hbox (badness 10000) in paragraph at lines 129--130
+
  []
 
 ) (capitulos/03_DescripotrLBPU.tex
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
- [21] [22
-
-]
+ [22]
 Cap\'{\i }tulo 3.
 
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 4--12
+Underfull \hbox (badness 10000) in paragraph at lines 5--6
+
+ []
+
+[23
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 10--11
+
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 13--21
 [][] 
  []
 
 
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 17--25
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 26--34
 [][] 
  []
 
 
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 30--38
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 39--47
 [][] 
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [23]
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 43--51
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 52--60
 [][] 
  []
 
 
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 56--64
-[][] 
- []
+Underfull \vbox (badness 4193) has occurred while \output is active []
 
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 69--77
-[][] 
- []
-
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 82--90
-[][] 
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-LaTeX Info: Redefining \. on input line 93.
-LaTeX Info: Redefining \% on input line 93.
+LaTeX Info: Redefining \. on input line 63.
+LaTeX Info: Redefining \% on input line 63.
  [24]
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 95--103
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 65--73
 [][] 
  []
 
 
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 108--116
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 78--86
 [][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 91--99
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 104--112
+[][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 115.
+LaTeX Info: Redefining \% on input line 115.
+ [25]
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 117--125
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 129--130
+
  []
 
 ) (capitulos/04_CombinacionDescriptores.tex
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
- [25] [26
-
-]
+ [26]
 Cap\'{\i }tulo 4.
 
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 4--12
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 9--17
 [][] 
  []
 
 
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 17--25
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 22--30
 [][] 
  []
 
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 30--38
-[][] 
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [27]
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 43--51
-[][] 
- []
-
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 56--64
-[][] 
- []
-
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 69--77
-[][] 
- []
-
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 82--90
-[][] 
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-LaTeX Info: Redefining \. on input line 93.
-LaTeX Info: Redefining \% on input line 93.
- [28]
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 95--103
-[][] 
- []
-
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 108--116
-[][] 
- []
-
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 123--131
-[][] 
- []
-
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 136--144
-[][] 
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-LaTeX Info: Redefining \. on input line 147.
-LaTeX Info: Redefining \% on input line 147.
- [29]
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 149--157
-[][] 
- []
-
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 162--170
-[][] 
- []
-
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 175--183
-[][] 
- []
-
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 188--196
-[][] 
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-LaTeX Info: Redefining \. on input line 199.
-LaTeX Info: Redefining \% on input line 199.
- [30]
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 201--209
-[][] 
- []
-
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 214--222
-[][] 
- []
-
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 227--235
-[][] 
- []
-
-) (capitulos/05_DetectorMultiescala.tex
-LaTeX Info: Redefining \. on input line 1.
-LaTeX Info: Redefining \% on input line 1.
- [31] [32
+[27
 
 ]
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 35--43
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 48--56
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 61--69
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 74--82
+[][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 85.
+LaTeX Info: Redefining \% on input line 85.
+ [28]
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 87--95
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 100--108
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 113--121
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 131--139
+[][] 
+ []
+
+LaTeX Info: Redefining \. on input line 142.
+LaTeX Info: Redefining \% on input line 142.
+[29]
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 144--152
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 157--165
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 170--178
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 183--191
+[][] 
+ []
+
+
+Underfull \vbox (badness 5862) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 194.
+LaTeX Info: Redefining \% on input line 194.
+ [30]
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 196--204
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 209--217
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 222--230
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 235--243
+[][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 246.
+LaTeX Info: Redefining \% on input line 246.
+ [31])
+(capitulos/05_DetectorMultiescala.tex
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+ [32]
 Cap\'{\i }tulo 5.
+
+Underfull \hbox (badness 10000) in paragraph at lines 5--6
+
+ []
+
+[33
+
+]
+<imagenes/prueba_1.png, id=358, 462.528pt x 345.4506pt>
+File: imagenes/prueba_1.png Graphic file (type png)
+<use imagenes/prueba_1.png>
+Package pdftex.def Info: imagenes/prueba_1.png  used on input line 14.
+(pdftex.def)             Requested size: 227.62204pt x 170.00496pt.
+<imagenes/resultado_1.png, id=359, 462.528pt x 345.4506pt>
+File: imagenes/resultado_1.png Graphic file (type png)
+<use imagenes/resultado_1.png>
+Package pdftex.def Info: imagenes/resultado_1.png  used on input line 15.
+(pdftex.def)             Requested size: 227.62204pt x 170.00496pt.
+LaTeX Info: Redefining \. on input line 20.
+LaTeX Info: Redefining \% on input line 20.
+ [34 <./imagenes/prueba_1.png> <./imagenes/resultado_1.png>]
+<imagenes/prueba_2.png, id=368, 462.528pt x 345.4506pt>
+File: imagenes/prueba_2.png Graphic file (type png)
+<use imagenes/prueba_2.png>
+Package pdftex.def Info: imagenes/prueba_2.png  used on input line 24.
+(pdftex.def)             Requested size: 227.62204pt x 170.00496pt.
+<imagenes/resultado_2.png, id=369, 462.528pt x 345.4506pt>
+File: imagenes/resultado_2.png Graphic file (type png)
+<use imagenes/resultado_2.png>
+Package pdftex.def Info: imagenes/resultado_2.png  used on input line 25.
+(pdftex.def)             Requested size: 227.62204pt x 170.00496pt.
+LaTeX Info: Redefining \. on input line 30.
+LaTeX Info: Redefining \% on input line 30.
+ [35 <./imagenes/prueba_2.png> <./imagenes/resultado_2.png>]
+<imagenes/prueba_3.png, id=378, 462.528pt x 345.4506pt>
+File: imagenes/prueba_3.png Graphic file (type png)
+<use imagenes/prueba_3.png>
+Package pdftex.def Info: imagenes/prueba_3.png  used on input line 34.
+(pdftex.def)             Requested size: 227.62204pt x 170.00496pt.
+<imagenes/resultado_3.png, id=379, 462.528pt x 345.4506pt>
+File: imagenes/resultado_3.png Graphic file (type png)
+<use imagenes/resultado_3.png>
+Package pdftex.def Info: imagenes/resultado_3.png  used on input line 35.
+(pdftex.def)             Requested size: 227.62204pt x 170.00496pt.
 )
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 174.
- [33]
+LaTeX Info: Redefining \. on input line 174.
+LaTeX Info: Redefining \% on input line 174.
+ [36 <./imagenes/prueba_3.png> <./imagenes/resultado_3.png>]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 174.
  (proyecto.aux
 LaTeX Info: Redefining \. on input line 23.
@@ -1257,35 +1324,31 @@ LaTeX Info: Redefining \% on input line 23.
 )
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 174.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 174.
-
-
-Package rerunfilecheck Warning: File `proyecto.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `proyecto.out':
-(rerunfilecheck)             Before: FA24E724DD97A0DE276219D982A3933A;961
-(rerunfilecheck)             After:  641A03FEB65779D62ACB97F43ADECCFE;1007.
+Package rerunfilecheck Info: File `proyecto.out' has not changed.
+(rerunfilecheck)             Checksum: FF65B6EC208D292FE596F0AFD3FEDB8E;1412.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 174.
  ) 
 Here is how much of TeX's memory you used:
- 13260 strings out of 492969
- 203734 string characters out of 3120367
- 418058 words of memory out of 3000000
- 16787 multiletter control sequences out of 15000+200000
+ 13319 strings out of 492969
+ 204851 string characters out of 3120367
+ 419058 words of memory out of 3000000
+ 16823 multiletter control sequences out of 15000+200000
  10731 words of font info for 38 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 53i,12n,92p,1134b,668s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 53i,12n,92p,1701b,668s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/Alberto Armijo Ruiz/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/p
 ublic/amsfonts/cm/cmbx10.pfb><C:/Users/Alberto Armijo Ruiz/AppData/Local/Progra
 ms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Alberto Armij
 o Ruiz/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10
 .pfb><C:/Users/Alberto Armijo Ruiz/AppData/Local/Programs/MiKTeX 2.9/fonts/type
-1/public/amsfonts/cm/cmr10.pfb><C:/Users/Alberto Armijo Ruiz/AppData/Local/Prog
-rams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on proyecto.pdf (33 pages, 300048 bytes).
+1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Alberto Armijo Ruiz/AppData/Local/Pro
+grams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Alberto Arm
+ijo Ruiz/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy1
+0.pfb><C:/Users/Alberto Armijo Ruiz/AppData/Local/Programs/MiKTeX 2.9/fonts/typ
+e1/public/amsfonts/cm/cmti10.pfb>
+Output written on proyecto.pdf (36 pages, 1480008 bytes).
 PDF statistics:
- 362 PDF objects out of 1000 (max. 8388607)
- 104 named destinations out of 1000 (max. 500000)
- 122 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 439 PDF objects out of 1000 (max. 8388607)
+ 121 named destinations out of 1000 (max. 500000)
+ 200 words of extra memory for PDF output out of 10000 (max. 10000000)
 

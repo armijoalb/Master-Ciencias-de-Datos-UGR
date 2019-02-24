@@ -14,6 +14,7 @@ Una vez se ha entrenado el modelo, podemos utilizarlo para predecir la clase de 
 
 El proceso de crear leer las imágenes, crear un modelo y realizar una prueba con una imagen esta contenido dentro de la función \textit{ejemploClasificadorImagenes()} dentro de este ejemplo se utiliza como test una imagen de una persona, por lo que el resultado de la predicción debe de ser uno. A continuación se mostrará la imagen utilizada y una foto con la salida de la función. \\
 
+\newpage
 
 \begin{figure}[H]
 	\centering
@@ -59,7 +60,7 @@ Para realizar validación cruzada se ha creado la función \textit{crossValidati
 \end{enumerate}
 
 
-Ahora, pasaremos a comentar los resultados obtenidos por el descriptor HOG con diferentes kernels de SVM y variando algunos parámetros. Los clasificadores que se han entrenado son los siguientes: SVM con kernel lineal, SVM con kernel radial (RBF), SVM con kernel polinómico con grados 2, 3, 4 y 5, SVM con kernel sigmoidal, SVM con kernel Chi Cuadrado y SVM con kernel Inter. Para cada uno de los modelo se han realizado 5 validaciones. Los resultados son los siguientes:
+Ahora, pasaremos a comentar los resultados obtenidos por el descriptor HOG con diferentes kernels de SVM y variando algunos parámetros. Los clasificadores que se han entrenado son los siguientes: SVM con kernel lineal, SVM con kernel radial (RBF), SVM con kernel polinómico con grados 2, 3, 4 y 5, SVM con kernel sigmoidal, SVM con kernel Chi Cuadrado y SVM con kernel Inter. Para cada uno de los modelo se han realizado 5 validaciones. Los parámetros a excepción de los diferentes clasificadores son los que hay por defecto; esto se ha hecho así para evitar ajustar los parámetros a un tipo de descriptor, ya que con otros descriptores; como los que se verán más adelante, los resultados pueden no ser justos por dichos parámetros .Los resultados son los siguientes:
 
 \vspace{0.09in}
 
@@ -179,3 +180,5 @@ Ahora, pasaremos a comentar los resultados obtenidos por el descriptor HOG con d
 \caption{Validación con SVM kernel Inter}
 \label{table_9}
 \end{table}
+
+Como se puede ver, el clasificador con kernel lineal obtiene buenos resultados de forma general, mejorando en una de sus validaciones a los resultados que se habían obtenido para test. Otros clasificadores como por el ejemplo el SVM con kernel RBF obtiene unos resultados algo peores, equivocándose bastante más que el clasificador con kernel lineal al clasificar personas. Otros clasificadores, como por ejemplo los que utilizan kernel polinómico o Inter obtienen resultados bastante parecidos a los obtenidos por el clasificador lineal. Por último, los clasificadores con kernel sigmoidal y Chi Cuadrado obtienen unos resultados bastante pobres, en el caso del primero no consigue diferenciar entre las clases y por ello obtiene resultados parecidos al de un clasificador aleatorio; en el caso del segundo clasificador se sobreajusta a los datos y elige en su mayoría de los datos como clase 1 (persona) por lo que se puede ver en la tabla (el \textit{True Positive Rate} es bastante alto mientras que \textit{Precision} no lo es).

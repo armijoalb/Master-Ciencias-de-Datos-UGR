@@ -1,4 +1,9 @@
 \chapter{Clasificación con combinación de descriptores}
+En este apartado se describirá la función que combina los valores de dos descriptores distintos y se mostrarán los resultados obtenidos de realizar validación cruzada con diferentes clasificadores para la combinación de HOG con los otros dos descriptores que se han implementado en esta práctica por separado. El contenido de este apartado se puede encontrar en los ficheros \textbf{prueba\_combinado.py} y \textbf{functions.py} del proyecto.
+ 
+\section{Combinación de descriptores}
+Para combinar dos descriptores se ha implementados la función \textit{addTwoDescriptors()} contenida dentro del archivo \textbf{functions.py}. Dicha función toma como argumentos las matrices que contienen los valores de dichos descriptores y forma una nueva concatenando cada una de las filas de dichas matrices en una matriz nueva.  Por último devuelve dicha matriz. 
+
 \section{Pruebas con LBP y HOG combinados}
 \begin{table}[H]
 	\begin{tabular}{llllll}
@@ -116,6 +121,9 @@
 	\caption{Validación con SVM kernel Inter}
 	\label{table_36}
 \end{table}
+
+Los resultados obtenidos para esta combinación de descriptores son muy parecidos a las obtenidos por el descriptor LBP solo. Esto puede significar que la información contenida por HOG no está siendo considerada por la mayoría de los clasificadores por culpa del gran número de características que hay (más de 30000). La única diferencia es el clasificador con kernel Inter, que mejora un poco los resultados conforme al clasificador entrenado con LBP solo; aún así el clasificador entrenado con HOG solo ofrece mejores resultados que estos dos.
+
 
 
 \section{Pruebas con LBP Uniforme y HOG combinados}
@@ -235,3 +243,6 @@
 	\caption{Validación con SVM kernel Inter}
 	\label{table_45}
 \end{table}
+
+Al igual que para el caso anterior, los resultados obtenidos son muy parecidos a los obtenidos por LBP-Uniforme solo, por lo que parece que los clasificadores no están teniendo en cuenta la información proporcionada por HOG.
+

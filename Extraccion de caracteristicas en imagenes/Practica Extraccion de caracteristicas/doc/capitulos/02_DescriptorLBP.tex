@@ -1,5 +1,14 @@
 \chapter{Clasificación con descriptor LBP}
+En este apartado se describirá la clase \textit{LBP}, dicha clase implementa el funcionamiento del descriptor LBP. También se describirá el proceso necesario para obtener la matriz de descriptores generados con LBP. Por último se mostrarán los resultados obtenidos por diferentes modelos y se comentarán y compararán con los obtenidos con el descriptor HOG. La implementación del descriptor, el archivo pruebas se pueden encontrar en los ficheros \textbf{lbp.py} y \textbf{prueba\_lbp.py}; la función utilizada para cargar los datos en el fichero de pruebas y la función utilizada para computar el descriptor para cada una de las imágenes se pueden encontrar en el fichero \textbf{functions.py}
+
+\section{Implementación del descriptor LBP}
+Para la implementar el descriptor LBP se ha creado una clase, llamada \textit{LBP}. Dicha clase contiene el tamaño de la ventana, el número de vecinos a comparar y el tamaño de bloque. Dentro de esta clase se encuentra la función \textit{computeLBPpixel()} dicha función se encarga de comparar el valor de cada píxel con sus vecinos y de computar el valor LBP con los resultados obtenidos de la comparación. También se encuentra la función \textit{computeLBPblock()}, dicha función toma como argumentos la posición inicial del bloque y la imagen y computa el valor de cada pixel dentro de los límites del bloque. Por último tenemos la función \textit{computeLBPWindows()}, que toma como argumento la posición del primer píxel de la ventana y la imagen, con estos datos va llamando a la función descrita anteriormente hasta computar la ventana entera. También está la función \textit{compute()} a la cual se le pasa la imagen y esta llama \textit{computeLBPWindow()}. \\
+
+Una vez creada esta clase ya se pueden calcular los descriptores LBP para las imágenes. Para realizar la tarea de leer y computar los descriptores de la imágenes de forma general se ha implementado la función \textit{loadImages()} la cual toma de argumento un objeto de la clase del descriptor que se quiera utilizar siempre que su funcionamiento sea de la siguiente forma : descriptor.compute(imagen). Esta función se ha probado con HOG, la clase LBP implementada y la clase LBP-Uniforme, cuya descripción se encuentra en el siguiente apartado.
+
 \section{Pruebas con LBP}
+Para generar las validaciones con los diferentes modelos, se ha utilizado la función \textit{crossValidation()} (es la misma que se utiliza para el primer apartado) contenida en el archivo \textbf{functions.py}. Los resultados obtenidos son los siguientes:
+
 \begin{table}[H]
 	\begin{tabular}{llllll}
 		\textbf{Validation} & \textbf{F1} & \textbf{accuracy} & \textbf{precision} & \textbf{truenegativerate} & \textbf{truepositiverate} \\
@@ -116,3 +125,7 @@
 	\caption{Validación con SVM kernel Inter}
 	\label{table_18}
 \end{table}
+
+Como se puede ver, alguno de los resultados obtenidos rondan entre el 70-75\%, por ejemplo el clasificador con kernel lineal, o algunos de los kernels polinómico de grado bajo. Otros clasificadores obtiene resultados muy pobres, sobreajustándose a los datos y prediciendo todos los valores a uno, eso pasa en los clasificadores polinómicos de grado mayor, el clasificador de kernel RBF, el clasificador de kernel sigmoidal y el clasificador de kernel Chi Cuadrado. En cambio, el clasificador con kernel Inter obtiene resultados en todas sus validaciones algo mayores del 90\% y es con diferencia el mejor clasificador encontrado para LBP. \\
+
+A excepción del clasificador con kernel Inter, que obtiene resultados muy parejos tanto con descriptores HOG como con descriptores LBP, los resultados obtenidos por los clasificadores entrenados con descriptores LBP son peores que los obtenidos por HOG. Esto puede ser por la diferencia en el número de características que se obtienen de cada uno, para el caso de HOG se extraen 3780 características por imagen y para LBP 26880, la gran características de este último puede provocar que los clasificadores obtenidos sufran de sobreaprendizaje. Además, uno de los problemas de LBP es que contiene valores entre 0 y 255, de los cuales solamente unos pocos son realmente relevantes (existen formas de evitar este problema como se verá en el siguiente caso ), esto puede estar provocando también este peor rendimiento de los clasificadores.

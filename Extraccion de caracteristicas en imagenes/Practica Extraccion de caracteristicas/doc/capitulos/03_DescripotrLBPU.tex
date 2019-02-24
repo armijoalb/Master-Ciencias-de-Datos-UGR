@@ -1,5 +1,14 @@
 \chapter{Clasificación con descriptor LBP Uniforme}
+En este apartado se describirá la implementación de la clase \textit{ULBP}, que implementa el funcionamiento del descriptor LBP-Uniforme. Tras esto se mostrarán los resultados obtenidos por los descriptores generados por dicha clase y se analizarán y comparán con los obtenidos por los descriptores de los apartados anteriores. La implementación de la clase descrita y las pruebas realizadas se pueden encontrar en los ficheros \textbf{uniform\_lbp.py} y \textbf{prueba\_lbp\_uniforme.py}.
+
+\section{Implementación del descriptor ULBP}
+Para implementación de este descriptor se ha utilizado la clase \textit{LBP} del apartado anterior añadiendo funciones para obtener los códigos que genera LBP-Uniforme y modificando la función \textit{computeLBPpixel()} para que devuelva la etiqueta necesaria para dicho píxel en vez del valor que genera LBP de forma normal, para ello se ha implementado el método \textit{codeToLabel()}, dicha función tiene como argumento el código LBP generado en ese píxel (vector de 0s y 1s obtenido por la comparación del píxel con sus vecinos), la función devuelve la etiqueta de dicho código (que coincide con la posición en la que son generados los códigos uniformes), si no lo encuentra devuelve la etiqueta utilizada para códigos no uniformes (para el caso de 8 vecinos por píxel es 59).\\
+
+Para no tener que calcular todos los códigos de LBP que son uniformes cada vez que se computa un descriptor, estos valores se calculan una vez se crea un objeto de la clase \textit{ULBP}. Para calcular estos valores se han implementado tres funciones nuevas. La función \textit{generateAllRotations()}, que tiene como argumentos el número de unos que tiene que haber dentro del código y el número, de esta forma, genera $numerodevecinos-1$ rotaciones del un código inicial; este código inicial es un vector con el número de unos indicado como argumento al principio y el resto ceros hasta completar el tamaño del código, esto lo hace la función \textit{generateInitialVec()}; para hacer una rotación se utiliza la función \textit{np.roll()} de la librería \textbf{numpy} que desplaza los elementos de un vector dado un número x de veces indicado. Una vez generadas todas las rotaciones, se devuelve un vector que las contiene. Por último se ha implementado \textit{generaUniformVects()} que tiene como argumentos el número de vecinos; esta función hace uso de las anteriores para generar todo el conjunto de códigos uniformes de LBP dado el número de vecinos para un píxel.
+
 \section{Pruebas con LBP Uniforme}
+En esta sección se muestran los resultados obtenidos por modelos generados con los datos generados por el descriptor LBP-Uniforme. Los resultados son los siguientes: \\
+
 \begin{table}[H]
 	\begin{tabular}{llllll}
 		\textbf{Validation} & \textbf{F1} & \textbf{accuracy} & \textbf{precision} & \textbf{truenegativerate} & \textbf{truepositiverate} \\
@@ -116,3 +125,7 @@
 	\caption{Validación con SVM kernel Inter}
 	\label{table_27}
 \end{table}
+
+Para este descriptor podemos observar que al igual que para el caso de LBP, obtenemos los mejores resultados con clasificador con kernel Inter, obteniendo resultados muy parecidos. Otros también ofrecen buenos resultados, como son los casos de los clasificadores con kernel lineal, polinómico de grado 2,3 y 4; para los que se pueden ver un rendimiento de entre un 85\% y un 90\% de acierto, superando además los resultados que se obtenían para LBP, esta diferencia puede ser provocada por la diferencia de rango entre ambos descriptores; para el caso de LBP tenemos 256 posibilidades diferentes de las cuales muchas de ellas no aportaban información realmente, para LBP-Uniforme tenemos (para los valores establecidos en esta práctica) 59 valores diferentes donde agrupamos todos los valores que aportaban poca información en uno solo; esto puede hacer que los clasificadores generalicen mejor y por ello obtengan mejores resultados. En el resto de clasificadores los resultados son parecidos a los que había en LBP, posiblemente estos estén provocados por el gran número de características de estos descriptores (26880) que hagan que los clasificadores no generalicen. \\
+
+Aún habiendo mejorado los resultados conforme a LBP, el rendimiento de HOG sigue siendo superior al obtenido por LBP-Uniforme, habiendo una diferencia de entre 5-10\% en cada uno de los clasificadores. Esta diferencia aumenta para aquellos clasificadores que sobreajustan con LBP-Uniforme.  
