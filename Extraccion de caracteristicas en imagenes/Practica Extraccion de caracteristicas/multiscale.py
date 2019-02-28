@@ -85,6 +85,7 @@ class PedestrianDetector:
             cv.rectangle(copy,(rect[0],rect[1]),(rect[2],rect[3]),(0,0,255),2)
 
         plt.imshow(cv.cvtColor(copy,cv.COLOR_BGR2RGB))
+        plt.title("Resultados detección")
         plt.show()
 
         return None
@@ -161,16 +162,23 @@ class PedestrianDetector:
 
 if __name__ == "__main__":
     detector = PedestrianDetector()
-    pedestrian = cv.imread('pedestrian.jpg',cv.IMREAD_COLOR)
-    #detector.computeImage(pedestrian)
+    pedestrian = cv.imread('data/pedestrian.jpg',cv.IMREAD_COLOR)
+    plt.imshow(cv.cvtColor(pedestrian,cv.COLOR_BGR2RGB))
+    plt.title("Original")
+    plt.show()
     detector.compute2(pedestrian)
 
-    pedestrian = cv.imread('pedestrian_2.jpeg',cv.IMREAD_COLOR)
-    #detector.computeImage(pedestrian,28)
+    pedestrian = cv.imread('data/pedestrian_2.jpeg',cv.IMREAD_COLOR)
+    
+    plt.imshow(cv.cvtColor(pedestrian,cv.COLOR_BGR2RGB))
+    plt.title("Original")
+    plt.show()
     detector.compute2(pedestrian,28)
 
-    pedestrian = cv.imread('pedestrian_3.jpeg',cv.IMREAD_COLOR)
-    #detector.computeImage(pedestrian,12)
+    pedestrian = cv.imread('data/pedestrian_3.jpeg',cv.IMREAD_COLOR)
+    plt.imshow(cv.cvtColor(pedestrian,cv.COLOR_BGR2RGB))
+    plt.title("Original")
+    plt.show()
     detector.compute2(pedestrian,12)
 
 

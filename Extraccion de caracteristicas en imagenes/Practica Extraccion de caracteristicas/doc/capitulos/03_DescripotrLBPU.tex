@@ -6,6 +6,13 @@ Para implementación de este descriptor se ha utilizado la clase \textit{LBP} de
 
 Para no tener que calcular todos los códigos de LBP que son uniformes cada vez que se computa un descriptor, estos valores se calculan una vez se crea un objeto de la clase \textit{ULBP}. Para calcular estos valores se han implementado tres funciones nuevas. La función \textit{generateAllRotations()}, que tiene como argumentos el número de unos que tiene que haber dentro del código y el número, de esta forma, genera $numerodevecinos-1$ rotaciones del un código inicial; este código inicial es un vector con el número de unos indicado como argumento al principio y el resto ceros hasta completar el tamaño del código, esto lo hace la función \textit{generateInitialVec()}; para hacer una rotación se utiliza la función \textit{np.roll()} de la librería \textbf{numpy} que desplaza los elementos de un vector dado un número x de veces indicado. Una vez generadas todas las rotaciones, se devuelve un vector que las contiene. Por último se ha implementado \textit{generaUniformVects()} que tiene como argumentos el número de vecinos; esta función hace uso de las anteriores para generar todo el conjunto de códigos uniformes de LBP dado el número de vecinos para un píxel.
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=140mm]{imagenes/ulbp_histogram}
+	\caption{Ejemplo Histograma de un descriptor LBP}
+	\label{fig:salida_4}
+\end{figure}
+
 \section{Pruebas con LBP Uniforme}
 En esta sección se muestran los resultados obtenidos por modelos generados con los datos generados por el descriptor LBP-Uniforme. Los resultados son los siguientes: \\
 

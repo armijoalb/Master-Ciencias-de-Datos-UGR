@@ -1,8 +1,17 @@
 \chapter{Clasificación con descriptor LBP}
 En este apartado se describirá la clase \textit{LBP}, dicha clase implementa el funcionamiento del descriptor LBP. También se describirá el proceso necesario para obtener la matriz de descriptores generados con LBP. Por último se mostrarán los resultados obtenidos por diferentes modelos y se comentarán y compararán con los obtenidos con el descriptor HOG. La implementación del descriptor, el archivo pruebas se pueden encontrar en los ficheros \textbf{lbp.py} y \textbf{prueba\_lbp.py}; la función utilizada para cargar los datos en el fichero de pruebas y la función utilizada para computar el descriptor para cada una de las imágenes se pueden encontrar en el fichero \textbf{functions.py}
 
+Si se desea ejecutar los ficheros de prueba para este descriptor o para los siguientes, se puede descargar un \textit{.zip} con los ficheros de clases y datos que los ficheros de pruebas cargan para hacer después las pruebas. El enlace es el siguiente: \url{https://drive.google.com/file/d/1fm0rdfdmWWLU8sjTXU59laeOh27URCDa/view?usp=sharing}
+
 \section{Implementación del descriptor LBP}
 Para la implementar el descriptor LBP se ha creado una clase, llamada \textit{LBP}. Dicha clase contiene el tamaño de la ventana, el número de vecinos a comparar y el tamaño de bloque. Dentro de esta clase se encuentra la función \textit{computeLBPpixel()} dicha función se encarga de comparar el valor de cada píxel con sus vecinos y de computar el valor LBP con los resultados obtenidos de la comparación. También se encuentra la función \textit{computeLBPblock()}, dicha función toma como argumentos la posición inicial del bloque y la imagen y computa el valor de cada pixel dentro de los límites del bloque. Por último tenemos la función \textit{computeLBPWindows()}, que toma como argumento la posición del primer píxel de la ventana y la imagen, con estos datos va llamando a la función descrita anteriormente hasta computar la ventana entera. También está la función \textit{compute()} a la cual se le pasa la imagen y esta llama \textit{computeLBPWindow()}. \\
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=140mm]{imagenes/lbp_histogram}
+	\caption{Ejemplo Histograma de un descriptor LBP}
+	\label{fig:salida_3}
+\end{figure}
 
 Una vez creada esta clase ya se pueden calcular los descriptores LBP para las imágenes. Para realizar la tarea de leer y computar los descriptores de la imágenes de forma general se ha implementado la función \textit{loadImages()} la cual toma de argumento un objeto de la clase del descriptor que se quiera utilizar siempre que su funcionamiento sea de la siguiente forma : descriptor.compute(imagen). Esta función se ha probado con HOG, la clase LBP implementada y la clase LBP-Uniforme, cuya descripción se encuentra en el siguiente apartado.
 

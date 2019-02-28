@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6880 64-bit) (preloaded format=pdflatex 2018.11.22)  24 FEB 2019 19:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6880 64-bit) (preloaded format=pdflatex 2018.11.22)  28 FEB 2019 17:20
 entering extended mode
 **./proyecto.tex
 (proyecto.tex
@@ -915,12 +915,12 @@ We now make it that large for the rest of the document.
 This may cause the page layout to be inconsistent, however.
 
 [12]
-<imagenes/prueba_img.png, id=256, 462.528pt x 345.4506pt>
+<imagenes/prueba_img.png, id=260, 462.528pt x 345.4506pt>
 File: imagenes/prueba_img.png Graphic file (type png)
 <use imagenes/prueba_img.png>
 Package pdftex.def Info: imagenes/prueba_img.png  used on input line 21.
 (pdftex.def)             Requested size: 227.62204pt x 170.00496pt.
-<imagenes/resultado_ini.png, id=257, 316.18124pt x 76.03406pt>
+<imagenes/resultado_ini.png, id=261, 316.18124pt x 76.03406pt>
 File: imagenes/resultado_ini.png Graphic file (type png)
 <use imagenes/resultado_ini.png>
 Package pdftex.def Info: imagenes/resultado_ini.png  used on input line 22.
@@ -938,7 +938,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 30--31
 LaTeX Info: Redefining \. on input line 36.
 LaTeX Info: Redefining \% on input line 36.
 [13 <./imagenes/prueba_img.png> <./imagenes/resultado_ini.png>]
-<imagenes/resultados_test.png, id=267, 951.555pt x 14.30344pt>
+<imagenes/resultados_test.png, id=271, 951.555pt x 14.30344pt>
 File: imagenes/resultados_test.png Graphic file (type png)
 <use imagenes/resultados_test.png>
 Package pdftex.def Info: imagenes/resultados_test.png  used on input line 44.
@@ -1010,162 +1010,29 @@ LaTeX Info: Redefining \% on input line 1.
 ]
 Cap\'{\i }tulo 2.
 
-Underfull \hbox (badness 10000) in paragraph at lines 5--6
+Underfull \hbox (badness 10000) in paragraph at lines 7--8
 
  []
 
-[19]
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 13--21
-[][] 
- []
+<imagenes/lbp_histogram.png, id=298, 462.528pt x 345.4506pt>
+File: imagenes/lbp_histogram.png Graphic file (type png)
+<use imagenes/lbp_histogram.png>
+Package pdftex.def Info: imagenes/lbp_histogram.png  used on input line 11.
+(pdftex.def)             Requested size: 398.33858pt x 297.52449pt.
 
+Underfull \vbox (badness 5288) has occurred while \output is active []
 
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 26--34
-[][] 
- []
-
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 39--47
-[][] 
- []
-
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 52--60
-[][] 
- []
-
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 65--73
-[][] 
- []
-
-LaTeX Info: Redefining \. on input line 76.
-LaTeX Info: Redefining \% on input line 76.
-[20]
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 78--86
-[][] 
- []
-
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 91--99
-[][] 
- []
-
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 104--112
-[][] 
- []
-
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 117--125
-[][] 
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-LaTeX Info: Redefining \. on input line 128.
-LaTeX Info: Redefining \% on input line 128.
- [21]
-Underfull \hbox (badness 10000) in paragraph at lines 129--130
-
- []
-
-) (capitulos/03_DescripotrLBPU.tex
-LaTeX Info: Redefining \. on input line 1.
-LaTeX Info: Redefining \% on input line 1.
- [22]
-Cap\'{\i }tulo 3.
-
-Underfull \hbox (badness 10000) in paragraph at lines 5--6
-
- []
-
-[23
-
-]
-Underfull \hbox (badness 10000) in paragraph at lines 10--11
-
- []
-
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 13--21
-[][] 
- []
-
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 26--34
-[][] 
- []
-
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 39--47
-[][] 
- []
-
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 52--60
-[][] 
- []
-
-
-Underfull \vbox (badness 4193) has occurred while \output is active []
-
-LaTeX Info: Redefining \. on input line 63.
-LaTeX Info: Redefining \% on input line 63.
- [24]
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 65--73
-[][] 
- []
-
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 78--86
-[][] 
- []
-
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 91--99
-[][] 
- []
-
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 104--112
-[][] 
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-LaTeX Info: Redefining \. on input line 115.
-LaTeX Info: Redefining \% on input line 115.
- [25]
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 117--125
-[][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 129--130
-
- []
-
-) (capitulos/04_CombinacionDescriptores.tex
-LaTeX Info: Redefining \. on input line 1.
-LaTeX Info: Redefining \% on input line 1.
- [26]
-Cap\'{\i }tulo 4.
-
-Overfull \hbox (26.21457pt too wide) in paragraph at lines 9--17
-[][] 
- []
-
-
+ [19]
 Overfull \hbox (26.21457pt too wide) in paragraph at lines 22--30
 [][] 
  []
 
-[27
 
-]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 33.
+LaTeX Info: Redefining \% on input line 33.
+ [20 <./imagenes/lbp_histogram.png>]
 Overfull \hbox (26.21457pt too wide) in paragraph at lines 35--43
 [][] 
  []
@@ -1190,7 +1057,167 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 LaTeX Info: Redefining \. on input line 85.
 LaTeX Info: Redefining \% on input line 85.
+ [21]
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 87--95
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 100--108
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 113--121
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 126--134
+[][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 137.
+LaTeX Info: Redefining \% on input line 137.
+ [22]
+Underfull \hbox (badness 10000) in paragraph at lines 138--139
+
+ []
+
+) (capitulos/03_DescripotrLBPU.tex
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+ [23] [24
+
+]
+Cap\'{\i }tulo 3.
+
+Underfull \hbox (badness 10000) in paragraph at lines 5--6
+
+ []
+
+[25]
+<imagenes/ulbp_histogram.png, id=334, 462.528pt x 345.4506pt>
+File: imagenes/ulbp_histogram.png Graphic file (type png)
+<use imagenes/ulbp_histogram.png>
+Package pdftex.def Info: imagenes/ulbp_histogram.png  used on input line 11.
+(pdftex.def)             Requested size: 398.33858pt x 297.52449pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 17--18
+
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 20--28
+[][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 31.
+LaTeX Info: Redefining \% on input line 31.
+ [26 <./imagenes/ulbp_histogram.png>]
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 33--41
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 46--54
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 59--67
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 72--80
+[][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 83.
+LaTeX Info: Redefining \% on input line 83.
+ [27]
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 85--93
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 98--106
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 111--119
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 124--132
+[][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 135.
+LaTeX Info: Redefining \% on input line 135.
  [28]
+Underfull \hbox (badness 10000) in paragraph at lines 136--137
+
+ []
+
+) (capitulos/04_CombinacionDescriptores.tex
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+ [29] [30
+
+]
+Cap\'{\i }tulo 4.
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 9--17
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 22--30
+[][] 
+ []
+
+[31]
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 35--43
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 48--56
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 61--69
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 74--82
+[][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 85.
+LaTeX Info: Redefining \% on input line 85.
+ [32]
 Overfull \hbox (26.21457pt too wide) in paragraph at lines 87--95
 [][] 
  []
@@ -1212,7 +1239,7 @@ Overfull \hbox (26.21457pt too wide) in paragraph at lines 131--139
 
 LaTeX Info: Redefining \. on input line 142.
 LaTeX Info: Redefining \% on input line 142.
-[29]
+[33]
 Overfull \hbox (26.21457pt too wide) in paragraph at lines 144--152
 [][] 
  []
@@ -1237,7 +1264,7 @@ Underfull \vbox (badness 5862) has occurred while \output is active []
 
 LaTeX Info: Redefining \. on input line 194.
 LaTeX Info: Redefining \% on input line 194.
- [30]
+ [34]
 Overfull \hbox (26.21457pt too wide) in paragraph at lines 196--204
 [][] 
  []
@@ -1262,52 +1289,52 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 LaTeX Info: Redefining \. on input line 246.
 LaTeX Info: Redefining \% on input line 246.
- [31])
+ [35])
 (capitulos/05_DetectorMultiescala.tex
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
- [32]
+ [36]
 Cap\'{\i }tulo 5.
 
 Underfull \hbox (badness 10000) in paragraph at lines 5--6
 
  []
 
-[33
+[37
 
 ]
-<imagenes/prueba_1.png, id=358, 462.528pt x 345.4506pt>
+<imagenes/prueba_1.png, id=386, 462.528pt x 345.4506pt>
 File: imagenes/prueba_1.png Graphic file (type png)
 <use imagenes/prueba_1.png>
 Package pdftex.def Info: imagenes/prueba_1.png  used on input line 14.
 (pdftex.def)             Requested size: 227.62204pt x 170.00496pt.
-<imagenes/resultado_1.png, id=359, 462.528pt x 345.4506pt>
+<imagenes/resultado_1.png, id=387, 462.528pt x 345.4506pt>
 File: imagenes/resultado_1.png Graphic file (type png)
 <use imagenes/resultado_1.png>
 Package pdftex.def Info: imagenes/resultado_1.png  used on input line 15.
 (pdftex.def)             Requested size: 227.62204pt x 170.00496pt.
 LaTeX Info: Redefining \. on input line 20.
 LaTeX Info: Redefining \% on input line 20.
- [34 <./imagenes/prueba_1.png> <./imagenes/resultado_1.png>]
-<imagenes/prueba_2.png, id=368, 462.528pt x 345.4506pt>
+ [38 <./imagenes/prueba_1.png> <./imagenes/resultado_1.png>]
+<imagenes/prueba_2.png, id=396, 462.528pt x 345.4506pt>
 File: imagenes/prueba_2.png Graphic file (type png)
 <use imagenes/prueba_2.png>
 Package pdftex.def Info: imagenes/prueba_2.png  used on input line 24.
 (pdftex.def)             Requested size: 227.62204pt x 170.00496pt.
-<imagenes/resultado_2.png, id=369, 462.528pt x 345.4506pt>
+<imagenes/resultado_2.png, id=397, 462.528pt x 345.4506pt>
 File: imagenes/resultado_2.png Graphic file (type png)
 <use imagenes/resultado_2.png>
 Package pdftex.def Info: imagenes/resultado_2.png  used on input line 25.
 (pdftex.def)             Requested size: 227.62204pt x 170.00496pt.
 LaTeX Info: Redefining \. on input line 30.
 LaTeX Info: Redefining \% on input line 30.
- [35 <./imagenes/prueba_2.png> <./imagenes/resultado_2.png>]
-<imagenes/prueba_3.png, id=378, 462.528pt x 345.4506pt>
+ [39 <./imagenes/prueba_2.png> <./imagenes/resultado_2.png>]
+<imagenes/prueba_3.png, id=406, 462.528pt x 345.4506pt>
 File: imagenes/prueba_3.png Graphic file (type png)
 <use imagenes/prueba_3.png>
 Package pdftex.def Info: imagenes/prueba_3.png  used on input line 34.
 (pdftex.def)             Requested size: 227.62204pt x 170.00496pt.
-<imagenes/resultado_3.png, id=379, 462.528pt x 345.4506pt>
+<imagenes/resultado_3.png, id=407, 462.528pt x 345.4506pt>
 File: imagenes/resultado_3.png Graphic file (type png)
 <use imagenes/resultado_3.png>
 Package pdftex.def Info: imagenes/resultado_3.png  used on input line 35.
@@ -1316,7 +1343,7 @@ Package pdftex.def Info: imagenes/resultado_3.png  used on input line 35.
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 174.
 LaTeX Info: Redefining \. on input line 174.
 LaTeX Info: Redefining \% on input line 174.
- [36 <./imagenes/prueba_3.png> <./imagenes/resultado_3.png>]
+ [40 <./imagenes/prueba_3.png> <./imagenes/resultado_3.png>]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 174.
  (proyecto.aux
 LaTeX Info: Redefining \. on input line 23.
@@ -1329,11 +1356,11 @@ Package rerunfilecheck Info: File `proyecto.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 174.
  ) 
 Here is how much of TeX's memory you used:
- 13319 strings out of 492969
- 204851 string characters out of 3120367
+ 13339 strings out of 492969
+ 205250 string characters out of 3120367
  419058 words of memory out of 3000000
- 16823 multiletter control sequences out of 15000+200000
- 10731 words of font info for 38 fonts, out of 3000000 for 9000
+ 16834 multiletter control sequences out of 15000+200000
+ 10899 words of font info for 39 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  53i,12n,92p,1701b,668s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/Alberto Armijo Ruiz/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/p
@@ -1345,10 +1372,11 @@ o Ruiz/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10
 grams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Alberto Arm
 ijo Ruiz/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy1
 0.pfb><C:/Users/Alberto Armijo Ruiz/AppData/Local/Programs/MiKTeX 2.9/fonts/typ
-e1/public/amsfonts/cm/cmti10.pfb>
-Output written on proyecto.pdf (36 pages, 1480008 bytes).
+e1/public/amsfonts/cm/cmti10.pfb><C:/Users/Alberto Armijo Ruiz/AppData/Local/Pr
+ograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on proyecto.pdf (40 pages, 1525901 bytes).
 PDF statistics:
- 439 PDF objects out of 1000 (max. 8388607)
- 121 named destinations out of 1000 (max. 500000)
- 200 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 473 PDF objects out of 1000 (max. 8388607)
+ 127 named destinations out of 1000 (max. 500000)
+ 210 words of extra memory for PDF output out of 10000 (max. 10000000)
 

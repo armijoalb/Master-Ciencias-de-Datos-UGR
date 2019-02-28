@@ -7,13 +7,13 @@
 \contentsline {chapter}{\numberline {2}Clasificaci\IeC {\'o}n con descriptor LBP}{19}{chapter.2}
 \contentsline {section}{\numberline {2.1}Implementaci\IeC {\'o}n del descriptor LBP}{19}{section.2.1}
 \contentsline {section}{\numberline {2.2}Pruebas con LBP}{20}{section.2.2}
-\contentsline {chapter}{\numberline {3}Clasificaci\IeC {\'o}n con descriptor LBP Uniforme}{23}{chapter.3}
-\contentsline {section}{\numberline {3.1}Implementaci\IeC {\'o}n del descriptor ULBP}{23}{section.3.1}
-\contentsline {section}{\numberline {3.2}Pruebas con LBP Uniforme}{24}{section.3.2}
-\contentsline {chapter}{\numberline {4}Clasificaci\IeC {\'o}n con combinaci\IeC {\'o}n de descriptores}{27}{chapter.4}
-\contentsline {section}{\numberline {4.1}Combinaci\IeC {\'o}n de descriptores}{27}{section.4.1}
-\contentsline {section}{\numberline {4.2}Pruebas con LBP y HOG combinados}{27}{section.4.2}
-\contentsline {section}{\numberline {4.3}Pruebas con LBP Uniforme y HOG combinados}{30}{section.4.3}
-\contentsline {chapter}{\numberline {5}Detector de personas multi-escala}{33}{chapter.5}
-\contentsline {section}{\numberline {5.1}Implementaci\IeC {\'o}n detector de personas}{33}{section.5.1}
-\contentsline {section}{\numberline {5.2}Pruebas con im\IeC {\'a}genes}{34}{section.5.2}
+\contentsline {chapter}{\numberline {3}Clasificaci\IeC {\'o}n con descriptor LBP Uniforme}{25}{chapter.3}
+\contentsline {section}{\numberline {3.1}Implementaci\IeC {\'o}n del descriptor ULBP}{25}{section.3.1}
+\contentsline {section}{\numberline {3.2}Pruebas con LBP Uniforme}{26}{section.3.2}
+\contentsline {chapter}{\numberline {4}Clasificaci\IeC {\'o}n con combinaci\IeC {\'o}n de descriptores}{31}{chapter.4}
+\contentsline {section}{\numberline {4.1}Combinaci\IeC {\'o}n de descriptores}{31}{section.4.1}
+\contentsline {section}{\numberline {4.2}Pruebas con LBP y HOG combinados}{31}{section.4.2}
+\contentsline {section}{\numberline {4.3}Pruebas con LBP Uniforme y HOG combinados}{34}{section.4.3}
+\contentsline {chapter}{\numberline {5}Detector de personas multi-escala}{37}{chapter.5}
+\contentsline {section}{\numberline {5.1}Implementaci\IeC {\'o}n detector de personas}{37}{section.5.1}
+\contentsline {section}{\numberline {5.2}Pruebas con im\IeC {\'a}genes}{38}{section.5.2}

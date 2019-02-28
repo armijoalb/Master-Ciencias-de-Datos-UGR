@@ -3,9 +3,11 @@
 \contentsline {figure}{\numberline {1.1}{\ignorespaces Ejemplo clasificaci\IeC {\'o}n con SVM lineal\relax }}{13}{figure.caption.5}
 \contentsline {figure}{\numberline {1.2}{\ignorespaces Resultados de test para HOG\relax }}{14}{figure.caption.6}
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Ejemplo Histograma de un descriptor LBP\relax }}{20}{figure.caption.16}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Ejemplo Histograma de un descriptor LBP\relax }}{26}{figure.caption.26}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Prueba detecci\IeC {\'o}n de personas 1\relax }}{34}{figure.caption.52}
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Prueba detecci\IeC {\'o}n de personas 2\relax }}{35}{figure.caption.53}
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Prueba detecci\IeC {\'o}n de personas 3\relax }}{36}{figure.caption.54}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Prueba detecci\IeC {\'o}n de personas 1\relax }}{38}{figure.caption.54}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Prueba detecci\IeC {\'o}n de personas 2\relax }}{39}{figure.caption.55}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Prueba detecci\IeC {\'o}n de personas 3\relax }}{40}{figure.caption.56}
