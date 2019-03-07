@@ -1,0 +1,201 @@
+---
+title: "practica456"
+author: "Alberto Armijo Ruiz"
+date: "16 de enero de 2019"
+output: pdf_document
+editor_options: 
+  chunk_output_type: console
+---
+
+Primero leemos los datos de train y test.
+
+```{r}
+datos.train = read.csv('train.csv',na.strings = c("","NA","?"))
+datos.test = read.csv('test.csv',na.strings = c("","NA","?"))
+
+# Añadimos la librería dplyr para manejar tibble.
+library(dplyr)
+library(tidyverse)
+
+# Convertimos el conjunto de datos en un tibble.
+datos.train = as.tibble(datos.train)
+datos.test = as.tibble(datos.test)
+```
+
+
+Ahora vamos a visualizar los datos, para ello vamos a utilizar la librería Hmisc y la función describe.
+```{r}
+library(Hmisc)
+Hmisc::describe(datos.train)
+```
+
+
+También utilizaremos la librería ggplot para visualizar los datos.
+```{r}
+library(ggplot2)
+ggplot(data=datos.train) + geom_bar(aes(x=C,y=..prop.., group=1))
+```
+
+Ahora vamos a modificar los datos para agruparlos según el valor de la variable clase.
+```{r}
+resumen = dplyr::group_by(datos.train,C) %>%
+  dplyr::summarise(nc=n())
+resumen
+```
+
+Cargamos la librería mice y vamos a intentar mostrar un patrón dentro de los datos.
+```{r}
+library(mice)
+patron = mice::md.pattern(x=datos.train[1:200,1:20], plot=TRUE)
+```
+
+Se puede observar que en todas las variables donde se encuentran datos perdidos, solo suele haber 1 dato pérdido, lo cual es interesante. Ahora vamos a comprobar que cuantas instancias tengo completas y cuantas incompletas dentro de nuestro dataset.
+
+```{r}
+completas = mice::ncc(datos.train)
+imcompletas = mice::nic(datos.train)
+```
+
+Ahora también vamos a comprobar si hay datos incompletos en test.
+```{r}
+incompletas.test = mice::nic(datos.test)
+```
+
+También podríamos utilizar la biblioteca, que se encuentra en los scripts.
+```{r}
+library(Amelia)
+library(lattice)
+
+Amelia::missmap(datos.train[1:300,1:20])
+```
+
+Ahora lo siguiente que vamos a hacer es encontrar las variables que más missing values tienen y lo ordenaremos.
+```{r}
+parOrden = sort(sapply(datos.train,function(x){sum(is.na(x))}), decreasing = TRUE)
+parOrden
+```
+
+Lo siguiente que haremos es imputar dichos datos pérdidos, para ello utilizaremos la librería mice que hemos cargado anteriormente.
+```{r}
+imputacion = mice::mice(datos.train, m=1,method="cart",printFlag = TRUE)
+```
+
+Como podemos ver, solamente está trabajando con un subconjunto de variables, no con todas las variables que hemos visto que tienen datos perdidos. Si queremos imputar los datos de al menos las variables que ha seleccionado, utilizaremos la función complete de mice.
+```{r}
+imputados = mice::complete(imputacion)
+
+# Si miraramos el número de imputados, se puede ver que seguimos teniendo datos perdidos.
+imcompletas = mice::nic(datos.train)
+```
+
+Seguimos teniendo variables con datos incompletos, esto es porque mice no trabaja con variables que están correladas; en cambio, Amelia sí que realiza una imputación para todas las variables perdidas.
+```{r}
+imputados = Amelia::amelia(datos.train,m=1, parallel="multicore",noms="C")
+incompletas = mice::nic(imputados$imputations$imp1)
+```
+
+Lo siguiente que podemos hacer es mirar la correlación entre las variables.
+```{r}
+library(corrplot)
+corrMatrix = cor(na.omit(datos.train))
+corrplot::corrplot(corrMatrix,type="upper",tl.col="black",tl.srt=45)
+corrplot::corrplot(corrMatrix,order="FPC",type="upper",tl.col="black",tl.srt = 45)
+```
+
+Otros gráficos.
+```{r}
+library(PerformanceAnalytics)
+PerformanceAnalytics::chart.Correlation(na.omit(datos.train[,1:5]), histogram = TRUE)
+```
+
+
+Ahora lo que vamos que hacer es eliminar las variables que estén altamente correladas.
+```{r}
+altamenteCorreladas = caret::findCorrelation(corrMatrix, cutoff = 0.8)
+print(length(altamenteCorreladas))
+filtrado = datos.train[,-altamenteCorreladas]
+filtrado
+```
+
+Ahora vamos a utilzar reglas de asociación para predecir.
+```{r}
+library(OneR)
+modeloIR = OneR::OneR(C~., data=datos.train)
+modeloIR
+```
+
+Ahora probamos con el conjunto de datos filtrado.
+```{r}
+modeloFiltrado = OneR::OneR(C~., data=filtrado)
+modeloFiltrado
+```
+
+
+```{r}
+filtradoDiscreto = OneR::optbin(as.data.frame(filtrado))
+modeloFDiscretizado = OneR(C~., data=filtradoDiscreto)
+modeloFDiscretizado
+```
+
+Predecimos los datos con el modelo de reglas de asociación que hemos encontrado.
+```{r}
+prediccion.reglas = predict(modeloFDiscretizado,as.data.frame(datos.test))
+prediccion.reglas = as.vector(prediccion.reglas)
+```
+
+Ahora para poder crear un archivo que se pueda subir a Kaggle, utilizaremos una columnas de ids y los resultados obtenidos.
+```{r}
+ids = 1:length(prediccion.reglas)
+resultados.reglas = data.frame(Id=ids,
+                               Prediction=prediccion.reglas)
+head(resultados.reglas)
+
+# Por último guardamos los datos.
+write.csv(resultados.reglas, file="./envio.csv",row.names=FALSE,quote = FALSE)
+```
+
+Otro algoritmo de reglas de asociación es ripper que está en la librería RWeka.
+```{r}
+library(RWeka)
+datos.train$C = as.factor(datos.train$C)
+modeloJR = RWeka::JRip(C~., data=datos.train)
+modeloJR
+
+# Jacemos validación cruzada.
+RWeka::evaluate_Weka_classifier(modeloJR,numFolds = 10)
+
+modeloJ48 = RWeka::J48(C~.,data=datos.train)
+RWeka::evaluate_Weka_classifier(modeloJ48,numFolds=10)
+```
+
+Facilidades para selección de parámetros.
+```{r}
+library(caret)
+library(mlbench)
+library(gdm)
+
+data(Sonar)
+enTrain = caret::createDataPartition(Sonar$Class, p=.75,list=FALSE)
+sonar.train = Sonar[enTrain,]
+sonar.test = Sonar[-enTrain,]
+
+# training de los datos.
+fitControl = caret::trainControl(method="repeatedcv",
+                                 number=5,
+                                 repeats = 3)
+modelo = train(Class~.,data=sonar.train,
+               method="gbm",
+               trControl=fitControl,
+               verbose=FALSE)
+
+grip = expand.grid(interaction.depth=c(1,5,9),
+                   n.trees=c(1:30)*50,
+                   shrinkage=0.1,
+                   n.minobsinnode=20)
+modelo = train(Class~.,data=sonar.train,
+               method="gbm",
+               trControl=fitControl,
+               verbose=FALSE,
+               tuneGrid = grip)
+```
+

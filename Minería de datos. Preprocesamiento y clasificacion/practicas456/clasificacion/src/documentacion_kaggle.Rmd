@@ -1,0 +1,239 @@
+---
+title: "Documentacion kaggle"
+output: pdf_document
+---
+
+# Documentación Kaggle sobre árboles
+En esta documentación se describen los recursos que se han utilizado para los modelos que se han creado para la documentación de Kaggle y se proporcionan ejemplos de como se han hecho, los modelos que se han obtenido no tienen usar todos los recursos que aquí se muestran. Tras comentar todo lo que se ha probado, se proporcionarán tablas con los resultados obtenidos para diferentes algoritmos. Los algoritmos que se han utilizado en esta práctica son: *r-part*, *ctree*, *J48 (c4.5)*, *LMT (Logistic Model Trees)*.
+
+```{r}
+set.seed(42)
+datos.train = read.csv('train.csv',na.strings = c("","NA","?"))
+datos.test = read.csv('test.csv',na.strings = c("","NA","?"))
+
+head(datos.train)
+```
+
+## Imputación de datos
+Lo siguiente que se va a hacer es imputar los datos, para ello se va a utilizar la biblioteca **Amelia**, se utilizará con una imputación y se sustituirán los datos de train por los imputados. También se utilizará la biblioteca **mice** para comprobar que ya no quedan más datos perdidos.
+```{r}
+library(Amelia)
+library(mice)
+incompletas = mice::nic(datos.train)
+cat(paste("datos perdidos antes de imputarlo: ",incompletas,"\n"))
+imputados = Amelia::amelia(datos.train,m=1, parallel="multicore",noms="C")
+incompletas = mice::nic(imputados$imputations$imp1)
+cat(paste("datos perdidos después de la imputación: ",incompletas),"\n")
+datos.imputados = imputados$imputations$imp1
+```
+
+## Limpieza de datos extremos
+Se puede ver que dentro del dataset hay datos extremos, todos alrededor de -60000, en cualquiera  de los atributos.  Aunque no sea necesario eliminarlos utlizando árboles de decisión, ya que estos no les afecta los outliers. En este caso se van a eliminar para intentar mejorar algo el modelo que se obtenga.
+Para ello se ha creado una función que encuentra todas las filas que están afectadas por algún dato extremo, y se eliminan.
+```{r}
+menor.que = function(data,indice){
+  menores = which( data[,indice] < -60000 )
+}
+datos.minimos = lapply(1:50, menor.que, data=datos.imputados)
+datos.minimos = datos.imputados[-as.vector(datos.minimos[[2]]),]
+```
+
+## Eliminación de variables correladas
+Para mejorar el modelo que se genera hasta ahora, se intentará mejorar el modelo eliminando variables correladas. Para ello se utilizará la biblioteca *findCorrelation* de la biblioteca **caret**; para ello antes se debe calcular la matriz de correlación entre variables. Tras calcular las variables correladas se eliminan del dataset.
+```{r}
+new_train = datos.minimos
+corrMatrix = cor(new_train)
+
+# Obtenemos las variables altamente correladas
+altamenteCorreladas = caret::findCorrelation(corrMatrix, cutoff = 0.8)
+
+# Dataset con variables poco correladas con imputación de valores.
+new_train = datos.minimos[,-altamenteCorreladas]
+```
+
+## Eliminación de ruido de clase
+Otra de las cosas que se ha probado es limpiar el dataset y obtener un modelo mejor. Para ello se utilizará la función *IPF* del paquete **NoiseFiltersR**; se utilizarán los parámetros por defecto.
+```{r}
+library(NoiseFiltersR)
+posicionClase <- length(names(new_train))
+variableClase <- names(new_train)[posicionClase]
+
+formulaClase <- as.formula(paste(variableClase,"~.",sep=""))
+
+new_train$C = as.factor(new_train$C)
+out = IPF(formulaClase,data=new_train)
+
+# Comprobarmos si seguimos teniendo datos con ruido.
+summary(out$cleanData)
+
+new_train = out$cleanData
+```
+
+Como se puede ver, IPF está eliminando bastantes variables de la clase 1, que es una clase minoritaria. Lo siguiente que se va a hacer es intentar equilibrar el modelo utilizando técnicas de oversampling y undersampling.
+
+## Oversampling del dataset
+Para hacer oversampling se ha utilizado la función **oversample** del paquete *imbalace*, esta función permite utilizar diferentes métodos de oversampling como SMOTE, Bordeline_SMOTE, ADASYN, etc... Dentro de las pruebas realizadas se han probado con estos 3 descritos anteriormente, de estos el que mejor a funcionado es Bordeline_SMOTE, que genera nuevas instancias por la perifería del conjunto de datos solamente. Se ha realizado oversampling sobre los datos para equilibrar las clases que tenemos en el dataset, ya que están bastante desbalanceadas; es cierto que los árboles de decisión funcionan bien con conjunto de datos desbalanceados, pero en la prática se ha visto que la predicción del modelo mejora al equilibrar el dataset. Para hacer oversampling se debe hacer lo siguiente.
+```{r}
+library(imbalance)
+ov = new_train
+over = imbalance::oversample(ov,ratio=0.8, method="BLSMOTE",classAttr = "C")
+imbalanceRatio(over,"C")
+table(over$C)
+ov = over
+```
+
+
+## Undersampling del dataset
+Para hacer undersampling se ha utlizado la función **ubTomek** del paquete *unbalance*, el algoritmo que implementa este método es Tomek-Links, este algoritmo elimina los datos de la clase mayoritaria que son cercanos a datos de la clase minoritaria, de esta forma también se consigue equilibrar el dataset, aunque se debe tener cuidado para no perder demasiada información sobre los datos de la clase mayoritaría. Durante esta práctica este método se ha combinado con oversampling e IPF, ya que utilizándolo de forma única los resultados que se obtienen no son mejores que los que se obtienen sin utilizar este método. Para utilizar Tomek-Links se debe hacer lo siguiente:
+```{r}
+library(unbalanced)
+n = ncol(new_train)
+output = new_train$C
+input = new_train[,-n]
+
+data = ubTomek(input,output)
+under = cbind(data$X,C=data$Y)
+head(under, 6)
+```
+
+
+## PCA y kPCA
+Para reducir el número de características se ha probado PCA, de esta forma si se consigue un conjunto de datos que obtenga un grupo de datos que obtenga resultados parecidos a los que se obtiene hasta el momento pero que tenga un número menor de variables, obtendremos un modelo más sencillo y más fácil de interpretar. Para utilizar PCA antes se debe normalizar los datos para que las diferentes escalas de las variables no afecten al algoritmo PCA. Se utilizará el paquete *caret* que contiene la función **preProcess** que nos permite escalar, hacer PCA y elegir el número de variables finales con las que se quedará PCA, una vez utilizada la función **preProcess** se pueden obtener los datos transformados con la función **predict** sobre el conjunto de datos que queramos transformar.
+
+
+```{r}
+library(caret)
+preproc = preProcess(datos.minimos[,-ncol(datos.minimos)],method=c("BoxCox","center","scale","pca"),pcaComp=8)
+trainPCA = predict(preproc,datos.minimos[,-ncol(datos.minimos)])
+trainPCA = cbind(trainPCA,C=datos.minimos$C)
+trainPCA$C = as.factor(trainPCA$C)
+# Hacemos lo mismo para test.
+testPCA = predict(preproc,datos.test)
+
+# Mostramos las 10 primeras características.
+pairs(trainPCA,col=trainPCA$C)
+```
+
+En la práctica podemos se ha podido ver que este dataset con menos características ofrecen resultados iguales que el dataset original con más variables en las pruebas de validación; sin embargo, los resultados que se obtiene después en test disminuyen un 2 o 3 % que los resultados obtenidos por el modelo original.
+
+Otra alternativa que se ha probado es kPCA o kernel PCA, la idea de este método es reducir el número de instancias si se desea, pero también cambiar el espacio donde se representan los datos, realizando transformaciones no lineales a los datos y de esta forma intentar separar mejor las clases del dataset, ya que como se puede ver en la imagen superior, los datos de la clase 0 y de la clase 1 están mezclados entre ellos. Durante las pruebas se han probado diferentes kernels, entre otros un kernel radial y un kernel sigmoidal. Para esta transformación se ha utilizado la función **kpca** del paquete *kernlab*, este paquete permite realizar la transformación PCA determinando el kernel que se quiere utilizar dentro de los que tiene implementados, además se debe proporcionar también algunos parámetros adicionales para los kernels y el número de variables con la que nos queremos quedar. Por desgracia, durante la práctica no se ha obtenido ninguna transformación que consiga una buena separación de los datos y los resultados obtenidos en validación son bastante peores que los obtenidos con los datos normales, por lo que no se ha probado en test después. Un ejemplo de los datos transformados y reducidos con kernel PCA es la siguiente:
+
+```{r}
+#library(kernlab)
+#aux = datos.minimos
+#kpc = kpca(~., data=aux[,-ncol(aux)],kernel="rbfdot",kpar=list(sigma=0.33),features=30)
+#data_kpc = as.data.frame(rotated(kpc))
+#data_kpc = cbind(data_kpc,C=as.factor(aux[,ncol(aux)]))
+
+#head(data_kpc,6)
+
+# Mostramos las 10 primeras variables.
+#pairs(data_kpc[1:10],col=data_kpc$C)
+```
+
+Como se puede ver, los datos siguen juntos e incluso es más difícil hacer distinciones entre ellos.
+
+## Resultados obtenidos
+
+Dentro de este apartado se comentarán los diferentes resultados obtenidos por lo métodos que se han utilizado en la prática. Por último se comentarán que opciones de forma general son las que mejores han funcionado para cualquiera de los métodos.
+
+### Algoritmo ctree
+El algoritmo **ctree** de la biblioteca *party* implementa el algoritmo \textit{\textbf{Conditional Inference Trees}}. Este método utiliza test de hipótesis nula para ir seleccionando variables para ir creando el árbol. Un ejemplo de un árbol generado con este método es el siguiente:
+```{r}
+library(partykit)
+posicionClase = length(names(trainPCA))
+variableClase = names(trainPCA)[posicionClase]
+formulaClase = as.formula(paste(variableClase,"~.",sep=""))
+model.ctree = ctree(formulaClase,trainPCA)
+plot(model.ctree,gp = gpar(fontsize = 6))
+```
+
+Los resultados obtenidos con este algoritmo son los siguientes.
+
+| Amelia | Noise Suppr. | Outliers Suppr. | Oversmpl. | Undersmpl. | Selection | Accuracy |
+|:-----------:|:-------------------:|:-------------------:|:-----------------:|:-----------------:|:--------------:|:---------------------:|:------------:|
+| Yes | No | No | No | No | None | 0.7496718 |
+| Yes | No | No | No | No | Not Correlated Vars | 0.7339168 |
+| Yes | No | No | ADASYN | No | Not Correlated Vars | 0.7715152 |
+| Yes | IPF | No | ADASYN | No | Not Correlated Vars | 0.7711191 |
+| Yes | No | No | No | Tomek-Links | Not Correlated Vars | 0.7615894 |
+| Yes | No | No | No | Tomek-Links + CNN | Not Correlated Vars | 0.7641365 |
+
+Para los resultados obtenidos con este modelo, se puede ver que el algoritmo no funciona demasiado bien, ya que hagamos lo que hagamos, el modelo no consigue mejorar demasiado, solamente parece que le afecta eliminar variables muy correladas y equilibrar las clases.
+
+
+```{r}
+library(rpart)
+library(rattle)
+posicionClase = length(names(trainPCA))
+variableClase = names(trainPCA)[posicionClase]
+formulaClase = as.formula(paste(variableClase,"~.",sep=""))
+model.rpart = rpart(formulaClase,trainPCA)
+fancyRpartPlot(model.rpart)
+```
+
+Los resultados obtenidos durante la competición son:
+| Amelia | Noise Suppr. | Outliers Suppr. | Oversmpl. | Undersmpl. | Selection | Accuracy |
+|:-----------:|:-------------------:|:-------------------:|:-----------------:|:-----------------:|:--------------:|:---------------------:|:------------:|
+| No | No | -60000 data | No | No | None | 0.7568606 |
+| Yes | No | -60000 data | No | No | No | 0.7705818 |
+| Yes | No | -60000 data | No | Tomek-Links | No | 0.7563776 |
+| Yes | IPF | -60000 data | No | Tomek-Links | No | 0.9201521 |
+| Yes | IPF | -60000 data | No | No | No | 0.9009967 |
+| Yes | IPF | -60000 data | SMOTE | No | No | 0.9021978 |
+| Yes | IPFx2 | -60000 data | SMOTE | No | No | 0.9185851 |
+| Yes | IPFx2 | -60000 data | SMOTE | No | Not Correlated Vars | 0.9169006 |
+| Yes | IPF | -60000 data | ADASYN | No | No | 0.9086088 |
+| Yes | IPF | -60000 data | ADASYN | No | Only Vars with Normal Distribution or similar | 0.8891622 |
+| No | No | -60000 data | No | No | Not Correlated Vars  | 0.7626346 |
+
+Para este algoritmo, se puede ver que se obtienen mejores resultados que en los modelos anteriores. Para las pruebas con estos algoritmos se han eliminado todos los datos que contienen datos con -60000, para los siguientes algoritmos también se ha utilizado el mismo dataset con los datos eliminados. Se puede ver que ciertos algoritmos por si solos no funcionan demasiado bien, como por ejemplo Tomek-Links; pero al encadenarlo con otros algoritmos, como por ejemplo IPF. El algorimto de preprocesamiento más destacado es IPF, que es el que mayor mejora obtiene.
+
+
+```{r}
+library(RWeka)
+posicionClase = length(names(new_train))
+variableClase = names(new_train)[posicionClase]
+formulaClase = as.formula(paste(variableClase,"~.",sep=""))
+model.lmt = LMT(formulaClase,data=new_train)
+plot(model.lmt)
+```
+
+Algunos de los resultados obtenidos en la competición:
+| Amelia | Noise Suppr. | Outliers Suppr. | Oversmpl. | Undersmpl. | Selection | Accuracy |
+|:-----------:|:-------------------:|:-------------------:|:-----------------:|:-----------------:|:--------------:|:---------------------:|:------------:|
+| No | IPF | -60000 data | No | No | None | 0.7787977 |
+| Yes | IPF | -60000 data | No | No | None | 0.9278439 |
+| Yes | IPF | -60000 data | No | Tomek-Links | None | 0.7836078 |
+| Yes | IPF | -60000 data | BLSMOTE | No | None | 0.9355495 |
+| Yes | IPF | -60000 data | BLSMOTE | Tomek-Links | None | 0.9391401 |
+
+En estos resultados se puede ver que lo que ms mejora produce es BLSMOTE e IPF. Este algoritmo es bastante más complejo que el resto, ya que realiza una regresión logística en cada uno de los nodos hoja. Con este algoritmo se ha podido comprobar que sufre de sobreaprendizaje, ya que en validación los últimos modelos se han obtenido resultados bastante buenos, pero después en test suele bajar un 6% más o menos.
+
+
+```{r}
+library(RWeka)
+posicionClase = length(names(trainPCA))
+variableClase = names(trainPCA)[posicionClase]
+formulaClase = as.formula(paste(variableClase,"~.",sep=""))
+model.j48 = J48(formulaClase,data=trainPCA)
+plot(model.j48,gp = gpar(fontsize = 6))
+```
+
+Algunos de los resultados obtenidos en la práctica:
+| Amelia | Noise Suppr. | Outliers Suppr. | Oversmpl. | Undersmpl. | Selection | Accuracy |
+|:-----------:|:-------------------:|:-------------------:|:-----------------:|:-----------------:|:--------------:|:---------------------:|:------------:|
+| Yes | No | -60000 data | No | No | None | 0.7573546 |
+| Yes | IPF | -60000 data | No | No | None | 0.914334 |
+| Yes | IPF | -60000 data | BLSMOTE | No | None | 0.9154396 |
+| Yes | IPF | -60000 data | No | Tomek-Links | None | 0.928703 |
+| Yes | IPF | -60000 data | BLSMOTE | Tomek-Links | None | 0.9180769 |
+| Yes | IPFx2 | -60000 data | BLSMOTE | Tomek-Links | None | 0.9516239 |
+| Yes | IPF | -60000 data | BLSMOTE | No | Not Correlated Vars | 0.9182967 |
+| Yes | IPF | -60000 data | BLSMOTE | Tomek-Links | Not Correlated Vars | 0.9283082 |
+
+Para este modelo se pueden observar resultados parecidos a los que se obtienen con LMT en validación, en test (resultados de Kaggle) suelen bajar entre un 0.5% y un 3%. Al igual que para otros modelos IPF es el algoritmo que marca la diferencia en cuanto a mejorar los resultados obtenidos en el modelo.
+
+
+
+

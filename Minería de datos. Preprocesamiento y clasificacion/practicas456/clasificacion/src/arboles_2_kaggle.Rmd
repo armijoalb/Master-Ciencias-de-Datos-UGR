@@ -1,0 +1,326 @@
+---
+title: "árboles keggle"
+output: pdf_document
+---
+
+Leemos los datos.
+```{r}
+set.seed(42)
+datos.train = read.csv('train.csv',na.strings = c("","NA","?"))
+datos.test = read.csv('test.csv',na.strings = c("","NA","?"))
+
+datos.train$C = as.factor(datos.train$C)
+head(datos.train)
+```
+
+
+```{r}
+library(Amelia)
+cat("número de valores perdidos antes de imputar",
+    mice::nic(datos.train))
+imputados = amelia(datos.train,m=1,parallel="multicore",noms="C")
+cat("número de valores perdidios tras la imputación",
+    mice::nic(imputados$imputations$imp1))
+
+datos.imputados = imputados$imputations$imp1
+```
+
+```{r}
+library(caret)
+preproc = preProcess(datos.imputados[,-ncol(datos.imputados)],method=c("BoxCox","center","scale","pca"),pcaComp=20)
+trainPCA = predict(preproc,datos.imputados[,-ncol(datos.imputados)])
+trainPCA = cbind(trainPCA,C=datos.imputados$C)
+# Hacemos lo mismo para test.
+testPCA = predict(preproc,datos.test)
+```
+
+
+Funciones utilizadas hasta ahora.
+```{r}
+library(RWeka)
+trainDataCVLMT = function(data,posicionClase,validation_number){
+  inTrain <- createDataPartition(y=data[,posicionClase], p = .8, 
+                                 list = FALSE)
+  
+  cat("Realizando validación",validation_number,"\n")
+  
+  training <- data[ inTrain,]
+  testing  <- data[-inTrain,]
+  
+  tree.model = LMT(formulaClase,data=training)
+  
+  testPred = predict(tree.model,newdata = testing, type="class")
+  resultados.test = calculateErrorAndAccuracy(testPred,testing$C)
+  list(resultados=resultados.test,modelo=tree.model)
+}
+
+trainDataCVJ48 = function(data,posicionClase,validation_number){
+  inTrain <- createDataPartition(y=data[,posicionClase], p = .8, 
+                                 list = FALSE)
+  
+  cat("Realizando validación",validation_number,"\n")
+  
+  training <- data[ inTrain,]
+  testing  <- data[-inTrain,]
+  
+  tree.model = J48(formulaClase,data=training)
+  
+  testPred = predict(tree.model,newdata = testing, type="class")
+  resultados.test = calculateErrorAndAccuracy(testPred,testing$C)
+  list(resultados=resultados.test,modelo=tree.model)
+}
+```
+
+```{r}
+calculateErrorAndAccuracy=function(data.predicted, real.data){
+  results = table(data.predicted,real.data)
+  sumDiag = sum(diag(results))
+  sumTotal = sum(results)
+  fiabilidad = sumDiag/sumTotal
+  error = 1-fiabilidad
+  print(fiabilidad)
+  print(error) 
+}
+```
+
+```{r}
+pairs(trainPCA,col=trainPCA$C)
+```
+
+
+```{r}
+posicionClase = length(names(trainPCA))
+variableClase = names(trainPCA)[posicionClase]
+formulaClase = as.formula(paste(variableClase,"~.",sep=""))
+n = 1:10
+cv = sapply(n,trainDataCVLMT,data=trainPCA,posicionClase=posicionClase)
+cv.results = mean(unlist(cv["resultados",]))
+cv.results
+
+best.model = cv["modelo",which.min(unlist(cv["resultados",]))]
+```
+
+```{r}
+test.resultados = predict(best.model$modelo, newdata=testPCA, type="class")
+
+ids = 1:length(test.resultados)
+resultados.test = data.frame(Id=ids,
+                               Prediction=test.resultados)
+head(resultados.test)
+write.csv(resultados.test,
+          file="./test-arboles-lmt-imputacion-pca.csv",row.names=FALSE,quote = FALSE)
+```
+
+```{r}
+posicionClase = length(names(datos.imputados))
+variableClase = names(datos.imputados)[posicionClase]
+formulaClase = as.formula(paste(variableClase,"~.",sep=""))
+n = 1:10
+cv = sapply(n,trainDataCVLMT,data=datos.imputados,posicionClase=posicionClase)
+cv.results = mean(unlist(cv["resultados",]))
+cv.results
+```
+
+```{r}
+posicionClase = length(names(datos.imputados))
+variableClase = names(datos.imputados)[posicionClase]
+formulaClase = as.formula(paste(variableClase,"~.",sep=""))
+n = 1:10
+cv = sapply(n,trainDataCVJ48,data=datos.imputados,posicionClase=posicionClase)
+cv.results = mean(unlist(cv["resultados",]))
+cv.results
+```
+
+```{r}
+posicionClase = length(names(trainPCA))
+variableClase = names(trainPCA)[posicionClase]
+formulaClase = as.formula(paste(variableClase,"~.",sep=""))
+n = 1:10
+cv = sapply(n,trainDataCVJ48,data=trainPCA,posicionClase=posicionClase)
+cv.results = mean(unlist(cv["resultados",]))
+cv.results
+best.model = cv["modelo",which.min(unlist(cv["resultados",]))]
+```
+
+```{r}
+test.resultados = predict(best.model$modelo, newdata=testPCA, type="class")
+
+ids = 1:length(test.resultados)
+resultados.test = data.frame(Id=ids,
+                               Prediction=test.resultados)
+head(resultados.test)
+write.csv(resultados.test,
+          file="./test-arboles-j48-imputacion-pca.csv",row.names=FALSE,quote = FALSE)
+```
+
+Hacemos IPF.
+```{r}
+library(NoiseFiltersR)
+new_train = trainPCA
+posicionClase <- length(names(new_train))
+variableClase <- names(new_train)[posicionClase]
+
+formulaClase <- as.formula(paste(variableClase,"~.",sep=""))
+
+out = IPF(formulaClase,data=new_train)
+
+# Comprobarmos si seguimos teniendo datos con ruido.
+summary(out$cleanData)
+
+new_train = out$cleanData
+ipf_data = out$cleanData
+```
+
+```{r}
+posicionClase = length(names(new_train))
+variableClase = names(new_train)[posicionClase]
+formulaClase = as.formula(paste(variableClase,"~.",sep=""))
+n = 1:10
+cv = sapply(n,trainDataCVJ48,data=new_train,posicionClase=posicionClase)
+cv.results = mean(unlist(cv["resultados",]))
+cv.results
+best.model = cv["modelo",which.min(unlist(cv["resultados",]))]
+
+cv2 = sapply(n,trainDataCVLMT,data=new_train,posicionClase=posicionClase)
+cv2.results = mean(unlist(cv2["resultados",]))
+cv2.results
+best.model.lmt = cv2["modelo",which.min(unlist(cv2["resultados",]))]
+```
+
+```{r}
+test.resultados = predict(best.model.lmt$modelo, newdata=testPCA, type="class")
+
+ids = 1:length(test.resultados)
+resultados.test = data.frame(Id=ids,
+                               Prediction=test.resultados)
+head(resultados.test)
+write.csv(resultados.test,
+          file="./test-arboles-lmt-imputacion-pca-ipf.csv",row.names=FALSE,quote = FALSE)
+
+```
+```{r}
+test.resultados = predict(best.model$modelo, newdata=testPCA, type="class")
+
+ids = 1:length(test.resultados)
+resultados.test = data.frame(Id=ids,
+                               Prediction=test.resultados)
+head(resultados.test)
+write.csv(resultados.test,
+          file="./test-arboles-j48-imputacion-pca-ipf.csv",row.names=FALSE,quote = FALSE)
+
+```
+ 
+ 
+ Probaremos a hacerlo después de hacer tomek-links y blsmote porque ahora mismo no mejoran los resultados.
+```{r}
+library(unbalanced)
+n = ncol(new_train)
+output = new_train$C
+input = new_train[,-n]
+
+data = ubTomek(input,output)
+new_train = cbind(data$X,C=data$Y)
+head(new_train)
+```
+```{r}
+library(imbalance)
+aux = new_train
+over = oversample(aux,ratio=0.8, method="BLSMOTE",classAttr = "C")
+imbalanceRatio(over,"C")
+table(over$C)
+new_train = over
+```
+ 
+```{r}
+posicionClase = length(names(new_train))
+variableClase = names(new_train)[posicionClase]
+formulaClase = as.formula(paste(variableClase,"~.",sep=""))
+n = 1:10
+cv = sapply(n,trainDataCVJ48,data=new_train,posicionClase=posicionClase)
+cv.results = mean(unlist(cv["resultados",]))
+cv.results
+best.model = cv["modelo",which.min(unlist(cv["resultados",]))]
+
+cv2 = sapply(n,trainDataCVLMT,data=new_train,posicionClase=posicionClase)
+cv2.results = mean(unlist(cv2["resultados",]))
+cv2.results
+best.model.lmt = cv2["modelo",which.min(unlist(cv2["resultados",]))]
+```
+
+```{r}
+test.resultados = predict(best.model$modelo, newdata=testPCA, type="class")
+
+ids = 1:length(test.resultados)
+resultados.test = data.frame(Id=ids,
+                               Prediction=test.resultados)
+head(resultados.test)
+write.csv(resultados.test,
+          file="./test-arboles-j48-imputacion-pca-ipf-tomek-blsmote.csv",row.names=FALSE,quote = FALSE)
+```
+
+```{r}
+test.resultados = predict(best.model.lmt$modelo, newdata=testPCA, type="class")
+
+ids = 1:length(test.resultados)
+resultados.test = data.frame(Id=ids,
+                               Prediction=test.resultados)
+head(resultados.test)
+write.csv(resultados.test,
+          file="./test-arboles-lmt-imputacion-pca-ipf-tomek-blsmote.csv",row.names=FALSE,quote = FALSE)
+```
+
+
+
+No mejora, probamos solamente con blsmote.
+```{r}
+new_train = ipf_data
+aux = new_train
+over = oversample(aux,ratio=0.8, method="BLSMOTE",classAttr = "C")
+imbalanceRatio(over,"C")
+table(over$C)
+new_train = over
+```
+
+```{r}
+posicionClase = length(names(new_train))
+variableClase = names(new_train)[posicionClase]
+formulaClase = as.formula(paste(variableClase,"~.",sep=""))
+n = 1:10
+cv = sapply(n,trainDataCVJ48,data=new_train,posicionClase=posicionClase)
+cv.results = mean(unlist(cv["resultados",]))
+cv.results
+best.model = cv["modelo",which.min(unlist(cv["resultados",]))]
+```
+
+```{r}
+test.resultados = predict(best.model$modelo, newdata=testPCA, type="class")
+
+ids = 1:length(test.resultados)
+resultados.test = data.frame(Id=ids,
+                               Prediction=test.resultados)
+head(resultados.test)
+write.csv(resultados.test,
+          file="./test-arboles-j48-imputacion-pca-ipf-blsmote.csv",row.names=FALSE,quote = FALSE)
+```
+ Probamos con kpca.
+```{r}
+library(kernlab)
+aux = datos.imputados
+kpc = kpca(~., data=aux[,-ncol(aux)],kernel="rbfdot",kpar=list(sigma=0.33),features=30)
+data_kpc = as.data.frame(rotated(kpc))
+data_kpc = cbind(data_kpc,C=as.factor(aux[,ncol(aux)]))
+head(data_kpc)
+pairs(data_kpc[1:10],col=data_kpc$C)
+```
+
+```{r}
+posicionClase = length(names(data_kpc))
+variableClase = names(data_kpc)[posicionClase]
+formulaClase = as.formula(paste(variableClase,"~.",sep=""))
+n = 1:10
+cv = sapply(n,trainDataCVLMT,data=data_kpc,posicionClase=posicionClase)
+cv.results = mean(unlist(cv["resultados",]))
+cv.results
+best.model.kpca = cv["modelo",which.min(unlist(cv["resultados",]))]
+```
+

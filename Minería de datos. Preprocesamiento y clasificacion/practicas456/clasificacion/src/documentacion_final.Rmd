@@ -1,0 +1,1120 @@
+---
+title: "Documentación Kaggle"
+author: "Alberto Armijo Ruiz, Germán González Almagro"
+date: "6 de marzo de 2019"
+output: 
+  pdf_document:
+    fig_caption: yes
+    number_sections: yes
+    toc: yes
+---
+
+\newpage
+
+# Documentación Reglas de Asociación
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(cache = T)
+knitr::opts_chunk$set(warning = F)
+```
+
+
+```{r, echo=FALSE, include=FALSE}
+library(dplyr)
+library(FactoMineR)
+library(Hmisc)
+library(ggplot2)
+library(mice)
+library(Amelia)
+library(lattice)
+library(corrplot)
+library(PerformanceAnalytics)
+library(OneR)
+library(RWeka)
+library(caret)
+library(mlbench)
+library(gbm)
+library(parallel)
+require(robCompositions)
+library(FSelector)
+library(mlbench)
+library(imbalance)
+library(DMwR)
+library(NoiseFiltersR)
+library(outliers)
+library(mvoutlier)
+library(unbalanced)
+
+library(factoextra)
+
+vector_es_outlier_IQR = function (datos, indice.de.columna, coef = 1.5){
+  columna.datos = datos[,indice.de.columna]
+  cuartil.primero = quantile(columna.datos)[2]  #quantile[1] es el m?nimo y quantile[5] el m?ximo.
+  cuartil.tercero = quantile(columna.datos)[4] 
+  iqr = cuartil.tercero - cuartil.primero
+  extremo.superior.outlier = (iqr * coef) + cuartil.tercero
+  extremo.inferior.outlier = cuartil.primero - (iqr * coef)
+  es.outlier  = columna.datos > extremo.superior.outlier |
+    columna.datos < extremo.inferior.outlier
+  return (es.outlier)
+}
+
+vector_claves_outliers_IQR = function(datos, indice, coef = 1.5){
+  columna.datos = datos[,indice]
+  vector.de.outliers = vector_es_outlier_IQR(datos, indice, coef)
+  return (which(vector.de.outliers  == TRUE))
+}
+
+#Función que devuelve los indices de los outliers en alguna columna
+vector_claves_outliers_IQR_en_alguna_columna <- function(datos, coef = 1.5) {
+  
+  indices.de.outliers.en.alguna.columna = sapply(1:ncol(datos), 
+                                                 vector_claves_outliers_IQR, 
+                                                 datos = datos, coef = coef)
+  unique(unlist(indices.de.outliers.en.alguna.columna))
+  
+}
+
+set.seed(17)
+```
+
+## Conjunto de datos a analizar.
+
+Comenzamos por cargar y analizar el conjunto de datos con el que trabajaremos. También transformaremos las etiquetas asociadas a las instancias a tipo de dato factor.
+
+```{r, echo=TRUE, include=T}
+train <- read.csv("train.csv", na.strings = c(" ", "NA", "?"))
+test <- read.csv("test.csv", na.strings = c(" ", "NA", "?"))
+
+train$C <- as.factor(train$C)
+```
+
+### Breve análisis exploratorio del conjunto de datos.
+
+Antes de comenzar a aplicar técnicas de preprocesamiento a los datos es necesario obtener algo más de información sobre los mismos.
+
+```{r, echo=TRUE, include=T}
+summary(train)
+ggplot(data = train) + geom_bar(mapping = aes(x = C, y = ..prop.., group = 1))
+```
+
+El conjunto de datos que analizaremos esta compuesto por 9144 instancias, caracterizadas cada una por 50 variables. Existen dos tipos de instancias, las de clase 1, y la de clase 0, aunque existe un notable desequilibrio entre ellas, siendo las de clase 0 las mayoritarias (5995), y las de clase uno las minoritarias (3149). Observamos también la gran desviación de los valores mínimos y máximos respecto a la mediana, claro indicativo de presencia a nomalías o ruido. También observamos que el número de valores perdidos está bien distribuido entre las 50 variables.
+
+Podemos hacer un análisis algo mas profundo de los valores perdidos presentes en el conjunto de datos.
+
+```{r, echo=TRUE, include=T}
+#Obtenemos las instancias con valores perdidos
+numero.de.casos.incompletos <- mice::nic(train)
+#Obtenemos el total de valores perdidoos
+sum(is.na(train))
+```
+
+Dado que el numero de instancias con valores perdidos coincide con el numero de valores perdidos esta claro que hay un solo valor perdido por instancia con valores perdidos. Esto imposbilitará aplicar métodos de filtrado de instancias por valores perdidos.
+
+### Generación de archivos para Kaggle
+
+Para automatizar la generacion de archivos para entregar en la plataforma Kaggle construimos la función ```kaggleFile(...)```, que toma como entrada el vector de etiquetas que escribirá en al archivo cuyo nombre viene dado como segundo argumento. Los archivos se guardan en la carpeta "envios/".
+
+```{r, echo=TRUE, include=T}
+kaggleFile <- function(pred, name) {
+  ids <- 1:length(pred)
+  res = as.data.frame(cbind(ids, pred))
+  colnames(res) <- c("Id", "Prediction")
+  name = gsub(".", "_", name, fixed = T)
+  name = paste("envios/", name, ".csv", sep = "")
+  write.csv(res, file = name, row.names = F, quote = F)
+}
+```
+
+Para identificar con facilidad el preprocesamiento llevado a cabo para obtener cada conjunto de etiquetas, construiremos nombres de variable incrementales que, de izquierda a derecha, indicaran el orden en el que se han aplicado los disferentes métodos de preprocesamiento.
+
+## Obtención del modelo básico
+
+Para empezar con el análisis, y dado que Ripper es capaz de trabajar con datos perdidos, podemos obtener un modelo con los datos crudos y tomarlo como base. Dado que el modelo de clasificación Ripper que obtendremos en todos los casos es compatible con las funciones de la librería Weka, podemos emplear la función ```RWeka::evaluate_Weka_classifier(...)```, que aplica validación cruzada (en este caso de 10 particiones) para probar la precisión del modelo obtenido.
+
+```{r, echo=TRUE, include=T}
+#Obtención del modelo
+modeloJR <- RWeka::JRip(C ~., data = train)
+#Evaluación del modelo
+RWeka::evaluate_Weka_classifier(modeloJR, numFolds = 10)
+
+#Clasificación de los datos de test
+prediccionJR <- predict(modeloJR, as.data.frame(test))
+prediccionJR <- as.vector(prediccionJR)
+
+#Generación del archivo Kaggle
+kaggleFile(prediccionJR, deparse(substitute(prediccionJR)))
+```
+
+## Imputación de valores
+
+Como ya vimos antes en este documento, no podemos aplicar un filtro de instancias en base a valores perdidos, de forma que tenemos que aplicar métodos de imputación de valores. Aplicaremos el método Amelia para imputar valores, la imputación corresponderá a la media de 5 ejecuciones del método Amelia sobre el mismo conjunto de datos.
+
+```{r, echo=TRUE, include=F}
+imputados.amelia = Amelia::amelia(train, m=5, parallel = "multicore", noms = "C")
+```
+```{r, echo=TRUE, include=T}
+imputados.amelia = Reduce('+', imputados.amelia$imputations)/
+  length(imputados.amelia$imputations)
+imputados.amelia$C = train$C
+
+modeloJR.Amelia <- RWeka::JRip(C ~., data = imputados.amelia)
+RWeka::evaluate_Weka_classifier(modeloJR.Amelia, numFolds = 10)
+
+prediccionJR.Amelia <- predict(modeloJR.Amelia, as.data.frame(test))
+prediccionJR.Amelia <- as.vector(prediccionJR.Amelia)
+
+kaggleFile(prediccionJR.Amelia, deparse(substitute(prediccionJR.Amelia)))
+```
+
+Por otra parte, existe la posiblilidad de imputar valores considerando las clases por separado, de esta manera se conservan las características propias de cada una de ellas sin que las clases restantes intervengan.
+
+```{r, echo=TRUE, include=F}
+imputados.ameliaSep0 = Amelia::amelia(train[train$C == 0, -51], m=5, 
+                                      parallel = "multicore")
+imputados.ameliaSep0 = Reduce('+', imputados.ameliaSep0$imputations)/
+  length(imputados.ameliaSep0$imputations)
+imputados.ameliaSep0$C = 0
+
+imputados.ameliaSep1 = Amelia::amelia(train[train$C == 1, -51], m=5, 
+                                      parallel = "multicore")
+imputados.ameliaSep1 = Reduce('+', imputados.ameliaSep1$imputations)/
+  length(imputados.ameliaSep1$imputations)
+imputados.ameliaSep1$C = 1
+```
+```{r, echo=TRUE, include=T}
+imputados.ameliaSep = train
+imputados.ameliaSep[train$C == 0, ] = imputados.ameliaSep0
+imputados.ameliaSep[train$C == 1, ] = imputados.ameliaSep1
+
+modeloJR.AmeliaSep <- RWeka::JRip(C ~., data = imputados.ameliaSep)
+RWeka::evaluate_Weka_classifier(modeloJR.AmeliaSep, numFolds = 10)
+
+prediccionJR.AmeliaSep <- predict(modeloJR.AmeliaSep, as.data.frame(test))
+prediccionJR.AmeliaSep <- as.vector(prediccionJR.AmeliaSep)
+
+kaggleFile(prediccionJR.AmeliaSep, deparse(substitute(prediccionJR.AmeliaSep)))
+```
+
+De entre los dos modelos de imputación, parece ser el que imputa las clases conjuntamente el que mejor precisión proporciona. Seleccionaremos el conjunto de datos con el que se obtuvo este modelo para continuar con el proporcesamiento.
+
+## Eliminación de ruido
+
+Con el conjunto de datos proporcesado para imputar los valores perdidos, podemos aplicar métodos de detección de ruido y tratar de "limpiar" los datos. Para llevar a cabo esta tarea emplearemos el método IPF.
+
+```{r, echo=TRUE, include=F}
+imputados.amelia.noisered <- NoiseFiltersR::IPF(C ~ ., data.frame(imputados.amelia))
+imputados.amelia.noisered <- imputados.amelia.noisered$cleanData
+```
+```{r, echo=TRUE, include=T}
+modeloJR.Amelia.noisered <- RWeka::JRip(C ~., data = imputados.amelia.noisered)
+RWeka::evaluate_Weka_classifier(modeloJR.Amelia.noisered, numFolds = 10)
+
+prediccionJR.Amelia.noisered <- predict(modeloJR.Amelia.noisered, as.data.frame(test))
+prediccionJR.Amelia.noisered <- as.vector(prediccionJR.Amelia.noisered)
+
+kaggleFile(prediccionJR.Amelia.noisered, 
+           deparse(substitute(prediccionJR.Amelia.noisered)))
+```
+
+Obtenemos un aumento considerable en la precisión obtenida por este modelo respecto a los anteriores, sin embargo no podemos decartar el sobreaprendizaje. Podemos obtener el número de instancias eliminadas tras aplicar el método.
+
+```{r, echo=TRUE, include=F}
+dim(imputados.amelia)[1] - dim(imputados.amelia.noisered)[1]
+```
+
+## Eliminación de outliers
+
+Aún aplicando métodos de eliminación de ruido, podemos observar de forma clara que siguen existiendo valores anómalos en el conjunto de datos.
+
+```{r, echo=TRUE, include=T}
+summary(imputados.amelia.noisered)
+```
+
+Dado que algunos de los valores extremos del dominio de algunas de las variables se encuentra muy lejos de la mediana, podemos aplicar métodos de detección de anomalías basados en rango intercuartil.
+
+```{r, echo=TRUE, include=T}
+vector_es_outlier_IQR_en_alguna_columna <- function(datos, coef = 1.5){
+  indices.de.outliers.en.alguna.columna =
+    vector_claves_outliers_IQR_en_alguna_columna(datos, coef)
+  todos = c(1:nrow(datos))
+  bools = todos %in% indices.de.outliers.en.alguna.columna
+  return (bools)
+}
+
+anomalias <- vector_es_outlier_IQR_en_alguna_columna(
+  imputados.amelia.noisered[, -length(imputados.amelia.noisered)], 3)
+
+imputados.amelia.noisered.noutliers <- imputados.amelia.noisered[!anomalias, ]
+
+modeloJR.Amelia.noisered.noutliers <- RWeka::JRip(C ~., 
+                                      data = imputados.amelia.noisered.noutliers)
+
+RWeka::evaluate_Weka_classifier(modeloJR.Amelia.noisered.noutliers, numFolds = 10)
+
+prediccionJR.Amelia.noisered.noutliers <- predict(modeloJR.Amelia.noisered.noutliers, 
+                                                  as.data.frame(test))
+
+prediccionJR.Amelia.noisered.noutliers <- as.vector(prediccionJR.Amelia.noisered.noutliers)
+
+kaggleFile(prediccionJR.Amelia.noisered.noutliers,
+           deparse(substitute(prediccionJR.Amelia.noisered.noutliers)))
+```
+
+Obteniendo un resumen del conjunto de datos tras la eliminación de outliers podemos comprobar que los límites del rango de valores de la mayoría de las variables estan ahora mejor normalizados.
+
+```{r, echo=TRUE, include=T}
+summary(imputados.amelia.noisered.noutliers)
+```
+
+## Balanceado de clases
+
+Tras la imputación de valores y la limpieza de valores ruidosos a nómalos, podemos aplicar métodos destinados a equilibrar el número de instancias de cada clase. Recordemos que existía un desequilibrio importante a favor de la clase 0.
+
+Comenzaremos por aplicar oversampling al conjunto de datos. Para ello emplearemos la variante BLSMOTE (Border Line SMOTE) del método básico SMOTE. PREGUNTAR A ALBERTO PORQUE ESTA Y NO OTRA.
+
+```{r, echo=TRUE, include=F}
+imputados.amelia.noisered.noutliers.blsmote = 
+  imbalance::oversample(imputados.amelia.noisered.noutliers, method = "BLSMOTE", 
+                        classAttr = "C", ratio = 0.8)
+```
+```{r, echo=TRUE, include=T}
+modeloJR.Amelia.noisered.noutliers.blsmote <- RWeka::JRip(C ~., 
+                                data=imputados.amelia.noisered.noutliers.blsmote)
+
+RWeka::evaluate_Weka_classifier(modeloJR.Amelia.noisered.noutliers.blsmote, numFolds = 10)
+
+prediccionJR.Amelia.noisered.noutliers.blsmote <- 
+  predict(modeloJR.Amelia.noisered.noutliers.blsmote, as.data.frame(test))
+
+prediccionJR.Amelia.noisered.noutliers.blsmote <- 
+  as.vector(prediccionJR.Amelia.noisered.noutliers.blsmote)
+
+kaggleFile(prediccionJR.Amelia.noisered.noutliers.blsmote,
+           deparse(substitute(prediccionJR.Amelia.noisered.noutliers.blsmote)))
+```
+
+Por otra parte, aplicamos métodos de undersampling, en esta ocasión Tomek-Links. 
+
+```{r, echo=TRUE, include=T}
+tomek.red = unbalanced::ubTomek(imputados.amelia.noisered.noutliers[, -51],
+                                imputados.amelia.noisered.noutliers[, 51])
+
+imputados.amelia.noisered.noutliers.tomek = 
+  imputados.amelia.noisered.noutliers[-tomek.red$id.rm, ]
+
+modeloJR.Amelia.noisered.noutliers.tomek <- RWeka::JRip(C ~., 
+                                  data = imputados.amelia.noisered.noutliers.tomek)
+
+RWeka::evaluate_Weka_classifier(modeloJR.Amelia.noisered.noutliers.tomek, numFolds = 10)
+
+prediccionJR.Amelia.noisered.noutliers.tomek <- 
+  predict(modeloJR.Amelia.noisered.noutliers.tomek, as.data.frame(test))
+
+prediccionJR.Amelia.noisered.noutliers.tomek <- 
+  as.vector(prediccionJR.Amelia.noisered.noutliers.tomek)
+
+kaggleFile(prediccionJR.Amelia.noisered.noutliers.tomek,
+           deparse(substitute(prediccionJR.Amelia.noisered.noutliers.tomek)))
+```
+
+Observamos que ambos métodos porporcionan resultados superiores al mejor modelo obtenido hasta ahora, siendo la ventaja para el método de undersampling Tomek-Links. Seleccionaremos el conjunto de datos obtenido mediante el mismo para continuar con el proprocesamiento.
+
+## Selección de características
+
+En esta sección aplicaremos diferentes métodos de selección de características para tratar de encontrar la combinación de las mismas que permita a Ripper obtener los mejores resultados.
+
+### Selección de características basada en correlación
+
+Podemos o comprobar si existen relaciones entre las 50 variables que caracterizan los datos. Para ello obtendremos y analizaremos una matriz de correlación. Seleccionaremos las variables cuya correlación con otra supere el 75% para ser descartadas.
+
+```{r, echo=TRUE, include=T}
+corrMatrix <- cor(as.data.frame(imputados.amelia.noisered.noutliers.tomek[,-51]))
+ 
+altamenteCorreladas <- caret::findCorrelation(corrMatrix, cutoff = 0.75)
+ 
+imputados.amelia.noisered.noutliers.tomek.cor <- 
+  imputados.amelia.noisered.noutliers.tomek[, - altamenteCorreladas]
+
+modeloJR.Amelia.noisered.tomek.cor <- RWeka::JRip(C ~ ., 
+                                      data=imputados.amelia.noisered.noutliers.tomek.cor)
+
+RWeka::evaluate_Weka_classifier(modeloJR.Amelia.noisered.tomek.cor, numFolds = 10)
+
+prediccionJR.Amelia.noisered.tomek.cor <- 
+  predict(modeloJR.Amelia.noisered.tomek.cor, as.data.frame(test[, -altamenteCorreladas]))
+
+prediccionJR.Amelia.noisered.tomek.cor <- 
+  as.vector(prediccionJR.Amelia.noisered.tomek.cor)
+
+kaggleFile(prediccionJR.Amelia.noisered.tomek.cor,
+           deparse(substitute(prediccionJR.Amelia.noisered.tomek.cor)))
+```
+
+### Selección de características con Análisis de componentes principales
+
+Uno de los métodos de selección de características de uso mas extendido es el Análisis de componentes principales. Podemos aplicar PCA a nuestro conjuunto de datos y entrenar un modelo con el resultado del mismo.
+
+
+```{r, echo=TRUE, include=T}
+res.pca <- caret::preProcess(imputados.amelia.noisered.noutliers.tomek, thres=0.6,
+                             method = c("YeoJohnson", "center", "scale", "pca"))
+
+imputados.amelia.noisered.noutliers.tomek.pca <- 
+  predict(res.pca, imputados.amelia.noisered.noutliers.tomek)
+
+modeloJR.Amelia.noisered.noutliers.tomek.pca <- RWeka::JRip(C ~., 
+                                  data=imputados.amelia.noisered.noutliers.tomek.pca)
+
+RWeka::evaluate_Weka_classifier(modeloJR.Amelia.noisered.noutliers.tomek.pca, numFolds = 10)
+
+prediccionJR.Amelia.noisered.noutliers.tomek.pca <- 
+  predict(modeloJR.Amelia.noisered.noutliers.tomek.pca, predict(res.pca, test))
+
+prediccionJR.Amelia.noisered.noutliers.tomek.pca <- 
+  as.vector(prediccionJR.Amelia.noisered.noutliers.tomek.pca)
+
+kaggleFile(prediccionJR.Amelia.noisered.noutliers.tomek.pca,
+           deparse(substitute(prediccionJR.Amelia.noisered.noutliers.tomek.pca)))
+```
+
+### Selección de características con chi-cuadrado
+
+Podemos aplicar selección de características basada en el test de independencia chi-cuadrado, aplicado respecto a la variable clase. Debemos tener en cuenta que este método se aplica sobre atributos discretos, y dado que las características sobre las que trabajamos son continuas, el método debe llevar a cabo algun método de discretización.
+
+```{r, echo=TRUE, include=T}
+weights.chiSq <- FSelector::chi.squared(C ~., imputados.amelia.noisered.noutliers.tomek)
+seleccionados.chiSq <- FSelector::cutoff.k(weights.chiSq, 10)
+form.chiSq <- as.simple.formula(seleccionados.chiSq,"C")
+
+modeloJR.Amelia.noisered.noutliers.tomek.chiSq <- 
+  RWeka::JRip(form.chiSq, data = imputados.amelia.noisered.noutliers.tomek)
+
+RWeka::evaluate_Weka_classifier(modeloJR.Amelia.noisered.noutliers.tomek.chiSq, 
+                                numFolds = 10)
+
+prediccionJR.Amelia.noisered.noutliers.tomek.chiSq <-
+  predict(modeloJR.Amelia.noisered.noutliers.tomek.chiSq, 
+          as.data.frame(test[, seleccionados.chiSq]))
+
+prediccionJR.Amelia.noisered.noutliers.tomek.chiSq <-
+  as.vector(prediccionJR.Amelia.noisered.noutliers.tomek.chiSq)
+
+kaggleFile(prediccionJR.Amelia.noisered.noutliers.tomek.chiSq,
+           deparse(substitute(prediccionJR.Amelia.noisered.noutliers.tomek.chiSq)))
+```
+
+### Selección de características basada en información
+
+Podemos aplicar métodos de selección de características basadas en medidas de información. En esta ocasión emplearemos el método basado en ganancia de información respecto al atributo de clase.
+
+
+```{r, echo=TRUE, include=T}
+weights.entropy <- FSelector::information.gain(C ~., 
+                              imputados.amelia.noisered.noutliers.tomek)
+
+seleccionados.entropy <- FSelector::cutoff.k(weights.entropy, 10)
+form.entropy <- as.simple.formula(seleccionados.entropy,"C")
+
+modeloJR.Amelia.noisered.noutliers.tomek.entropy <- RWeka::JRip(form.entropy, 
+                                data = imputados.amelia.noisered.noutliers.tomek)
+
+RWeka::evaluate_Weka_classifier(modeloJR.Amelia.noisered.noutliers.tomek.entropy, 
+                                numFolds = 10)
+
+prediccionJR.Amelia.noisered.noutliers.tomek.entropy <-
+  predict(modeloJR.Amelia.noisered.noutliers.tomek.entropy, 
+          as.data.frame(test[, seleccionados.entropy]))
+
+prediccionJR.Amelia.noisered.noutliers.tomek.entropy <-
+  as.vector(prediccionJR.Amelia.noisered.noutliers.tomek.entropy)
+
+kaggleFile(prediccionJR.Amelia.noisered.noutliers.tomek.entropy,
+           deparse(substitute(prediccionJR.Amelia.noisered.noutliers.tomek.entropy)))
+```
+
+
+### Selección de características basada en reglas de asociación
+
+El método de selección de reglas de asociación basado en reglas de asociación consiste en calcular los pesos para los atributos mediante reglas de asocación con un solo elemento en el antecedente.
+
+
+```{r, echo=TRUE, include=T}
+weights.oneR <- FSelector::oneR(C ~., imputados.amelia.noisered.noutliers.tomek)
+seleccionados.oneR <- FSelector::cutoff.k(weights.oneR, 10)
+form.oneR <- as.simple.formula(seleccionados.oneR,"C")
+
+modeloJR.Amelia.noisered.noutliers.tomek.oneR <- RWeka::JRip(form.oneR, 
+                                data=imputados.amelia.noisered.noutliers.tomek)
+
+RWeka::evaluate_Weka_classifier(modeloJR.Amelia.noisered.noutliers.tomek.oneR, 
+                                numFolds = 10)
+
+prediccionJR.Amelia.noisered.noutliers.tomek.oneR <- 
+  predict(modeloJR.Amelia.noisered.noutliers.tomek.oneR, 
+          as.data.frame(test[, seleccionados.oneR]))
+
+prediccionJR.Amelia.noisered.noutliers.tomek.oneR <-
+  as.vector(prediccionJR.Amelia.noisered.noutliers.tomek.oneR)
+
+kaggleFile(prediccionJR.Amelia.noisered.noutliers.tomek.oneR,
+           deparse(substitute(prediccionJR.Amelia.noisered.noutliers.tomek.oneR)))
+```
+
+
+### Selección de subconjuntos de atributos Best First Search
+
+La selección de características basada en subconjuntos de atributos consiste en una aproximación tipo wrapper que construye conjuntos de atributos aplicando el método de búsqueda primero el mejor. Para evaluar la calidad de los conjuntos de atributos generados es necesario construir una función que permita llevar a cabo dicha tarea. Emplearemos la función ```evaluator(...)```, que aplica validación cruzada sobre el conjunto de datos de entrenamiento teniendo en cuenta solo el conjunto de variables dado como argumento, la medida de calidad será la media de la tasa de acierto del clasificador (tipo arbol) construido con el cojunto de características considerado.
+
+```{r, echo=TRUE, include=T}
+evaluator <- function(subset){
+  k <- 5
+  splits <- runif(nrow(imputados.amelia.noisered.noutliers.tomek))
+  
+  results <- sapply(1:k, function(i) {
+    test.idx <- (splits >= ((i-1)/k) & (splits < (i/k)))
+    test <- imputados.amelia.noisered.noutliers.tomek[test.idx, ,drop=FALSE]
+    train <- imputados.amelia.noisered.noutliers.tomek[!test.idx, , drop=FALSE]
+    tree <- rpart::rpart(as.simple.formula(subset,"C"), train)
+    error.rate <- sum(test$C != predict(tree, test, type="class"))/nrow(test)
+    
+    return(1-error.rate)
+  })
+  
+  return(mean(results))
+}
+```
+
+Una vez construida la función de evaluación aplicamos el método de selección de características basado en búsqueda primero el mejor.
+
+```{r, echo=TRUE, include=T}
+vars.bfs <- FSelector::best.first.search(names(
+  imputados.amelia.noisered.noutliers.tomek)[-51], evaluator)
+
+form.bfs <- as.simple.formula(vars.bfs,"C")
+
+modeloJR.Amelia.noisered.noutliers.tomek.bfs <- RWeka::JRip(form.bfs,
+                                  data=imputados.amelia.noisered.noutliers.tomek)
+
+RWeka::evaluate_Weka_classifier(modeloJR.Amelia.noisered.noutliers.tomek.bfs, 
+                                numFolds = 10)
+
+prediccionJR.Amelia.noisered.noutliers.tomek.bfs <- 
+  predict(modeloJR.Amelia.noisered.noutliers.tomek.bfs, 
+          as.data.frame(test[, vars.bfs]))
+
+prediccionJR.Amelia.noisered.noutliers.tomek.bfs <-
+  as.vector(prediccionJR.Amelia.noisered.noutliers.tomek.bfs)
+
+kaggleFile(prediccionJR.Amelia.noisered.noutliers.tomek.bfs,
+           deparse(substitute(prediccionJR.Amelia.noisered.noutliers.tomek.bfs)))
+```
+
+### Selección de subconjuntos de atributos Greedy Forward
+
+De manera similar al caso anterior, este método de selección de características consiste en construir un conjunto de atributos, esta vez de forma incremental mediante selección voraz hacia delante. Emplearemos el mismo método de evaluación del conjunto de atributos.
+
+
+```{r, echo=TRUE, include=T}
+vars.greedsrchfw <- FSelector::forward.search(names(
+  imputados.amelia.noisered.noutliers.tomek)[-51], evaluator)
+
+form.greedsrchfw <- as.simple.formula(vars.greedsrchfw,"C")
+
+modeloJR.Amelia.noisered.noutliers.tomek.greedsrchfw <- RWeka::JRip(form.greedsrchfw, 
+                                      data=imputados.amelia.noisered.noutliers.tomek)
+
+RWeka::evaluate_Weka_classifier(modeloJR.Amelia.noisered.noutliers.tomek.greedsrchfw, 
+                                numFolds = 10)
+
+prediccionJR.Amelia.noisered.noutliers.tomek.greedsrchfw <-
+  predict(modeloJR.Amelia.noisered.noutliers.tomek.greedsrchfw, 
+          as.data.frame(test[, vars.greedsrchfw]))
+
+prediccionJR.Amelia.noisered.noutliers.tomek.greedsrchfw <-
+  as.vector(prediccionJR.Amelia.noisered.noutliers.tomek.greedsrchfw)
+
+kaggleFile(prediccionJR.Amelia.noisered.noutliers.tomek.greedsrchfw,
+           deparse(substitute(prediccionJR.Amelia.noisered.noutliers.tomek.greedsrchfw)))
+```
+
+### Selección de subconjuntos de atributos Greedy Backward
+
+De igual forma que en el caso anterior se utiliza una estrategia voraz para para construir el conjunto de atributos, partiendo esta vez del conjunto de atributos completo y retirando del mismo la variable mas conveniente en cada ocasión.
+
+```{r, echo=TRUE, include=T}
+vars.greedsrchbw <- FSelector::backward.search(names(
+  imputados.amelia.noisered.noutliers.tomek)[-51], evaluator)
+
+form.greedsrchbw <- as.simple.formula(vars.greedsrchbw,"C")
+
+modeloJR.Amelia.noisered.noutliers.tomek.greedsrchbw <- RWeka::JRip(form.greedsrchbw,                                                               data=imputados.amelia.noisered.noutliers.tomek)
+
+RWeka::evaluate_Weka_classifier(modeloJR.Amelia.noisered.noutliers.tomek.greedsrchbw, 
+                                numFolds = 10)
+
+prediccionJR.Amelia.noisered.noutliers.tomek.greedsrchbw <-
+  predict(modeloJR.Amelia.noisered.noutliers.tomek.greedsrchbw, 
+          as.data.frame(test[, vars.greedsrchbw]))
+
+prediccionJR.Amelia.noisered.noutliers.tomek.greedsrchbw <-
+  as.vector(prediccionJR.Amelia.noisered.noutliers.tomek.greedsrchbw)
+
+kaggleFile(prediccionJR.Amelia.noisered.noutliers.tomek.greedsrchbw,
+           deparse(substitute(prediccionJR.Amelia.noisered.noutliers.tomek.greedsrchbw)))
+```
+
+### Selección de subconjuntos de atributos Hill Climbing
+
+Podemos aplicar un algoritmo de ascensión de colinas que, considerando las variables de nuestro conjunto de datos, encuentre un conjunto de variables mejor o igual al original respecto a la medida que obtenemos con la función de evaluación.
+
+```{r, echo=TRUE, include=T}
+vars.hillclimb <- FSelector::hill.climbing.search(names(
+  imputados.amelia.noisered.noutliers.tomek)[-51], evaluator)
+
+form.hillclimb <- as.simple.formula(vars.hillclimb,"C")
+
+modeloJR.Amelia.noisered.noutliers.tomek.hillclimb <- RWeka::JRip(form.hillclimb,                                                                 data=imputados.amelia.noisered.noutliers.tomek)
+
+RWeka::evaluate_Weka_classifier(modeloJR.Amelia.noisered.noutliers.tomek.hillclimb, 
+                                numFolds = 10)
+
+prediccionJR.Amelia.noisered.noutliers.tomek.hillclimb <-
+  predict(modeloJR.Amelia.noisered.noutliers.tomek.hillclimb, 
+          as.data.frame(test[, vars.hillclimb]))
+
+prediccionJR.Amelia.noisered.noutliers.tomek.hillclimb <-
+  as.vector(prediccionJR.Amelia.noisered.noutliers.tomek.hillclimb)
+
+kaggleFile(prediccionJR.Amelia.noisered.noutliers.tomek.hillclimb,
+           deparse(substitute(prediccionJR.Amelia.noisered.noutliers.tomek.hillclimb)))
+```
+
+### Selección de subconjuntos de atributos CFS
+
+La selección de variables CFS busca conjuntos de atributos utilizando medidas de correlación y entropía.
+
+```{r, echo=TRUE, include=T}
+vars.cfs <- FSelector::cfs(C ~ ., imputados.amelia.noisered.noutliers.tomek)
+
+form.cfs <- as.simple.formula(vars.cfs,"C")
+
+modeloJR.Amelia.noisered.noutliers.tomek.cfs <- RWeka::JRip(form.cfs, 
+                                    data=imputados.amelia.noisered.noutliers.tomek)
+
+RWeka::evaluate_Weka_classifier(modeloJR.Amelia.noisered.noutliers.tomek.cfs, 
+                                numFolds = 10)
+
+prediccionJR.Amelia.noisered.noutliers.tomek.cfs <- 
+  predict(modeloJR.Amelia.noisered.noutliers.tomek.cfs, 
+          as.data.frame(test[, vars.cfs]))
+
+prediccionJR.Amelia.noisered.noutliers.tomek.cfs <-
+  as.vector(prediccionJR.Amelia.noisered.noutliers.tomek.cfs)
+
+kaggleFile(prediccionJR.Amelia.noisered.noutliers.tomek.cfs,
+           deparse(substitute(prediccionJR.Amelia.noisered.noutliers.tomek.cfs)))
+```
+
+### Selección de subconjuntos de atributos con medidas de consistencia
+
+Podemos emplear de manera conjunta el método ya visto anteriormente de búsqueda primero el mejor para seleccionar conjuntos de atrbutos y medidas de consistencia.
+
+```{r, echo=TRUE, include=T}
+vars.consist <- FSelector::consistency(C ~ ., imputados.amelia.noisered.noutliers.tomek)
+
+form.consist <- as.simple.formula(vars.consist,"C")
+
+modeloJR.Amelia.noisered.noutliers.tomek.consist <- RWeka::JRip(form.consist,                                                                data=imputados.amelia.noisered.noutliers.tomek)
+
+RWeka::evaluate_Weka_classifier(modeloJR.Amelia.noisered.noutliers.tomek.consist, 
+                                numFolds = 10)
+
+prediccionJR.Amelia.noisered.noutliers.tomek.consist <-
+  predict(modeloJR.Amelia.noisered.noutliers.tomek.consist, 
+          as.data.frame(test[, vars.consist]))
+
+prediccionJR.Amelia.noisered.noutliers.tomek.consist <-
+  as.vector(prediccionJR.Amelia.noisered.noutliers.tomek.consist)
+
+kaggleFile(prediccionJR.Amelia.noisered.noutliers.tomek.consist,
+           deparse(substitute(prediccionJR.Amelia.noisered.noutliers.tomek.consist)))
+```
+
+### Selección de subconjuntos de atributos mediante Random Forest.
+
+Este método asigna a cada subconjunto de atributos un peso calculado en base a un modelo constuido con RandomForest. Una vez obtenido el modelo se analizan los nodos de los árboles que lo conforman para calcular los mencionados pesos.
+
+```{r, echo=TRUE, include=T}
+weights.rfs <- FSelector::random.forest.importance(C ~ ., 
+                          imputados.amelia.noisered.noutliers.tomek, 
+                          importance.type = 1)
+
+seleccionados.rfs <- FSelector::cutoff.k(weights.rfs, 5)
+form.rfs <- as.simple.formula(seleccionados.rfs,"C")
+
+modeloJR.Amelia.noisered.noutliers.tomek.rfs <- RWeka::JRip(form.rfs, 
+                                    data=imputados.amelia.noisered.noutliers.tomek)
+
+RWeka::evaluate_Weka_classifier(modeloJR.Amelia.noisered.noutliers.tomek.rfs, 
+                                numFolds = 10)
+
+prediccionJR.Amelia.noisered.noutliers.tomek.rfs <- 
+  predict(modeloJR.Amelia.noisered.noutliers.tomek.rfs, 
+          as.data.frame(test[, seleccionados.rfs]))
+
+prediccionJR.Amelia.noisered.noutliers.tomek.rfs <-
+  as.vector(prediccionJR.Amelia.noisered.noutliers.tomek.rfs)
+
+kaggleFile(prediccionJR.Amelia.noisered.noutliers.tomek.rfs,
+           deparse(substitute(prediccionJR.Amelia.noisered.noutliers.tomek.rfs)))
+```
+
+## Comparativa de resultados
+
+La siguiente tabla muestra los resultados obtenidos por RIPPER con las diferentes combinaciones de métodos de proporcesamiento considerados.
+
+| Amelia | Noise Suppr. | Outliers Suppr. | Oversmpl. | Undersmpl. | Selection | Accuracy |
+|:-----------:|:-------------------:|:-------------------:|:-----------------:|:-----------------:|:--------------:|:---------------------:|:------------:|
+| No | No | No | No | No | None | 77.41% |
+| Yes | No | No | No | No | None | 77.62% |
+| Yes | Yes | No | No | No | None | 91.30% |
+| Yes | Yes | Yes | No | No | None | 90.63% |
+| Yes | Yes | Yes | Yes | No | None | 90.73% |
+| Yes | Yes | Yes | No | Yes | None | 92.25% |
+| Yes | Yes | Yes | No | Yes | Correlation | 91.41% |
+| Yes | Yes | Yes | No | Yes | PCA | 90.78% |
+| Yes | Yes | Yes | No | Yes | Chi-Sqrd | 91.60% |
+| Yes | Yes | Yes | No | Yes | Information Gain | 91.08% |
+| Yes | Yes | Yes | No | Yes | Asociation Rules | 90.90% |
+| Yes | Yes | Yes | No | Yes | Best First Search | 90.84% |
+| Yes | Yes | Yes | No | Yes | Greedy Forward | 91.57% |
+| Yes | Yes | Yes | No | Yes | Greedy Backward | 91.92% |
+| Yes | Yes | Yes | No | Yes | Hill Climbing | 91.47% |
+| Yes | Yes | Yes | No | Yes | CFS | 91.10% |
+| Yes | Yes | Yes | No | Yes | Consistency | 91.31% |
+| Yes | Yes | Yes | No | Yes | Random Forest | 91.12% |
+
+Considerando unicamente los resultados obtenidos para la precisión con validación cruzada, podemos decir que el mejor modelo se obtuvo con la siguiente secuencia de preprocesamiento: Imputación de valores perdidos con Amelia -> Supresión de ruido -> Supresión de outliers -> Undersampling con Tomek-Links. Sin embargo, el modelo que mejor precisión proporciona sobre los datos de test es el que, además de lo descrito anteriormente, aplica selección de características basada en consistencia. Esto puede deberse a que la capacidad de generalicación de el último modelo mecionado puede ser mayor que la del modelo que mejor precisión proporciona en validación cruzada.
+
+Cabe destacar que en esta sección (aprendizaje de reglas con RIPPER) no se presentan todos y cada uno de los experimentos realizados para el análisis del conjunto de datos, solo aquellos de mayor significancia. Por nombrar un ejemplo, todos los métodos de selección de características fueron aplicados a datos preprocesados solo con imputación de valores perdidios mediante Amelia, proporcionando esta estrategia resultados ampliamente mejorables.
+
+\newpage
+
+# Documentación Kaggle sobre árboles
+En esta documentación se describen los recursos que se han utilizado para los modelos que se han creado para la documentación de Kaggle y se proporcionan ejemplos de como se han hecho, los modelos que se han obtenido no tienen usar todos los recursos que aquí se muestran. Tras comentar todo lo que se ha probado, se proporcionarán tablas con los resultados obtenidos para diferentes algoritmos. Los algoritmos que se han utilizado en esta práctica son: *r-part*, *ctree*, *J48 (c4.5)*, *LMT (Logistic Model Trees)*.
+
+```{r}
+set.seed(42)
+datos.train = read.csv('train.csv',na.strings = c("","NA","?"))
+datos.test = read.csv('test.csv',na.strings = c("","NA","?"))
+
+head(datos.train)
+```
+
+## Imputación de datos
+Lo siguiente que se va a hacer es imputar los datos, para ello se va a utilizar la biblioteca **Amelia**, se utilizará con una imputación y se sustituirán los datos de train por los imputados. También se utilizará la biblioteca **mice** para comprobar que ya no quedan más datos perdidos.
+```{r}
+library(Amelia)
+library(mice)
+incompletas = mice::nic(datos.train)
+cat(paste("datos perdidos antes de imputarlo: ",incompletas,"\n"))
+imputados = Amelia::amelia(datos.train,m=1, parallel="multicore",noms="C")
+incompletas = mice::nic(imputados$imputations$imp1)
+cat(paste("datos perdidos después de la imputación: ",incompletas),"\n")
+datos.imputados = imputados$imputations$imp1
+```
+
+## Limpieza de datos extremos
+Se puede ver que dentro del dataset hay datos extremos, todos alrededor de -60000, en cualquiera  de los atributos.  Aunque no sea necesario eliminarlos utlizando árboles de decisión, ya que estos no les afecta los outliers. En este caso se van a eliminar para intentar mejorar algo el modelo que se obtenga.
+Para ello se ha creado una función que encuentra todas las filas que están afectadas por algún dato extremo, y se eliminan.
+```{r}
+menor.que = function(data,indice){
+  menores = which( data[,indice] < -60000 )
+}
+datos.minimos = lapply(1:50, menor.que, data=datos.imputados)
+datos.minimos = datos.imputados[-as.vector(datos.minimos[[2]]),]
+```
+
+## Eliminación de variables correladas
+Para mejorar el modelo que se genera hasta ahora, se intentará mejorar el modelo eliminando variables correladas. Para ello se utilizará la biblioteca *findCorrelation* de la biblioteca **caret**; para ello antes se debe calcular la matriz de correlación entre variables. Tras calcular las variables correladas se eliminan del dataset.
+```{r}
+new_train = datos.minimos
+corrMatrix = cor(new_train)
+
+# Obtenemos las variables altamente correladas
+altamenteCorreladas = caret::findCorrelation(corrMatrix, cutoff = 0.8)
+
+# Dataset con variables poco correladas con imputación de valores.
+new_train = datos.minimos[,-altamenteCorreladas]
+```
+
+## Eliminación de ruido de clase
+Otra de las cosas que se ha probado es limpiar el dataset y obtener un modelo mejor. Para ello se utilizará la función *IPF* del paquete **NoiseFiltersR**; se utilizarán los parámetros por defecto.
+```{r}
+library(NoiseFiltersR)
+posicionClase <- length(names(new_train))
+variableClase <- names(new_train)[posicionClase]
+
+formulaClase <- as.formula(paste(variableClase,"~.",sep=""))
+
+new_train$C = as.factor(new_train$C)
+out = IPF(formulaClase,data=new_train)
+
+# Comprobarmos si seguimos teniendo datos con ruido.
+summary(out$cleanData)
+
+new_train = out$cleanData
+```
+
+Como se puede ver, IPF está eliminando bastantes variables de la clase 1, que es una clase minoritaria. Lo siguiente que se va a hacer es intentar equilibrar el modelo utilizando técnicas de oversampling y undersampling.
+
+## Oversampling del dataset
+Para hacer oversampling se ha utilizado la función **oversample** del paquete *imbalace*, esta función permite utilizar diferentes métodos de oversampling como SMOTE, Bordeline_SMOTE, ADASYN, etc... Dentro de las pruebas realizadas se han probado con estos 3 descritos anteriormente, de estos el que mejor a funcionado es Bordeline_SMOTE, que genera nuevas instancias por la perifería del conjunto de datos solamente. Se ha realizado oversampling sobre los datos para equilibrar las clases que tenemos en el dataset, ya que están bastante desbalanceadas; es cierto que los árboles de decisión funcionan bien con conjunto de datos desbalanceados, pero en la prática se ha visto que la predicción del modelo mejora al equilibrar el dataset. Para hacer oversampling se debe hacer lo siguiente.
+```{r}
+library(imbalance)
+ov = new_train
+over = imbalance::oversample(ov,ratio=0.8, method="BLSMOTE",classAttr = "C")
+imbalanceRatio(over,"C")
+table(over$C)
+ov = over
+```
+
+
+## Undersampling del dataset
+Para hacer undersampling se ha utlizado la función **ubTomek** del paquete *unbalance*, el algoritmo que implementa este método es Tomek-Links, este algoritmo elimina los datos de la clase mayoritaria que son cercanos a datos de la clase minoritaria, de esta forma también se consigue equilibrar el dataset, aunque se debe tener cuidado para no perder demasiada información sobre los datos de la clase mayoritaría. Durante esta práctica este método se ha combinado con oversampling e IPF, ya que utilizándolo de forma única los resultados que se obtienen no son mejores que los que se obtienen sin utilizar este método. Para utilizar Tomek-Links se debe hacer lo siguiente:
+```{r}
+library(unbalanced)
+n = ncol(new_train)
+output = new_train$C
+input = new_train[,-n]
+
+data = ubTomek(input,output)
+under = cbind(data$X,C=data$Y)
+head(under, 6)
+```
+
+
+## PCA y kPCA
+Para reducir el número de características se ha probado PCA, de esta forma si se consigue un conjunto de datos que obtenga un grupo de datos que obtenga resultados parecidos a los que se obtiene hasta el momento pero que tenga un número menor de variables, obtendremos un modelo más sencillo y más fácil de interpretar. Para utilizar PCA antes se debe normalizar los datos para que las diferentes escalas de las variables no afecten al algoritmo PCA. Se utilizará el paquete *caret* que contiene la función **preProcess** que nos permite escalar, hacer PCA y elegir el número de variables finales con las que se quedará PCA, una vez utilizada la función **preProcess** se pueden obtener los datos transformados con la función **predict** sobre el conjunto de datos que queramos transformar.
+
+
+```{r}
+library(caret)
+preproc = preProcess(datos.minimos[,-ncol(datos.minimos)],method=c("BoxCox","center","scale","pca"),pcaComp=8)
+trainPCA = predict(preproc,datos.minimos[,-ncol(datos.minimos)])
+trainPCA = cbind(trainPCA,C=datos.minimos$C)
+trainPCA$C = as.factor(trainPCA$C)
+# Hacemos lo mismo para test.
+testPCA = predict(preproc,datos.test)
+
+# Mostramos las 10 primeras características.
+pairs(trainPCA,col=trainPCA$C)
+```
+
+En la práctica podemos se ha podido ver que este dataset con menos características ofrecen resultados iguales que el dataset original con más variables en las pruebas de validación; sin embargo, los resultados que se obtiene después en test disminuyen un 2 o 3 % que los resultados obtenidos por el modelo original.
+
+Otra alternativa que se ha probado es kPCA o kernel PCA, la idea de este método es reducir el número de instancias si se desea, pero también cambiar el espacio donde se representan los datos, realizando transformaciones no lineales a los datos y de esta forma intentar separar mejor las clases del dataset, ya que como se puede ver en la imagen superior, los datos de la clase 0 y de la clase 1 están mezclados entre ellos. Durante las pruebas se han probado diferentes kernels, entre otros un kernel radial y un kernel sigmoidal. Para esta transformación se ha utilizado la función **kpca** del paquete *kernlab*, este paquete permite realizar la transformación PCA determinando el kernel que se quiere utilizar dentro de los que tiene implementados, además se debe proporcionar también algunos parámetros adicionales para los kernels y el número de variables con la que nos queremos quedar. Por desgracia, durante la práctica no se ha obtenido ninguna transformación que consiga una buena separación de los datos y los resultados obtenidos en validación son bastante peores que los obtenidos con los datos normales, por lo que no se ha probado en test después. Un ejemplo de los datos transformados y reducidos con kernel PCA es la siguiente:
+
+```{r}
+library(kernlab)
+aux = datos.minimos
+kpc = kpca(~., data=aux[,-ncol(aux)],kernel="rbfdot",kpar=list(sigma=0.33),features=20)
+data_kpc = as.data.frame(rotated(kpc))
+data_kpc = cbind(data_kpc,C=as.factor(aux[,ncol(aux)]))
+
+head(data_kpc)
+
+# Mostramos las 10 primeras variables.
+pairs(data_kpc[1:10],col=data_kpc$C)
+```
+
+Como se puede ver, los datos siguen juntos e incluso es más difícil hacer distinciones entre ellos.
+
+## Resultados obtenidos
+
+Dentro de este apartado se comentarán los diferentes resultados obtenidos por lo métodos que se han utilizado en la prática. Por último se comentarán que opciones de forma general son las que mejores han funcionado para cualquiera de los métodos.
+
+### Algoritmo ctree
+El algoritmo **ctree** de la biblioteca *party* implementa el algoritmo \textit{\textbf{Conditional Inference Trees}}. Este método utiliza test de hipótesis nula para ir seleccionando variables para ir creando el árbol. Un ejemplo de un árbol generado con este método es el siguiente:
+```{r}
+library(partykit)
+posicionClase = length(names(trainPCA))
+variableClase = names(trainPCA)[posicionClase]
+formulaClase = as.formula(paste(variableClase,"~.",sep=""))
+model.ctree = ctree(formulaClase,trainPCA)
+plot(model.ctree,gp = gpar(fontsize = 6))
+```
+
+Los resultados obtenidos con este algoritmo son los siguientes.
+
+| Amelia | Noise Suppr. | Outliers Suppr. | Oversmpl. | Undersmpl. | Selection | Accuracy |
+|:-----------:|:-------------------:|:-------------------:|:-----------------:|:-----------------:|:--------------:|:---------------------:|:------------:|
+| Yes | No | No | No | No | None | 0.7496718 |
+| Yes | No | No | No | No | Not Correlated Vars | 0.7339168 |
+| Yes | No | No | ADASYN | No | Not Correlated Vars | 0.7715152 |
+| Yes | IPF | No | ADASYN | No | Not Correlated Vars | 0.7711191 |
+| Yes | No | No | No | Tomek-Links | Not Correlated Vars | 0.7615894 |
+| Yes | No | No | No | Tomek-Links + CNN | Not Correlated Vars | 0.7641365 |
+
+Para los resultados obtenidos con este modelo, se puede ver que el algoritmo no funciona demasiado bien, ya que hagamos lo que hagamos, el modelo no consigue mejorar demasiado, solamente parece que le afecta eliminar variables muy correladas y equilibrar las clases.
+
+### Algoritmo RPART
+
+```{r}
+library(rpart)
+library(rattle)
+posicionClase = length(names(trainPCA))
+variableClase = names(trainPCA)[posicionClase]
+formulaClase = as.formula(paste(variableClase,"~.",sep=""))
+model.rpart = rpart(formulaClase,trainPCA)
+fancyRpartPlot(model.rpart)
+```
+
+Los resultados obtenidos durante la competición son:
+
+| Amelia | Noise Suppr. | Outliers Suppr. | Oversmpl. | Undersmpl. | Selection | Accuracy |
+|:-----------:|:-------------------:|:-------------------:|:-----------------:|:-----------------:|:--------------:|:---------------------:|:------------:|
+| No | No | -60000 data | No | No | None | 0.7568606 |
+| Yes | No | -60000 data | No | No | No | 0.7705818 |
+| Yes | No | -60000 data | No | Tomek-Links | No | 0.7563776 |
+| Yes | IPF | -60000 data | No | Tomek-Links | No | 0.9201521 |
+| Yes | IPF | -60000 data | No | No | No | 0.9009967 |
+| Yes | IPF | -60000 data | SMOTE | No | No | 0.9021978 |
+| Yes | IPFx2 | -60000 data | SMOTE | No | No | 0.9185851 |
+| Yes | IPFx2 | -60000 data | SMOTE | No | Not Correlated Vars | 0.9169006 |
+| Yes | IPF | -60000 data | ADASYN | No | No | 0.9086088 |
+| Yes | IPF | -60000 data | ADASYN | No | Only Normal Distribution | 0.8891622 |
+| No | No | -60000 data | No | No | Not Correlated Vars  | 0.7626346 |
+
+Para este algoritmo, se puede ver que se obtienen mejores resultados que en los modelos anteriores. Para las pruebas con estos algoritmos se han eliminado todos los datos que contienen datos con -60000, para los siguientes algoritmos también se ha utilizado el mismo dataset con los datos eliminados. Se puede ver que ciertos algoritmos por si solos no funcionan demasiado bien, como por ejemplo Tomek-Links; pero al encadenarlo con otros algoritmos, como por ejemplo IPF. El algorimto de preprocesamiento más destacado es IPF, que es el que mayor mejora obtiene.
+
+### Algoritmo LMT
+
+```{r}
+library(RWeka)
+posicionClase = length(names(new_train))
+variableClase = names(new_train)[posicionClase]
+formulaClase = as.formula(paste(variableClase,"~.",sep=""))
+model.lmt = LMT(formulaClase,data=new_train)
+plot(model.lmt)
+```
+
+Algunos de los resultados obtenidos en la competición:
+
+| Amelia | Noise Suppr. | Outliers Suppr. | Oversmpl. | Undersmpl. | Selection | Accuracy |
+|:-----------:|:-------------------:|:-------------------:|:-----------------:|:-----------------:|:--------------:|:---------------------:|:------------:|
+| No | IPF | -60000 data | No | No | None | 0.7787977 |
+| Yes | IPF | -60000 data | No | No | None | 0.9278439 |
+| Yes | IPF | -60000 data | No | Tomek-Links | None | 0.7836078 |
+| Yes | IPF | -60000 data | BLSMOTE | No | None | 0.9355495 |
+| Yes | IPF | -60000 data | BLSMOTE | Tomek-Links | None | 0.9391401 |
+
+En estos resultados se puede ver que lo que ms mejora produce es BLSMOTE e IPF. Este algoritmo es bastante más complejo que el resto, ya que realiza una regresión logística en cada uno de los nodos hoja. Con este algoritmo se ha podido comprobar que sufre de sobreaprendizaje, ya que en validación los últimos modelos se han obtenido resultados bastante buenos, pero después en test suele bajar un 6% más o menos.
+
+### Algoritmo J48 (C4.5)
+
+```{r}
+library(RWeka)
+posicionClase = length(names(trainPCA))
+variableClase = names(trainPCA)[posicionClase]
+formulaClase = as.formula(paste(variableClase,"~.",sep=""))
+model.j48 = J48(formulaClase,data=trainPCA)
+plot(model.j48,gp = gpar(fontsize = 6))
+```
+
+Algunos de los resultados obtenidos en la práctica:
+
+| Amelia | Noise Suppr. | Outliers Suppr. | Oversmpl. | Undersmpl. | Selection | Accuracy |
+|:-----------:|:-------------------:|:-------------------:|:-----------------:|:-----------------:|:--------------:|:---------------------:|:------------:|
+| Yes | No | -60000 data | No | No | None | 0.7573546 |
+| Yes | IPF | -60000 data | No | No | None | 0.914334 |
+| Yes | IPF | -60000 data | BLSMOTE | No | None | 0.9154396 |
+| Yes | IPF | -60000 data | No | Tomek-Links | None | 0.928703 |
+| Yes | IPF | -60000 data | BLSMOTE | Tomek-Links | None | 0.9180769 |
+| Yes | IPFx2 | -60000 data | BLSMOTE | Tomek-Links | None | 0.9516239 |
+| Yes | IPF | -60000 data | BLSMOTE | No | Not Correlated Vars | 0.9182967 |
+| Yes | IPF | -60000 data | BLSMOTE | Tomek-Links | Not Correlated Vars | 0.9283082 |
+
+Para este modelo se pueden observar resultados parecidos a los que se obtienen con LMT en validación, en test (resultados de Kaggle) suelen bajar entre un 0.5% y un 3%. Al igual que para otros modelos IPF es el algoritmo que marca la diferencia en cuanto a mejorar los resultados obtenidos en el modelo.
+
+
+#Conjunto de datos
+
+Antes de proceder al preprocesamiento es importante analizar el conjunto de datos con el que se está trabajando. De esta forma, se leen los datos, tanto 'train' como 'test', y se estudia su estructura:
+
+```{r}
+library(tidyverse)
+library(dplyr)
+library(Hmisc)
+library(class)
+set.seed(100)
+
+#Lectura de train
+datosTrain <- read.csv("train.csv", na.strings=c(" ","NA","?"))
+#Lectura de test
+datosTest <- read.csv("test.csv", na.strings=c(" ","NA","?"))
+
+#Convertir a tibble
+datosTrain <- as.tibble(datosTrain)
+datosTest <- as.tibble(datosTest)
+
+#Dimensiones de los datos
+dim(datosTrain)
+dim(datosTest)
+
+#Variables
+colnames(datosTrain)
+colnames(datosTest)
+```
+
+Los datos de entrenamiento consisten en 9144 instancias de 51 variables, mientras que los datos de test constan de 3919 instancias de 50 variables. Observando el nombre de las variables se comprueba que son precisamente la numeración de éstas. Finalmente, la última variable de los datos de entrenamiento, 'C', se corresponda de la variable de clase a predecir.
+
+ \ 
+ 
+Si se estudian detenidamente las distribución de estas variables:
+
+```{r}
+Hmisc::describe(datosTrain[,1:7])
+```
+
+
+Sucede para todas las variables, aunque aquí sólo se han mostrado las primeras 7 variables, que un 0.3% de las instancias poseen un valor en todas ellas en torno a -69000; que observando el resto de la proporción de valores se identifican rápidamente como 'ruido', valores posiblemente mal tomados que deberán ser tratados. Además, se muestra también que para todas las variables hay valores perdidos que igualmente tendrán que tratarse.
+
+ \ 
+ 
+ Para la variable 'C' se observa que no hay ningún valor perdido. Además, si se estudia su rango de valores:
+ 
+```{r}
+unique(datosTrain["C"])
+```
+ 
+Se comprueba que sólo se tienen los valores de clase '0' y '1'. Gracias a que se indique que la media para esta variable predictora es de 0.344, ya se puede saber que para esta variable los datos no están todo lo bien balanceados que se quisiese, algo que se verá más adelante.
+
+ \ 
+ 
+Por último, si se realiza este mismo estudio para los datos de test:
+ 
+```{r}
+Hmisc::describe(datosTest[,1:7])
+```
+ 
+ 
+Se descubre que sucede lo mismo: el 0.4% de las instancias poseen un valor en torno a -69000 para todas las variables que las hace determinar como 'ruido', siendo igualmente necesario que se traten de alguna forma. Sin embargo, para estos datos de test no hay ninguna instancia que tenga algún valor pérdido en alguna de sus variables.
+
+\newpage
+
+#Preprocesamiento
+
+En esta sección se estudiarán diferentes técnicas utilizadas sobre los datos para 'prepararlos' para poder construir el modelo de clasificación sobre ellos.
+
+
+##Datos perdidos
+
+Uno de los primeros problemas encontrados es que los datos de entrenamiento contienen instancias para las que en algunas de sus variables poseen valores perdidos. Estudiando la distribución de estos:
+
+```{r}
+library(mice)
+#Gráfico de los datos perdidos
+patron <- mice::md.pattern(x=datosTrain,plot = TRUE)
+#Distribución de instancias completas e incompletas
+mice::ncc(datosTrain)
+mice::nic(datosTrain)
+```
+
+De las 9144 instancias en los datos de entrenamiento, 7778 de ellas no tienen ningún valor perdido por lo que se cuenta con 1366 instancias para las que sí existe este problema que, gracias al gráfico mostrado, se descubre que cada una de ellas sólo poseé un valor perdido, es decir, ninguna instancia tiene más de una variable para la que no se tenga un valor determinado. Esto es un punto interesante a la hora de elegir qué técnica emplear para este problema:
+
+###Eliminación de instancias con algún valor perdido
+
+El método más simple, aunque a la vez más drástico, sería eliminar toda aquella instancia que posea algún 'missing value' de la forma:
+
+```{r}
+dim(na.omit(datosTrain))
+```
+
+Sin embargo, no resulta la mejor opción cuando hay demasiados datos que presentan este problema y, en este caso particular, cuando se ha observado que tan sólo hay un valor perdido para cada instancia, no resultando entonces una buena idea deshechar toda la instancia por un sólo valor.
+
+ \ 
+ 
+Frente a esto surge otra técnica:
+
+###Imputación
+
+Consiste en estimar el valor perdido en función del resto de datos para los que sí se tiene información acerca de esa variable. En este caso se ha elegido concretamente el método 'Amelia' que combina el algoritmo 'EM' (Expectation-Maximization) + Boostrap para poder estimar los datos perdidos del 'dataset'. Además, mediante el parámetro 'm', se puede indicar el número de 'datasets' creado para posteriormente hacer la media de los valores imputados y poder conseguir una mejor estimación.
+
+```{r}
+library(Amelia)
+#Imputación mediante Amelia
+imputados <- Amelia::amelia(datosTrain, m=3, parallel="multicore",noms="C")
+datosTrain <- imputados$imputations$imp1
+#Comprobación de datos incompletas
+mice::nic(datosTrain)
+dim(datosTrain)
+```
+
+Se observa que ya no hay ninguna instancia incompleta y que se han conservado todas ellas.
+
+##Eliminación de ruido
+
+Como se ha observado anteriormente, en torno al 0.3%-0.4% de las instancias se podían considerar directamente como ruido (valores en torno a -69000). No obstante, probablemente haya otras instancias también que se puedan considerar como ruido por alguno de sus valores más 'anómalos'. Para solventar este problema, en los datos de entrenamiento, se eliminarán aquellas instancias que se consideren como ruido y que dificultarían el aprendizaje del modelo, siempre que se posean los suficientes datos.
+
+###IPF
+
+En este estudio se ha empleado el método 'IPF' para la eliminación de ruido, empleando éste modelo log-lineales que iterativamente se ajustan y van determinando qué instancias se podrían considerar como ruido.
+
+```{r}
+library(NoiseFiltersR)
+datosTrainConRuido <- datosTrain
+
+#Se estructuran los datos para que sean aceptados por el método
+datosTrain <- as.data.frame(datosTrain)
+datosTrain[,ncol(datosTrain)] <- as.factor(datosTrain[,ncol(datosTrain)])
+
+#Se realiza IPF
+out <- IPF(C~.,data=datosTrain)
+length(out$remIdx)
+
+#Se actualizan los datos eliminando aquellas instancias detectadas como anomalías
+datosTrain <- as.tibble(datosTrain[setdiff(1:nrow(datosTrain),out$remIdx),])
+datosTrain[,ncol(datosTrain)] <- as.numeric(unlist(datosTrain[,ncol(datosTrain)]))
+```
+
+
+Se detectan un total de 1596 instancias como ruido que son eliminadas.
+
+
+###Detección de anomalías
+
+Otro punto interesante es detectar anomalías que haya en el conjunto de datos mediante 'kMeans', calculando la distancia que haya de las instancias a los diferentes centroides. Así, se identificaron como anomalías aquellas instancias que tengan datos extremos o que sea una combinación de dos o más variables lo que las convierte en instancias inusuales. Dado que no se sabe cuántas anomalías puede haber, se determina un porcentaje de forma que las 'n' instancias con mayor distancia se consideren outliers:
+
+```{r}
+#Se van a detectar el 10% de las instancias como outliers
+numero.de.outliers = as.integer(dim(datosTrainConRuido)[1]/10)
+
+#
+modelo.kmeans <- kmeans(datosTrainConRuido,2)
+indices.clustering <- modelo.kmeans$cluster
+centroides <- modelo.kmeans$centers
+  
+distancias_a_centroides = function (datos,indices.asignacion.clustering,datos.centroides){
+      sqrt(rowSums(   (datos - datos.centroides[indices.asignacion.clustering,])^2   ))
+}
+  
+dist.centroides <- distancias_a_centroides(datosTrainConRuido, indices.clustering, centroides)
+top.outliers <- order(dist.centroides, decreasing = TRUE)[1:numero.de.outliers]
+datosTrainConRuido <- datosTrainConRuido[-top.outliers,]
+dim(datosTrainConRuido)
+```
+
+De esta forma se eliminarían los datos considerados más ruidosos, dado un determinado porcentaje, en función de los anómalos que sean los valores de éstos.
+
+
+
+
+
+
+
+
+
+
+
