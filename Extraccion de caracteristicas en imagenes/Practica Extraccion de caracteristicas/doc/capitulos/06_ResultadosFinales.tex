@@ -1,0 +1,8 @@
+\chapter{Resultados Finales}
+En este apartado se comentarán las opiniones finales sobre las partes desarrolladas en la práctica.
+
+\section{Comparativa de Descriptores de Imágenes}
+La información que podemos sacar sobre los experimentos realizados con LBP, LBP-Uniforme, HOG y las combinaciones entre estos es que en este caso HOG es el que obtiene mejores resultados para cualquier kernel utilizado con SVM; además el tiempo de computo para obtener los descriptores es mucho menor. Como se ha mencionado en otros apartados, el menor rendimiento de LBP y LBP-Uniforme, así como las combinaciones con HOG; puede deberse a la gran cantidad de datos que se recogen por cada imágen, 26880 para LBP y LBP-Uniforme y más de 30000 para las combinaciones de descriptores. Esta gran cantidad de datos hace que el algoritmo SVM no sea capaz de generalizar y obtener buenos resultados.
+
+\section{Detector de personas}
+Para el detector de personas que se han implementado podemos ver que los resultados no son todo lo satisfactorios que se podría pensar por los resultados obtenidos por HOG en el primer apartado, ya que los resultados obtenidos en validación con el kernel lineal rondan el 96\%. Por lo que se puede ver en las imágenes que se muestran como ejemplo, el detector multiescala siempre consigue detectar a la persona/personas que hay en la imagen, pero no siempre la ventana seleccionada es la que contiene a la persona entera (y por tanto no la óptima), también en uno de los ejemplos el modelo detecta como una persona al morro de un coche, lo cual no es adecuado. 

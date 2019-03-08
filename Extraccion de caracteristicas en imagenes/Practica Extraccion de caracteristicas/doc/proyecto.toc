@@ -17,3 +17,6 @@
 \contentsline {chapter}{\numberline {5}Detector de personas multi-escala}{37}{chapter.5}
 \contentsline {section}{\numberline {5.1}Implementaci\IeC {\'o}n detector de personas}{37}{section.5.1}
 \contentsline {section}{\numberline {5.2}Pruebas con im\IeC {\'a}genes}{38}{section.5.2}
+\contentsline {chapter}{\numberline {6}Resultados Finales}{41}{chapter.6}
+\contentsline {section}{\numberline {6.1}Comparativa de Descriptores de Im\IeC {\'a}genes}{41}{section.6.1}
+\contentsline {section}{\numberline {6.2}Detector de personas}{41}{section.6.2}
