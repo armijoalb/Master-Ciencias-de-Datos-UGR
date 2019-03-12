@@ -1,0 +1,1382 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6880 64-bit) (preloaded format=pdflatex 2018.11.22)  28 FEB 2019 17:20
+entering extended mode
+**./proyecto.tex
+(proyecto.tex
+LaTeX2e <2018-04-01> patch level 5
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base
+\book.cls"
+Document Class: book 2014/09/29 v1.4h Standard LaTeX document class
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base
+\bk11.clo"
+File: bk11.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count80
+\c@chapter=\count81
+\c@section=\count82
+\c@subsection=\count83
+\c@subsubsection=\count84
+\c@paragraph=\count85
+\c@subparagraph=\count86
+\c@figure=\count87
+\c@table=\count88
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\list
+ings\listings.sty"
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\grap
+hics\keyval.sty"
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+\lst@mode=\count89
+\lst@gtempboxa=\box26
+\lst@token=\toks15
+\lst@length=\count90
+\lst@currlwidth=\dimen103
+\lst@column=\count91
+\lst@pos=\count92
+\lst@lostspace=\dimen104
+\lst@width=\dimen105
+\lst@newlines=\count93
+\lst@lineno=\count94
+\lst@maxwidth=\dimen106
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\list
+ings\lstmisc.sty"
+File: lstmisc.sty 2018/09/02 1.7 (Carsten Heinz)
+\c@lstnumber=\count95
+\lst@skipnumbers=\count96
+\lst@framebox=\box27
+)
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\list
+ings\listings.cfg"
+File: listings.cfg 2018/09/02 1.7 listings configuration
+))
+Package: listings 2018/09/02 1.7 (Carsten Heinz)
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base
+\inputenc.sty"
+Package: inputenc 2018/04/06 v1.3b Input encoding file
+\inpenc@prehook=\toks16
+\inpenc@posthook=\toks17
+)
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\generic\ba
+bel\babel.sty"
+Package: babel 2018/11/13 3.27 The Babel package
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\generic\ba
+bel\switch.def"
+File: switch.def 2018/11/13 3.27 Babel switching mechanism
+)
+*************************************
+* Local config file bblopts.cfg used
+*
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\arab
+i\bblopts.cfg"
+File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
+ babel
+)
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\babe
+l-spanish\spanish.ldf"
+Language: spanish.ldf 2016/03/03 v5.0p Spanish support from the babel system
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\generic\ba
+bel\babel.def"
+File: babel.def 2018/11/13 3.27 Babel common definitions
+\babel@savecnt=\count97
+\U@D=\dimen107
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\generic\ba
+bel\txtbabel.def")
+\bbl@dirlevel=\count98
+)
+\es@quottoks=\toks18
+\es@quotdepth=\count99
+Package babel Info: Making " an active character on input line 561.
+Package babel Info: Making . an active character on input line 662.
+Package babel Info: Making < an active character on input line 707.
+Package babel Info: Making > an active character on input line 707.
+))
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tool
+s\dcolumn.sty"
+Package: dcolumn 2014/10/28 v1.06 decimal alignment package (DPC)
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tool
+s\array.sty"
+Package: array 2018/04/30 v2.4h Tabular extension package (FMi)
+\col@sep=\dimen108
+\ar@mcellbox=\box28
+\extrarowheight=\dimen109
+\NC@list=\toks19
+\extratabsurround=\skip43
+\backup@length=\skip44
+\ar@cellbox=\box29
+))
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tool
+s\verbatim.sty"
+Package: verbatim 2014/10/28 v1.5q LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks20
+\verbatim@line=\toks21
+\verbatim@in@stream=\read1
+)
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fanc
+yhdr\fancyhdr.sty"
+Package: fancyhdr 2019/01/31 v3.10 Extensive control of page headers and footer
+s
+\f@nch@headwidth=\skip45
+\f@nch@O@elh=\skip46
+\f@nch@O@erh=\skip47
+\f@nch@O@olh=\skip48
+\f@nch@O@orh=\skip49
+\f@nch@O@elf=\skip50
+\f@nch@O@erf=\skip51
+\f@nch@O@olf=\skip52
+\f@nch@O@orf=\skip53
+)
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\grap
+hics\graphicx.sty"
+Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\grap
+hics\graphics.sty"
+Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\grap
+hics\trig.sty"
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\grap
+hics-cfg\graphics.cfg"
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 99.
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\grap
+hics-def\pdftex.def"
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen110
+\Gin@req@width=\dimen111
+)
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tool
+s\afterpage.sty"
+Package: afterpage 2014/10/28 v1.08 After-Page Package (DPC)
+\AP@output=\toks22
+\AP@partial=\box30
+\AP@footins=\box31
+)
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\subf
+igure\subfigure.sty"
+Package: subfigure 2002/07/30 v2.1.4 subfigure package
+\subfigtopskip=\skip54
+\subfigcapskip=\skip55
+\subfigcaptopadj=\dimen112
+\subfigbottomskip=\skip56
+\subfigcapmargin=\dimen113
+\subfiglabelskip=\skip57
+\c@subfigure=\count100
+\c@lofdepth=\count101
+\c@subtable=\count102
+\c@lotdepth=\count103
+
+****************************************
+* Local config file subfigure.cfg used *
+****************************************
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\subf
+igure\subfigure.cfg")
+\subfig@top=\skip58
+\subfig@bottom=\skip59
+)
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tool
+s\longtable.sty"
+Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)
+\LTleft=\skip60
+\LTright=\skip61
+\LTpre=\skip62
+\LTpost=\skip63
+\LTchunksize=\count104
+\LTcapwidth=\dimen114
+\LT@head=\box32
+\LT@firsthead=\box33
+\LT@foot=\box34
+\LT@lastfoot=\box35
+\LT@cols=\count105
+\LT@rows=\count106
+\c@LT@tables=\count107
+\c@LT@chunks=\count108
+\LT@p@ftn=\toks23
+)
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\hype
+rref\hyperref.sty"
+Package: hyperref 2018/09/30 v6.88a Hypertext links for LaTeX
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\generic\ob
+erdiek\hobsub-hyperref.sty"
+Package: hobsub-hyperref 2016/05/16 v1.14 Bundle oberdiek, subset hyperref (HO)
+
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\generic\ob
+erdiek\hobsub-generic.sty"
+Package: hobsub-generic 2016/05/16 v1.14 Bundle oberdiek, subset generic (HO)
+Package: hobsub 2016/05/16 v1.14 Construct package bundles (HO)
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+Package: ifvtex 2016/05/16 v1.6 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+Package: intcalc 2016/05/16 v1.2 Expandable calculations with integers (HO)
+Package: ifpdf 2018/09/07 v3.3 Provides the ifpdf switch
+Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
+Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
+Package: pdftexcmds 2018/09/10 v0.29 Utility functions of pdfTeX for LuaTeX (HO
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+Package: pdfescape 2016/05/16 v1.14 Implements pdfTeX's escape features (HO)
+Package: bigintcalc 2016/05/16 v1.4 Expandable calculations on big integers (HO
+)
+Package: bitset 2016/05/16 v1.2 Handle bit-vector datatype (HO)
+Package: uniquecounter 2016/05/16 v1.3 Provide unlimited unique counter (HO)
+)
+Package hobsub Info: Skipping package `hobsub' (already loaded).
+Package: letltxmacro 2016/05/16 v1.5 Let assignment for LaTeX macros (HO)
+Package: hopatch 2016/05/16 v1.3 Wrapper for package hooks (HO)
+Package: xcolor-patch 2016/05/16 xcolor patch
+Package: atveryend 2016/05/16 v1.9 Hooks at the very end of document (HO)
+Package atveryend Info: \AP@enddocument detected (standard20110627).
+Package: atbegshi 2016/06/09 v1.18 At begin shipout hook (HO)
+Package: refcount 2016/05/16 v3.5 Data extraction from label references (HO)
+Package: hycolor 2016/05/16 v1.8 Color options for hyperref/bookmark (HO)
+)
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\generic\if
+xetex\ifxetex.sty"
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ober
+diek\auxhook.sty"
+Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
+)
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ober
+diek\kvoptions.sty"
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
+)
+\@linkdim=\dimen115
+\Hy@linkcounter=\count109
+\Hy@pagecounter=\count110
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\hype
+rref\pd1enc.def"
+File: pd1enc.def 2018/09/30 v6.88a Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+)
+\Hy@SavedSpaceFactor=\count111
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\00mi
+ktex\hyperref.cfg"
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+)
+
+Package hyperref Warning: Invalid value `000'
+(hyperref)                for option `pdfborder'.
+(hyperref)                Option setting is ignored on input line 4409.
+
+Package hyperref Info: Hyper figures OFF on input line 4535.
+Package hyperref Info: Link nesting OFF on input line 4540.
+Package hyperref Info: Hyper index ON on input line 4543.
+Package hyperref Info: Plain pages OFF on input line 4550.
+Package hyperref Info: Backreferencing OFF on input line 4555.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4788.
+\c@Hy@tempcnt=\count112
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\url\
+url.sty"
+\Urlmuskip=\muskip10
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 5141.
+\XeTeXLinkMargin=\dimen116
+\Fld@menulength=\count113
+\Field@Width=\dimen117
+\Fld@charsize=\dimen118
+Package hyperref Info: Hyper figures OFF on input line 6396.
+Package hyperref Info: Link nesting OFF on input line 6401.
+Package hyperref Info: Hyper index ON on input line 6404.
+Package hyperref Info: backreferencing OFF on input line 6411.
+Package hyperref Info: Link coloring OFF on input line 6416.
+Package hyperref Info: Link coloring with OCG OFF on input line 6421.
+Package hyperref Info: PDF/A mode OFF on input line 6426.
+LaTeX Info: Redefining \ref on input line 6466.
+LaTeX Info: Redefining \pageref on input line 6470.
+\Hy@abspage=\count114
+\c@Item=\count115
+\c@Hfootnote=\count116
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\hype
+rref\hpdftex.def"
+File: hpdftex.def 2018/09/30 v6.88a Hyperref driver for pdfTeX
+\Fld@listcount=\count117
+\c@bookmark@seq@number=\count118
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ober
+diek\rerunfilecheck.sty"
+Package: rerunfilecheck 2016/05/16 v1.8 Rerun checks for auxiliary files (HO)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+82.
+)
+\Hy@SectionHShift=\skip64
+)
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 57.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 57.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 57.
+
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\colo
+rtbl\colortbl.sty"
+Package: colortbl 2018/12/12 v1.0d Color table columns (DPC)
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\grap
+hics\color.sty"
+Package: color 2016/07/10 v1.1e Standard LaTeX Color (DPC)
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\grap
+hics-cfg\color.cfg"
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 147.
+)
+\everycr=\toks24
+\minrowclearance=\skip65
+)
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\foot
+misc\footmisc.sty"
+Package: footmisc 2011/06/06 v5.5b a miscellany of footnote facilities
+\FN@temptoken=\toks25
+\footnotemargin=\dimen119
+\c@pp@next@reset=\count119
+Package footmisc Info: Declaring symbol style bringhurst on input line 855.
+Package footmisc Info: Declaring symbol style chicago on input line 863.
+Package footmisc Info: Declaring symbol style wiley on input line 872.
+Package footmisc Info: Declaring symbol style lamport-robust on input line 883.
+
+Package footmisc Info: Declaring symbol style lamport* on input line 903.
+Package footmisc Info: Declaring symbol style lamport*-robust on input line 924
+.
+)
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\list
+ings\lstlang1.sty"
+File: lstlang1.sty 2018/09/02 1.7 listings language file
+)
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\pdfp
+ages\pdfpages.sty"
+Package: pdfpages 2017/10/31 v0.5l Insert pages of external PDF documents (AM)
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base
+\ifthen.sty"
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\tool
+s\calc.sty"
+Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count120
+\calc@Bcount=\count121
+\calc@Adimen=\dimen120
+\calc@Bdimen=\dimen121
+\calc@Askip=\skip66
+\calc@Bskip=\skip67
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count122
+\calc@Cskip=\skip68
+)
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\eso-
+pic\eso-pic.sty"
+Package: eso-pic 2018/04/12 v2.0h eso-pic (RN)
+)
+\AM@pagewidth=\dimen122
+\AM@pageheight=\dimen123
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\pdfp
+ages\pppdftex.def"
+File: pppdftex.def 2017/10/31 v0.5l Pdfpages driver for pdfTeX (AM)
+)
+\AM@pagebox=\box36
+\AM@global@opts=\toks26
+\AM@toc@title=\toks27
+\c@AM@survey=\count123
+\AM@templatesizebox=\box37
+)
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\date
+time\datetime.sty"
+Package: datetime 2015/03/20 v2.60 Date Time Package
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\etoo
+lbox\etoolbox.sty"
+Package: etoolbox 2018/08/19 v2.5f e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count124
+)
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fmtc
+ount\fmtcount.sty"
+Package: fmtcount 2017/12/24 v3.05
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\xkey
+val\xkeyval.sty"
+Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\generic\xk
+eyval\xkeyval.tex"
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\generic\xk
+eyval\xkvutils.tex"
+\XKV@toks=\toks28
+\XKV@tempa@toks=\toks29
+)
+\XKV@depth=\count125
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+))
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fmtc
+ount\fcprefix.sty"
+Package: fcprefix 2012/09/28
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\fmtc
+ount\fcnumparser.sty"
+Package: fcnumparser 2017/06/15
+\fc@digit@counter=\count126
+))
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsm
+ath\amsgen.sty"
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks30
+\ex@=\dimen124
+)
+\c@padzeroesN=\count127
+\fc@tmpcatcode=\count128
+\@DT@modctr=\count129
+\@ordinalctr=\count130
+\@orgargctr=\count131
+\@strctr=\count132
+\@tmpstrctr=\count133
+\@DT@loopN=\count134
+\@DT@X=\count135
+)
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\date
+time\datetime-defaults.sty"
+Package: datetime-defaults 2013/09/10
+)
+\@day=\count136
+\@month=\count137
+\@year=\count138
+\c@HOUR=\count139
+\c@HOURXII=\count140
+\c@MINUTE=\count141
+\c@TOHOUR=\count142
+\c@TOMINUTE=\count143
+\c@SECOND=\count144
+\currenthour=\count145
+\currentminute=\count146
+\currentsecond=\count147
+Package datetime Info: No datetime.cfg file found, using default settings on in
+put line 308.
+\@dtctr=\count148
+\dayofyear=\count149
+\dayofweek=\count150
+LaTeX Info: Redefining \today on input line 736.
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\date
+time\dt-spanish.def"
+File: dt-spanish.def 2013/09/10
+LaTeX Info: Redefining \datespanish on input line 85.
+)
+\dt@a=\toks31
+\dt@b=\toks32
+)
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\geom
+etry\geometry.sty"
+Package: geometry 2018/04/16 v5.8 Page Geometry
+\Gm@cnth=\count151
+\Gm@cntv=\count152
+\c@Gm@tempcnt=\count153
+\Gm@bindingoffset=\dimen125
+\Gm@wd@mp=\dimen126
+\Gm@odd@mp=\dimen127
+\Gm@even@mp=\dimen128
+\Gm@layoutwidth=\dimen129
+\Gm@layoutheight=\dimen130
+\Gm@layouthoffset=\dimen131
+\Gm@layoutvoffset=\dimen132
+\Gm@dimlist=\toks33
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\geom
+etry\geometry.cfg"))
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\capt
+ion\caption.sty"
+Package: caption 2018/10/06 v3.3-154 Customizing captions (AR)
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\capt
+ion\caption3.sty"
+Package: caption3 2018/09/12 v1.8c caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 64.
+\captionmargin=\dimen133
+\captionmargin@=\dimen134
+\captionwidth=\dimen135
+\caption@tempdima=\dimen136
+\caption@indent=\dimen137
+\caption@parindent=\dimen138
+\caption@hangindent=\dimen139
+)
+\c@caption@flags=\count154
+\c@ContinuedFloat=\count155
+Package caption Info: hyperref package is loaded.
+Package caption Info: listings package is loaded.
+Package caption Info: longtable package is loaded.
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\capt
+ion\ltcaption.sty"
+Package: ltcaption 2018/08/26 v1.4-95 longtable captions (AR)
+)
+Package caption Info: subfigure package is loaded.
+)
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\csqu
+otes\csquotes.sty"
+Package: csquotes 2018/04/13 v5.2d context-sensitive quotations (JAW)
+\csq@reset=\count156
+\csq@gtype=\count157
+\csq@glevel=\count158
+\csq@qlevel=\count159
+\csq@maxlvl=\count160
+\csq@tshold=\count161
+\csq@ltx@everypar=\toks34
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\csqu
+otes\csquotes.def"
+File: csquotes.def 2018/04/13 v5.2d csquotes generic definitions (JAW)
+)
+Package csquotes Info: Trying to load configuration file 'csquotes.cfg'...
+Package csquotes Info: ... configuration file loaded successfully.
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\csqu
+otes\csquotes.cfg"
+File: csquotes.cfg 
+))
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\algo
+rithms\algorithm.sty"
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\floa
+t\float.sty"
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count162
+\float@exts=\toks35
+\float@box=\box38
+\@float@everytoks=\toks36
+\@floatcapt=\box39
+)
+\@float@every@algorithm=\toks37
+\c@algorithm=\count163
+)
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\algo
+rithmicx\algpseudocode.sty"
+Package: algpseudocode 
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\algo
+rithmicx\algorithmicx.sty"
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count164
+\c@ALG@rem=\count165
+\c@ALG@nested=\count166
+\ALG@tlm=\skip69
+\ALG@thistlm=\skip70
+\c@ALG@Lnr=\count167
+\c@ALG@blocknr=\count168
+\c@ALG@storecount=\count169
+\c@ALG@tmpcounter=\count170
+\ALG@tmplength=\skip71
+)
+Document Style - pseudocode environments for use with the `algorithmicx' style
+)
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsm
+ath\amsmath.sty"
+Package: amsmath 2017/09/02 v2.17a AMS math features
+\@mathmargin=\skip72
+
+For additional information on amsmath, use the `?' option.
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsm
+ath\amstext.sty"
+Package: amstext 2000/06/29 v2.01 AMS text
+)
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsm
+ath\amsbsy.sty"
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen140
+)
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\amsm
+ath\amsopn.sty"
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count171
+LaTeX Info: Redefining \frac on input line 213.
+\uproot@=\count172
+\leftroot@=\count173
+LaTeX Info: Redefining \overline on input line 375.
+\classnum@=\count174
+\DOTSCASE@=\count175
+LaTeX Info: Redefining \ldots on input line 472.
+LaTeX Info: Redefining \dots on input line 475.
+LaTeX Info: Redefining \cdots on input line 596.
+\Mathstrutbox@=\box40
+\strutbox@=\box41
+\big@size=\dimen141
+LaTeX Font Info:    Redeclaring font encoding OML on input line 712.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
+\macc@depth=\count176
+\c@MaxMatrixCols=\count177
+\dotsspace@=\muskip11
+\c@parentequation=\count178
+\dspbrk@lvl=\count179
+\tag@help=\toks38
+\row@=\count180
+\column@=\count181
+\maxfields@=\count182
+\andhelp@=\toks39
+\eqnshift@=\dimen142
+\alignsep@=\dimen143
+\tagshift@=\dimen144
+\tagwidth@=\dimen145
+\totwidth@=\dimen146
+\lineht@=\dimen147
+\@envbody=\toks40
+\multlinegap=\skip73
+\multlinetaggap=\skip74
+\mathdisplay@stack=\toks41
+LaTeX Info: Redefining \[ on input line 2817.
+LaTeX Info: Redefining \] on input line 2818.
+)
+\@input{PreambuloSimple.tex.aux}
+\openout2 = `PreambuloSimple.tex.aux'.
+
+No file PreambuloSimple.tex.tex.
+Package csquotes Info: Checking for multilingual support...
+Package csquotes Info: ... found 'babel' package.
+Package csquotes Info: Adjusting default style.
+Package csquotes Info: Redefining alias 'default' -> 'spanish'.
+(proyecto.aux
+LaTeX Info: Redefining \. on input line 23.
+LaTeX Info: Redefining \% on input line 23.
+)
+\openout1 = `proyecto.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 153.
+LaTeX Font Info:    ... okay on input line 153.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 153.
+LaTeX Font Info:    ... okay on input line 153.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 153.
+LaTeX Font Info:    ... okay on input line 153.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 153.
+LaTeX Font Info:    ... okay on input line 153.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 153.
+LaTeX Font Info:    ... okay on input line 153.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 153.
+LaTeX Font Info:    ... okay on input line 153.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 153.
+LaTeX Font Info:    ... okay on input line 153.
+\c@lstlisting=\count183
+LaTeX Info: Redefining \. on input line 153.
+LaTeX Info: Redefining \% on input line 153.
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\context\ba
+se\supp-pdf.mkii"
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count184
+\scratchdimen=\dimen148
+\scratchbox=\box42
+\nofMPsegments=\count185
+\nofMParguments=\count186
+\everyMPshowfont=\toks42
+\MPscratchCnt=\count187
+\MPscratchDim=\dimen149
+\MPnumerator=\count188
+\makeMPintoPDFobject=\count189
+\everyMPtoPDFconversion=\toks43
+)
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ober
+diek\epstopdf-base.sty"
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ober
+diek\grfext.sty"
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
+)
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+38.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 456.
+)
+\AtBeginShipoutBox=\box43
+Package hyperref Info: Link coloring OFF on input line 153.
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\hype
+rref\nameref.sty"
+Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\generic\ob
+erdiek\gettitlestring.sty"
+Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
+)
+\c@section@level=\count190
+)
+LaTeX Info: Redefining \ref on input line 153.
+LaTeX Info: Redefining \pageref on input line 153.
+LaTeX Info: Redefining \nameref on input line 153.
+ (proyecto.out) (proyecto.out)
+\@outlinefile=\write3
+\openout3 = `proyecto.out'.
+
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ober
+diek\pdflscape.sty"
+Package: pdflscape 2016/05/14 v0.11 Display of landscape pages in PDF (HO)
+
+("C:\Users\Alberto Armijo Ruiz\AppData\Local\Programs\MiKTeX 2.9\tex\latex\grap
+hics\lscape.sty"
+Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
+)
+Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
+)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: twoside 
+* h-part:(L,W,R)=(71.70166pt, 418.25368pt, 107.55254pt)
+* v-part:(T,H,B)=(101.40665pt, 591.5302pt, 152.11pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=418.25368pt
+* \textheight=591.5302pt
+* \oddsidemargin=-0.56833pt
+* \evensidemargin=35.28255pt
+* \topmargin=-8.73714pt
+* \headheight=18.0pt
+* \headsep=19.8738pt
+* \topskip=11.0pt
+* \footskip=27.46295pt
+* \marginparwidth=106.0pt
+* \marginparsep=7.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidetrue
+* \@mparswitchtrue
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
+Package caption Info: End \AtBeginDocument code.
+(portada/portada.tex
+\centeroffset=\skip75
+<imagenes/logo_ugr.jpg, id=75, 777.90625pt x 231.86626pt>
+File: imagenes/logo_ugr.jpg Graphic file (type jpg)
+<use imagenes/logo_ugr.jpg>
+Package pdftex.def Info: imagenes/logo_ugr.jpg  used on input line 10.
+(pdftex.def)             Requested size: 376.42575pt x 112.20026pt.
+
+Overfull \hbox (17.92543pt too wide) in paragraph at lines 7--22
+| $[]$ 
+ []
+
+<imagenes/etsiit_logo.png, id=76, 110.814pt x 40.4712pt>
+File: imagenes/etsiit_logo.png Graphic file (type png)
+<use imagenes/etsiit_logo.png>
+Package pdftex.def Info: imagenes/etsiit_logo.png  used on input line 28.
+(pdftex.def)             Requested size: 125.47737pt x 45.82701pt.
+
+Overfull \hbox (17.92543pt too wide) in paragraph at lines 24--35
+| $[]$ 
+ []
+
+[1
+
+
+
+
+{C:/Users/Alberto Armijo Ruiz/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map
+} <./imagenes/logo_ugr.jpg> <./imagenes/etsiit_logo.png>])
+(prefacio/prefacio.tex [2
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 3--4
+
+ []
+
+) [3] [4
+
+] (proyecto.toc
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+)
+\tf@toc=\write4
+\openout4 = `proyecto.toc'.
+
+ [5] [6
+
+] (proyecto.lof
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+)
+\tf@lof=\write5
+\openout5 = `proyecto.lof'.
+
+ [7] [8
+
+] (proyecto.lot
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+ [9])
+\tf@lot=\write6
+\openout6 = `proyecto.lot'.
+
+
+(capitulos/01_EvaluacionMedidasHOG.tex
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+ [10]
+Cap\'{\i }tulo 1.
+
+Underfull \hbox (badness 10000) in paragraph at lines 5--6
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 7--8
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 9--10
+
+ []
+
+[11
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 11--12
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 13--14
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 15--16
+
+ []
+
+LaTeX Info: Redefining \. on input line 17.
+LaTeX Info: Redefining \% on input line 17.
+
+Package Fancyhdr Warning: \headheight is too small (18.0pt): 
+Make it at least 25.2842pt.
+We now make it that large for the rest of the document.
+This may cause the page layout to be inconsistent, however.
+
+[12]
+<imagenes/prueba_img.png, id=260, 462.528pt x 345.4506pt>
+File: imagenes/prueba_img.png Graphic file (type png)
+<use imagenes/prueba_img.png>
+Package pdftex.def Info: imagenes/prueba_img.png  used on input line 21.
+(pdftex.def)             Requested size: 227.62204pt x 170.00496pt.
+<imagenes/resultado_ini.png, id=261, 316.18124pt x 76.03406pt>
+File: imagenes/resultado_ini.png Graphic file (type png)
+<use imagenes/resultado_ini.png>
+Package pdftex.def Info: imagenes/resultado_ini.png  used on input line 22.
+(pdftex.def)             Requested size: 227.62204pt x 54.73866pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 28--29
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 30--31
+
+ []
+
+LaTeX Info: Redefining \. on input line 36.
+LaTeX Info: Redefining \% on input line 36.
+[13 <./imagenes/prueba_img.png> <./imagenes/resultado_ini.png>]
+<imagenes/resultados_test.png, id=271, 951.555pt x 14.30344pt>
+File: imagenes/resultados_test.png Graphic file (type png)
+<use imagenes/resultados_test.png>
+Package pdftex.def Info: imagenes/resultados_test.png  used on input line 44.
+(pdftex.def)             Requested size: 398.33858pt x 5.98775pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 52--53
+
+ []
+
+LaTeX Info: Redefining \. on input line 57.
+LaTeX Info: Redefining \% on input line 57.
+[14 <./imagenes/resultados_test.png>]
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 68--76
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 81--89
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 94--102
+[][] 
+ []
+
+LaTeX Info: Redefining \. on input line 105.
+LaTeX Info: Redefining \% on input line 105.
+[15]
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 107--115
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 120--128
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 133--141
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 146--154
+[][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 157.
+LaTeX Info: Redefining \% on input line 157.
+ [16]
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 159--167
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 172--180
+[][] 
+ []
+
+) (capitulos/02_DescriptorLBP.tex
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+ [17] [18
+
+]
+Cap\'{\i }tulo 2.
+
+Underfull \hbox (badness 10000) in paragraph at lines 7--8
+
+ []
+
+<imagenes/lbp_histogram.png, id=298, 462.528pt x 345.4506pt>
+File: imagenes/lbp_histogram.png Graphic file (type png)
+<use imagenes/lbp_histogram.png>
+Package pdftex.def Info: imagenes/lbp_histogram.png  used on input line 11.
+(pdftex.def)             Requested size: 398.33858pt x 297.52449pt.
+
+Underfull \vbox (badness 5288) has occurred while \output is active []
+
+ [19]
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 22--30
+[][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 33.
+LaTeX Info: Redefining \% on input line 33.
+ [20 <./imagenes/lbp_histogram.png>]
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 35--43
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 48--56
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 61--69
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 74--82
+[][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 85.
+LaTeX Info: Redefining \% on input line 85.
+ [21]
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 87--95
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 100--108
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 113--121
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 126--134
+[][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 137.
+LaTeX Info: Redefining \% on input line 137.
+ [22]
+Underfull \hbox (badness 10000) in paragraph at lines 138--139
+
+ []
+
+) (capitulos/03_DescripotrLBPU.tex
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+ [23] [24
+
+]
+Cap\'{\i }tulo 3.
+
+Underfull \hbox (badness 10000) in paragraph at lines 5--6
+
+ []
+
+[25]
+<imagenes/ulbp_histogram.png, id=334, 462.528pt x 345.4506pt>
+File: imagenes/ulbp_histogram.png Graphic file (type png)
+<use imagenes/ulbp_histogram.png>
+Package pdftex.def Info: imagenes/ulbp_histogram.png  used on input line 11.
+(pdftex.def)             Requested size: 398.33858pt x 297.52449pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 17--18
+
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 20--28
+[][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 31.
+LaTeX Info: Redefining \% on input line 31.
+ [26 <./imagenes/ulbp_histogram.png>]
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 33--41
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 46--54
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 59--67
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 72--80
+[][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 83.
+LaTeX Info: Redefining \% on input line 83.
+ [27]
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 85--93
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 98--106
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 111--119
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 124--132
+[][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 135.
+LaTeX Info: Redefining \% on input line 135.
+ [28]
+Underfull \hbox (badness 10000) in paragraph at lines 136--137
+
+ []
+
+) (capitulos/04_CombinacionDescriptores.tex
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+ [29] [30
+
+]
+Cap\'{\i }tulo 4.
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 9--17
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 22--30
+[][] 
+ []
+
+[31]
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 35--43
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 48--56
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 61--69
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 74--82
+[][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 85.
+LaTeX Info: Redefining \% on input line 85.
+ [32]
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 87--95
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 100--108
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 113--121
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 131--139
+[][] 
+ []
+
+LaTeX Info: Redefining \. on input line 142.
+LaTeX Info: Redefining \% on input line 142.
+[33]
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 144--152
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 157--165
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 170--178
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 183--191
+[][] 
+ []
+
+
+Underfull \vbox (badness 5862) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 194.
+LaTeX Info: Redefining \% on input line 194.
+ [34]
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 196--204
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 209--217
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 222--230
+[][] 
+ []
+
+
+Overfull \hbox (26.21457pt too wide) in paragraph at lines 235--243
+[][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Info: Redefining \. on input line 246.
+LaTeX Info: Redefining \% on input line 246.
+ [35])
+(capitulos/05_DetectorMultiescala.tex
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+ [36]
+Cap\'{\i }tulo 5.
+
+Underfull \hbox (badness 10000) in paragraph at lines 5--6
+
+ []
+
+[37
+
+]
+<imagenes/prueba_1.png, id=386, 462.528pt x 345.4506pt>
+File: imagenes/prueba_1.png Graphic file (type png)
+<use imagenes/prueba_1.png>
+Package pdftex.def Info: imagenes/prueba_1.png  used on input line 14.
+(pdftex.def)             Requested size: 227.62204pt x 170.00496pt.
+<imagenes/resultado_1.png, id=387, 462.528pt x 345.4506pt>
+File: imagenes/resultado_1.png Graphic file (type png)
+<use imagenes/resultado_1.png>
+Package pdftex.def Info: imagenes/resultado_1.png  used on input line 15.
+(pdftex.def)             Requested size: 227.62204pt x 170.00496pt.
+LaTeX Info: Redefining \. on input line 20.
+LaTeX Info: Redefining \% on input line 20.
+ [38 <./imagenes/prueba_1.png> <./imagenes/resultado_1.png>]
+<imagenes/prueba_2.png, id=396, 462.528pt x 345.4506pt>
+File: imagenes/prueba_2.png Graphic file (type png)
+<use imagenes/prueba_2.png>
+Package pdftex.def Info: imagenes/prueba_2.png  used on input line 24.
+(pdftex.def)             Requested size: 227.62204pt x 170.00496pt.
+<imagenes/resultado_2.png, id=397, 462.528pt x 345.4506pt>
+File: imagenes/resultado_2.png Graphic file (type png)
+<use imagenes/resultado_2.png>
+Package pdftex.def Info: imagenes/resultado_2.png  used on input line 25.
+(pdftex.def)             Requested size: 227.62204pt x 170.00496pt.
+LaTeX Info: Redefining \. on input line 30.
+LaTeX Info: Redefining \% on input line 30.
+ [39 <./imagenes/prueba_2.png> <./imagenes/resultado_2.png>]
+<imagenes/prueba_3.png, id=406, 462.528pt x 345.4506pt>
+File: imagenes/prueba_3.png Graphic file (type png)
+<use imagenes/prueba_3.png>
+Package pdftex.def Info: imagenes/prueba_3.png  used on input line 34.
+(pdftex.def)             Requested size: 227.62204pt x 170.00496pt.
+<imagenes/resultado_3.png, id=407, 462.528pt x 345.4506pt>
+File: imagenes/resultado_3.png Graphic file (type png)
+<use imagenes/resultado_3.png>
+Package pdftex.def Info: imagenes/resultado_3.png  used on input line 35.
+(pdftex.def)             Requested size: 227.62204pt x 170.00496pt.
+)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 174.
+LaTeX Info: Redefining \. on input line 174.
+LaTeX Info: Redefining \% on input line 174.
+ [40 <./imagenes/prueba_3.png> <./imagenes/resultado_3.png>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 174.
+ (proyecto.aux
+LaTeX Info: Redefining \. on input line 23.
+LaTeX Info: Redefining \% on input line 23.
+)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 174.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 174.
+Package rerunfilecheck Info: File `proyecto.out' has not changed.
+(rerunfilecheck)             Checksum: FF65B6EC208D292FE596F0AFD3FEDB8E;1412.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 174.
+ ) 
+Here is how much of TeX's memory you used:
+ 13339 strings out of 492969
+ 205250 string characters out of 3120367
+ 419058 words of memory out of 3000000
+ 16834 multiletter control sequences out of 15000+200000
+ 10899 words of font info for 39 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 53i,12n,92p,1701b,668s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Users/Alberto Armijo Ruiz/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/p
+ublic/amsfonts/cm/cmbx10.pfb><C:/Users/Alberto Armijo Ruiz/AppData/Local/Progra
+ms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Alberto Armij
+o Ruiz/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10
+.pfb><C:/Users/Alberto Armijo Ruiz/AppData/Local/Programs/MiKTeX 2.9/fonts/type
+1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Alberto Armijo Ruiz/AppData/Local/Pro
+grams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Alberto Arm
+ijo Ruiz/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy1
+0.pfb><C:/Users/Alberto Armijo Ruiz/AppData/Local/Programs/MiKTeX 2.9/fonts/typ
+e1/public/amsfonts/cm/cmti10.pfb><C:/Users/Alberto Armijo Ruiz/AppData/Local/Pr
+ograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on proyecto.pdf (40 pages, 1525901 bytes).
+PDF statistics:
+ 473 PDF objects out of 1000 (max. 8388607)
+ 127 named destinations out of 1000 (max. 500000)
+ 210 words of extra memory for PDF output out of 10000 (max. 10000000)
+
