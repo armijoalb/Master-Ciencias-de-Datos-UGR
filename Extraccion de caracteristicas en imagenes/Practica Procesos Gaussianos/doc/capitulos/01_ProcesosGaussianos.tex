@@ -1,0 +1,13 @@
+\chapter{Procesos Guassianos}
+Los Procesos Gaussianos se tratan de un modelo que utiliza la aproximación bayesiana para calcular una distribución a posteriori sobre los datos; a diferencia de una Regresión Bayesiana normal, este define una transformación sobre los datos utilizando un kernel, de forma que los datos utilizados en la distribución a posteriori no tienen porque estar en un espacio lineal.\newline
+
+Esta aproximación bayesiana utiliza un modelo generativo para ajustar mejor los parámetros del modelo de forma que tengan en cuenta pequeñas variaciones en los datos. Para ello se define lo siguiente:
+\begin{itemize}
+	\item Una distribución sobre los datos y el estado del mundo (las etiquetas en un problema de clasificación, valores en el espacio en un problema de regresión). $ P(y|X) = Norm[X^T\phi,\sigma^2I] $ donde $\phi$ son parámetros que se estiman.
+	\item Una distribución sobre los parámetros que se van a optimizar para ofrecer mejores resultados (distribución a priori). $ P(\phi) = Norm[0,\sigma^2I]$
+	\item Una distribución sobre los parámetros teniendo en cuenta los datos y el estado del mundo (distribución a posteriori); dicha distribución se calcula mediante la Regla de Bayes. $ P(\phi|X,y) = \frac{P(y|X,\phi) P(\phi) }{P(y|X)}$
+\end{itemize}
+
+Una vez queremos predecir el estado del mundo de nuevos datos bastará con generar sus distribuciones a través de su distribución y la distribución definida por los parámetros optimizados.\newline 
+
+La diferencia en los Procesos Guassianos y la distribución a posteriori definida arriba es que en vez de utilizar los datos X, se utiliza un transformación sobre estos definida por un kernel K, de forma que lo que utilizamos es $ K[X,X] $, la cuál es una matriz con los datos transformados. Algunos de los kernels que puede utilizar son el lineal, polinómico, radial (Gaussiana), etc ...

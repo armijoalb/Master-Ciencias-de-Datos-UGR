@@ -1,0 +1,21 @@
+To cite this package in publications use:
+
+  2010, Rasmussen, Carl Edward and Nickisch, Hannes
+  "Gaussian processes for machine learning (GPML) toolbox"
+  URL http://www.gaussianprocess.org/gpml
+
+A BibTeX entry for LaTeX users is:
+
+@article{rasmussen2010gaussian,
+  title={Gaussian processes for machine learning (GPML) toolbox},
+  author={Rasmussen, Carl Edward and Nickisch, Hannes},
+  journal={The Journal of Machine Learning Research},
+  volume={11},
+  pages={3011--3015},
+  year={2010},
+  publisher={JMLR.org},
+  url={http://www.gaussianprocess.org/gpml}
+}
+
+We have invested a lot of time and effort in creating this package,
+ please cite it when using it.
