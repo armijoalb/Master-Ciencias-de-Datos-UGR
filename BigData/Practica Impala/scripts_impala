@@ -1,0 +1,85 @@
+// Instrucciones para acceder al shell de Impala.
+- Abrir una terminal en la máquina virtual de Cloudera.
+- Acceder al usuario de Impala:
+$sudo bash
+$su impala
+- Crear una carpeta en el sistema de ficheros hdfs para almacenar el
+archivo .csv. Para ello se debe hacer lo siguiente:
+$hdfs dfs -mkdir /user/impala/input
+$hdfs dfs -put /var/tmp/materialImpala/dotaGames.csv /user/impala/input
+
+
+// Instrucciones dentro del shell de Impala.
+create database if not exists practica;
+use practica;
+
+create table if not exists DotaGames (WinnerTeam STRING,
+ClusterID INT, GameMode STRING, GameType STRING, antimage STRING,axe STRING,bane STRING,
+bloodseeker STRING,crystal_maiden STRING,drow_ranger STRING,
+earthshaker STRING,juggernaut STRING,mirana STRING,nevermore STRING,
+morphling STRING,phantom_lancer STRING,puck STRING,pudge STRING,
+razor STRING,sand_king STRING,storm_spirit STRING,sven STRING,
+tiny STRING,vengefulspirit STRING,windrunner STRING,zuus STRING,
+kunkka STRING,lina STRING,lich STRING,lion STRING,shadow_shaman STRING,
+slardar STRING,tidehunter STRING,witch_doctor STRING,riki STRING,enigma STRING,
+tinker STRING,sniper STRING,necrolyte STRING,warlock STRING,
+beastmaster STRING,queenofpain STRING,venomancer STRING,
+faceless_void STRING,skeleton_king STRING,death_prophet STRING,
+phantom_assassin STRING,pugna STRING,templar_assassin STRING,
+viper STRING,luna STRING,dragon_knight STRING,dazzle STRING,
+rattletrap STRING,leshrac STRING,furion STRING,life_stealer STRING,
+dark_seer STRING,clinkz STRING,omniknight STRING,enchantress STRING,
+huskar STRING,night_stalker STRING,broodmother STRING,bounty_hunter STRING,
+weaver STRING,jakiro STRING,batrider STRING,chen STRING,spectre STRING,
+doom_bringer STRING,ancient_apparition STRING,ursa STRING,
+spirit_breaker STRING,gyrocopter STRING,alchemist STRING,invoker STRING,
+silencer STRING,obsidian_destroyer STRING,lycan STRING,brewmaster STRING,
+shadow_demon STRING,lone_druid STRING,chaos_knight STRING,meepo STRING,
+treant STRING,ogre_magi STRING,undying STRING,rubick STRING,
+disruptor STRING,nyx_assassin STRING,naga_siren STRING,
+keeper_of_the_light STRING,wisp STRING,visage STRING,slark STRING,
+medusa STRING,troll_warlord STRING,centaur STRING,magnataur STRING,shredder STRING,
+bristleback STRING,tusk STRING,skywrath_mage STRING,abaddon STRING,
+elder_titan STRING,legion_commander STRING,ember_spirit STRING,
+earth_spirit STRING,abyssal_underlord STRING,terrorblade STRING,
+phoenix STRING,techies STRING,oracle STRING,wSTRINGer_wyvern STRING,
+arc_warden STRING,monkey_king STRING) 
+row format delimited fields terminated by '\,' stored as textfile;
+
+load data inpath '/user/impala/input/dotaGames.csv' overwrite into table DotaGames;
+
+# Projection query.
+select WinnerTeam,GameMode,GameType from DotaGames;
+
+# Selection query.
+select WinnerTeam, GameMode,GameType 
+from DotaGames where GameType = 'Unranked Game';
+
+// Número de partidas ganadas en las cuales se ha
+// utilizado el personaje axe.
+select count(WinnerTeam) 
+from DotaGames where axe='Blue Team' or axe='Red Team';
+
+// Número de partidas ganadas cuando el personaje ogre_magi no se utiliza.
+select count(WinnerTeam) from DotaGames where ogre_magi='None';
+
+# Group query and cálculos.
+// Número de partidas ganadas por equipo.
+select WinnerTeam, count(GameType) from DotaGames group by WinnerTeam;
+
+// Modos de juego donde el tipo de partida es Ranked y número de partidas.
+select GameMode, count(GameMode) 
+from DotaGames where GameType='Ranked Game' group by GameMode;
+
+// Número de partidas que gana cada equipo.
+select WinnerTeam, count(WinnerTeam) 
+from DotaGames where GameType='Ranked Game' group by WinnerTeam;
+
+# Mezcla de querys
+
+// Número de partidas ganadas por el equipo azul
+// agrupado por el tipo de partida jugada.
+select GameMode, count(GameMode) from
+ (select WinnerTeam, GameMode from DotaGames 
+ where WinnerTeam='Blue Team') bluewinner group by GameMode;
+
