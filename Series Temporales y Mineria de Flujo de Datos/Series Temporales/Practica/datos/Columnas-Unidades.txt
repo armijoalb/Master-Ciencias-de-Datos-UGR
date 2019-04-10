@@ -1,0 +1,17 @@
+ARCHIVOS DE DATOS POR ESTACION (DESDE 05-2013). COLUMNAS Y UNIDADES
+- Columna 1 : Identificador Estación 
+- Columna 2 : Fecha 
+- Columna 3 : Temperatura Máxima (ºC)
+- Columna 4 : Hora Temperatura Máxima 
+- Columna 5 : Temperatura mínima (ºC)
+- Columna 6 : Hora Temperatura mínima 
+- Columna 7 : Temperatura Media (ºC)
+- Columna 8 : Racha máxima de viento (Km/h)
+- Columna 9 : Hora de Racha Máxima 
+- Columna 10 : Velocidad media de Viento (Km/h)
+- Columna 11 : Hora de Velocidad Máxima de viento 
+- Columna 12 : Precipitacion Total diaria (mm)
+- Columna 13 : Precipitacion de 0 a 6 horas (mm)
+- Columna 14 : Precipitacion de 6 a 12 horas (mm)
+- Columna 15 : Precipitacion de 12 a 18 horas (mm)
+- Columna 16 : Precipitacion de 18 a 24 horas (mm)

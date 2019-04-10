@@ -1,0 +1,6 @@
+---
+title: "prueba"
+author: "Alberto Armijo Ruiz"
+date: "10 de abril de 2019"
+output: html_document
+---

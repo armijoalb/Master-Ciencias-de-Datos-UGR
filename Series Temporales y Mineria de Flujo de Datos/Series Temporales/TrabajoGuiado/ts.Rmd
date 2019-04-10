@@ -1,0 +1,194 @@
+---
+title: "SeriesTemporales"
+author: "Alberto Armijo Ruiz"
+date: "27 de marzo de 2019"
+output: pdf_document
+---
+
+```{r}
+library(tseries)
+library(ggplot2)
+library(fpp2)
+library(tsbox)
+library(stats)
+library(tsoutliers)
+```
+
+```{r}
+serie = scan('./pasajeros_1949_1959.dat')
+```
+
+```{r}
+NPred = 12
+NTest = 12
+serie.ts = ts(serie,frequency=12)
+plot(decompose(serie.ts))
+```
+
+
+```{r}
+serie.ts = log(serie.ts)
+serie.log = log(serie)
+
+plot(decompose(serie.ts))
+```
+
+```{r}
+serieTr = serie.log[1:(length(serie.log)-NTest)]
+tiempoTr = 1:length(serieTr)
+serieTs = serie.log[(length(serie.log)-NTest+1):length(serie.log)]
+tiempoTs = (tiempoTr[length(tiempoTr)]+1):(tiempoTr[length(tiempoTr)]+NTest)
+
+plot.ts(serieTr, xlim=c(1,tiempoTs[length(tiempoTs)]))
+lines(tiempoTs,serieTs,col="red")
+```
+
+```{r}
+parametros.H1 = lm(serieTr~tiempoTr)
+
+TendEstimadaTr.H1 = parametros.H1$coefficients[1] + tiempoTr*parametros.H1$coefficients[2]
+TendEstimadaTs.H1 = parametros.H1$coefficients[1] + tiempoTs*parametros.H1$coefficients[2]
+
+
+plot.ts(serieTr,xlim=c(1,tiempoTs[length(tiempoTs)]))
+lines(tiempoTr,TendEstimadaTr.H1,col='blue')
+lines(tiempoTs,serieTs,col="red")
+lines(tiempoTs,TendEstimadaTs.H1,col="green")
+```
+
+```{r}
+JB = jarque.bera.test(parametros.H1$residuals)
+JB = jarque.bera.test((TendEstimadaTs.H1-serieTs))
+
+TT =t.test(c(parametros.H1$residuals, TendEstimadaTs.H1-serieTs))
+```
+
+
+
+```{r}
+serieTr.SinTend.H1 = serieTr-TendEstimadaTr.H1
+serieTs.SinTend.H1 = serieTs-TendEstimadaTs.H1
+plot.ts(serieTr.SinTend.H1, xlim=c(1,tiempoTs[length(tiempoTs)]))
+lines(tiempoTs,serieTs.SinTend.H1,col="red")
+```
+
+
+```{r}
+k=12
+estacionalidad.H1 = decompose(serie.ts)$seasonal[1:k]
+
+aux = rep(estacionalidad.H1,length(serieTr)/length(estacionalidad.H1))
+serieTr.SinTendEst.H1 = serieTr.SinTend.H1-aux
+serieTs.SinTendEst.H1 = serieTs.SinTend.H1 - estacionalidad.H1
+plot.ts(serieTr.SinTendEst.H1, xlim=c(1,tiempoTs[length(tiempoTs)]))
+lines(tiempoTs,serieTs.SinTendEst.H1,col="red")
+```
+
+```{r}
+adftest.H1 = adf.test(serieTr.SinTendEst.H1)
+
+serieTr.SinTendEstDiff.H1 = diff(serieTr.SinTendEst.H1)
+serieTs.SinTendEstDiff.H1 = diff(serieTs.SinTendEst.H1)
+
+adftest.H1 = adf.test(serieTr.SinTendEstDiff.H1)
+```
+
+```{r}
+acf(serieTr.SinTendEstDiff.H1)
+pacf(serieTr.SinTendEstDiff.H1)
+```
+
+
+```{r}
+modelo.H1 = arima(serieTr.SinTendEst.H1,order=c(4,1,0))
+valoresAjustados.H1 = serieTr.SinTendEst.H1 + modelo.H1$residuals
+
+Predicciones.H1 = predict(modelo.H1, n.ahead = NPred)
+valoresPredichos.H1 = Predicciones.H1$pred
+
+errorTr.H1 = sum(modelo.H1$residuals^2)
+errorTs.H1 = sum((valoresPredichos.H1-serieTs.SinTendEst.H1)^2)
+print(errorTr.H1)
+print(errorTs.H1)
+```
+
+```{r}
+plot.ts(serieTr.SinTendEst.H1,
+        xlim=c(1,tiempoTs[length(tiempoTs)]))
+lines(valoresAjustados.H1, col='deepskyblue')
+lines(tiempoTs,serieTs.SinTendEst.H1,col='red')
+lines(tiempoTs,valoresPredichos.H1, col='blue')
+```
+
+
+```{r}
+boxtestM1 = Box.test(modelo.H1$residuals)
+
+JB.H1 = jarque.bera.test(modelo.H1$residuals)
+
+SW.H1 = shapiro.test(modelo.H1$residuals)
+
+hist(modelo.H1$residuals, col="blue", prob=T,
+     ylim=c(0,20), xlim=c(-0.2,0.2))
+lines(density(modelo.H1$residuals))
+```
+
+```{r}
+serieEntera = serie.log
+tiempo = 1:length(serieEntera)
+
+parametros = lm(serieEntera ~ tiempo)
+TendEstimada = parametros$coefficients[1]+tiempo*parametros$coefficients[2]
+serieSinTend = serieEntera - TendEstimada
+aux = ts(serieEntera,frequency = 12)
+aux=decompose(aux)$seasonal
+
+estacionalidad = as.numeric(aux[1:12])
+aux=rep(estacionalidad,length(serieSinTend)/length(estacionalidad))
+serieSinTendEst = serieSinTend-aux
+
+modelo = arima(serieSinTendEst,order=c(4,1,0))
+valoresAjustados = serieSinTendEst+modelo$residuals
+Predicciones = predict(modelo, n.ahead=NPred)
+valoresPredichos = Predicciones$pred
+```
+
+
+```{r}
+# Añadimos ajuste
+valoresAjustados = valoresAjustados+aux
+# Añadimos estacionalidad
+valoresPredichos = valoresPredichos+estacionalidad
+# Añadimos tendencia
+valoresAjustados = valoresAjustados+TendEstimada
+tiempoPred = (tiempo[length(tiempo)]+(1:NPred))
+# Estimamos la tendencia para los datos predecidos.
+TendEstimadaPred = parametros$coefficients[1]+tiempoPred*parametros$coefficients[2]
+valoresPredichos = valoresPredichos+TendEstimadaPred
+
+# Deshacemos la transformación logaritmica
+valoresAjustados = exp(valoresAjustados)
+valoresPredichos = exp(valoresPredichos)
+
+# Pintamos la serie
+plot.ts(serie,xlim=c(1,max(tiempoPred)),
+        ylim=c(100,650))
+lines(valoresAjustados, col="blue")
+lines(valoresPredichos, col="red")
+```
+
+```{r}
+# Pintamos la serie
+plot.ts(serie,xlim=c(1,max(tiempoPred)),
+        ylim=c(100,650))
+lines(valoresAjustados, col="blue")
+lines(valoresPredichos, col="red")
+
+# Leemos los datos y los pintamos en la serie
+predReales = scan("pasajeros_1960.predict")
+lines(tiempoPred, predReales,col="green")
+
+# Calculamos el error producido en la predicción.
+ErrorMedio = sum(abs(predReales-valoresPredichos))
+```
+

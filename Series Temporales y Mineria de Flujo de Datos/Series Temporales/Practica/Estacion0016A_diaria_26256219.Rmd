@@ -1,0 +1,347 @@
+---
+title: "Práctica Series Temporales"
+author: "Alberto Armijo Ruiz"
+date: "2 de abril de 2019"
+output: pdf_document
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r}
+# cargamos las librerías
+library(tseries)
+library(tsoutliers)
+library(ggplot2)
+library(tsbox)
+library(fpp2)
+```
+
+Leemos los datos de la estación seleccionada.
+```{r}
+data = read.csv2('./datos/DatosEstaciones - 2018-02/0016A.csv',header=TRUE,
+                 stringsAsFactors = FALSE)
+# Modificamos los datos para que estén correctos
+data$Fecha = as.Date(data$Fecha)
+data$Tmax = as.numeric(data$Tmax)
+data$Tmin = as.numeric(data$Tmin)
+data$Tmed = as.numeric(data$Tmed)
+data$TPrec = as.numeric(data$TPrec)
+data$Prec1 = as.numeric(data$Prec1)
+data$Prec2 = as.numeric(data$Prec2)
+data$Prec3 = as.numeric(data$Prec3)
+data$Prec4 = as.numeric(data$Prec4)
+
+head(data)
+```
+
+```{r}
+data.aux = data[c('Fecha','Tmax')]
+nrow(data.aux)
+nrow(data.aux)/365
+nrow(data.aux)-(4*365)
+NPred = nrow(data.aux)-(4*365)
+NTest = nrow(data.aux)-(4*365)
+```
+
+
+```{r}
+# Como existen datos perdidos, utilizaremos Amelia para imputar dichos datos
+serie = data[2:ncol(data)]
+serie = serie[c('Fecha','Tmax')]
+print(serie)
+library(Amelia)
+library(mice)
+imp_serie = amelia(serie,m=1)
+serie = imp_serie$imputations$imp1
+serie = serie$Tmax
+```
+
+
+```{r}
+serie.ts = ts(serie,frequency = 365)
+autoplot(decompose(serie.ts))
+```
+
+
+Vamos a probar a hacer una transformación logaritmica para ver si mejoran los resultados.
+```{r}
+serie.ts = log(serie.ts)
+serie.log = log(serie)
+autoplot(decompose(serie.ts))
+```
+
+
+Lo primero que vamos a hacer es dividir la serie en dos conjuntos, uno para la train y otro para test. Dado que tenemos los datos de varios años, utilizaremos como test los datos del último año.
+
+```{r}
+serieTr = serie.log[1:(length(serie.log)-NTest)]
+tiempoTr = 1:length(serieTr)
+serieTs = serie.log[(length(serie.log)-NTest+1):length(serie.log)]
+tiempoTs = (tiempoTr[length(tiempoTr)]+1):(tiempoTr[length(tiempoTr)]+NTest)
+
+plot.ts(serieTr, xlim=c(1,tiempoTs[length(tiempoTs)]))
+lines(tiempoTs,serieTs,col="red")
+```
+
+Por lo que se puede apreciar, la serie no tiene una tendencia clara; así que en principio no la eliminaremos de la serie por ahora, así que pasaremos directamente al análisis de la estacionalidad. Para el caso de la estacionalidad se puede ver claramente que la serie tiene un componente clara estacional, por lo que deberemos eliminarla; para ello, obtenderemos la parte seasonal de la función decompose y se la restaremos en a la serie.
+
+```{r}
+# obtenemos la componente estacional.
+k = 365
+length(serieTr)
+est = decompose(serie.ts)$seasonal[1:k]
+length(serieTr)/length(est)
+aux_ts = est[1:length(serieTs)]
+aux = rep(est,length(serieTr)/length(est))
+serieTr.SinEst = serieTr - aux
+serieTs.SinEst = serieTs - aux_ts
+plot.ts(serieTr.SinEst, xlim=c(1,tiempoTs[length(tiempoTs)]))
+lines(tiempoTs,serieTs.SinEst,col="red")
+```
+
+Lo siguiente será hacer la serie estacionaria, para ello nos ayudaremos del acf y del test de Dicki-Fuller aumentado.
+```{r}
+acf(serieTr.SinEst)
+pacf(serieTr.SinEst)
+adftest = adf.test(serieTr.SinEst)
+print(adftest)
+```
+
+El p-valor sale muy pequeño, por lo que podemos usar ahora el acf y pacf para ver que tipo de modelo podemos usar.
+```{r}
+acf(serieTr.SinEst)
+pacf(serieTr.SinEst)
+```
+
+Por lo que se puede ver, puede ser un modelo MA(4) o MA(6)
+```{r}
+modelo1 = arima(serieTr.SinEst,order = c(0,0,4))
+valoresAjustados = serieTr.SinEst + modelo1$residuals
+
+Predicciones1 = predict(modelo1, n.ahead = NPred)
+valoresPredichos1 = Predicciones1$pred
+
+errorTr1 = sum(modelo1$residuals^2)
+errorTs1 = sum((valoresPredichos1-serieTs.SinEst)^2)
+print(errorTr1)
+print(errorTs1)
+```
+
+Dibujamos el ajuste y la predicción.
+```{r}
+plot.ts(serieTr.SinEst,
+        xlim=c(1,tiempoTs[length(tiempoTs)]))
+lines(valoresAjustados, col='deepskyblue')
+lines(tiempoTs,serieTs.SinEst,col='red')
+lines(tiempoTs,valoresPredichos1, col='blue')
+```
+
+Este ajuste parece bastante malo.Pero utilizaremos los test  para ver que resultados nos dan.
+```{r}
+boxtestM1 = Box.test(modelo1$residuals)
+print(boxtestM1)
+
+JB.M1 = jarque.bera.test(modelo1$residuals)
+print(JB.M1)
+
+SW.M1 = shapiro.test(modelo1$residuals)
+print(SW.M1)
+
+hist(modelo1$residuals, col="blue", prob=T,
+     ylim=c(0,20), xlim=c(-0.2,0.2))
+lines(density(modelo1$residuals))
+```
+
+Como se puede ver, no pasa el test de BoxPierce, por lo que este modelo no es válido. Probamos a modelar el otro modelo.
+```{r}
+modelo2 = arima(serieTr.SinEst,order = c(0,0,6))
+valoresAjustados2 = serieTr.SinEst + modelo2$residuals
+
+Predicciones2 = predict(modelo2, n.ahead = NPred)
+valoresPredichos2 = Predicciones2$pred
+
+errorTr2 = sum(modelo2$residuals^2)
+errorTs2 = sum((valoresPredichos2-serieTs.SinEst)^2)
+print(errorTr2)
+print(errorTs2)
+```
+
+```{r}
+plot.ts(serieTr.SinEst,
+        xlim=c(1,tiempoTs[length(tiempoTs)]))
+lines(valoresAjustados2, col='deepskyblue')
+lines(tiempoTs,serieTs.SinEst,col='red')
+lines(tiempoTs,valoresPredichos2, col='blue')
+```
+
+```{r}
+boxtestM2 = Box.test(modelo2$residuals)
+print(boxtestM2)
+
+JB.M2 = jarque.bera.test(modelo2$residuals)
+print(JB.M2)
+
+SW.M2 = shapiro.test(modelo2$residuals)
+print(SW.M2)
+
+hist(modelo2$residuals, col="blue", prob=T,
+     ylim=c(0,20), xlim=c(-0.2,0.2))
+lines(density(modelo2$residuals))
+```
+
+Por lo que se puede ver, ninguno de los dos modelos son buenos, por ello, se ha pensado en hacer un filtro sobre la serie temporal mediante moving-averages haciendo al media de de los datos por cada dos semanas para ver su comportamiento, dado que tenemos una serie con muchos picos dentro de la tendencia.
+```{r}
+k=15
+filtro = rep(1/k,k)
+filtrada = filter(serie, filter=filtro,sides=2,method='convolution')
+series = matrix(c(t(serie),t(filtrada)),ncol=2)
+matplot(series,pch=1,type='l')
+
+serie.modts = ts(filtrada,frequency = 365)
+serie.mod = na.omit(filtrada)
+plot.ts(serie.modts)
+```
+
+Esta serie parece bastante más fácil de analizar que la anterior, por lo que comenzaremos el estudio con ella.
+```{r}
+plot(decompose(serie.modts))
+serie.modts = na.omit(serie.modts)
+length(serie.modts)/365
+```
+
+Por lo que se puede ver, no hay una tendencia clara dentro de la serie, al igual que en la serie sin filtrar, solamente hay una pequeña variación dentro de la componente de la tendencia; por lo que directamente pasaremos a modelar la estacionalidad. Antes de modelar la estacionalidad, haremos dos conjuntos de datos, uno para train y otro para test.
+
+```{r}
+NTest = length(serie.mod)-4*365
+NPred = NTest
+serieTr = serie.mod[1:(length(serie.mod)-NTest)]
+tiempoTr = 1:length(serieTr)
+serieTs = serie.mod[(length(serie.mod)-NTest+1):length(serie.mod)]
+tiempoTs = (tiempoTr[length(tiempoTr)]+1):(tiempoTr[length(tiempoTr)]+NTest)
+
+plot.ts(serieTr, xlim=c(1,tiempoTs[length(tiempoTs)]))
+lines(tiempoTs,serieTs,col="red")
+```
+
+# Hay valores perdidos, por lo cual hay que imputarlos o con la tendencia crearlos.
+
+```{r}
+acf(serieTr)
+```
+
+```{r}
+#quitamos la seasonality
+# obtenemos la componente estacional.
+k = 365
+length(serieTr)
+est = decompose(serie.modts)$seasonal[1:k]
+length(serieTr)/length(est)
+aux_ts = est[1:length(serieTs)]
+aux = rep(est,length(serieTr)/length(est))
+serieTr.SinEst = serieTr - aux
+serieTs.SinEst = serieTs - aux_ts
+plot.ts(serieTr.SinEst, xlim=c(1,tiempoTs[length(tiempoTs)]))
+lines(tiempoTs,serieTs.SinEst,col="red")
+```
+
+
+```{r}
+acf(serieTr.SinEst)
+pacf(serieTr.SinEst)
+adftest = adf.test(serieTr.SinEst)
+print(adftest)
+```
+
+En series estacionarias el acf desciende rápidamente a 0, en este caso aunque la serie pasa el test, el acf no muestra estacionariedad. Por ello, haremos una diferenciación y volveremos a mostrar el acf y el test.
+```{r}
+serieTr.SinEstDiff = diff(serieTr.SinEst)
+serieTs.SinEstDiff = diff(serieTs.SinEst)
+acf(serieTr.SinEstDiff)
+adftest=adf.test(serieTr.SinEstDiff)
+print(adftest)
+```
+
+Ahora sí que descae rápidamente a 0, por lo cual comenzaremos a mirar el ACF y PACF para ver que tipo de modelo puede ajustarse bien.
+```{r}
+acf(serieTr.SinEstDiff)
+pacf(serieTr.SinEstDiff)
+```
+
+Probaremos con un modelo AR(1), y también con un modelo MA(4).
+```{r}
+modelo.ar = arima(serieTr.SinEst,order=c(1,1,0))
+valoresAjustados.ar = serieTr.SinEst + modelo.ar$residuals
+
+Predicciones.ar = predict(modelo.ar, n.ahead = NPred)
+valoresPredichos.ar = Predicciones.ar$pred
+
+errorTr.ar = sum(modelo.ar$residuals^2)
+errorTs.ar = sum((valoresPredichos.ar-serieTs.SinEst)^2)
+print(errorTr.ar)
+print(errorTs.ar)
+```
+
+```{r}
+plot.ts(serieTr.SinEst,
+        xlim=c(1,tiempoTs[length(tiempoTs)]))
+lines(valoresAjustados.ar, col='deepskyblue')
+lines(tiempoTs,serieTs.SinEst,col='red')
+lines(tiempoTs,valoresPredichos.ar, col='blue')
+```
+
+```{r}
+boxtest.ar = Box.test(modelo.ar$residuals)
+print(boxtest.ar)
+
+JB.ar = jarque.bera.test(modelo.ar$residuals)
+print(JB.ar)
+
+SW.ar = shapiro.test(modelo.ar$residuals)
+print(SW.ar)
+
+hist(modelo.ar$residuals, col="blue", prob=T,
+     ylim=c(0,20), xlim=c(-0.2,0.2))
+lines(density(modelo.ar$residuals))
+```
+
+```{r}
+valoresAjustados = valoresAjustados.ar + aux
+valoresPredichos = valoresPredichos.ar + aux_ts
+tiempo = 1:length(serie.mod)
+tiempoPred = (tiempo[length(tiempo)]+(1:NPred))
+plot.ts(serie.mod,xlim=c(1,max(tiempoPred)),
+        ylim=c(10,40))
+lines(valoresAjustados,col="blue")
+lines(valoresPredichos,col="red")
+```
+
+```{r}
+serie.entera = serie.mod
+tiempo = 1:length(serie.entera)
+
+aux = ts(serie.mod,frequency = 365)
+aux = decompose(aux)$seasonal
+estacionalidad = as.numeric(aux[1:365])
+aux = rep(estacionalidad,length(serie.mod)/length(estacionalidad))
+aux = c(aux,estacionalidad[1:(length(serie.mod)-length(aux))])
+
+serieSinEst = serie.entera-aux
+
+modelo = arima(serieSinEst,order=c(1,1,0))
+valoresAjustados = serieSinEst+modelo$residuals
+
+predicciones = predict(modelo,n.ahead=15)
+valoresPredichos = predicciones$pred
+```
+
+```{r}
+valoresAjustados = valoresAjustados+aux
+valoresPredichos = valoresPredichos + estacionalidad[(length(serieTs)+1):(length(serieTs)+length(valoresPredichos))]
+
+tiempoPred = (tiempo[length(tiempo)]+(1:length(valoresPredichos)))
+plot.ts(serie.entera, xlim=c(1,max(tiempoPred)), ylim=c(10,40))
+lines(valoresAjustados,col="blue")
+lines(valoresPredichos,col="green")
+```
+
