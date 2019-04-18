@@ -1,0 +1,64 @@
+\chapter{Parte Teórica}
+\section{Preguntas tipo test}
+\subsection{Pregunta 1}
+El aprendizaje incremental es útil cuando se quiere ganar eficiencia.
+\subsection{Pregunta 2}
+La minería de flujo de datos se considera cuando el problema genera datos continuamente.
+\subsection{Pregunta 3}
+La cota Hoeffding sirve para saber cuando hay suficientes datos para una estimación fiable
+\subsection{Pregunta 4}
+¿Qué características de clústers mantiene el algoritmo BIRCH?
+Suma lineal, suma cuadrática y número de objetos.
+\subsection{Pregunta 5}
+¿El algoritmo Stream maneja el concept drift?
+No.
+\subsection{Pregunta 6}
+¿Qué es el concept drift?
+Cambios en la dinámica del problema.
+\subsection{Pregunta 7}
+¿Cómo gestiona CVFDT el concept drift?
+Mantiene árboles alternativos.
+\subsection{Pregunta 8}
+¿Por qué es útil el ensemble learning en concept drift?
+Porque aprovecha la diversidad que se genera en los cambios.
+\subsection{Pregunta 9}
+¿Cuál es más eficiente entre DDM y ADWIN?
+Los dos son muy ineficientes.
+\subsection{Pregunta 10}
+¿Por qué es controvertida la clasificación en flujo de datos? 
+Porque se requiere al oráculo por siempre.
+
+\subsection{Pregunta 11}
+¿Cómo gestiona ClueStream el concept drift? 
+Mantiene información sobre el tiempo.
+
+\subsection{Pregunta 12}
+¿Por qué es complejo generar reglas de asociación en flujo de datos?
+Porque para calcular la confianza se requieren muchos datos.
+\section{Clasificación y experimentos}
+El problema que de clasificación dentro de la minería de flujo de datos trata de predecir la clase de unos datos que van llegando cada cierto tiempo y los algoritmos tratan de maximizar la precisión en la predicción de dichas clases. Para el ejemplo de esta práctica, el objetivo es también maximizar la precisión en la predicción de datos generados con diferentes generadores de flujo de datos, algunos con cambios de concepto, y analizar el comportamiento de dos clasificadores.\newline
+
+Los clasificadores utilizados en la práctica son \textit{HoeffingTree} y \textit{HoeffdingTree adaptativo}, el segundo es la versión adaptada a cambios de concepto del primero.\newline
+
+El clasificador \textit{HoeffdingTree} es un tipo de árbol de decisión utilizados en aprendizaje incremental; estos modelos utilizan la desigualdad de Hoeffding para realizar las particiones del árbol, con esta medida se puede estimar si la media de una variable aleatoria no ha cambiado después de \textit{n} instantes de tiempo; esto es interesante para problemas incrementales ya que el árbol realiza particiones para variable que no han cambiado durante el tiempo, por lo cual la partición que hace sobre dicha variable es fiable. Lo malo de este tipo de algoritmos es que puede necesitar muchos datos para poder realizar una partición sobre los datos, además este primer modelo no es capaz de detectar los cambios en la dinámica de los datos, por lo cual no es apto para problemas donde haya cambios de concepto (la gran mayoría en la realidad).
+
+El clasificador \textit{HoeffdingTree adaptativo} es la versión de \textit{HoeffdingTree} capaz de identificar cambios de concepto. Este algoritmo guarda diferentes versiones del árbol, una vez se produce un cambio de concepto y el árbol actual deja de ser preciso en las predicciones, el algoritmo reemplaza los nodos necesarios para que el árbol se adapte a los nuevos datos. Para el caso de la práctica, el árbol utiliza el algoritmo \textit{ADWIN}, este algoritmo utiliza una ventana principal sobre los datos y comprueba si existen dos ventanas suficientemente grandes y diferentes; si dichas ventanas existen, detecta el cambio de concepto en los datos. Una vez este algoritmo a detectado un cambio de concepto, el árbol modifica sus nodos para adaptarse a sus nuevos datos.
+
+Dentro del desarrollo de la práctica se han utilizado tres métodos de evaluación, el primero de ellos es una evaluación estática de los modelos, el segundo mediante la estrategia \textit{interleaved test-then-train} y el tercero mediante la estrategia \textit{prequential}. La estrategia \textit{interleaves test-then-train}
+utiliza primero los datos para testear el modelo, tras esto, re-entrena el modelo con los nuevos datos; la estrategia \textit{prequential} utiliza la misma técnica, la diferencia entre estos dos es la forma en la que calculan la precisión de los clasificadores; en el caso de \textit{interleaved test-then-train} utiliza todos los datos con los datos que se ha entrenado, para el caso de \textit{prequential} utiliza una ventana de un tamaño fijo para utilizar solamente esos datos.
+
+\section{Concept Drift}
+El \textit{concept drift} es un problema que se produce en los problemas de minería de flujo de datos, el \textit{concept drift} se trata de una variación en la dinámica de los datos; este cambio de dinámica en los datos hace que los algoritmos clásicos tengan problemas en la predicción de datos una vez se produce este \textit{concept drift}. Por ello, se debe crear nuevos modelos que sean capaces de detectar este cambio de concepto y adaptarse de forma rápida a los datos para que sean útiles en problema del mundo real. Este \textit{concept drift} pueden darse de diferentes maneras, pueden ser de forma abrupta, gradual, incremental, etc... El \textit{concept drift} puede deberse a diferentes razones, como por ejemplo ruido en los datos o variaciones en las características que inicialmente no habían sido contempladas por el modelo.
+
+La primera solución al cambio de concepto se basan en algoritmos basados en aprendizaje incremental. Actualmente existen diferentes alternativas para manejar el \textit{concept drift} en la minería de flujo de datos.
+
+El primero de los enfoques es el aprendizaje online, este tipo de aprendizaje entrena continuamente los modelos mientras que van llegando datos, por ejemplo los \textit{HoeffdingTree adaptativo}.
+
+El segundo enfoque es el aprendizaje mediante ventanas; estos algoritmos se basan en que los datos más recientes tienen más importancia que los datos antiguos, para ello existen diferentes metodologías, como por ejemplo utilizar una ventana deslizantes sobre el conjunto de datos total o ponderar los datos según el tiempo de llegada.
+
+Otro enfoque es el aprendizaje mediante modelos ensemble. Este tipo de enfoque es interesante porque el contexto se puede manejarse mediante la diversidad de los modelos que forman el ensemble. Dentro de este enfoque se utilizan variantes que utilizan predicción mediante votación o por ponderación.
+
+La última de los enfoques es utilizar un algoritmo que detecte el \textit{concept drift} y re-entrene el modelo que se está utilizando para realizar la predicción. Uno de los algoritmos que se encarga de esto es el algoritmo \textit{DDM}, este se fija en la precisión del modelo para detectar el \textit{concept drift}, si la precisión baja mucho durante un espacio de tiempo, se detecta el \textit{concept drift}. Otro algoritmo utilizado para la detección del \textit{concept drift} es \textit{ADWIN}, que ya se ha comentado anteriormente. El problema de estos dos algoritmos es que son ineficientes y por lo tanto no sirven para problemas que manejan cantidades grandes de datos. Otro algoritmo para detección de \textit{concept drift} es \textit{HSP}, este es más eficiente que los dos anteriores comentados y no requiere monitorizar el algoritmo de predicción.
+
+Por lo tanto, se puede ver que el \textit{concept drift} es un problema que debe contemplarse en cualquier problema de minería de flujo de datos e implementarse para conseguir ofrecer buenos resultados tanto en clasificación como en cualquier otro problema de análisis de datos.
+

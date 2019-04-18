@@ -1,0 +1,124 @@
+---
+title: "Untitled"
+output: pdf_document
+---
+
+```{r}
+datos_online_est = sapply(seq(1,10),function(x){
+  read.csv(paste('data/resultados_online',x,'.csv',sep=''),header=TRUE,stringsAsFactors=FALSE)[5]})
+datos_online_adapt = sapply(seq(1,10),function(x){
+  read.csv(paste('data/resultados_online_adative',x,'.csv',sep=''),header=TRUE,stringsAsFactors=FALSE)[5]})
+kapp_online_est = sapply(seq(1,10),function(x){
+  read.csv(paste('data/resultados_online',x,'.csv',sep=''),header=TRUE,stringsAsFactors=FALSE)[6]})
+kapp_online_adapt = sapply(seq(1,10),function(x){
+  read.csv(paste('data/resultados_online_adative',x,'.csv',sep=''),header=TRUE,stringsAsFactors=FALSE)[6]})
+```
+
+```{r}
+est_results = lapply(datos_online_est,function(x){
+  x[length(x)]
+})
+est_results = data.frame(as.numeric(est_results))
+colnames(est_results) = c('acc_est')
+
+adaptive_results = lapply(datos_online_adapt,function(x){
+  x[length(x)]
+})
+adaptive_results = data.frame(as.numeric(adaptive_results))
+colnames(adaptive_results) = c('acc_adaptive')
+kapp_online_est = lapply(kapp_online_est,function(x){
+  x[length(x)]
+})
+kapp_online_adapt = lapply(kapp_online_adapt,function(x){
+  x[length(x)]
+})
+kapp_online_est = data.frame(as.numeric(kapp_online_est))
+kapp_online_adapt = data.frame(as.numeric(kapp_online_adapt))
+colnames(kapp_online_est) = c('kappa')
+colnames(kapp_online_adapt) = c("kappa adaptive")
+```
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+ggplot(data=est_results, aes(est_results$acc_est))+geom_density()
+ggplot(data=adaptive_results, aes(adaptive_results$acc_adaptive))+geom_density()
+```
+
+```{r}
+shapiro.test(est_results$acc_est)
+shapiro.test(adaptive_results$acc_adaptive)
+```
+
+Ninguno de los dos algoritmos tiene un distribución normal, por lo que utilizaremos el test de Wilcoxon para ver si existen diferencias significativas entre ambos algoritmos.
+
+```{r}
+tabla_comp = cbind(est_results,adaptive_results)
+names(tabla_comp)= c('stacionary','adaptive')
+
+# Normalizamos los datos.
+tabla_comp = (tabla_comp/100)
+head(tabla_comp)
+
+# aplicamos el test.
+nb_vs_ht = wilcox.test(tabla_comp[,1],tabla_comp[,2], alternative = "two.sided",
+                       paired = TRUE)
+rmas = nb_vs_ht$statistic
+pvalue = nb_vs_ht$p.value
+nb_vs_ht = wilcox.test(tabla_comp[,2],tabla_comp[,1],alternative="two.sided",
+                       paired=TRUE)
+rmenos = nb_vs_ht$statistic
+rmas
+rmenos
+pvalue
+```
+
+```{r}
+medias = apply(tabla_comp,2,median)
+medias
+```
+
+```{r}
+write.csv2(cbind(tabla_comp*100,kapp_online_est,kapp_online_adapt),'data/accuracy_ej2.csv')
+```
+
+
+```{r}
+resultados_est = c(84.509,84.512,84.59,84.666,84.481,84.342,84.799,84.153,84.641,84.578)
+resultados_adapt = c(84.521,84.474,84.416,84.465,84.262,84.368,84.271,84.243,84.478,84.326)
+```
+
+```{r}
+shapiro.test(resultados_adapt)
+shapiro.test(resultados_est)
+```
+
+Ninguno de los pasa el test de normalidad, así que utilizaremos el test de Wilcoxon.
+```{r}
+tabla_comp = cbind(resultados_est,resultados_adapt)
+names(tabla_comp)= c('stacionary','adaptive')
+
+# Normalizamos los datos.
+tabla_comp = (tabla_comp/100)
+head(tabla_comp)
+
+# aplicamos el test.
+nb_vs_ht = wilcox.test(tabla_comp[,1],tabla_comp[,2], alternative = "two.sided",
+                       paired = TRUE)
+rmas = nb_vs_ht$statistic
+pvalue = nb_vs_ht$p.value
+nb_vs_ht = wilcox.test(tabla_comp[,2],tabla_comp[,1],alternative="two.sided",
+                       paired=TRUE)
+rmenos = nb_vs_ht$statistic
+rmas
+rmenos
+pvalue
+```
+igual que antes, pasa el test, pero los resultados de los test son practicamente iguales, por lo que no es posible estar seguros de que lo que nos dice el test sea cierto.
+```{r}
+medias = apply(tabla_comp,2,median)
+medias
+```
+

@@ -1,0 +1,14 @@
+\babel@toc {spanish}{}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Scripts para generar las pruebas de forma autom\IeC {\'a}tica\relax }}{6}{figure.caption.4}
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Scripts para generar las pruebas de forma autom\IeC {\'a}tica con EvaluateInterleavedTestThenTrain\relax }}{8}{figure.caption.7}
+\contentsline {figure}{\numberline {1.3}{\ignorespaces Resultados InterleavedTestThenTrain con semilla 1\relax }}{10}{figure.caption.9}
+\contentsline {figure}{\numberline {1.4}{\ignorespaces Resultados InterleavedTestThenTrain con semilla 2\relax }}{10}{figure.caption.10}
+\contentsline {figure}{\numberline {1.5}{\ignorespaces Resultados InterleavedTestThenTrain con semilla 3\relax }}{10}{figure.caption.11}
+\contentsline {figure}{\numberline {1.6}{\ignorespaces Resultados Prequential con semilla 1\relax }}{11}{figure.caption.12}
+\contentsline {figure}{\numberline {1.7}{\ignorespaces Resultados Prequential con semilla 2\relax }}{11}{figure.caption.13}
+\contentsline {figure}{\numberline {1.8}{\ignorespaces Resultados Prequential con semilla 3\relax }}{12}{figure.caption.14}
+\contentsline {figure}{\numberline {1.9}{\ignorespaces Resultados SingleClassifierDrift con semilla 1\relax }}{13}{figure.caption.15}
+\contentsline {figure}{\numberline {1.10}{\ignorespaces Resultados SingleClassifierDrift con semilla 2\relax }}{13}{figure.caption.16}
+\contentsline {figure}{\numberline {1.11}{\ignorespaces Resultados SingleClassifierDrift con semilla 3\relax }}{13}{figure.caption.17}
+\addvspace {10\p@ }

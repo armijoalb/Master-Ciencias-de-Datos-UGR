@@ -1,0 +1,23 @@
+\babel@toc {spanish}{}
+\contentsline {chapter}{\numberline {1}Parte Pr\IeC {\'a}ctica}{5}{chapter.1}
+\contentsline {section}{\numberline {1.1}Ejercicio 1}{5}{section.1.1}
+\contentsline {section}{\numberline {1.2}Ejercicio 2}{7}{section.1.2}
+\contentsline {section}{\numberline {1.3}Ejercicio 3}{9}{section.1.3}
+\contentsline {section}{\numberline {1.4}Ejercicio 4}{11}{section.1.4}
+\contentsline {section}{\numberline {1.5}Ejercicio 5}{12}{section.1.5}
+\contentsline {chapter}{\numberline {2}Parte Te\IeC {\'o}rica}{15}{chapter.2}
+\contentsline {section}{\numberline {2.1}Preguntas tipo test}{15}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Pregunta 1}{15}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Pregunta 2}{15}{subsection.2.1.2}
+\contentsline {subsection}{\numberline {2.1.3}Pregunta 3}{15}{subsection.2.1.3}
+\contentsline {subsection}{\numberline {2.1.4}Pregunta 4}{15}{subsection.2.1.4}
+\contentsline {subsection}{\numberline {2.1.5}Pregunta 5}{15}{subsection.2.1.5}
+\contentsline {subsection}{\numberline {2.1.6}Pregunta 6}{15}{subsection.2.1.6}
+\contentsline {subsection}{\numberline {2.1.7}Pregunta 7}{15}{subsection.2.1.7}
+\contentsline {subsection}{\numberline {2.1.8}Pregunta 8}{16}{subsection.2.1.8}
+\contentsline {subsection}{\numberline {2.1.9}Pregunta 9}{16}{subsection.2.1.9}
+\contentsline {subsection}{\numberline {2.1.10}Pregunta 10}{16}{subsection.2.1.10}
+\contentsline {subsection}{\numberline {2.1.11}Pregunta 11}{16}{subsection.2.1.11}
+\contentsline {subsection}{\numberline {2.1.12}Pregunta 12}{16}{subsection.2.1.12}
+\contentsline {section}{\numberline {2.2}Clasificaci\IeC {\'o}n y experimentos}{16}{section.2.2}
+\contentsline {section}{\numberline {2.3}Concept Drift}{17}{section.2.3}

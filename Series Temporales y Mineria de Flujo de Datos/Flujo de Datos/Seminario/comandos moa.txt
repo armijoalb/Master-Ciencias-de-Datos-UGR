@@ -1,0 +1,22 @@
+PATH hasta el directorio:
+
+:/mnt/c/Users/Alberto/Desktop/Universidad/Series Temporales y Mineria de Flujo de Datos/Flujo de Datos/Seminario
+
+java -cp moa.jar moa.DoTask \
+"EvaluateInterleavedTestThenTrain -l trees.HoeffdingTree \
+-s generators.RandomTreeGenerator \
+-i 1000000 -f 10000" > htresults.csv media 92,17
+
+java -cp moa.jar moa.DoTask \
+"EvaluateInterleavedTestThenTrain -l bayes.NaiveBayes \
+-s generators.RandomTreeGenerator \
+-i 1000000 -f 10000" > nbresults.csv media 73,55
+
+EvaluateInterleavedTestThenTrain: evalua el clasificador del stream
+haciendo testing y después haciendo training con cada uno de los
+ejemplos de la secuencia. Por ello, los HoeffdingTree dan mejores resultados
+que NaiveBayes ya que conforme van llegando más datos se va mejorando el 
+modelo, en cambio el modelo de NaiveBayes simplemente va evaluando el modelo
+y reentrenando el modelo, pero sin reforzar nada ya que NaiveBayes se centra
+en los datos solamente.
+

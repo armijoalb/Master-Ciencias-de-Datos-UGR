@@ -1,0 +1,70 @@
+---
+title: "Untitled"
+output: pdf_document
+---
+```{r}
+dataset_ht = sapply(seq(1,30),function(x){
+  read.csv(paste('resultados/ht',x,'.csv',sep=''),header=TRUE,stringsAsFactors=FALSE)[5]})
+dataset_nb = sapply(seq(1,30),function(x){
+  read.csv(paste('resultados/nb',x,'.csv',sep=''),header=TRUE,stringsAsFactors=FALSE)[5]})
+```
+
+```{r}
+ht_results = lapply(dataset_ht,function(x){
+  x[length(x)]
+})
+ht_results = data.frame(as.numeric(ht_results))
+colnames(ht_results) = c('acc')
+nb_results = lapply(dataset_nb,function(x){
+  x[length(x)]
+})
+nb_results = data.frame(as.numeric(nb_results))
+colnames(nb_results) = c('acc')
+```
+
+```{r}
+library(ggplot2)
+```
+
+
+```{r}
+ggplot(data=nb_results, aes(nb_results$acc))+geom_density()
+ggplot(data=ht_results, aes(ht_results$acc))+geom_density()
+```
+
+```{r}
+shapiro.test(nb_results$acc)
+shapiro.test(ht_results$acc)
+```
+
+
+Las distribuciones de los datos son parecidas a las de una normal, pero por los p-valores de los test de normalidad se puede ver que no es así, por ello utilizaremos un test no paramétrico, como por ejemplo el test de Wilcoxon.
+
+```{r}
+tabla_comp = cbind(nb_results,ht_results)
+names(tabla_comp)= c('NaiveBayes','HoeffdingTree')
+
+# Normalizamos los datos.
+tabla_comp = (tabla_comp/100)
+head(tabla_comp)
+
+# aplicamos el test.
+nb_vs_ht = wilcox.test(tabla_comp[,1],tabla_comp[,2], alternative = "two.sided",
+                       paired = TRUE)
+rmas = nb_vs_ht$statistic
+pvalue = nb_vs_ht$p.value
+nb_vs_ht = wilcox.test(tabla_comp[,2],tabla_comp[,1],alternative="two.sided",
+                       paired=TRUE)
+rmenos = nb_vs_ht$statistic
+rmas
+rmenos
+pvalue
+```
+
+Según el valor del p-valor, existen diferencias significativas entre los algoritmos que hemos comparado, para este caso, sería el que en promedio obtenga mejores resultados.
+```{r}
+medias = apply(tabla_comp,2,mean)
+medias
+```
+
+Para este caso, el algoritmo HoeffdingTree obtiene mejores resultados, no solamente era nuestra perspectiva al principio ejecutando un algoritmo.
