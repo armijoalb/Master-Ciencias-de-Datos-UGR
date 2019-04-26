@@ -2,6 +2,9 @@
 # armijoalb@correo.ugr.es
 # Ejercicio guiado. Curso 2018-2019
 
+# path de datos.
+setwd('.')
+
 "
 Lo primero que se va a hacer cargar todas las librerías necesarias y leer la serie.
 Una vez leida la serie crearemos un objeto del tipo ts() para crear una serie.

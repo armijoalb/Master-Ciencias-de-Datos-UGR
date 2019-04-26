@@ -1,21 +1,17 @@
----
-title: "Practica Series Temporales Mensual"
-author: "Alberto Armijo Ruiz"
-date: "5 de abril de 2019"
-output: pdf_document
----
+# Alberto Armijo Ruiz 26256219V
+# armijoalb@correo.ugr.es
+# Ejercicio de trabajo autónomo. Series temporales. Curso 2018-2019
 
-```{r}
+## ------------------------------------------------------------------------
 # cargamos las librerías
 library(tseries)
 library(tsoutliers)
 library(ggplot2)
 library(tsbox)
 library(fpp2)
-```
 
-Leemos los datos de la estación seleccionada.
-```{r}
+
+## ------------------------------------------------------------------------
 data = read.csv2('./datos/DatosEstaciones - 2018-02/0016A.csv',header=TRUE,
                  stringsAsFactors = FALSE)
 # Modificamos los datos para que estén correctos
@@ -30,14 +26,13 @@ data$Prec3 = as.numeric(data$Prec3)
 data$Prec4 = as.numeric(data$Prec4)
 
 head(data)
-```
 
 
-```{r}
+## ------------------------------------------------------------------------
 data['newFecha'] = format(data$Fecha,'%Y-%m')
-```
 
-```{r}
+
+## ------------------------------------------------------------------------
 # Como existen datos perdidos, utilizaremos Amelia para imputar dichos datos
 library(Amelia)
 library(mice)
@@ -45,31 +40,31 @@ serie = data[c('Fecha','Tmax')]
 imp_serie = amelia(serie,m=1)
 serie = imp_serie$imputations$imp1
 serie['newFecha'] = data['newFecha']
-```
 
-```{r}
+
+## ------------------------------------------------------------------------
 library(dplyr)
 newdata = serie %>%
   group_by(newFecha) %>%
   summarise(meanTmax = mean(Tmax))
 head(newdata)
-```
 
-```{r}
+
+## ------------------------------------------------------------------------
 serie = newdata$meanTmax
-```
 
-```{r}
+
+## ------------------------------------------------------------------------
 # creamos la serie temporal.
 serie.ts = ts(serie,frequency = 12)
 autoplot(decompose(serie.ts))
-```
 
-```{r}
+
+## ------------------------------------------------------------------------
 plot.ts(serie.ts)
-```
 
-```{r}
+
+## ------------------------------------------------------------------------
 length(serie)
 length(serie)/12
 NPred = length(serie) - (4*12)
@@ -77,11 +72,9 @@ NTest = NPred
 NTest
 NTrain = length(serie)-NTest
 NTrain
-```
 
 
-Hacemos la descomposición en conjunto de train y de test.
-```{r}
+## ------------------------------------------------------------------------
 serieTr = serie[1:NTrain]
 tiempoTr = 1:length(serieTr)
 serieTs = serie[(NTrain+1):length(serie)]
@@ -89,10 +82,9 @@ tiempoTs = (tiempoTr[length(tiempoTr)]+1):(tiempoTr[length(tiempoTr)]+NTest)
 
 plot.ts(serieTr, xlim=c(1,tiempoTs[length(tiempoTs)]))
 lines(tiempoTs,serieTs,col="red")
-```
 
-Hacemos el cálculo de la tendencia.
-```{r}
+
+## ------------------------------------------------------------------------
 k = 12
 length(serieTr)
 est = decompose(serie.ts)$seasonal[1:k]
@@ -103,18 +95,16 @@ serieTr.SinEst = serieTr - aux
 serieTs.SinEst = serieTs - aux_ts
 plot.ts(serieTr.SinEst, xlim=c(1,tiempoTs[length(tiempoTs)]))
 lines(tiempoTs,serieTs.SinEst,col="red")
-```
 
-Comprobamos si la serie es estacionaria, sino la hacemos estacionaria.
-```{r}
+
+## ------------------------------------------------------------------------
 acf(serieTr.SinEst)
 pacf(serieTr.SinEst)
 adftest = adf.test(serieTr.SinEst)
 print(adftest)
-```
 
-La serie sí que es estacionaria, por lo cual podemos directamente utilizar los valores del acf y pacf para hacer predicciones. Por lo que parece, podrías ser un AR(1) o un MA(1)
-```{r}
+
+## ------------------------------------------------------------------------
 modelo.ar = arima(serieTr.SinEst,order=c(0,0,2))
 valoresAjustados.ar = serieTr.SinEst + modelo.ar$residuals
 
@@ -125,18 +115,17 @@ errorTr.ar = sum(modelo.ar$residuals^2)
 errorTs.ar = sum((valoresPredichos.ar-serieTs.SinEst)^2)
 print(errorTr.ar)
 print(errorTs.ar)
-```
 
 
-```{r}
+## ------------------------------------------------------------------------
 plot.ts(serieTr.SinEst,
         xlim=c(1,tiempoTs[length(tiempoTs)]))
 lines(valoresAjustados.ar, col='deepskyblue')
 lines(tiempoTs,serieTs.SinEst,col='red')
 lines(tiempoTs,valoresPredichos.ar, col='blue')
-```
 
-```{r}
+
+## ------------------------------------------------------------------------
 boxtest.ar = Box.test(modelo.ar$residuals)
 print(boxtest.ar)
 
@@ -149,11 +138,9 @@ print(SW.ar)
 hist(modelo.ar$residuals, col="blue", prob=T,
      ylim=c(0,20), xlim=c(-0.2,0.2))
 lines(density(modelo.ar$residuals))
-```
 
 
-
-```{r}
+## ------------------------------------------------------------------------
 valoresAjustados = valoresAjustados.ar + aux
 valoresPredichos = valoresPredichos.ar + aux_ts
 tiempo = 1:length(serie)
@@ -162,10 +149,9 @@ plot.ts(serie,xlim=c(1,max(tiempoPred)),
         ylim=c(10,40))
 lines(valoresAjustados,col="blue")
 lines(valoresPredichos,col="red")
-```
 
 
-```{r}
+## ------------------------------------------------------------------------
 serie.entera = serie
 tiempo = 1:length(serie.entera)
 aux = ts(serie.entera,frequency = 12)
@@ -180,9 +166,9 @@ modelo = arima(serieSinEst,order=c(1,0,0))
 valores.ajustados = serieSinEst + modelo$residuals
 predicciones = predict(modelo,n.ahead=2)
 valores.predichos = predicciones$pred
-```
 
-```{r}
+
+## ------------------------------------------------------------------------
 valores.ajustados = valores.ajustados + aux
 valores.predichos = valores.predichos + estacionalidad[11:12]
 
@@ -192,5 +178,4 @@ plot.ts(serie.entera, xlim=c(1,max(tiempoPred)),
         ylim=c(10,40))
 lines(valores.ajustados,col="blue")
 lines(valores.predichos,col="green")
-```
 
