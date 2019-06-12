@@ -1,0 +1,4 @@
+AUC DecisionTree = 1.0
+Precision DecisionTree = 0.9
+AUC DecisionTree = 1.0
+Precision DecisionTree = 0.9

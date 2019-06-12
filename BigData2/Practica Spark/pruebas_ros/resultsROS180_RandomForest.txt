@@ -1,0 +1,2 @@
+Precision ROS180_RandomForest: 0.646953
+AUC ROS180_RandomForest: 0.5991867425599048

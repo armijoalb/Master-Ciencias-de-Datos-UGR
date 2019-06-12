@@ -1,0 +1,2 @@
+Precision RUS_FCNN_PCARD: 0.9
+AUC RUS_FCNN_PCARD: 0.5

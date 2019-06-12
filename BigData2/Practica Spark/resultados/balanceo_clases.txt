@@ -1,0 +1,5 @@
+Class Balance
+Map(1.0 -> 900000, 0.0 -> 100000)
+fraction:0.1111111119389534
+AUC RUS_PCARD = 0.77727
+Precision RUS_PCARD = 0.72915

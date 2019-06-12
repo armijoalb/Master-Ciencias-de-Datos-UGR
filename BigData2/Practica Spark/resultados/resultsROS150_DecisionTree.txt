@@ -1,0 +1,2 @@
+Precision ROS150_DecisionTree: 0.690729
+AUC ROS150_DecisionTree: 0.6015775097444547

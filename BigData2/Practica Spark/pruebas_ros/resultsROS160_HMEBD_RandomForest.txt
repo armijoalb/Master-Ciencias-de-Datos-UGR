@@ -1,0 +1,2 @@
+Precision RandomForest: 0.673708
+AUC RandomForest: 0.6031979815650651

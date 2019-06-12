@@ -1,0 +1,2 @@
+AUC RandomForest = 1.0
+Precision RandomForest = 0.9

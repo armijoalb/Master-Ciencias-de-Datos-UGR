@@ -1,0 +1,2 @@
+Precision LSVM: 0.9
+AUC LSVM: 0.5

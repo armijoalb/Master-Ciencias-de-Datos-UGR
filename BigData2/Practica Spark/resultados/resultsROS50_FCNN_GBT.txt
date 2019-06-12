@@ -1,0 +1,2 @@
+Precision ROS50_FCNN_GBT: 0.9
+AUC ROS50_FCNN_GBT: 1.0
